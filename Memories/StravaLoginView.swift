@@ -14,6 +14,16 @@ struct StravaLoginView: View {
     
     var body: some View {
         VStack {
+            Text(viewModel.firstName)
+            Text(viewModel.lastName)
+            AsyncImage(url: URL(string: viewModel.pictureUrl)) { image in
+                image
+            } placeholder: {
+                Color.purple.opacity(0.1)
+            }
+            .frame(width: 100, height: 100)
+            .cornerRadius(20)
+            
             Button {
                 viewModel.launchOauthFlow()
             } label: {
@@ -24,7 +34,9 @@ struct StravaLoginView: View {
         }
         .padding()
         .onOpenURL { url in
-            viewModel.handleOauthRedirect(url: url)
+            Task {
+                await viewModel.handleOauthRedirect(url: url)
+            }
         }
     }
 }

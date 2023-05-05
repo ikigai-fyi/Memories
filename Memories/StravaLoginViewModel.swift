@@ -8,7 +8,16 @@
 import Foundation
 import AuthenticationServices
 
+// Used MainActor to make sure things happen on the main thread
+// To be honest no clue what I'm doing, it's just that some article said to do that
+// Because you can't assign @Published variables from background thread with async / wait
+// There is probably a better way, to dig
+@MainActor
 class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentationContextProviding {
+    @Published var firstName = "Not logged in"
+    @Published var lastName = "Not logged in"
+    @Published var pictureUrl = "Not logged in"
+    
     func launchOauthFlow() {
         let appUrl = getStravaMobileUrl()
         let webUrl = getStravaWebUrl()
@@ -24,7 +33,9 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
                         if let error = error {
                             print(error)
                         } else if let url = url {
-                            self.handleOauthRedirect(url: url)
+                            Task {
+                                await self.handleOauthRedirect(url: url)
+                            }
                         }
                     }
             
@@ -33,14 +44,38 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
         }
     }
     
-    func handleOauthRedirect(url: URL) {
+    func handleOauthRedirect(url: URL) async {
         if let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
            let code = components.queryItems?.first(where: { $0.name == "code" }),
            let scope = components.queryItems?.first(where: { $0.name == "scope" })
         {
-            // TODO: send code and scope to backend to create and login athlete
-            print(code)
-            print(scope)
+            await loginWithStrava(code: code.value!, scope: scope.value!)
+        }
+    }
+    
+    func loginWithStrava(code: String, scope: String) async {
+        let url = URL(string: "https://vjb2wb37ue.execute-api.eu-west-1.amazonaws.com/dev/rest/auth/login/strava")!
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        
+        let json = ["code": code, "scope": scope]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+
+        do {
+            let (data, _) = try await URLSession.shared.data(for: request)
+            print(String(decoding: data, as: UTF8.self))
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any?]
+                self.firstName = json["first_name"] as! String
+                self.lastName = json["last_name"] as! String
+                self.pictureUrl = json["picture_url"] as! String
+            } catch {
+                print(error)
+            }
+        } catch {
+            print(error)
         }
     }
     
