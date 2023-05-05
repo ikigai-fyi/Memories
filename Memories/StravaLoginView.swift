@@ -15,7 +15,7 @@ struct StravaLoginView: View {
     var body: some View {
         VStack {
             Button {
-                viewModel.signIn()
+                viewModel.launchOauthFlow()
             } label: {
                 Text("Login with Strava")
                     .padding()
@@ -24,7 +24,7 @@ struct StravaLoginView: View {
         }
         .padding()
         .onOpenURL { url in
-            viewModel.handleSignedIn(url: url)
+            viewModel.handleOauthRedirect(url: url)
         }
     }
 }

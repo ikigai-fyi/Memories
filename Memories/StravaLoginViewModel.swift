@@ -9,25 +9,22 @@ import Foundation
 import AuthenticationServices
 
 class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentationContextProviding {
-    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-        return ASPresentationAnchor()
-    }
-    
-    func signIn() {
-        let appUrl = URL(string: "strava://oauth/mobile/authorize?client_id=106696&redirect_uri=memories%3A%2F%2Flocalhost&response_type=code&approval_prompt=auto&scope=activity%3Aread_all%2Cprofile%3Aread_all&state=test")
+    func launchOauthFlow() {
+        let appUrl = getStravaMobileUrl()
+        let webUrl = getStravaWebUrl()
         
-        let webUrl = URL(string: "https://www.strava.com/oauth/mobile/authorize?client_id=106696&redirect_uri=memories%3A%2F%2Flocalhost&response_type=code&approval_prompt=auto&scope=activity%3Aread_all%2Cprofile%3Aread_all&state=test")
-        
-        if UIApplication.shared.canOpenURL(appUrl!) {
-            UIApplication.shared.open(appUrl!, options: [:])
+        if UIApplication.shared.canOpenURL(appUrl) {
+            // Open Strava app if installed, if will be redirected to our app through a deeplink
+            UIApplication.shared.open(appUrl, options: [:])
         } else {
+            // If Strava app is not installed, manage oauth through a webview
             let authSession = ASWebAuthenticationSession(
-                url: webUrl!, callbackURLScheme:
+                url: webUrl, callbackURLScheme:
                     "memories") { (url, error) in
                         if let error = error {
                             print(error)
                         } else if let url = url {
-                            self.handleSignedIn(url: url)
+                            self.handleOauthRedirect(url: url)
                         }
                     }
             
@@ -36,13 +33,47 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
         }
     }
     
-    func handleSignedIn(url: URL) {
+    func handleOauthRedirect(url: URL) {
         if let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
            let code = components.queryItems?.first(where: { $0.name == "code" }),
            let scope = components.queryItems?.first(where: { $0.name == "scope" })
         {
+            // TODO: send code and scope to backend to create and login athlete
             print(code)
             print(scope)
         }
+    }
+    
+    func getStravaWebUrl() -> URL {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "www.strava.com"
+        components.path = "/oauth/mobile/authorize"
+        components.queryItems = getStravaQueryItems()
+        return components.url!
+    }
+    
+    func getStravaMobileUrl() -> URL {
+        var components = URLComponents()
+        components.scheme = "strava"
+        components.host = "oauth"
+        components.path = "/mobile/authorize"
+        components.queryItems = getStravaQueryItems()
+        return components.url!
+    }
+    
+    func getStravaQueryItems() -> [URLQueryItem] {
+        return [
+            URLQueryItem(name: "client_id", value: "106696"),
+            URLQueryItem(name: "redirect_uri", value: "memories://localhost"),
+            URLQueryItem(name: "response_type", value: "code"),
+            URLQueryItem(name: "approval_prompt", value: "auto"),
+            URLQueryItem(name: "scope", value: "activity:read_all,profile:read_all"),
+            URLQueryItem(name: "state", value: "login"),
+        ]
+    }
+    
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        return ASPresentationAnchor()
     }
 }
