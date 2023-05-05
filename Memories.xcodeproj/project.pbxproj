@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		2DE5908F2A052D890041EA4D /* MemoriesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE5908E2A052D890041EA4D /* MemoriesApp.swift */; };
-		2DE590912A052D890041EA4D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE590902A052D890041EA4D /* ContentView.swift */; };
 		2DE590932A052D8B0041EA4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DE590922A052D8B0041EA4D /* Assets.xcassets */; };
 		2DE590962A052D8B0041EA4D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DE590952A052D8B0041EA4D /* Preview Assets.xcassets */; };
 		2DE590A02A052D8C0041EA4D /* MemoriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE5909F2A052D8C0041EA4D /* MemoriesTests.swift */; };
 		2DE590AA2A052D8C0041EA4D /* MemoriesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE590A92A052D8C0041EA4D /* MemoriesUITests.swift */; };
 		2DE590AC2A052D8C0041EA4D /* MemoriesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE590AB2A052D8C0041EA4D /* MemoriesUITestsLaunchTests.swift */; };
+		2DE590BE2A053D9C0041EA4D /* StravaLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE590BC2A053D9C0041EA4D /* StravaLoginViewModel.swift */; };
+		2DE590BF2A053D9C0041EA4D /* StravaLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE590BD2A053D9C0041EA4D /* StravaLoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +37,6 @@
 /* Begin PBXFileReference section */
 		2DE5908B2A052D890041EA4D /* Memories.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memories.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DE5908E2A052D890041EA4D /* MemoriesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesApp.swift; sourceTree = "<group>"; };
-		2DE590902A052D890041EA4D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2DE590922A052D8B0041EA4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2DE590952A052D8B0041EA4D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2DE5909B2A052D8C0041EA4D /* MemoriesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemoriesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +44,9 @@
 		2DE590A52A052D8C0041EA4D /* MemoriesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemoriesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DE590A92A052D8C0041EA4D /* MemoriesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesUITests.swift; sourceTree = "<group>"; };
 		2DE590AB2A052D8C0041EA4D /* MemoriesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		2DE590BB2A053D710041EA4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2DE590BC2A053D9C0041EA4D /* StravaLoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StravaLoginViewModel.swift; sourceTree = "<group>"; };
+		2DE590BD2A053D9C0041EA4D /* StravaLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StravaLoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +97,10 @@
 		2DE5908D2A052D890041EA4D /* Memories */ = {
 			isa = PBXGroup;
 			children = (
+				2DE590BD2A053D9C0041EA4D /* StravaLoginView.swift */,
+				2DE590BC2A053D9C0041EA4D /* StravaLoginViewModel.swift */,
+				2DE590BB2A053D710041EA4D /* Info.plist */,
 				2DE5908E2A052D890041EA4D /* MemoriesApp.swift */,
-				2DE590902A052D890041EA4D /* ContentView.swift */,
 				2DE590922A052D8B0041EA4D /* Assets.xcassets */,
 				2DE590942A052D8B0041EA4D /* Preview Content */,
 			);
@@ -257,7 +262,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DE590912A052D890041EA4D /* ContentView.swift in Sources */,
+				2DE590BF2A053D9C0041EA4D /* StravaLoginView.swift in Sources */,
+				2DE590BE2A053D9C0041EA4D /* StravaLoginViewModel.swift in Sources */,
 				2DE5908F2A052D890041EA4D /* MemoriesApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -420,6 +426,7 @@
 				DEVELOPMENT_TEAM = YPP2B773SY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Memories/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -450,6 +457,7 @@
 				DEVELOPMENT_TEAM = YPP2B773SY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Memories/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
