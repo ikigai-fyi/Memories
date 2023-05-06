@@ -69,9 +69,10 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
             print(String(decoding: data, as: UTF8.self))
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any?]
-                self.firstName = json["first_name"] as! String
-                self.lastName = json["last_name"] as! String
-                self.pictureUrl = json["picture_url"] as! String
+                let athlete = json["athlete"] as! [String: Any?]
+                self.firstName = athlete["first_name"] as! String
+                self.lastName = athlete["last_name"] as! String
+                self.pictureUrl = athlete["picture_url"] as! String
                 saveIntoUserDefaults()
                 
             } catch {
