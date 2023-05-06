@@ -7,6 +7,7 @@
 
 import Foundation
 import AuthenticationServices
+import WidgetKit
 
 // Used MainActor to make sure things happen on the main thread
 // To be honest no clue what I'm doing, it's just that some article said to do that
@@ -71,6 +72,8 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
                 self.firstName = json["first_name"] as! String
                 self.lastName = json["last_name"] as! String
                 self.pictureUrl = json["picture_url"] as! String
+                saveIntoUserDefaults()
+                
             } catch {
                 print(error)
             }
@@ -106,6 +109,16 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
             URLQueryItem(name: "scope", value: "activity:read_all,profile:read_all"),
             URLQueryItem(name: "state", value: "login"),
         ]
+    }
+    
+    private func saveIntoUserDefaults() {
+        if let userDefaults = UserDefaults(suiteName: appGroupName) {
+            
+            let data = try! JSONEncoder().encode(pictureUrl)
+            userDefaults.set(data, forKey: userDefaultsActivityPictureUrl)
+        }
+        
+        WidgetCenter.shared.reloadAllTimelines()
     }
     
     func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
