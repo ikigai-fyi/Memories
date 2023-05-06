@@ -57,7 +57,7 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
     }
     
     func loginWithStrava(code: String, scope: String) async {
-        let url = URL(string: "https://vjb2wb37ue.execute-api.eu-west-1.amazonaws.com/dev/rest/auth/login/strava")!
+        let url = URL(string: "https://sh577q4d5c.execute-api.eu-west-1.amazonaws.com/dev/rest/auth/login/strava")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
