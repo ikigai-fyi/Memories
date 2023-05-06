@@ -5,6 +5,8 @@ target 'Memories' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
+  pod 'AmplitudeSwift', '~> 0.3.0'
+
   # Pods for Memories
 
   target 'MemoriesTests' do
