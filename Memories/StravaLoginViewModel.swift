@@ -20,9 +20,11 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
     @Published var pictureUrl = "Not logged in"
     
     func launchOauthFlow() {
+        amplitude.track(eventType: "Button Clicked", eventProperties: ["action": "stravaLogin"])
+        
         let appUrl = getStravaMobileUrl()
         let webUrl = getStravaWebUrl()
-        
+
         if UIApplication.shared.canOpenURL(appUrl) {
             // Open Strava app if installed, if will be redirected to our app through a deeplink
             UIApplication.shared.open(appUrl, options: [:])
@@ -39,7 +41,7 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
                             }
                         }
                     }
-            
+
             authSession.presentationContextProvider = self
             authSession.start()
         }

@@ -23,6 +23,7 @@
 		E4604FC12A05C55100D838DF /* MemoriesWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48E09882A05BF98002456E5 /* MemoriesWidget.swift */; };
 		E4604FC32A05C6D100D838DF /* MemoriesWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4604FC22A05C6D100D838DF /* MemoriesWidgetView.swift */; };
 		E4604FC42A05C98800D838DF /* MemoriesWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4604FC22A05C6D100D838DF /* MemoriesWidgetView.swift */; };
+		E468D3FD2A0663E50017070A /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E468D3FC2A0663E50017070A /* Analytics.swift */; };
 		E48E09822A05BF98002456E5 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E48E09812A05BF98002456E5 /* WidgetKit.framework */; };
 		E48E09842A05BF98002456E5 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E48E09832A05BF98002456E5 /* SwiftUI.framework */; };
 		E48E09872A05BF98002456E5 /* MemoriesWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48E09862A05BF98002456E5 /* MemoriesWidgetBundle.swift */; };
@@ -99,6 +100,7 @@
 		E402A3802A05D30300C2F3B0 /* MemoriesWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MemoriesWidgetExtension.entitlements; sourceTree = "<group>"; };
 		E402A3812A05D3A400C2F3B0 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		E4604FC22A05C6D100D838DF /* MemoriesWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesWidgetView.swift; sourceTree = "<group>"; };
+		E468D3FC2A0663E50017070A /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		E48E097F2A05BF98002456E5 /* MemoriesWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MemoriesWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E48E09812A05BF98002456E5 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E48E09832A05BF98002456E5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				E402A3812A05D3A400C2F3B0 /* Helper.swift */,
+				E468D3FC2A0663E50017070A /* Analytics.swift */,
 				E402A3802A05D30300C2F3B0 /* MemoriesWidgetExtension.entitlements */,
 				2DE5908D2A052D890041EA4D /* Memories */,
 				2DE5909E2A052D8C0041EA4D /* MemoriesTests */,
@@ -544,6 +547,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4604FC12A05C55100D838DF /* MemoriesWidget.swift in Sources */,
+				E468D3FD2A0663E50017070A /* Analytics.swift in Sources */,
 				2DE590BF2A053D9C0041EA4D /* StravaLoginView.swift in Sources */,
 				E4604FC42A05C98800D838DF /* MemoriesWidgetView.swift in Sources */,
 				2DE590BE2A053D9C0041EA4D /* StravaLoginViewModel.swift in Sources */,
