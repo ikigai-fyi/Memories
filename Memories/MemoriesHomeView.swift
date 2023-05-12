@@ -43,7 +43,6 @@ struct MemoriesHomeView: View {
             VStack {
                 MemoriesWidgetView(url: URL(string: viewModel.pictureUrl))
                     .frame(width: 292, height: 311)
-                    .background(.gray.opacity(0.1))
                     .cornerRadius(12)
                 
                 Text("Your widget preview").font(.subheadline)

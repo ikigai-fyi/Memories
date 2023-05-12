@@ -11,6 +11,34 @@ struct MemoriesWidgetView: View {
     
     let url: URL?
     
+    struct ImageOverlay: View {
+        var body: some View {
+            VStack(alignment: .leading, spacing: 6.0) {
+                Text("Annecy, Haute-Savoie")
+                    .font(.title3).bold()
+                    .foregroundColor(.white)
+                HStack{
+                    Text("42.02km")
+                        .font(.subheadline).bold()
+                        .foregroundColor(.white)
+                    Text("287m")
+                        .font(.subheadline).bold()
+                        .foregroundColor(.white)
+                    Text("3h39")
+                        .font(.subheadline).bold()
+                        .foregroundColor(.white)
+                    
+                    Spacer()
+
+                }
+            }
+            .padding(EdgeInsets(top: 0, leading: 20.0, bottom: 16.0, trailing: 0))
+
+               
+        }
+    }
+
+    
     var body: some View {
         Group {
             if let url = url,
@@ -20,11 +48,12 @@ struct MemoriesWidgetView: View {
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
+                    .overlay(ImageOverlay(), alignment: .bottomLeading)
             }
             else {
                 Image("placeholder")
             }
-        }
+        }.background(.gray.opacity(0.1))
     }
 }
 
