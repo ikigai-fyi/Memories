@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import WebKit
 
 struct MemoriesHomeView: View {
     
     @StateObject var viewModel = StravaLoginViewModel()
+    @State private var isShowingWebView: Bool = false
+    
     
     var body: some View {
         VStack {
@@ -42,14 +45,14 @@ struct MemoriesHomeView: View {
                     .frame(width: 292, height: 311)
                     .background(.blue)
                     .cornerRadius(12)
-
+                
                 Text("Your widget preview").font(.subheadline)
             }
-           
+            
             Spacer()
-
+            
             Button {
-                // do callbacks
+                isShowingWebView = true
             } label: {
                 Label {
                     Text("Add widget")
@@ -57,13 +60,14 @@ struct MemoriesHomeView: View {
                 } icon: {
                     Image(systemName: "plus.circle.fill")
                 }.padding()
-
             }
             .frame(maxWidth: .infinity)
             .background(.blue)
             .foregroundColor(.white)
             .cornerRadius(35)
-                        
+            .sheet(isPresented: $isShowingWebView) {
+                WebView(url: URL(string: "https://support.apple.com/en-us/HT207122")!)
+            }
             
         }
         .frame(maxWidth: .infinity)

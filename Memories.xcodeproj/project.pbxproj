@@ -24,6 +24,7 @@
 		E4604FC32A05C6D100D838DF /* MemoriesWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4604FC22A05C6D100D838DF /* MemoriesWidgetView.swift */; };
 		E4604FC42A05C98800D838DF /* MemoriesWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4604FC22A05C6D100D838DF /* MemoriesWidgetView.swift */; };
 		E468D3FD2A0663E50017070A /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E468D3FC2A0663E50017070A /* Analytics.swift */; };
+		E46FD4B52A0EA308000396EA /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46FD4B42A0EA308000396EA /* WebView.swift */; };
 		E48E09822A05BF98002456E5 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E48E09812A05BF98002456E5 /* WidgetKit.framework */; };
 		E48E09842A05BF98002456E5 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E48E09832A05BF98002456E5 /* SwiftUI.framework */; };
 		E48E09872A05BF98002456E5 /* MemoriesWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48E09862A05BF98002456E5 /* MemoriesWidgetBundle.swift */; };
@@ -102,6 +103,7 @@
 		E402A3812A05D3A400C2F3B0 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		E4604FC22A05C6D100D838DF /* MemoriesWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesWidgetView.swift; sourceTree = "<group>"; };
 		E468D3FC2A0663E50017070A /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
+		E46FD4B42A0EA308000396EA /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		E48E097F2A05BF98002456E5 /* MemoriesWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MemoriesWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E48E09812A05BF98002456E5 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E48E09832A05BF98002456E5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -184,6 +186,7 @@
 				2DE590BD2A053D9C0041EA4D /* StravaLoginView.swift */,
 				2DE590BC2A053D9C0041EA4D /* StravaLoginViewModel.swift */,
 				E4E501B82A0E9A00009D4993 /* MemoriesHomeView.swift */,
+				E46FD4B42A0EA308000396EA /* WebView.swift */,
 				2DE590BB2A053D710041EA4D /* Info.plist */,
 				2DE5908E2A052D890041EA4D /* MemoriesApp.swift */,
 				2DE590922A052D8B0041EA4D /* Assets.xcassets */,
@@ -555,6 +558,7 @@
 				E4604FC42A05C98800D838DF /* MemoriesWidgetView.swift in Sources */,
 				2DE590BE2A053D9C0041EA4D /* StravaLoginViewModel.swift in Sources */,
 				E48E099B2A05C2E6002456E5 /* MemoriesApp.swift in Sources */,
+				E46FD4B52A0EA308000396EA /* WebView.swift in Sources */,
 				E4E501B92A0E9A00009D4993 /* MemoriesHomeView.swift in Sources */,
 				E402A3822A05D3A400C2F3B0 /* Helper.swift in Sources */,
 			);
