@@ -8,18 +8,7 @@
 import Foundation
 import AuthenticationServices
 import WidgetKit
-
-struct Activity : Codable {
-    let name: String
-    let city: String
-    let sportType: String
-    let pictureUrls: [String]
-    let elapsedTimeInSeconds: Int
-
-    let polyline: String?
-    let distanceInMeters: Int?
-    let totalElevationGainInMeters: Int?
-}
+import Activity
 
 // Used MainActor to make sure things happen on the main thread
 // To be honest no clue what I'm doing, it's just that some article said to do that
@@ -90,8 +79,6 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
                 self.firstName = athlete["first_name"] as! String
                 self.lastName = athlete["last_name"] as! String
                 self.pictureUrl = athlete["picture_url"] as! String
-                saveIntoUserDefaults()
-                
                 self.setJwt(jwt: json["jwt"] as? String)
             } catch {
                 print(error)
@@ -123,6 +110,7 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
             do {
                 let decoded = try decoder.decode(Activity.self, from: data)
                 self.activity = decoded
+                saveActivityIntoUserDefaults(activity : self.activity!)
             } catch {
                 self.setJwt(jwt: nil)
                 print(error)
@@ -162,15 +150,12 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
         ]
     }
     
-    private func saveIntoUserDefaults() {
-        if let userDefaults = UserDefaults(suiteName: appGroupName) {
-            
-            let data = try! JSONEncoder().encode(pictureUrl)
-            userDefaults.set(data, forKey: userDefaultsActivityPictureUrl)
-        }
-        
+    private func saveActivityIntoUserDefaults(activity: Activity) {
+        Helper.saveActivityToUserDefault(activity: activity)
         WidgetCenter.shared.reloadAllTimelines()
     }
+    
+    
     
     func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
         return ASPresentationAnchor()

@@ -20,6 +20,12 @@
 		9819F9B6C8F55C94ECF040A8 /* Pods_MemoriesWidgetExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1594DDC791C60CB48C1C5A36 /* Pods_MemoriesWidgetExtension.framework */; };
 		E402A3822A05D3A400C2F3B0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E402A3812A05D3A400C2F3B0 /* Helper.swift */; };
 		E402A3832A05D46800C2F3B0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E402A3812A05D3A400C2F3B0 /* Helper.swift */; };
+		E42106B62A0ECB5300187A74 /* Activity.h in Headers */ = {isa = PBXBuildFile; fileRef = E42106B52A0ECB5300187A74 /* Activity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E42106B92A0ECB5300187A74 /* Activity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E42106B32A0ECB5300187A74 /* Activity.framework */; };
+		E42106BA2A0ECB5300187A74 /* Activity.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E42106B32A0ECB5300187A74 /* Activity.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E42106C02A0ECB6900187A74 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42106BF2A0ECB6900187A74 /* Activity.swift */; };
+		E42106C12A0ECBC900187A74 /* Activity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E42106B32A0ECB5300187A74 /* Activity.framework */; };
+		E42106C22A0ECBC900187A74 /* Activity.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E42106B32A0ECB5300187A74 /* Activity.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E4604FC12A05C55100D838DF /* MemoriesWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48E09882A05BF98002456E5 /* MemoriesWidget.swift */; };
 		E4604FC32A05C6D100D838DF /* MemoriesWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4604FC22A05C6D100D838DF /* MemoriesWidgetView.swift */; };
 		E4604FC42A05C98800D838DF /* MemoriesWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4604FC22A05C6D100D838DF /* MemoriesWidgetView.swift */; };
@@ -50,6 +56,20 @@
 			remoteGlobalIDString = 2DE5908A2A052D890041EA4D;
 			remoteInfo = Memories;
 		};
+		E42106B72A0ECB5300187A74 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2DE590832A052D890041EA4D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E42106B22A0ECB5300187A74;
+			remoteInfo = Activity;
+		};
+		E42106C32A0ECBC900187A74 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2DE590832A052D890041EA4D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E42106B22A0ECB5300187A74;
+			remoteInfo = Activity;
+		};
 		E48E098D2A05BF99002456E5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2DE590832A052D890041EA4D /* Project object */;
@@ -60,6 +80,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		E42106BB2A0ECB5300187A74 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E42106BA2A0ECB5300187A74 /* Activity.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E42106C52A0ECBC900187A74 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E42106C22A0ECBC900187A74 /* Activity.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E48E09902A05BF99002456E5 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -101,6 +143,9 @@
 		E402A37D2A05D27F00C2F3B0 /* Memories.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Memories.entitlements; sourceTree = "<group>"; };
 		E402A3802A05D30300C2F3B0 /* MemoriesWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MemoriesWidgetExtension.entitlements; sourceTree = "<group>"; };
 		E402A3812A05D3A400C2F3B0 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		E42106B32A0ECB5300187A74 /* Activity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Activity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E42106B52A0ECB5300187A74 /* Activity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Activity.h; sourceTree = "<group>"; };
+		E42106BF2A0ECB6900187A74 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		E4604FC22A05C6D100D838DF /* MemoriesWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesWidgetView.swift; sourceTree = "<group>"; };
 		E468D3FC2A0663E50017070A /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		E46FD4B42A0EA308000396EA /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
@@ -120,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				41102DA3BC0DD1785A68E2C2 /* Pods_Memories.framework in Frameworks */,
+				E42106B92A0ECB5300187A74 /* Activity.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +185,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E42106B02A0ECB5300187A74 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E48E097C2A05BF98002456E5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -146,6 +199,7 @@
 				E48E09842A05BF98002456E5 /* SwiftUI.framework in Frameworks */,
 				E48E09822A05BF98002456E5 /* WidgetKit.framework in Frameworks */,
 				9819F9B6C8F55C94ECF040A8 /* Pods_MemoriesWidgetExtension.framework in Frameworks */,
+				E42106C12A0ECBC900187A74 /* Activity.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,6 +216,7 @@
 				2DE5909E2A052D8C0041EA4D /* MemoriesTests */,
 				2DE590A82A052D8C0041EA4D /* MemoriesUITests */,
 				E48E09852A05BF98002456E5 /* MemoriesWidget */,
+				E42106B42A0ECB5300187A74 /* Activity */,
 				E48E09802A05BF98002456E5 /* Frameworks */,
 				2DE5908C2A052D890041EA4D /* Products */,
 				9BA858D3438ECC40774040E1 /* Pods */,
@@ -175,6 +230,7 @@
 				2DE5909B2A052D8C0041EA4D /* MemoriesTests.xctest */,
 				2DE590A52A052D8C0041EA4D /* MemoriesUITests.xctest */,
 				E48E097F2A05BF98002456E5 /* MemoriesWidgetExtension.appex */,
+				E42106B32A0ECB5300187A74 /* Activity.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -235,6 +291,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		E42106B42A0ECB5300187A74 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				E42106B52A0ECB5300187A74 /* Activity.h */,
+				E42106BF2A0ECB6900187A74 /* Activity.swift */,
+			);
+			path = Activity;
+			sourceTree = "<group>";
+		};
 		E48E09802A05BF98002456E5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,6 +327,17 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		E42106AE2A0ECB5300187A74 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E42106B62A0ECB5300187A74 /* Activity.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		2DE5908A2A052D890041EA4D /* Memories */ = {
 			isa = PBXNativeTarget;
@@ -273,11 +349,13 @@
 				2DE590892A052D890041EA4D /* Resources */,
 				E48E09902A05BF99002456E5 /* Embed Foundation Extensions */,
 				91F5FD3AE59AE30155C539A6 /* [CP] Embed Pods Frameworks */,
+				E42106BB2A0ECB5300187A74 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				E48E098E2A05BF99002456E5 /* PBXTargetDependency */,
+				E42106B82A0ECB5300187A74 /* PBXTargetDependency */,
 			);
 			name = Memories;
 			productName = Memories;
@@ -323,6 +401,24 @@
 			productReference = 2DE590A52A052D8C0041EA4D /* MemoriesUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		E42106B22A0ECB5300187A74 /* Activity */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E42106BE2A0ECB5300187A74 /* Build configuration list for PBXNativeTarget "Activity" */;
+			buildPhases = (
+				E42106AE2A0ECB5300187A74 /* Headers */,
+				E42106AF2A0ECB5300187A74 /* Sources */,
+				E42106B02A0ECB5300187A74 /* Frameworks */,
+				E42106B12A0ECB5300187A74 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Activity;
+			productName = Activity;
+			productReference = E42106B32A0ECB5300187A74 /* Activity.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		E48E097E2A05BF98002456E5 /* MemoriesWidgetExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E48E09932A05BF99002456E5 /* Build configuration list for PBXNativeTarget "MemoriesWidgetExtension" */;
@@ -331,10 +427,12 @@
 				E48E097B2A05BF98002456E5 /* Sources */,
 				E48E097C2A05BF98002456E5 /* Frameworks */,
 				E48E097D2A05BF98002456E5 /* Resources */,
+				E42106C52A0ECBC900187A74 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E42106C42A0ECBC900187A74 /* PBXTargetDependency */,
 			);
 			name = MemoriesWidgetExtension;
 			productName = MemoriesWidgetExtension;
@@ -362,6 +460,10 @@
 						CreatedOnToolsVersion = 14.3;
 						TestTargetID = 2DE5908A2A052D890041EA4D;
 					};
+					E42106B22A0ECB5300187A74 = {
+						CreatedOnToolsVersion = 14.3;
+						LastSwiftMigration = 1430;
+					};
 					E48E097E2A05BF98002456E5 = {
 						CreatedOnToolsVersion = 14.3;
 					};
@@ -384,6 +486,7 @@
 				2DE5909A2A052D8C0041EA4D /* MemoriesTests */,
 				2DE590A42A052D8C0041EA4D /* MemoriesUITests */,
 				E48E097E2A05BF98002456E5 /* MemoriesWidgetExtension */,
+				E42106B22A0ECB5300187A74 /* Activity */,
 			);
 		};
 /* End PBXProject section */
@@ -406,6 +509,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		2DE590A32A052D8C0041EA4D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E42106B12A0ECB5300187A74 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -581,6 +691,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E42106AF2A0ECB5300187A74 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E42106C02A0ECB6900187A74 /* Activity.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E48E097B2A05BF98002456E5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -604,6 +722,16 @@
 			isa = PBXTargetDependency;
 			target = 2DE5908A2A052D890041EA4D /* Memories */;
 			targetProxy = 2DE590A62A052D8C0041EA4D /* PBXContainerItemProxy */;
+		};
+		E42106B82A0ECB5300187A74 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E42106B22A0ECB5300187A74 /* Activity */;
+			targetProxy = E42106B72A0ECB5300187A74 /* PBXContainerItemProxy */;
+		};
+		E42106C42A0ECBC900187A74 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E42106B22A0ECB5300187A74 /* Activity */;
+			targetProxy = E42106C32A0ECBC900187A74 /* PBXContainerItemProxy */;
 		};
 		E48E098E2A05BF99002456E5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -731,6 +859,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 780B8DB719AEE79DEF13A098 /* Pods-Memories.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Memories/Memories.entitlements;
@@ -765,6 +894,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3F21E04C60208C2B27828C60 /* Pods-Memories.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Memories/Memories.entitlements;
@@ -873,6 +1003,77 @@
 			};
 			name = Release;
 		};
+		E42106BC2A0ECB5300187A74 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = YPP2B773SY;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = ikigai.Activity;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E42106BD2A0ECB5300187A74 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = YPP2B773SY;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = ikigai.Activity;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		E48E09912A05BF99002456E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A8DA50D702C66157718FF28F /* Pods-MemoriesWidgetExtension.debug.xcconfig */;
@@ -968,6 +1169,15 @@
 			buildConfigurations = (
 				2DE590B62A052D8C0041EA4D /* Debug */,
 				2DE590B72A052D8C0041EA4D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E42106BE2A0ECB5300187A74 /* Build configuration list for PBXNativeTarget "Activity" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E42106BC2A0ECB5300187A74 /* Debug */,
+				E42106BD2A0ECB5300187A74 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

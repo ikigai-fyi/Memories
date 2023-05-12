@@ -7,12 +7,31 @@
 
 import Foundation
 import SwiftUI
+import Activity
 
 let appGroupName = "group.ikigai.Memories"
 let userDefaultsActivityPictureUrl = "picture"
+let userDefaultActivity = "activity"
 let userDefaultsJwt = "jwt"
 
 struct Helper {
+    
+    static func getActivityFromUserDefault() -> Activity? {
+        if let userDefaults = UserDefaults(suiteName: appGroupName) {
+            if let data = userDefaults.data(forKey: userDefaultActivity) {
+                return try! JSONDecoder().decode(Activity.self, from: data)
+            }
+        }
+        
+        return nil
+    }
+    
+    static func saveActivityToUserDefault(activity: Activity) {
+        if let userDefaults = UserDefaults(suiteName: appGroupName) {
+            let activityData = try! JSONEncoder().encode(activity)
+            userDefaults.set(activityData, forKey: userDefaultActivity)
+        }
+    }
     
     static func getPictureUrlFromUserDefault() -> String {
         

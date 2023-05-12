@@ -43,8 +43,8 @@ struct MemoriesHomeView: View {
                 
                 if let activity = viewModel.activity {
                     VStack {
-                        Text(activity.name).font(.callout)
-                        MemoriesWidgetView(url: URL(string: activity.pictureUrls.first!))
+                        Text(activity.getName()).font(.callout)
+                        MemoriesWidgetView(url: URL(string: activity.getPictureUrls().first!))
                             .frame(width: 292, height: 311)
                             .background(.gray.opacity(0.1))
                             .cornerRadius(12)
