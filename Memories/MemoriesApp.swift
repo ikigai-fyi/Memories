@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct MemoriesApp: App {
-    let showLogin = true
+    let showLogin = false
     
     var body: some Scene {
         WindowGroup {

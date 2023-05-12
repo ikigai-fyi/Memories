@@ -27,7 +27,7 @@ struct MemoriesHomeView: View {
                 AsyncImage(url: URL(string: viewModel.pictureUrl)) { image in
                     image
                 } placeholder: {
-                    Color.purple.opacity(0.1)
+                    Color.gray.opacity(0.1)
                 }
                 .frame(width: 64, height: 64)
                 .cornerRadius(50)
@@ -35,15 +35,15 @@ struct MemoriesHomeView: View {
                 VStack {
                     Text(viewModel.firstName)
                     Text(viewModel.lastName)
-                }
+                }.frame(alignment: .leading)
             }
             
             Spacer()
             
             VStack {
-                MemoriesWidgetView(url: nil)
+                MemoriesWidgetView(url: URL(string: viewModel.pictureUrl))
                     .frame(width: 292, height: 311)
-                    .background(.blue)
+                    .background(.gray.opacity(0.1))
                     .cornerRadius(12)
                 
                 Text("Your widget preview").font(.subheadline)
@@ -69,9 +69,26 @@ struct MemoriesHomeView: View {
                 WebView(url: URL(string: "https://support.apple.com/en-us/HT207122")!)
             }
             
+            Button {
+                viewModel.launchOauthFlow()
+            } label: {
+                Text("Connect with Strava")
+                    .bold()
+                    .padding()
+            }
+            .frame(maxWidth: .infinity)
+            .background(Color(UIColor(red: 0.99, green: 0.30, blue: 0.01, alpha: 1.00)))
+            .foregroundColor(.white)
+            .cornerRadius(35)
+            
         }
         .frame(maxWidth: .infinity)
         .padding(32.0)
+        .onOpenURL { url in
+            Task {
+                await viewModel.handleOauthRedirect(url: url)
+            }
+        }
         
     }
 }
