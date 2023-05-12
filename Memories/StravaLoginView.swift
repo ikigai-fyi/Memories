@@ -14,30 +14,48 @@ struct StravaLoginView: View {
     
     var body: some View {
         VStack {
-            Text(viewModel.firstName)
-            Text(viewModel.lastName)
-            AsyncImage(url: URL(string: viewModel.pictureUrl)) { image in
-                image
-            } placeholder: {
-                Color.purple.opacity(0.1)
-            }
-            .frame(width: 100, height: 100)
-            .cornerRadius(20)
+            Spacer()
+                .frame(minHeight: 10, idealHeight: 100, maxHeight: 600)
+                .fixedSize()
+            
+            Image("ikigaiIcon")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 164, height: 164)
+            .cornerRadius(82)
+            
+            Text("Memories")
+                .font(.title).bold()
+            Text("Widgets for Strava")
+                .font(.headline)
+            
+          
+            Spacer()
             
             Button {
                 viewModel.launchOauthFlow()
             } label: {
-                Text("Login with Strava")
+                Text("Connect with Strava")
+                    .bold()
                     .padding()
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
             }
+            .frame(maxWidth: .infinity)
+            .background(Color(UIColor(red: 0.99, green: 0.30, blue: 0.01, alpha: 1.00)))
+            .foregroundColor(.white)
+            .cornerRadius(35)
+            
+            Text(viewModel.firstName)
+
+
         }
-        .padding()
+        .frame(maxWidth: .infinity)
+        .padding(32.0)
         .onOpenURL { url in
             Task {
                 await viewModel.handleOauthRedirect(url: url)
             }
         }
+
     }
 }
 
