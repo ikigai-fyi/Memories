@@ -13,20 +13,30 @@ struct MemoriesWidgetView: View {
     
     struct ImageOverlay: View {
         var body: some View {
+            
+            // #DRY
             VStack(alignment: .leading, spacing: 6.0) {
                 Text("Annecy, Haute-Savoie")
                     .font(.title3).bold()
                     .foregroundColor(.white)
+                    .shadow(radius: 5)
+                
                 HStack{
                     Text("42.02km")
                         .font(.subheadline).bold()
                         .foregroundColor(.white)
+                        .shadow(radius: 5)
+
                     Text("287m")
                         .font(.subheadline).bold()
                         .foregroundColor(.white)
+                        .shadow(radius: 5)
+
                     Text("3h39")
                         .font(.subheadline).bold()
                         .foregroundColor(.white)
+                        .shadow(radius: 5)
+
                     
                     Spacer()
 
