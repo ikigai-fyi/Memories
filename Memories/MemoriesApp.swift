@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct MemoriesApp: App {
+    let showLogin = true
+    
     var body: some Scene {
         WindowGroup {
-            StravaLoginView()
+            if showLogin {
+                StravaLoginView()
+            } else {
+                MemoriesHomeView()
+            }
         }
     }
 }
