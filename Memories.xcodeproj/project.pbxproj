@@ -31,6 +31,7 @@
 		E48E098B2A05BF99002456E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E48E098A2A05BF99002456E5 /* Assets.xcassets */; };
 		E48E098F2A05BF99002456E5 /* MemoriesWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E48E097F2A05BF98002456E5 /* MemoriesWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E48E099B2A05C2E6002456E5 /* MemoriesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE5908E2A052D890041EA4D /* MemoriesApp.swift */; };
+		E4E501B92A0E9A00009D4993 /* MemoriesHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E501B82A0E9A00009D4993 /* MemoriesHomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +109,7 @@
 		E48E09882A05BF98002456E5 /* MemoriesWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesWidget.swift; sourceTree = "<group>"; };
 		E48E098A2A05BF99002456E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E48E098C2A05BF99002456E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E4E501B82A0E9A00009D4993 /* MemoriesHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesHomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +183,7 @@
 				E402A37D2A05D27F00C2F3B0 /* Memories.entitlements */,
 				2DE590BD2A053D9C0041EA4D /* StravaLoginView.swift */,
 				2DE590BC2A053D9C0041EA4D /* StravaLoginViewModel.swift */,
+				E4E501B82A0E9A00009D4993 /* MemoriesHomeView.swift */,
 				2DE590BB2A053D710041EA4D /* Info.plist */,
 				2DE5908E2A052D890041EA4D /* MemoriesApp.swift */,
 				2DE590922A052D8B0041EA4D /* Assets.xcassets */,
@@ -552,6 +555,7 @@
 				E4604FC42A05C98800D838DF /* MemoriesWidgetView.swift in Sources */,
 				2DE590BE2A053D9C0041EA4D /* StravaLoginViewModel.swift in Sources */,
 				E48E099B2A05C2E6002456E5 /* MemoriesApp.swift in Sources */,
+				E4E501B92A0E9A00009D4993 /* MemoriesHomeView.swift in Sources */,
 				E402A3822A05D3A400C2F3B0 /* Helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
