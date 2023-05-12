@@ -16,6 +16,15 @@ let userDefaultsJwt = "jwt"
 
 struct Helper {
     
+    // I am a pig
+    static func getDateFormatter() -> DateComponentsFormatter {
+        let dateFormatter = DateComponentsFormatter()
+        dateFormatter.allowedUnits = [.hour, .minute, .second]
+        dateFormatter.unitsStyle = .positional
+        
+        return dateFormatter
+    }
+   
     static func getActivityFromUserDefault() -> Activity? {
         if let userDefaults = UserDefaults(suiteName: appGroupName) {
             if let data = userDefaults.data(forKey: userDefaultActivity) {

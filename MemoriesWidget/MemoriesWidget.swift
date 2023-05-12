@@ -7,6 +7,7 @@
 
 import WidgetKit
 import SwiftUI
+import Activity
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
@@ -22,13 +23,13 @@ struct Provider: TimelineProvider {
         
         var entries: [SimpleEntry] = []
         
-        let pictureUrl = Helper.getPictureUrlFromUserDefault()
+        let activity = Helper.getActivityFromUserDefault()
 
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
         for hourOffset in 0 ..< 5 {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, url: URL(string: pictureUrl))
+            let entry = SimpleEntry(date: entryDate, activity: activity)
             entries.append(entry)
         }
 
@@ -39,11 +40,11 @@ struct Provider: TimelineProvider {
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
-    let url: URL?
+    let activity: Activity?
     
-    init(date: Date, url: URL? = nil) {
+    init(date: Date, activity: Activity? = nil) {
         self.date = date
-        self.url = url
+        self.activity = activity
     }
 }
 
@@ -51,7 +52,7 @@ struct MemoriesWidgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        MemoriesWidgetView(url: entry.url)
+        MemoriesWidgetView(activity: entry.activity)
     }
 }
 

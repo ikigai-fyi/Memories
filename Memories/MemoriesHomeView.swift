@@ -18,12 +18,12 @@ struct MemoriesHomeView: View {
         ScrollView{
             VStack {
                 
-                // top spacer
+                // Spacer -----------------------------------------------------
                 Spacer()
                     .frame(minHeight: 10, idealHeight: 40, maxHeight: 80)
                     .fixedSize()
                 
-                // body
+                // Header ----------------------------------------------------
                 HStack {
                     AsyncImage(url: URL(string: viewModel.pictureUrl)) { image in
                         image
@@ -39,12 +39,13 @@ struct MemoriesHomeView: View {
                     }
                 }
                 
+                // Spacer -----------------------------------------------------
                 Spacer()
                 
+                // Activity widget -----------------------------------------------------
                 if let activity = viewModel.activity {
                     VStack {
-                        Text(activity.getName()).font(.callout)
-                        MemoriesWidgetView(url: URL(string: activity.getPictureUrls().first!))
+                        MemoriesWidgetView(activity: activity)
                             .frame(width: 292, height: 311)
                             .background(.gray.opacity(0.1))
                             .cornerRadius(12)
@@ -55,9 +56,10 @@ struct MemoriesHomeView: View {
                     ProgressView()
                 }
                 
-                
+                // Spacer -----------------------------------------------------
                 Spacer()
                 
+                // Add widget button -----------------------------------------------------
                 Button {
                     isShowingWebView = true
                 } label: {
@@ -75,18 +77,6 @@ struct MemoriesHomeView: View {
                 .sheet(isPresented: $isShowingWebView) {
                     WebView(url: URL(string: "https://support.apple.com/en-us/HT207122")!)
                 }
-                
-                Button {
-                    viewModel.launchOauthFlow()
-                } label: {
-                    Text("Connect with Strava")
-                        .bold()
-                        .padding()
-                }
-                .frame(maxWidth: .infinity)
-                .background(Color(UIColor(red: 0.99, green: 0.30, blue: 0.01, alpha: 1.00)))
-                .foregroundColor(.white)
-                .cornerRadius(35)
                 
             }
             .frame(maxWidth: .infinity)
