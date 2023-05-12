@@ -32,10 +32,10 @@ struct MemoriesHomeView: View {
                 .frame(width: 64, height: 64)
                 .cornerRadius(50)
                 
-                VStack {
+                VStack(alignment: .leading) {
                     Text(viewModel.firstName)
                     Text(viewModel.lastName)
-                }.frame(alignment: .leading)
+                }
             }
             
             Spacer()
