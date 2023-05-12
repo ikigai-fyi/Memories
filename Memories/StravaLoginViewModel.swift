@@ -9,6 +9,18 @@ import Foundation
 import AuthenticationServices
 import WidgetKit
 
+struct Activity : Codable {
+    let name: String
+    let city: String
+    let sportType: String
+    let pictureUrls: [String]
+    let elapsedTimeInSeconds: Int
+
+    let polyline: String?
+    let distanceInMeters: Int?
+    let totalElevationGainInMeters: Int?
+}
+
 // Used MainActor to make sure things happen on the main thread
 // To be honest no clue what I'm doing, it's just that some article said to do that
 // Because you can't assign @Published variables from background thread with async / wait
@@ -18,6 +30,9 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
     @Published var firstName = "Not logged in"
     @Published var lastName = "Not logged in"
     @Published var pictureUrl = "Not logged in"
+    @Published var activity: Activity?
+    @Published var jwt: String? = Helper.getJWT()
+    
     
     func launchOauthFlow() {
         amplitude.track(eventType: "Button Clicked", eventProperties: ["action": "stravaLogin"])
@@ -57,7 +72,7 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
     }
     
     func loginWithStrava(code: String, scope: String) async {
-        let url = URL(string: "https://sh577q4d5c.execute-api.eu-west-1.amazonaws.com/dev/rest/auth/login/strava")!
+        let url = URL(string: "https://api-dev.ikigai.fyi/rest/auth/login/strava")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
@@ -77,11 +92,44 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
                 self.pictureUrl = athlete["picture_url"] as! String
                 saveIntoUserDefaults()
                 
+                self.setJwt(jwt: json["jwt"] as? String)
             } catch {
                 print(error)
             }
         } catch {
             print(error)
+        }
+    }
+    
+    func setJwt(jwt: String?) {
+        Helper.setJWT(jwt: jwt)
+        self.jwt = jwt
+    }
+    
+    func fetchRandomActivity() async {
+        let url = URL(string: "https://api-dev.ikigai.fyi/rest/activities/random")!
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(Helper.getJWT()!)", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "GET"
+        
+
+        do {
+            let (data, _) = try await URLSession.shared.data(for: request)
+            print(String(decoding: data, as: UTF8.self))
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            
+            do {
+                let decoded = try decoder.decode(Activity.self, from: data)
+                self.activity = decoded
+            } catch {
+                self.setJwt(jwt: nil)
+                print(error)
+            }
+        } catch {
+            print(error)
+            self.setJwt(jwt: nil)
         }
     }
     

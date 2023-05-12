@@ -40,13 +40,20 @@ struct MemoriesHomeView: View {
             
             Spacer()
             
-            VStack {
-                MemoriesWidgetView(url: URL(string: viewModel.pictureUrl))
-                    .frame(width: 292, height: 311)
-                    .cornerRadius(12)
-                
-                Text("Your widget preview").font(.subheadline)
+            if let activity = viewModel.activity {
+                VStack {
+                    Text(activity.name).font(.callout)
+                    MemoriesWidgetView(url: URL(string: activity.pictureUrls.first!))
+                        .frame(width: 292, height: 311)
+                        .background(.gray.opacity(0.1))
+                        .cornerRadius(12)
+                    
+                    Text("Your widget preview").font(.subheadline)
+                }
+            } else {
+                ProgressView()
             }
+            
             
             Spacer()
             
@@ -83,9 +90,9 @@ struct MemoriesHomeView: View {
         }
         .frame(maxWidth: .infinity)
         .padding(32.0)
-        .onOpenURL { url in
+        .onAppear {
             Task {
-                await viewModel.handleOauthRedirect(url: url)
+                await viewModel.fetchRandomActivity()
             }
         }
         

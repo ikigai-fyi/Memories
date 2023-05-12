@@ -9,11 +9,11 @@ import SwiftUI
 
 @main
 struct MemoriesApp: App {
-    let showLogin = false
+    @StateObject var viewModel = StravaLoginViewModel()
     
     var body: some Scene {
         WindowGroup {
-            if showLogin {
+            if viewModel.jwt == nil {
                 StravaLoginView()
             } else {
                 MemoriesHomeView()
