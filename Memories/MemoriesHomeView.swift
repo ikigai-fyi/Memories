@@ -9,8 +9,7 @@ import SwiftUI
 import WebKit
 
 struct MemoriesHomeView: View {
-    
-    @StateObject var viewModel = StravaLoginViewModel()
+    @EnvironmentObject var viewModel: StravaLoginViewModel
     @State private var isShowingWebView: Bool = false
     
     

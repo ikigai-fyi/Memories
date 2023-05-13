@@ -105,6 +105,7 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
             let (data, _) = try await URLSession.shared.data(for: request)
             print(String(decoding: data, as: UTF8.self))
             let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .formatted(.standard)
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             
             do {
@@ -160,4 +161,12 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
     func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
         return ASPresentationAnchor()
     }
+}
+
+extension DateFormatter {
+    static let standard: DateFormatter = {
+        var dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        return dateFormatter
+    }()
 }

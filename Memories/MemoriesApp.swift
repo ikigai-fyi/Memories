@@ -14,9 +14,9 @@ struct MemoriesApp: App {
     var body: some Scene {
         WindowGroup {
             if viewModel.jwt == nil {
-                StravaLoginView()
+                StravaLoginView().environmentObject(viewModel)
             } else {
-                MemoriesHomeView()
+                MemoriesHomeView().environmentObject(viewModel)
             }
         }
     }

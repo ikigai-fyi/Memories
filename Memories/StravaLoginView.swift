@@ -9,8 +9,7 @@ import SwiftUI
 
 
 struct StravaLoginView: View {
-    
-    @StateObject var viewModel = StravaLoginViewModel()
+    @EnvironmentObject var viewModel: StravaLoginViewModel
     
     var body: some View {
         VStack {
