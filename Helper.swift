@@ -20,19 +20,19 @@ struct Helper {
         var strs: [String] = []
         
         if let distanceInMeters = distanceInMeters{
-            strs.append(String(format: "%.2fkm", Double(distanceInMeters) / 1000))
+            strs.append(String(format: "%.2f km", Double(distanceInMeters) / 1000))
         }
         
         if let totalElevationGainInMeters = totalElevationGainInMeters{
-            strs.append("\(totalElevationGainInMeters)m")
+            strs.append("\(totalElevationGainInMeters) m")
         }
         
         let dateFormatter = DateComponentsFormatter()
         dateFormatter.allowedUnits = [.hour, .minute, .second]
-        dateFormatter.unitsStyle = .positional
+        dateFormatter.unitsStyle = .abbreviated
         strs.append(dateFormatter.string(from: TimeInterval(elapsedTimeInSeconds))!)
         
-        return strs.joined(separator: " ")
+        return strs.joined(separator: "   ")
     }
    
     static func getActivityFromUserDefault() -> Activity? {

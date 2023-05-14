@@ -79,6 +79,19 @@ struct MemoriesWidgetView: View {
                     
                 } // zstack
             } // condition
+            else {
+                VStack{
+                    Text("Error")
+                        .font(.title3)
+                        .bold()
+                        .foregroundColor(.black)
+                    Text("Memories cannot fetch activities data")
+                        .font(.subheadline)
+                        .bold()
+                        .foregroundColor(.black)
+
+                }
+            }
         } // group
     }
 }
