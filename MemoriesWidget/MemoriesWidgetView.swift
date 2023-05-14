@@ -8,80 +8,81 @@
 import SwiftUI
 import Activity
 
+struct ImageContainerView: View {
+    let activity: Activity
+    
+    var body: some View {
+        
+        Group {
+            if let url =  URL(string: activity.getPictureUrls().first!),
+               let imageData = try? Data(contentsOf: url),
+               let image = UIImage(data: imageData) {
+                
+                Color.clear
+                    .overlay (
+                        Image(uiImage: image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                    )
+                    .clipped()
+            }
+        }
+        
+        
+    }
+}
+
 struct MemoriesWidgetView: View {
     
     let activity: Activity?
     
-    struct ImageOverlay: View {
+    var body: some View {
         
-        let activityNested: Activity?
-        
-       
-        
-        var body: some View {
-            
-            Group {
-                if let nestedAct = activityNested {
+        // handles condition on activity
+        Group {
+            if let activity = activity {
+                
+                // handles overlay
+                ZStack{
+                    // image container
+                    ImageContainerView(activity: activity)
+                        .zIndex(1)
                     
-                    // #DRY
+                    // text container
                     VStack(alignment: .leading, spacing: 6.0) {
-                        Text(nestedAct.getCity())
-                            .font(.title3).bold()
-                            .foregroundColor(.white)
-                            .shadow(radius: 5)
                         
+                        Spacer()
+
+                        // city
+                        Text(activity.getCity())
+                            .font(.title3).bold().foregroundColor(.white).shadow(radius: 5)
+                        
+                        // other data
                         HStack{
-                            if let distanceInM = nestedAct.getDistanceInMeters() {
+                            if let distanceInM = activity.getDistanceInMeters() {
                                 Text(String(format: "%.2fkm", Double(distanceInM) / 1000))
-                                    .font(.subheadline).bold()
-                                    .foregroundColor(.white)
-                                    .shadow(radius: 5)
+                                    .font(.subheadline).bold().foregroundColor(.white).shadow(radius: 5)
                             }
-
-                            if let totalElevationGainInM = nestedAct.getTotalElevationGainInMeters() {
+                            
+                            if let totalElevationGainInM = activity.getTotalElevationGainInMeters() {
                                 Text("\(totalElevationGainInM)m")
-                                    .font(.subheadline).bold()
-                                    .foregroundColor(.white)
-                                    .shadow(radius: 5)
+                                    .font(.subheadline).bold().foregroundColor(.white) .shadow(radius: 5)
                             }
                             
                             
-                            Text(Helper.getDateFormatter().string(from: TimeInterval(nestedAct.getElapsedTimeInSeconds()))!)
-                                .font(.subheadline).bold()
-                                .foregroundColor(.white)
-                                .shadow(radius: 5)
-
+                            Text(Helper.getDateFormatter().string(from: TimeInterval(activity.getElapsedTimeInSeconds()))!)
+                                .font(.subheadline).bold().foregroundColor(.white) .shadow(radius: 5)
                             
                             Spacer()
-
-                        }
-                    }
-                    .padding(EdgeInsets(top: 0, leading: 20.0, bottom: 16.0, trailing: 0))
-                } else{
+                            
+                        } // other data
+                    } // text container
+                    .padding()
+                    .zIndex(10)
                     
-                }
-            }
-               
-        }
-    }
-
-    
-    var body: some View {
-        Group {
-            if let activity = activity,
-               let url =  URL(string: activity.getPictureUrls().first!),
-               let imageData = try? Data(contentsOf: url),
-               let image = UIImage(data: imageData) {
-                
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .overlay(ImageOverlay(activityNested: activity), alignment: .bottomLeading)
-            }
-            else {
-                Image("placeholder")
-            }
-        }.background(.gray.opacity(0.1))
+                } // zstack
+            } // condition
+        } // group
     }
 }
 
@@ -90,3 +91,4 @@ struct MemoriesWidgetView_Previews: PreviewProvider {
         MemoriesWidgetView(activity: nil)
     }
 }
+
