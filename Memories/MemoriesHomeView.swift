@@ -90,7 +90,8 @@ struct MemoriesHomeView: View {
                         .foregroundColor(.white)
                         .cornerRadius(35)
                         .sheet(isPresented: $isShowingWebView) {
-                            WebView(url: URL(string: "https://support.apple.com/en-us/HT207122")!)
+                            SheetView(isShowingWebView: self.$isShowingWebView)
+
                         }
                     }
                     .padding()
@@ -109,6 +110,23 @@ struct MemoriesHomeView: View {
         } // geometryreader
         
         
+    }
+}
+
+
+struct SheetView : View {
+    @Binding var isShowingWebView: Bool
+    
+    var body: some View{
+        NavigationView{
+            WebView(url: URL(string: "https://support.apple.com/en-us/HT207122")!)
+                .navigationBarTitle(Text(""), displayMode: .inline)
+                .navigationBarItems(trailing: Button(action: {
+                    self.isShowingWebView = false
+                }) {
+                    Text("Done").bold()
+                })
+        }
     }
 }
 
