@@ -25,19 +25,22 @@ struct MemoriesHomeView: View {
                         .fixedSize()
                     
                     // Header ----------------------------------------------------
-                    HStack {
+                    HStack(spacing: 12) {
                         AsyncImage(url: URL(string: viewModel.pictureUrl)) { image in
                             image
                         } placeholder: {
                             Color.gray.opacity(0.1)
                         }
-                        .frame(width: 64, height: 64)
-                        .cornerRadius(50)
+                        .frame(width: 82, height: 82)
+                        .cornerRadius(41)
                         .shadow(radius: 5)
                         
                         VStack(alignment: .leading) {
                             Text(viewModel.firstName)
+                                .font(.headline).bold()
                             Text(viewModel.lastName)
+                                .font(.headline).bold()
+
                         }
                     }.frame(height: 100)
                     
