@@ -59,19 +59,16 @@ struct MemoriesWidgetView: View {
                         
                         // other data
                         HStack{
-                            if let distanceInM = activity.getDistanceInMeters() {
-                                Text(String(format: "%.2fkm", Double(distanceInM) / 1000))
-                                    .font(.subheadline).bold().foregroundColor(.white).shadow(radius: 5)
-                            }
-                            
-                            if let totalElevationGainInM = activity.getTotalElevationGainInMeters() {
-                                Text("\(totalElevationGainInM)m")
-                                    .font(.subheadline).bold().foregroundColor(.white) .shadow(radius: 5)
-                            }
-                            
-                            
-                            Text(Helper.getDateFormatter().string(from: TimeInterval(activity.getElapsedTimeInSeconds()))!)
-                                .font(.subheadline).bold().foregroundColor(.white) .shadow(radius: 5)
+                            Text(Helper.buildDataString(
+                                elapsedTimeInSeconds: activity.getElapsedTimeInSeconds(),
+                                distanceInMeters: activity.getDistanceInMeters(),
+                                totalElevationGainInMeters: activity.getTotalElevationGainInMeters())
+                            )
+                            .font(.subheadline)
+                            .bold()
+                            .foregroundColor(.white)
+                            .shadow(radius: 5)
+                            .lineLimit(1)
                             
                             Spacer()
                             

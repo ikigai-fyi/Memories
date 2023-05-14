@@ -16,13 +16,23 @@ let userDefaultsJwt = "jwt"
 
 struct Helper {
     
-    // I am a pig
-    static func getDateFormatter() -> DateComponentsFormatter {
+    static func buildDataString(elapsedTimeInSeconds: Int, distanceInMeters: Int?, totalElevationGainInMeters: Int?) -> String {
+        var strs: [String] = []
+        
+        if let distanceInMeters = distanceInMeters{
+            strs.append(String(format: "%.2fkm", Double(distanceInMeters) / 1000))
+        }
+        
+        if let totalElevationGainInMeters = totalElevationGainInMeters{
+            strs.append("\(totalElevationGainInMeters)m")
+        }
+        
         let dateFormatter = DateComponentsFormatter()
         dateFormatter.allowedUnits = [.hour, .minute, .second]
         dateFormatter.unitsStyle = .positional
+        strs.append(dateFormatter.string(from: TimeInterval(elapsedTimeInSeconds))!)
         
-        return dateFormatter
+        return strs.joined(separator: " ")
     }
    
     static func getActivityFromUserDefault() -> Activity? {
