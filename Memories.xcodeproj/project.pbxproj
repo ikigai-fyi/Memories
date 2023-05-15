@@ -870,7 +870,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Memories/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Memories: Widgets for Strava";
+				INFOPLIST_KEY_CFBundleDisplayName = Memories;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -905,7 +905,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Memories/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Memories: Widgets for Strava";
+				INFOPLIST_KEY_CFBundleDisplayName = Memories;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1086,7 +1086,7 @@
 				DEVELOPMENT_TEAM = YPP2B773SY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MemoriesWidget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = MemoriesWidget;
+				INFOPLIST_KEY_CFBundleDisplayName = Memories;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1116,7 +1116,7 @@
 				DEVELOPMENT_TEAM = YPP2B773SY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MemoriesWidget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = MemoriesWidget;
+				INFOPLIST_KEY_CFBundleDisplayName = Memories;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
