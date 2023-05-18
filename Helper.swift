@@ -34,7 +34,26 @@ struct Helper {
         
         return strs.joined(separator: "   ")
     }
-   
+    
+    static func getSystemIconForActivityType(activityType: String) -> String?{
+        let defaultImage = "location.circle.fill"
+        
+        if #available(iOS 16, *) {
+            switch activityType {
+                case "Hike":
+                    return "mountain.2.fill"
+                case "Ride":
+                    return "figure.outdoor.cycle"
+                case "Run":
+                    return "figure.run"
+                default: return defaultImage
+            }
+        } else {
+            return defaultImage
+        }
+    }
+    
+    
     static func getActivityFromUserDefault() -> Activity? {
         if let userDefaults = UserDefaults(suiteName: appGroupName) {
             if let data = userDefaults.data(forKey: userDefaultActivity) {

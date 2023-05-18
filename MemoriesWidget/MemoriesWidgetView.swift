@@ -52,11 +52,27 @@ struct MemoriesWidgetView: View {
                     VStack(alignment: .leading, spacing: 6.0) {
                         
                         Spacer()
-
-                        // city
-                        Text(activity.getCity())
-                            .font(.title3).bold().foregroundColor(.white).shadow(radius: 5)
                         
+                        HStack(spacing: 4.0){
+                            
+                            // type
+                            if let type = Helper.getSystemIconForActivityType(
+                                activityType: activity.getSportType()
+                            ) {
+                                Image(systemName: type)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 12, height: 12)
+                                    .foregroundColor(.white)
+                            }
+                          
+                            // city
+                            Text(activity.getCity())
+                                .font(.title3).bold().foregroundColor(.white).shadow(radius: 5)
+                            
+                            Spacer()
+                        }
+
                         // other data
                         HStack{
                             Text(Helper.buildDataString(
