@@ -15,8 +15,6 @@ let amplitude = Amplitude(
     )
 )
 
-let identify = Identify()
-
 struct AnalyticsProperties {
     static let userId = "userId"
     static let size = "size"

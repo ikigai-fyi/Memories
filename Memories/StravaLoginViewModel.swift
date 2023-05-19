@@ -9,6 +9,7 @@ import Foundation
 import AuthenticationServices
 import WidgetKit
 import Activity
+import AmplitudeSwift
 
 // Used MainActor to make sure things happen on the main thread
 // To be honest no clue what I'm doing, it's just that some article said to do that
@@ -82,10 +83,13 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
                 self.setJwt(jwt: json["jwt"] as? String)
                 
                 // analytics
+                let identify = Identify()
                 let uuid = athlete["uuid"] as! String
                 let now = DateFormatter.standard.string(from: Date())
                 identify.setOnce(property: AnalyticsProperties.userId, value: uuid)
                 identify.setOnce(property: AnalyticsProperties.signupDate, value: now)
+                amplitude.identify(identify: identify)
+                
 
             } catch {
                 print(error)
@@ -100,11 +104,13 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
         self.jwt = jwt
     }
     
-    func fetchRandomActivity() async {
-        // analytics
+    func fetchRandomActivity() async {        
+        // analytics ⚠️ should be moved to someplace ran everytime the app is opened, not in the fetch function
+        let identify = Identify()
         let now = DateFormatter.standard.string(from: Date())
         identify.set(property: AnalyticsProperties.lastSeenDate, value: now)
         identify.append(property: AnalyticsProperties.numTotalSessions, value: 1)
+        amplitude.identify(identify: identify)
 
         let url = URL(string: "https://api-dev.ikigai.fyi/rest/activities/random")!
         var request = URLRequest(url: url)
