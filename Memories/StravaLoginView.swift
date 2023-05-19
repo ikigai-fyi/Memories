@@ -38,7 +38,7 @@ struct StravaLoginView: View {
                     .padding()
             }
             .frame(maxWidth: .infinity)
-            .background(Color(Constants.mainColor))
+            .background(Color(Constants.MainColor))
             .foregroundColor(.white)
             .cornerRadius(35)
 

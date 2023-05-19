@@ -56,7 +56,7 @@ struct MemoriesWidgetView: View {
                         HStack(spacing: 4.0){
                             
                             // type
-                            if let type = Helper.getSystemIconForActivityType(
+                            if Constants.SportsTypeIconEnabled, let type = Helper.getSystemIconForActivityType(
                                 activityType: activity.getSportType()
                             ) {
                                 Image(systemName: type)
@@ -69,9 +69,13 @@ struct MemoriesWidgetView: View {
                             // city
                             Text(activity.getCity())
                                 .font(.title3).bold().foregroundColor(.white).shadow(radius: 5)
-                            
+                           
                             Spacer()
                         }
+                        
+                        // datetime
+                        Text(Helper.buildDateTimeString(date: activity.getStartDatetime()))
+                            .font(.subheadline).bold().foregroundColor(.white).shadow(radius: 5)
 
                         // other data
                         HStack{
@@ -103,13 +107,13 @@ struct MemoriesWidgetView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 12, height: 12)
-                            .foregroundColor(Color(Constants.mainColor))
+                            .foregroundColor(Color(Constants.MainColor))
                         
                       
                         Text("Getting started")
                             .font(.caption)
                             .bold()
-                            .foregroundColor(Color(Constants.mainColor))
+                            .foregroundColor(Color(Constants.MainColor))
 
                         
                     }

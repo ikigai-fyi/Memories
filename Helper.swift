@@ -15,7 +15,8 @@ let userDefaultActivity = "activity"
 let userDefaultsJwt = "jwt"
 
 struct Constants {
-    static let mainColor: UIColor = UIColor(red: 0.99, green: 0.30, blue: 0.01, alpha: 1.00)
+    static let MainColor: UIColor = UIColor(red: 0.99, green: 0.30, blue: 0.01, alpha: 1.00)
+    static let SportsTypeIconEnabled: Bool = false
 }
     
 struct Helper {
@@ -39,8 +40,19 @@ struct Helper {
         return strs.joined(separator: "   ")
     }
     
+    static func buildDateTimeString(date: Date) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+                  
+        // US English Locale (en_US)
+        dateFormatter.locale = Locale(identifier: "en_US")
+        
+        return dateFormatter.string(from: date)
+     }
+    
     static func getSystemIconForActivityType(activityType: String) -> String?{
-        let defaultImage = "location.circle.fill"
+        let defaultImage = "location.fill"
         
         if #available(iOS 16, *) {
             switch activityType {
