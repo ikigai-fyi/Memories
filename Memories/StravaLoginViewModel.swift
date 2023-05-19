@@ -80,6 +80,11 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
                 self.lastName = athlete["last_name"] as! String
                 self.pictureUrl = athlete["picture_url"] as! String
                 self.setJwt(jwt: json["jwt"] as? String)
+                
+                // analytics
+                let uuid = athlete["uuid"] as! String
+                identify.set(property: AnalyticsProperties.userId, value: uuid)
+                
             } catch {
                 print(error)
             }
