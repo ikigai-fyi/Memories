@@ -20,7 +20,7 @@ struct StravaLoginView: View {
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: 164, height: 164)
-            .cornerRadius(82)
+            .cornerRadius(41)
             
             Text("Memories")
                 .font(.title).bold()
