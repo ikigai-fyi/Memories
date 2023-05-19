@@ -41,9 +41,6 @@ struct StravaLoginView: View {
             .background(Color(Constants.mainColor))
             .foregroundColor(.white)
             .cornerRadius(35)
-            
-            Text(viewModel.firstName)
-
 
         }
         .frame(maxWidth: .infinity)
