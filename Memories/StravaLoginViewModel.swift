@@ -83,8 +83,10 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
                 
                 // analytics
                 let uuid = athlete["uuid"] as! String
-                identify.set(property: AnalyticsProperties.userId, value: uuid)
-                
+                let now = DateFormatter.standard.string(from: Date())
+                identify.setOnce(property: AnalyticsProperties.userId, value: uuid)
+                identify.setOnce(property: AnalyticsProperties.signupDate, value: now)
+
             } catch {
                 print(error)
             }
@@ -99,6 +101,11 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
     }
     
     func fetchRandomActivity() async {
+        // analytics
+        let now = DateFormatter.standard.string(from: Date())
+        identify.set(property: AnalyticsProperties.lastSeenDate, value: now)
+        identify.append(property: AnalyticsProperties.numTotalSessions, value: 1)
+
         let url = URL(string: "https://api-dev.ikigai.fyi/rest/activities/random")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
