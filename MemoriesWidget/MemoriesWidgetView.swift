@@ -49,7 +49,7 @@ struct MemoriesWidgetView: View {
                         .zIndex(1)
                     
                     // text container
-                    VStack(alignment: .leading, spacing: 6.0) {
+                    VStack(alignment: .leading, spacing: 4.0) {
                         
                         Spacer()
                         
