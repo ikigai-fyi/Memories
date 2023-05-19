@@ -33,7 +33,6 @@ struct MemoriesHomeView: View {
                         }
                         .frame(width: 82, height: 82)
                         .cornerRadius(41)
-                        .shadow(radius: 5)
                         
                         VStack(alignment: .leading) {
                             Text(viewModel.firstName)
@@ -64,7 +63,6 @@ struct MemoriesHomeView: View {
                                 .frame(width: 292, height: 311)
                                 .background(.gray.opacity(0.1))
                                 .cornerRadius(12)
-                                .shadow(radius: 5)
                             
                         }
                     }.frame(height: 400)
