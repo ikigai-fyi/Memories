@@ -97,16 +97,30 @@ struct MemoriesWidgetView: View {
             } // condition
             else {
                 VStack{
-                    Text("Error")
-                        .font(.title3)
-                        .bold()
-                        .foregroundColor(.black)
-                    Text("Memories cannot fetch activities data")
-                        .font(.subheadline)
+                    HStack(spacing: 4.0){
+                        
+                        Image(systemName: "wrench.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 12, height: 12)
+                            .foregroundColor(Color(Constants.mainColor))
+                        
+                      
+                        Text("Getting started")
+                            .font(.caption)
+                            .bold()
+                            .foregroundColor(Color(Constants.mainColor))
+
+                        
+                    }
+                  
+                    Text("Welcome to Memories. Please open the app to connect your Strava account.")
+                        .font(.caption2)
                         .bold()
                         .foregroundColor(.black)
 
-                }
+                } // vstack
+                .padding()
             }
         } // group
     }

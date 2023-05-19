@@ -14,8 +14,12 @@ let userDefaultsActivityPictureUrl = "picture"
 let userDefaultActivity = "activity"
 let userDefaultsJwt = "jwt"
 
-struct Helper {
+struct Constants {
+    static let mainColor: UIColor = UIColor(red: 0.99, green: 0.30, blue: 0.01, alpha: 1.00)
+}
     
+struct Helper {
+        
     static func buildDataString(elapsedTimeInSeconds: Int, distanceInMeters: Int?, totalElevationGainInMeters: Int?) -> String {
         var strs: [String] = []
         

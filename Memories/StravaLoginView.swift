@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct StravaLoginView: View {
     @EnvironmentObject var viewModel: StravaLoginViewModel
     
@@ -39,7 +38,7 @@ struct StravaLoginView: View {
                     .padding()
             }
             .frame(maxWidth: .infinity)
-            .background(Color(UIColor(red: 0.99, green: 0.30, blue: 0.01, alpha: 1.00)))
+            .background(Color(Constants.mainColor))
             .foregroundColor(.white)
             .cornerRadius(35)
             
