@@ -24,9 +24,7 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
     @Published var jwt: String? = Helper.getJWT()
     
     
-    func launchOauthFlow() {
-        amplitude.track(eventType: "Button Clicked", eventProperties: ["action": "stravaLogin"])
-        
+    func launchOauthFlow() {        
         let appUrl = getStravaMobileUrl()
         let webUrl = getStravaWebUrl()
 

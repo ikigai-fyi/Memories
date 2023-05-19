@@ -31,6 +31,7 @@ struct StravaLoginView: View {
             Spacer()
             
             Button {
+                amplitude.track(eventType: AnalyticsEvents.connectStrava)
                 viewModel.launchOauthFlow()
             } label: {
                 Text("Connect with Strava")

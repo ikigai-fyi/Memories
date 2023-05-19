@@ -73,6 +73,7 @@ struct MemoriesHomeView: View {
                     // Add widget button -----------------------------------------------------
                     VStack{
                         Button {
+                            amplitude.track(eventType: AnalyticsEvents.addWidgetHelp)
                             isShowingWebView = true
                         } label: {
                             Label {
@@ -103,6 +104,7 @@ struct MemoriesHomeView: View {
                 }
             } // scrollview
             .refreshable {
+                amplitude.track(eventType: AnalyticsEvents.refreshActivities)
                 await viewModel.fetchRandomActivity()
             }
         } // geometryreader

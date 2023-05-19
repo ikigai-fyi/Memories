@@ -15,6 +15,15 @@ let amplitude = Amplitude(
     )
 )
 
+struct AnalyticsEvents {
+    static let connectStrava = "connectStrava"
+    static let addWidgetHelp = "addWidgetHelp"
+    static let refreshActivities = "refreshActivities"
+    static let addWidget = "addWidget"
+    static let openApp = "openApp"
+    static let removeWidget = "removeWidget"
+}
+    
 struct AnalyticsProperties {
     static let userId = "userId"
     static let size = "size"
