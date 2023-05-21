@@ -159,7 +159,7 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
     func getStravaQueryItems() -> [URLQueryItem] {
         return [
             URLQueryItem(name: "client_id", value: "106696"),
-            URLQueryItem(name: "redirect_uri", value: "memories://localhost"),
+            URLQueryItem(name: "redirect_uri", value: "memories://ikigai.fyi"),
             URLQueryItem(name: "response_type", value: "code"),
             URLQueryItem(name: "approval_prompt", value: "auto"),
             URLQueryItem(name: "scope", value: "activity:read_all,profile:read_all"),
