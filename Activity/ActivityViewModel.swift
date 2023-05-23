@@ -9,8 +9,11 @@ import Foundation
 import WidgetKit
 import AmplitudeSwift
 
+let appGroupName = "group.ikigai.Memories"
+let userDefaultActivity = "activity"
+
 public class ActivityViewModel: NSObject, ObservableObject {
-    @Published public var activity: Activity?
+    @Published public var activity: Activity? = getActivityFromUserDefault()
     
     @MainActor
     public func fetchAndStoreRandomActivity() async {
@@ -24,7 +27,7 @@ public class ActivityViewModel: NSObject, ObservableObject {
         let url = URL(string: "https://api-dev.ikigai.fyi/rest/activities/random")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("Bearer \(Helper.getJWT()!)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(getJwt()!)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         
 
@@ -37,7 +40,7 @@ public class ActivityViewModel: NSObject, ObservableObject {
             do {
                 let decoded = try decoder.decode(Activity.self, from: data)
                 self.activity = decoded
-                saveActivityIntoUserDefaults(activity : self.activity!)
+                saveActivityToUserDefault(activity : self.activity!)
             } catch {
                 print(error)
             }
@@ -46,15 +49,24 @@ public class ActivityViewModel: NSObject, ObservableObject {
         }
     }
     
-    private func saveActivityIntoUserDefaults(activity: Activity) {
-        Helper.saveActivityToUserDefault(activity: activity)
+    static func getActivityFromUserDefault() -> Activity? {
+        if let userDefaults = UserDefaults(suiteName: appGroupName) {
+            if let data = userDefaults.data(forKey: userDefaultActivity) {
+                return try! JSONDecoder().decode(Activity.self, from: data)
+            }
+        }
+        
+        return nil
     }
-}
-
-extension DateFormatter {
-    static let standard: DateFormatter = {
-        var dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        return dateFormatter
-    }()
+    
+    func saveActivityToUserDefault(activity: Activity) {
+        if let userDefaults = UserDefaults(suiteName: appGroupName) {
+            let activityData = try! JSONEncoder().encode(activity)
+            userDefaults.set(activityData, forKey: userDefaultActivity)
+        }
+    }
+    
+    @MainActor private func getJwt() -> String? {
+        return StravaLoginViewModel.getJwtFromUserDefault()
+    }
 }

@@ -7,9 +7,13 @@
 
 import SwiftUI
 import WebKit
+import Activity
+import WidgetKit
 
 struct MemoriesHomeView: View {
-    @EnvironmentObject var viewModel: StravaLoginViewModel
+    @EnvironmentObject var loginViewModel: StravaLoginViewModel
+    @EnvironmentObject var activityViewModel: ActivityViewModel
+    
     @State private var isShowingWebView: Bool = false
     
     
@@ -17,7 +21,7 @@ struct MemoriesHomeView: View {
         GeometryReader { proxy in
             ScrollView{
                 VStack {
-                   
+                    
                     
                     // Spacer -----------------------------------------------------
                     Spacer()
@@ -26,7 +30,7 @@ struct MemoriesHomeView: View {
                     
                     // Header ----------------------------------------------------
                     HStack(spacing: 12) {
-                        AsyncImage(url: URL(string: viewModel.pictureUrl)) { image in
+                        AsyncImage(url: URL(string: loginViewModel.athlete!.pictureUrl)) { image in
                             image
                         } placeholder: {
                             Color.gray.opacity(0.1)
@@ -35,11 +39,11 @@ struct MemoriesHomeView: View {
                         .cornerRadius(41)
                         
                         VStack(alignment: .leading) {
-                            Text(viewModel.firstName)
+                            Text(loginViewModel.athlete!.firstName)
                                 .font(.headline).bold()
-                            Text(viewModel.lastName)
+                            Text(loginViewModel.athlete!.lastName)
                                 .font(.headline).bold()
-
+                            
                         }
                     }.frame(height: 100)
                     
@@ -48,7 +52,7 @@ struct MemoriesHomeView: View {
                     
                     VStack{
                         // Activity widget -----------------------------------------------------
-                        if let activity = viewModel.activity {
+                        if let activity = activityViewModel.activity {
                             VStack {
                                 MemoriesWidgetView(activity: activity)
                                     .frame(width: 292, height: 311)
@@ -90,26 +94,27 @@ struct MemoriesHomeView: View {
                         .cornerRadius(35)
                         .sheet(isPresented: $isShowingWebView) {
                             SheetView(isShowingWebView: self.$isShowingWebView)
-
+                            
                         }
                     }
                     .padding()
-                   
+                    
                 }
                 .frame(maxWidth: .infinity, minHeight: proxy.size.height)
                 .onAppear {
-                    Task {
-                        await viewModel.fetchRandomActivity()
+                    if activityViewModel.activity == nil {
+                        Task {
+                            await activityViewModel.fetchAndStoreRandomActivity()
+                        }
                     }
                 }
             } // scrollview
             .refreshable {
                 amplitude.track(eventType: AnalyticsEvents.refreshActivities)
-                await viewModel.fetchRandomActivity()
+                await activityViewModel.fetchAndStoreRandomActivity()
+                WidgetCenter.shared.reloadAllTimelines()
             }
         } // geometryreader
-        
-        
     }
 }
 

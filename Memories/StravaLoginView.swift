@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import Activity
 
 struct StravaLoginView: View {
-    @EnvironmentObject var viewModel: StravaLoginViewModel
+    @EnvironmentObject var loginViewModel: StravaLoginViewModel
     
     var body: some View {
         VStack {
@@ -32,7 +33,7 @@ struct StravaLoginView: View {
             
             Button {
                 amplitude.track(eventType: AnalyticsEvents.connectStrava)
-                viewModel.launchOauthFlow()
+                loginViewModel.launchOauthFlow()
             } label: {
                 Text("Connect with Strava")
                     .bold()
@@ -48,7 +49,7 @@ struct StravaLoginView: View {
         .padding(32.0)
         .onOpenURL { url in
             Task {
-                await viewModel.handleOauthRedirect(url: url)
+                await loginViewModel.handleOauthRedirect(url: url)
             }
         }
 

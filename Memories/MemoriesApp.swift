@@ -6,17 +6,19 @@
 //
 
 import SwiftUI
+import Activity
 
 @main
 struct MemoriesApp: App {
-    @StateObject var viewModel = StravaLoginViewModel()
+    @StateObject var loginViewModel = StravaLoginViewModel()
+    @StateObject var activityViewModel = ActivityViewModel()
     
     var body: some Scene {
         WindowGroup {
-            if viewModel.jwt == nil {
-                StravaLoginView().environmentObject(viewModel)
+            if loginViewModel.jwt == nil {
+                StravaLoginView().environmentObject(loginViewModel)
             } else {
-                MemoriesHomeView().environmentObject(viewModel)
+                MemoriesHomeView().environmentObject(loginViewModel).environmentObject(activityViewModel)
             }
         }
     }
