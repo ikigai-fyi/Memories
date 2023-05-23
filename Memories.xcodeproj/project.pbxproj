@@ -15,7 +15,6 @@
 		9819F9B6C8F55C94ECF040A8 /* Pods_MemoriesWidgetExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1594DDC791C60CB48C1C5A36 /* Pods_MemoriesWidgetExtension.framework */; };
 		E402A3822A05D3A400C2F3B0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E402A3812A05D3A400C2F3B0 /* Helper.swift */; };
 		E402A3832A05D46800C2F3B0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E402A3812A05D3A400C2F3B0 /* Helper.swift */; };
-		E42106B62A0ECB5300187A74 /* Activity.h in Headers */ = {isa = PBXBuildFile; fileRef = E42106B52A0ECB5300187A74 /* Activity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E42106B92A0ECB5300187A74 /* Activity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E42106B32A0ECB5300187A74 /* Activity.framework */; };
 		E42106BA2A0ECB5300187A74 /* Activity.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E42106B32A0ECB5300187A74 /* Activity.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E42106C02A0ECB6900187A74 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42106BF2A0ECB6900187A74 /* Activity.swift */; };
@@ -123,7 +122,6 @@
 		E402A3802A05D30300C2F3B0 /* MemoriesWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MemoriesWidgetExtension.entitlements; sourceTree = "<group>"; };
 		E402A3812A05D3A400C2F3B0 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		E42106B32A0ECB5300187A74 /* Activity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Activity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E42106B52A0ECB5300187A74 /* Activity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Activity.h; sourceTree = "<group>"; };
 		E42106BF2A0ECB6900187A74 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		E4604FC22A05C6D100D838DF /* MemoriesWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesWidgetView.swift; sourceTree = "<group>"; };
 		E468D3FC2A0663E50017070A /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
@@ -255,7 +253,6 @@
 		E42106B42A0ECB5300187A74 /* Activity */ = {
 			isa = PBXGroup;
 			children = (
-				E42106B52A0ECB5300187A74 /* Activity.h */,
 				E42106BF2A0ECB6900187A74 /* Activity.swift */,
 			);
 			path = Activity;
@@ -293,7 +290,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E42106B62A0ECB5300187A74 /* Activity.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
