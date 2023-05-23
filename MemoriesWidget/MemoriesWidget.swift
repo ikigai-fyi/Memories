@@ -10,8 +10,10 @@ import SwiftUI
 import Activity
 
 struct Provider: TimelineProvider {
+    private let viewModel = ActivityViewModel()
+    
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date())
+        return SimpleEntry(date: Date())
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
@@ -20,21 +22,15 @@ struct Provider: TimelineProvider {
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        
-        var entries: [SimpleEntry] = []
-        
-        let activity = Helper.getActivityFromUserDefault()
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, activity: activity)
-            entries.append(entry)
+        Task {
+            await viewModel.fetchAndStoreRandomActivity()
+            let entries = [SimpleEntry(date: Date(), activity: viewModel.activity)]
+            
+            let nextUpdate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
+            let timeline = Timeline(entries: entries, policy: .after(nextUpdate))
+            
+            completion(timeline)
         }
-
-        let timeline = Timeline(entries: entries, policy: .atEnd)
-        completion(timeline)
     }
 }
 

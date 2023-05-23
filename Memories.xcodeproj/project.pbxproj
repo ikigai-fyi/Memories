@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D5EAEE42A1D51B400FB9C33 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5EAEE32A1D51B400FB9C33 /* ActivityViewModel.swift */; };
+		2D5EAEE52A1D521400FB9C33 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E402A3812A05D3A400C2F3B0 /* Helper.swift */; };
+		2D5EAEE62A1D521A00FB9C33 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E468D3FC2A0663E50017070A /* Analytics.swift */; };
 		2DE590932A052D8B0041EA4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DE590922A052D8B0041EA4D /* Assets.xcassets */; };
 		2DE590962A052D8B0041EA4D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DE590952A052D8B0041EA4D /* Preview Assets.xcassets */; };
 		2DE590BE2A053D9C0041EA4D /* StravaLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE590BC2A053D9C0041EA4D /* StravaLoginViewModel.swift */; };
 		2DE590BF2A053D9C0041EA4D /* StravaLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE590BD2A053D9C0041EA4D /* StravaLoginView.swift */; };
+		31D90A2569F002EAA95C4C95 /* Pods_Activity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576F658A18483F456568D152 /* Pods_Activity.framework */; };
 		41102DA3BC0DD1785A68E2C2 /* Pods_Memories.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293FD508FFFD40CE0B7C701E /* Pods_Memories.framework */; };
 		9819F9B6C8F55C94ECF040A8 /* Pods_MemoriesWidgetExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1594DDC791C60CB48C1C5A36 /* Pods_MemoriesWidgetExtension.framework */; };
 		E402A3822A05D3A400C2F3B0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E402A3812A05D3A400C2F3B0 /* Helper.swift */; };
@@ -101,6 +105,7 @@
 		1594DDC791C60CB48C1C5A36 /* Pods_MemoriesWidgetExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MemoriesWidgetExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22EF4430BF0FDEFE910DA20D /* Pods-MemoriesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoriesTests.debug.xcconfig"; path = "Target Support Files/Pods-MemoriesTests/Pods-MemoriesTests.debug.xcconfig"; sourceTree = "<group>"; };
 		293FD508FFFD40CE0B7C701E /* Pods_Memories.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Memories.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D5EAEE32A1D51B400FB9C33 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 		2DE5908B2A052D890041EA4D /* Memories.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memories.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DE5908E2A052D890041EA4D /* MemoriesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesApp.swift; sourceTree = "<group>"; };
 		2DE590922A052D8B0041EA4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -112,8 +117,11 @@
 		2DE590BC2A053D9C0041EA4D /* StravaLoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StravaLoginViewModel.swift; sourceTree = "<group>"; };
 		2DE590BD2A053D9C0041EA4D /* StravaLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StravaLoginView.swift; sourceTree = "<group>"; };
 		3F21E04C60208C2B27828C60 /* Pods-Memories.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Memories.release.xcconfig"; path = "Target Support Files/Pods-Memories/Pods-Memories.release.xcconfig"; sourceTree = "<group>"; };
+		576F658A18483F456568D152 /* Pods_Activity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Activity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		69283ABD892596A18154262F /* Pods-Activity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Activity.release.xcconfig"; path = "Target Support Files/Pods-Activity/Pods-Activity.release.xcconfig"; sourceTree = "<group>"; };
 		7282850D0C4F811554D92B9E /* Pods_MemoriesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MemoriesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		780B8DB719AEE79DEF13A098 /* Pods-Memories.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Memories.debug.xcconfig"; path = "Target Support Files/Pods-Memories/Pods-Memories.debug.xcconfig"; sourceTree = "<group>"; };
+		8345DB8F18520FF5D01D69D2 /* Pods-Activity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Activity.debug.xcconfig"; path = "Target Support Files/Pods-Activity/Pods-Activity.debug.xcconfig"; sourceTree = "<group>"; };
 		9E40D207A97937C1AF274B60 /* Pods-MemoriesWidgetExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoriesWidgetExtension.release.xcconfig"; path = "Target Support Files/Pods-MemoriesWidgetExtension/Pods-MemoriesWidgetExtension.release.xcconfig"; sourceTree = "<group>"; };
 		A8DA50D702C66157718FF28F /* Pods-MemoriesWidgetExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoriesWidgetExtension.debug.xcconfig"; path = "Target Support Files/Pods-MemoriesWidgetExtension/Pods-MemoriesWidgetExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		A96CC0E27063C9B676826DFA /* Pods-Memories-MemoriesUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Memories-MemoriesUITests.debug.xcconfig"; path = "Target Support Files/Pods-Memories-MemoriesUITests/Pods-Memories-MemoriesUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -150,6 +158,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31D90A2569F002EAA95C4C95 /* Pods_Activity.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,6 +255,8 @@
 				07E3BB9027356AC089952719 /* Pods-MemoriesTests.release.xcconfig */,
 				A8DA50D702C66157718FF28F /* Pods-MemoriesWidgetExtension.debug.xcconfig */,
 				9E40D207A97937C1AF274B60 /* Pods-MemoriesWidgetExtension.release.xcconfig */,
+				8345DB8F18520FF5D01D69D2 /* Pods-Activity.debug.xcconfig */,
+				69283ABD892596A18154262F /* Pods-Activity.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -254,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				E42106BF2A0ECB6900187A74 /* Activity.swift */,
+				2D5EAEE32A1D51B400FB9C33 /* ActivityViewModel.swift */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -267,6 +279,7 @@
 				CA53BCAF75954410F900601E /* Pods_Memories_MemoriesUITests.framework */,
 				7282850D0C4F811554D92B9E /* Pods_MemoriesTests.framework */,
 				1594DDC791C60CB48C1C5A36 /* Pods_MemoriesWidgetExtension.framework */,
+				576F658A18483F456568D152 /* Pods_Activity.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -323,6 +336,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E42106BE2A0ECB5300187A74 /* Build configuration list for PBXNativeTarget "Activity" */;
 			buildPhases = (
+				C8A526F062FD1DA9AD593437 /* [CP] Check Pods Manifest.lock */,
 				E42106AE2A0ECB5300187A74 /* Headers */,
 				E42106AF2A0ECB5300187A74 /* Sources */,
 				E42106B02A0ECB5300187A74 /* Frameworks */,
@@ -488,6 +502,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C8A526F062FD1DA9AD593437 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Activity-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -512,6 +548,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E42106C02A0ECB6900187A74 /* Activity.swift in Sources */,
+				2D5EAEE42A1D51B400FB9C33 /* ActivityViewModel.swift in Sources */,
+				2D5EAEE62A1D521A00FB9C33 /* Analytics.swift in Sources */,
+				2D5EAEE52A1D521400FB9C33 /* Helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -733,6 +772,7 @@
 		};
 		E42106BC2A0ECB5300187A74 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8345DB8F18520FF5D01D69D2 /* Pods-Activity.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -769,6 +809,7 @@
 		};
 		E42106BD2A0ECB5300187A74 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 69283ABD892596A18154262F /* Pods-Activity.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;

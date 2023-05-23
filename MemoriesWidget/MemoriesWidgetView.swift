@@ -14,7 +14,7 @@ struct ImageContainerView: View {
     var body: some View {
         
         Group {
-            if let url =  URL(string: activity.getPictureUrls().first!),
+            if let url =  URL(string: activity.getPictureUrl()),
                let imageData = try? Data(contentsOf: url),
                let image = UIImage(data: imageData) {
                 

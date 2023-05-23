@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_Memories_MemoriesUITestsVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_Memories_MemoriesUITestsVersionString[];
+FOUNDATION_EXPORT double Pods_ActivityVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_ActivityVersionString[];
 

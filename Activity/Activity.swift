@@ -11,7 +11,7 @@ public struct Activity : Codable {
     let name: String
     let city: String
     let sportType: String
-    let pictureUrls: [String]
+    let pictureUrl: String
     let elapsedTimeInSeconds: Int
     let startDatetime: Date
 
@@ -35,8 +35,8 @@ public struct Activity : Codable {
         return startDatetime
     }
 
-    public func getPictureUrls() -> [String] {
-        return pictureUrls
+    public func getPictureUrl() -> String {
+        return pictureUrl
     }
 
     public func getElapsedTimeInSeconds() -> Int {
