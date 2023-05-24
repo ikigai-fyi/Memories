@@ -24,8 +24,6 @@
 		E42106B92A0ECB5300187A74 /* Activity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E42106B32A0ECB5300187A74 /* Activity.framework */; };
 		E42106BA2A0ECB5300187A74 /* Activity.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E42106B32A0ECB5300187A74 /* Activity.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E42106C02A0ECB6900187A74 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42106BF2A0ECB6900187A74 /* Activity.swift */; };
-		E42106C12A0ECBC900187A74 /* Activity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E42106B32A0ECB5300187A74 /* Activity.framework */; };
-		E42106C22A0ECBC900187A74 /* Activity.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E42106B32A0ECB5300187A74 /* Activity.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E4604FC12A05C55100D838DF /* MemoriesWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48E09882A05BF98002456E5 /* MemoriesWidget.swift */; };
 		E4604FC32A05C6D100D838DF /* MemoriesWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4604FC22A05C6D100D838DF /* MemoriesWidgetView.swift */; };
 		E4604FC42A05C98800D838DF /* MemoriesWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4604FC22A05C6D100D838DF /* MemoriesWidgetView.swift */; };
@@ -49,13 +47,6 @@
 			remoteGlobalIDString = E42106B22A0ECB5300187A74;
 			remoteInfo = Activity;
 		};
-		E42106C32A0ECBC900187A74 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2DE590832A052D890041EA4D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E42106B22A0ECB5300187A74;
-			remoteInfo = Activity;
-		};
 		E48E098D2A05BF99002456E5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2DE590832A052D890041EA4D /* Project object */;
@@ -73,17 +64,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				E42106BA2A0ECB5300187A74 /* Activity.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E42106C52A0ECBC900187A74 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				E42106C22A0ECBC900187A74 /* Activity.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -173,7 +153,6 @@
 				E48E09842A05BF98002456E5 /* SwiftUI.framework in Frameworks */,
 				E48E09822A05BF98002456E5 /* WidgetKit.framework in Frameworks */,
 				9819F9B6C8F55C94ECF040A8 /* Pods_MemoriesWidgetExtension.framework in Frameworks */,
-				E42106C12A0ECBC900187A74 /* Activity.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,12 +344,10 @@
 				E48E097B2A05BF98002456E5 /* Sources */,
 				E48E097C2A05BF98002456E5 /* Frameworks */,
 				E48E097D2A05BF98002456E5 /* Resources */,
-				E42106C52A0ECBC900187A74 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				E42106C42A0ECBC900187A74 /* PBXTargetDependency */,
 			);
 			name = MemoriesWidgetExtension;
 			productName = MemoriesWidgetExtension;
@@ -580,11 +557,6 @@
 			isa = PBXTargetDependency;
 			target = E42106B22A0ECB5300187A74 /* Activity */;
 			targetProxy = E42106B72A0ECB5300187A74 /* PBXContainerItemProxy */;
-		};
-		E42106C42A0ECBC900187A74 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E42106B22A0ECB5300187A74 /* Activity */;
-			targetProxy = E42106C32A0ECBC900187A74 /* PBXContainerItemProxy */;
 		};
 		E48E098E2A05BF99002456E5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
