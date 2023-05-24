@@ -49,6 +49,14 @@ public class ActivityViewModel: NSObject, ObservableObject {
         }
     }
     
+    public func loadActivityFromUserDefaultsOrFetch() async {
+        if let activity = ActivityViewModel.getActivityFromUserDefault() {
+            self.activity = activity
+        } else {
+            await self.fetchAndStoreRandomActivity()
+        }
+    }
+    
     static func getActivityFromUserDefault() -> Activity? {
         if let userDefaults = UserDefaults(suiteName: appGroupName) {
             if let data = userDefaults.data(forKey: userDefaultActivity) {

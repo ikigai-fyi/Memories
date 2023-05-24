@@ -102,10 +102,10 @@ struct MemoriesHomeView: View {
                 }
                 .frame(maxWidth: .infinity, minHeight: proxy.size.height)
                 .onAppear {
-                    if activityViewModel.activity == nil {
-                        Task {
-                            await activityViewModel.fetchAndStoreRandomActivity()
-                        }
+                    Task {
+                        // Fetch if there is no activity
+                        // If there is, it might come from the home view, or the widget, just load it
+                        await self.activityViewModel.loadActivityFromUserDefaultsOrFetch()
                     }
                 }
             } // scrollview
