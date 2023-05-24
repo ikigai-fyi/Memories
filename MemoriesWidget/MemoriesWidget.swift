@@ -30,7 +30,7 @@ struct Provider: TimelineProvider {
         } else {
             Task {
                 await viewModel.fetchAndStoreRandomActivity()
-                completion(buildTimeline(activity: nil))
+                completion(buildTimeline(activity: viewModel.activity))
             }
         }
     }
