@@ -15,7 +15,7 @@ struct MemoriesApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if loginViewModel.jwt == nil {
+            if loginViewModel.athlete == nil {
                 StravaLoginView().environmentObject(loginViewModel)
             } else {
                 MemoriesHomeView().environmentObject(loginViewModel).environmentObject(activityViewModel)

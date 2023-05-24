@@ -27,7 +27,7 @@ public class ActivityViewModel: NSObject, ObservableObject {
         let url = URL(string: "https://api-dev.ikigai.fyi/rest/activities/random")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("Bearer \(getJwt()!)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(getLoggedAthlete()!.jwt)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         
 
@@ -52,7 +52,7 @@ public class ActivityViewModel: NSObject, ObservableObject {
     static func getActivityFromUserDefault() -> Activity? {
         if let userDefaults = UserDefaults(suiteName: appGroupName) {
             if let data = userDefaults.data(forKey: userDefaultActivity) {
-                return try! JSONDecoder().decode(Activity.self, from: data)
+                return try? JSONDecoder().decode(Activity.self, from: data)
             }
         }
         
@@ -66,7 +66,7 @@ public class ActivityViewModel: NSObject, ObservableObject {
         }
     }
     
-    @MainActor private func getJwt() -> String? {
-        return StravaLoginViewModel.getJwtFromUserDefault()
+    @MainActor private func getLoggedAthlete() -> Athlete? {
+        return StravaLoginViewModel.getAthleteFromUserDefault()
     }
 }

@@ -11,12 +11,10 @@ import WidgetKit
 import AmplitudeSwift
 
 let userDefaultAthlete = "athlete"
-let userDefaultJwt = "jwt"
 
 @MainActor
 public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentationContextProviding {
     @Published public var athlete: Athlete? = getAthleteFromUserDefault()
-    @Published public var jwt: String? = getJwtFromUserDefault()
     
     public func launchOauthFlow() {
         let appUrl = getStravaMobileUrl()
@@ -70,14 +68,13 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             
             let decoded = try decoder.decode(LoginResponse.self, from: data)
-            saveAthleteToUserDefault(athlete: decoded.athlete)
-            self.athlete = decoded.athlete
-            saveJwtToUserDefault(jwt: decoded.jwt)
-            self.jwt = decoded.jwt
+            let athlete = decoded.toAthlete()
+            self.athlete = athlete
+            self.saveAthleteToUserDefault(athlete: athlete)
                 
             // analytics
             let identify = Identify()
-            let uuid = athlete!.uuid
+            let uuid = athlete.uuid
             let now = DateFormatter.standard.string(from: Date())
             identify.setOnce(property: AnalyticsProperties.userId, value: uuid)
             identify.setOnce(property: AnalyticsProperties.signupDate, value: now)
@@ -120,10 +117,10 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
         return ASPresentationAnchor()
     }
     
-    static func getAthleteFromUserDefault() -> Athlete? {
+    public static func getAthleteFromUserDefault() -> Athlete? {
         if let userDefaults = UserDefaults(suiteName: appGroupName) {
             if let data = userDefaults.data(forKey: userDefaultAthlete) {
-                return try! JSONDecoder().decode(Athlete.self, from: data)
+                return try? JSONDecoder().decode(Athlete.self, from: data)
             }
         }
         
@@ -136,26 +133,20 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
             userDefaults.set(athleteData, forKey: userDefaultAthlete)
         }
     }
-    
-    static func getJwtFromUserDefault() -> String? {
-        if let userDefaults = UserDefaults(suiteName: appGroupName) {
-            if let data = userDefaults.data(forKey: userDefaultJwt) {
-                return try! JSONDecoder().decode(String.self, from: data)
-            }
-        }
-        
-        return nil
-    }
-    
-    func saveJwtToUserDefault(jwt: String) {
-        if let userDefaults = UserDefaults(suiteName: appGroupName) {
-            let jwtData = try! JSONEncoder().encode(jwt)
-            userDefaults.set(jwtData, forKey: userDefaultJwt)
-        }
-    }
 }
 
-public struct LoginResponse: Codable {
-    public let athlete: Athlete
-    public let jwt: String
+struct LoginResponse: Codable {
+    struct LoginAthlete: Codable {
+        let uuid: String
+        let firstName: String
+        let lastName: String
+        let pictureUrl: String
+    }
+    
+    let athlete: LoginAthlete
+    let jwt: String
+    
+    func toAthlete() -> Athlete {
+        return Athlete(uuid: self.athlete.uuid, firstName: self.athlete.firstName, lastName: self.athlete.lastName, pictureUrl: self.athlete.pictureUrl, jwt: self.jwt)
+    }
 }

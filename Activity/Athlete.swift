@@ -12,4 +12,5 @@ public struct Athlete : Codable {
     public let firstName: String
     public let lastName: String
     public let pictureUrl: String
+    public let jwt: String
 }

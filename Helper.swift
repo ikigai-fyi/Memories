@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftUI
-import Activity
 
 struct Constants {
     static let MainColor: UIColor = UIColor(red: 0.99, green: 0.30, blue: 0.01, alpha: 1.00)
