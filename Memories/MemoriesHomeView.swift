@@ -106,13 +106,14 @@ struct MemoriesHomeView: View {
                         // Fetch if there is no activity
                         // If there is, it might come from the home view, or the widget, just load it
                         await self.activityViewModel.loadActivityFromUserDefaultsOrFetch()
+                        activityViewModel.forceRefreshWidget()
                     }
                 }
             } // scrollview
             .refreshable {
                 amplitude.track(eventType: AnalyticsEvents.refreshActivities)
                 await activityViewModel.fetchAndStoreRandomActivity()
-                WidgetCenter.shared.reloadAllTimelines()
+                activityViewModel.forceRefreshWidget()
             }
         } // geometryreader
     }

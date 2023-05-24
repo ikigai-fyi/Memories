@@ -22,15 +22,23 @@ struct Provider: TimelineProvider {
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        Task {
-            await viewModel.fetchAndStoreRandomActivity()
-            let entries = [SimpleEntry(date: Date(), activity: viewModel.activity)]
-            
-            let nextUpdate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
-            let timeline = Timeline(entries: entries, policy: .after(nextUpdate))
-            
-            completion(timeline)
+        // Home screen was forced refresh, update the widget with user defaults only
+        if ActivityViewModel.getUnseenWidgetForceRefreshFromUserDefault() {
+            let activity = ActivityViewModel.getActivityFromUserDefault()
+            viewModel.forceRefreshWidgetProcessed()
+            completion(buildTimeline(activity: activity))
+        } else {
+            Task {
+                await viewModel.fetchAndStoreRandomActivity()
+                completion(buildTimeline(activity: nil))
+            }
         }
+    }
+    
+    private func buildTimeline(activity: Activity?) -> Timeline<SimpleEntry> {
+        let entries = [SimpleEntry(date: Date(), activity: activity)]
+        let nextUpdate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
+        return Timeline(entries: entries, policy: .after(nextUpdate))
     }
 }
 
