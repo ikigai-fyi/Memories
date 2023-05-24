@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D3779122A1EB80D00629BE3 /* Activity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E42106B32A0ECB5300187A74 /* Activity.framework */; };
+		2D3779132A1EB80D00629BE3 /* Activity.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E42106B32A0ECB5300187A74 /* Activity.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2D3779172A1EB90800629BE3 /* MemoriesWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E48E097F2A05BF98002456E5 /* MemoriesWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2D5EAEE42A1D51B400FB9C33 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5EAEE32A1D51B400FB9C33 /* ActivityViewModel.swift */; };
 		2D5EAEE52A1D521400FB9C33 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E402A3812A05D3A400C2F3B0 /* Helper.swift */; };
 		2D5EAEE62A1D521A00FB9C33 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E468D3FC2A0663E50017070A /* Analytics.swift */; };
@@ -34,12 +37,25 @@
 		E48E09872A05BF98002456E5 /* MemoriesWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48E09862A05BF98002456E5 /* MemoriesWidgetBundle.swift */; };
 		E48E09892A05BF98002456E5 /* MemoriesWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48E09882A05BF98002456E5 /* MemoriesWidget.swift */; };
 		E48E098B2A05BF99002456E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E48E098A2A05BF99002456E5 /* Assets.xcassets */; };
-		E48E098F2A05BF99002456E5 /* MemoriesWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E48E097F2A05BF98002456E5 /* MemoriesWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E48E099B2A05C2E6002456E5 /* MemoriesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE5908E2A052D890041EA4D /* MemoriesApp.swift */; };
 		E4E501B92A0E9A00009D4993 /* MemoriesHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E501B82A0E9A00009D4993 /* MemoriesHomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2D3779142A1EB80D00629BE3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2DE590832A052D890041EA4D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E42106B22A0ECB5300187A74;
+			remoteInfo = Activity;
+		};
+		2D3779182A1EB90800629BE3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2DE590832A052D890041EA4D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E48E097E2A05BF98002456E5;
+			remoteInfo = MemoriesWidgetExtension;
+		};
 		E42106B72A0ECB5300187A74 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2DE590832A052D890041EA4D /* Project object */;
@@ -47,16 +63,31 @@
 			remoteGlobalIDString = E42106B22A0ECB5300187A74;
 			remoteInfo = Activity;
 		};
-		E48E098D2A05BF99002456E5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2DE590832A052D890041EA4D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E48E097E2A05BF98002456E5;
-			remoteInfo = MemoriesWidgetExtension;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		2D3779162A1EB80D00629BE3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2D3779132A1EB80D00629BE3 /* Activity.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2D37791A2A1EB90800629BE3 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				2D3779172A1EB90800629BE3 /* MemoriesWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E42106BB2A0ECB5300187A74 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -66,17 +97,6 @@
 				E42106BA2A0ECB5300187A74 /* Activity.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E48E09902A05BF99002456E5 /* Embed Foundation Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				E48E098F2A05BF99002456E5 /* MemoriesWidgetExtension.appex in Embed Foundation Extensions */,
-			);
-			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -153,6 +173,7 @@
 				E48E09842A05BF98002456E5 /* SwiftUI.framework in Frameworks */,
 				E48E09822A05BF98002456E5 /* WidgetKit.framework in Frameworks */,
 				9819F9B6C8F55C94ECF040A8 /* Pods_MemoriesWidgetExtension.framework in Frameworks */,
+				2D3779122A1EB80D00629BE3 /* Activity.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,15 +323,15 @@
 				2DE590872A052D890041EA4D /* Sources */,
 				2DE590882A052D890041EA4D /* Frameworks */,
 				2DE590892A052D890041EA4D /* Resources */,
-				E48E09902A05BF99002456E5 /* Embed Foundation Extensions */,
 				91F5FD3AE59AE30155C539A6 /* [CP] Embed Pods Frameworks */,
 				E42106BB2A0ECB5300187A74 /* Embed Frameworks */,
+				2D37791A2A1EB90800629BE3 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				E48E098E2A05BF99002456E5 /* PBXTargetDependency */,
 				E42106B82A0ECB5300187A74 /* PBXTargetDependency */,
+				2D3779192A1EB90800629BE3 /* PBXTargetDependency */,
 			);
 			name = Memories;
 			productName = Memories;
@@ -344,10 +365,12 @@
 				E48E097B2A05BF98002456E5 /* Sources */,
 				E48E097C2A05BF98002456E5 /* Frameworks */,
 				E48E097D2A05BF98002456E5 /* Resources */,
+				2D3779162A1EB80D00629BE3 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				2D3779152A1EB80D00629BE3 /* PBXTargetDependency */,
 			);
 			name = MemoriesWidgetExtension;
 			productName = MemoriesWidgetExtension;
@@ -553,15 +576,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2D3779152A1EB80D00629BE3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E42106B22A0ECB5300187A74 /* Activity */;
+			targetProxy = 2D3779142A1EB80D00629BE3 /* PBXContainerItemProxy */;
+		};
+		2D3779192A1EB90800629BE3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E48E097E2A05BF98002456E5 /* MemoriesWidgetExtension */;
+			targetProxy = 2D3779182A1EB90800629BE3 /* PBXContainerItemProxy */;
+		};
 		E42106B82A0ECB5300187A74 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E42106B22A0ECB5300187A74 /* Activity */;
 			targetProxy = E42106B72A0ECB5300187A74 /* PBXContainerItemProxy */;
-		};
-		E48E098E2A05BF99002456E5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E48E097E2A05BF98002456E5 /* MemoriesWidgetExtension */;
-			targetProxy = E48E098D2A05BF99002456E5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
