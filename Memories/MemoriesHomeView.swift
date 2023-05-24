@@ -13,6 +13,7 @@ import WidgetKit
 struct MemoriesHomeView: View {
     @EnvironmentObject var loginViewModel: StravaLoginViewModel
     @EnvironmentObject var activityViewModel: ActivityViewModel
+    @Environment(\.scenePhase) var scenePhase
     
     @State private var isShowingWebView: Bool = false
     
@@ -101,12 +102,16 @@ struct MemoriesHomeView: View {
                     
                 }
                 .frame(maxWidth: .infinity, minHeight: proxy.size.height)
-                .onAppear {
-                    Task {
-                        // Fetch if there is no activity
-                        // If there is, it might come from the home view, or the widget, just load it
-                        await self.activityViewModel.loadActivityFromUserDefaultsOrFetch()
-                        activityViewModel.forceRefreshWidget()
+                .onChange(of: scenePhase) { newPhase in
+                    switch newPhase {
+                    case .active:
+                        Task {
+                            // Fetch if there is no activity
+                            // If there is, it might come from the home view, or the widget, just load it
+                            await self.activityViewModel.loadActivityFromUserDefaultsOrFetch()
+                            activityViewModel.forceRefreshWidget()
+                        }
+                    default: ()
                     }
                 }
             } // scrollview
