@@ -16,32 +16,6 @@ let userDefaultAthlete = "athlete"
 public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentationContextProviding {
     @Published public var athlete: Athlete? = getAthleteFromUserDefault()
     
-    public func launchOauthFlow() {
-        let appUrl = getStravaMobileUrl()
-        let webUrl = getStravaWebUrl()
-
-        if UIApplication.shared.canOpenURL(appUrl) {
-            // Open Strava app if installed, if will be redirected to our app through a deeplink
-            UIApplication.shared.open(appUrl, options: [:])
-        } else {
-            // If Strava app is not installed, manage oauth through a webview
-            let authSession = ASWebAuthenticationSession(
-                url: webUrl, callbackURLScheme:
-                    "memories") { (url, error) in
-                        if let error = error {
-                            print(error)
-                        } else if let url = url {
-                            Task {
-                                await self.handleOauthRedirect(url: url)
-                            }
-                        }
-                    }
-
-            authSession.presentationContextProvider = self
-            authSession.start()
-        }
-    }
-    
     public func handleOauthRedirect(url: URL) async {
         if let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
            let code = components.queryItems?.first(where: { $0.name == "code" }),
@@ -93,7 +67,7 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
         return components.url!
     }
     
-    func getStravaMobileUrl() -> URL {
+    public func getStravaMobileUrl() -> URL {
         var components = URLComponents()
         components.scheme = "strava"
         components.host = "oauth"
