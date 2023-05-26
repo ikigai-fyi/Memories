@@ -17,7 +17,8 @@ extension Amplitude {
                 print("eventcallback: \(event), code: \(code), message: \(message)")
             },
             flushEventsOnClose: true,
-            minTimeBetweenSessionsMillis: 15000
+            minTimeBetweenSessionsMillis: 15000,
+            serverZone: ServerZone.EU
         )
     )
 }
