@@ -8,6 +8,6 @@
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
 
-ENV = "prod"
-BACKEND_URL = "https://api.ikigai.fyi"
-AMPLITUDE_API_KEY = "a559a5b51a65fe2a19fefa2811ff7862"
+ENV = prod
+BACKEND_URL = https:/$()/api.ikigai.fyi
+AMPLITUDE_API_KEY = a559a5b51a65fe2a19fefa2811ff7862
