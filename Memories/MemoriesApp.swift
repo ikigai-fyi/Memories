@@ -8,11 +8,13 @@
 import SwiftUI
 import Activity
 import Sentry
+import AmplitudeSwift
 
 @main
 struct MemoriesApp: App {
     @StateObject var loginViewModel = StravaLoginViewModel()
     @StateObject var activityViewModel = ActivityViewModel()
+    @Environment(\.scenePhase) var scenePhase
     
     init() {
         SentrySDK.start { options in
@@ -29,6 +31,20 @@ struct MemoriesApp: App {
             } else {
                 MemoriesHomeView().environmentObject(loginViewModel).environmentObject(activityViewModel)
             }
+        }.onChange(of: scenePhase) { newPhase in
+            switch newPhase {
+            case .active:
+                self.onNewSession()
+            default: ()
+            }
         }
+    }
+    
+    func onNewSession() {
+        let identify = Identify()
+        let now = DateFormatter.standard.string(from: Date())
+        identify.set(property: AnalyticsProperties.lastSeenDate, value: now)
+        identify.append(property: AnalyticsProperties.numTotalSessions, value: 1)
+        amplitude.identify(identify: identify)
     }
 }

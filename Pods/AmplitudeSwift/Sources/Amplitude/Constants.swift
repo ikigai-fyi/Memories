@@ -22,7 +22,7 @@ public enum ServerZone: String {
 
 public struct Constants {
     static let SDK_LIBRARY = "amplitude-swift"
-    static let SDK_VERSION = "0.3.2"
+    static let SDK_VERSION = "0.4.4"
     public static let DEFAULT_API_HOST = "https://api2.amplitude.com/2/httpapi"
     public static let EU_DEFAULT_API_HOST = "https://api.eu.amplitude.com/2/httpapi"
     static let BATCH_API_HOST = "https://api2.amplitude.com/batch"
@@ -32,6 +32,7 @@ public struct Constants {
     static let AMP_REVENUE_EVENT = "revenue_amount"
     static let MAX_PROPERTY_KEYS = 1024
     static let MAX_STRING_LENGTH = 1024
+    public static let MIN_IDENTIFY_BATCH_INTERVAL_MILLIS = 30 * 1000  // 30s
 
     static let AMP_TRACKING_OPTION_CARRIER = "carrier"
     static let AMP_TRACKING_OPTION_CITY = "city"
@@ -58,6 +59,7 @@ public struct Constants {
         public static let DEFAULT_INSTANCE = "default_instance"
         public static let FLUSH_MAX_RETRIES = 5
         public static let MIN_TIME_BETWEEN_SESSIONS_MILLIS = 300000
+        public static let IDENTIFY_BATCH_INTERVAL_MILLIS = 30 * 1000  // 30s
     }
 
     public struct Storage {

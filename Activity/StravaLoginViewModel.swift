@@ -53,7 +53,11 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
             let identify = Identify()
             let uuid = athlete.uuid
             let now = DateFormatter.standard.string(from: Date())
+            
+            // @vincent, not sure you prefer using your own property of the Amplitude one?
+            amplitude.setUserId(userId: uuid)
             identify.setOnce(property: AnalyticsProperties.userId, value: uuid)
+            
             identify.setOnce(property: AnalyticsProperties.signupDate, value: now)
             amplitude.identify(identify: identify)
         } catch {

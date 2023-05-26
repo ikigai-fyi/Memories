@@ -67,7 +67,7 @@ class ContextPlugin: Plugin {
         }
 
         var carrier = "Unknown"
-        #if os(iOS)
+        #if os(iOS) && !targetEnvironment(simulator)
         let networkInfo = CTTelephonyNetworkInfo()
         if let providers = networkInfo.serviceSubscriberCellularProviders {
             for (_, provider) in providers where provider.mobileNetworkCode != nil {
@@ -87,9 +87,6 @@ class ContextPlugin: Plugin {
     }
 
     internal func mergeContext(event: BaseEvent, context: [String: Any]) {
-        if event.timestamp == nil {
-            event.timestamp = Int64(NSDate().timeIntervalSince1970 * 1000)
-        }
         if event.insertId == nil {
             event.insertId = NSUUID().uuidString
         }
@@ -106,10 +103,6 @@ class ContextPlugin: Plugin {
             if let pId = self.amplitude?.configuration.partnerId {
                 event.partnerId = pId
             }
-        }
-        if event.ip == nil {
-            // get the ip in server side if there is no event level ip
-            event.ip = "$remote"
         }
         let configuration = self.amplitude?.configuration
         let trackingOptions = configuration?.trackingOptions
@@ -137,9 +130,9 @@ class ContextPlugin: Plugin {
             event.carrier = context["carrier"] as? String
         }
         if trackingOptions?.shouldTrackIpAddress() ?? false {
-            guard event.ip != nil else {
+            if event.ip == nil  {
+                // get the ip in server side if there is no event level ip
                 event.ip = "$remote"
-                return
             }
         }
         if trackingOptions?.shouldTrackCountry() ?? false && event.ip != "$remote" {

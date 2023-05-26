@@ -11,7 +11,7 @@ import AmplitudeSwift
 let amplitude = Amplitude(
     configuration: Configuration(
         apiKey: Config.amplitudeApiKey,
-        serverZone: ServerZone.EU
+        serverZone: ServerZone.EU,
     )
 )
 

@@ -18,13 +18,6 @@ public class ActivityViewModel: NSObject, ObservableObject {
     
     @MainActor
     public func fetchAndStoreRandomActivity() async {
-        // analytics ⚠️ should be moved to someplace ran everytime the app is opened, not in the fetch function
-        let identify = Identify()
-        let now = DateFormatter.standard.string(from: Date())
-        identify.set(property: AnalyticsProperties.lastSeenDate, value: now)
-        identify.append(property: AnalyticsProperties.numTotalSessions, value: 1)
-        amplitude.identify(identify: identify)
-        
         let url = URL(string: "\(Config.backendURL)/rest/activities/random")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
