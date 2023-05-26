@@ -9,7 +9,7 @@ import Foundation
 import WidgetKit
 import AmplitudeSwift
 
-let appGroupName = "group.ikigai.Memories"
+let appGroupName = Config.appGroupName
 let userDefaultActivity = "activity"
 let userDefaultUnseenWidgetForceRefresh = "unseen_widget_force_refresh"
 

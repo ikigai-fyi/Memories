@@ -39,4 +39,8 @@ enum Config {
     static var amplitudeApiKey: String {
         return try! Config.value(for: "AMPLITUDE_API_KEY")
     }
+    
+    static var appGroupName: String {
+        return try! Config.value(for: "APP_GROUP_NAME")
+    }
 }
