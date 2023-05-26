@@ -19,4 +19,5 @@ target 'Activity' do
   use_frameworks!
 
   pod 'AmplitudeSwift', '~> 0.3.0'
+  pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '8.7.3'
 end

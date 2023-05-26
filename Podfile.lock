@@ -1,16 +1,36 @@
 PODS:
   - AmplitudeSwift (0.3.2)
+  - Sentry (8.7.3):
+    - Sentry/Core (= 8.7.3)
+    - SentryPrivate (= 8.7.3)
+  - Sentry/Core (8.7.3):
+    - SentryPrivate (= 8.7.3)
+  - SentryPrivate (8.7.3)
 
 DEPENDENCIES:
   - AmplitudeSwift (~> 0.3.0)
+  - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`, tag `8.7.3`)
 
 SPEC REPOS:
   trunk:
     - AmplitudeSwift
+    - SentryPrivate
+
+EXTERNAL SOURCES:
+  Sentry:
+    :git: https://github.com/getsentry/sentry-cocoa.git
+    :tag: 8.7.3
+
+CHECKOUT OPTIONS:
+  Sentry:
+    :git: https://github.com/getsentry/sentry-cocoa.git
+    :tag: 8.7.3
 
 SPEC CHECKSUMS:
   AmplitudeSwift: ebb50bb1dd6931c2cc4fdd11454435e3fc8fa9d1
+  Sentry: c7a86f43510a7d5678d4de28d78c28ab351d295b
+  SentryPrivate: 2eaabf598a46d4b9b8822aef766df2a84caf2e6f
 
-PODFILE CHECKSUM: 0d28010a9e3472c62033fa1519947194ef464287
+PODFILE CHECKSUM: 161c6a5dc0b5de2b85141cc8aba4df6eb42c1a25
 
 COCOAPODS: 1.12.1
