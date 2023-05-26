@@ -1,0 +1,11 @@
+//
+//  dev.xcconfig
+//  Memories
+//
+//  Created by Paul Nicolet on 26/05/2023.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+BACKEND_URL = "https://api-dev.ikigai.fyi"

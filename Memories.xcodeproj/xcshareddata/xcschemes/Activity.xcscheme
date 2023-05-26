@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2DE5908A2A052D890041EA4D"
-               BuildableName = "Memories.app"
-               BlueprintName = "Memories"
+               BlueprintIdentifier = "E42106B22A0ECB5300187A74"
+               BuildableName = "Activity.framework"
+               BlueprintName = "Activity"
                ReferencedContainer = "container:Memories.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,30 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       shouldAutocreateTestPlan = "YES">
-      <Testables>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2DE5909A2A052D8C0041EA4D"
-               BuildableName = "MemoriesTests.xctest"
-               BlueprintName = "MemoriesTests"
-               ReferencedContainer = "container:Memories.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2DE590A42A052D8C0041EA4D"
-               BuildableName = "MemoriesUITests.xctest"
-               BlueprintName = "MemoriesUITests"
-               ReferencedContainer = "container:Memories.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Dev"
@@ -63,16 +39,6 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2DE5908A2A052D890041EA4D"
-            BuildableName = "Memories.app"
-            BlueprintName = "Memories"
-            ReferencedContainer = "container:Memories.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Prod"
@@ -80,16 +46,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2DE5908A2A052D890041EA4D"
-            BuildableName = "Memories.app"
-            BlueprintName = "Memories"
+            BlueprintIdentifier = "E42106B22A0ECB5300187A74"
+            BuildableName = "Activity.framework"
+            BlueprintName = "Activity"
             ReferencedContainer = "container:Memories.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Dev">

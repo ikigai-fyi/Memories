@@ -15,6 +15,9 @@
 		2D7C61DE2A1D5CCF0050AAB0 /* Athlete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C61DC2A1D59040050AAB0 /* Athlete.swift */; };
 		2D7C61DF2A1D5D100050AAB0 /* StravaLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE590BC2A053D9C0041EA4D /* StravaLoginViewModel.swift */; };
 		2D7C61E12A1D5D3B0050AAB0 /* DateFormatter+standard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C61E02A1D5D3B0050AAB0 /* DateFormatter+standard.swift */; };
+		2DCAC7A42A208FE7007A11F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCAC7A32A208FE7007A11F9 /* Config.swift */; };
+		2DCAC7A52A208FE7007A11F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCAC7A32A208FE7007A11F9 /* Config.swift */; };
+		2DCAC7A62A208FE7007A11F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCAC7A32A208FE7007A11F9 /* Config.swift */; };
 		2DE590932A052D8B0041EA4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DE590922A052D8B0041EA4D /* Assets.xcassets */; };
 		2DE590962A052D8B0041EA4D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DE590952A052D8B0041EA4D /* Preview Assets.xcassets */; };
 		2DE590BF2A053D9C0041EA4D /* StravaLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE590BD2A053D9C0041EA4D /* StravaLoginView.swift */; };
@@ -91,13 +94,18 @@
 
 /* Begin PBXFileReference section */
 		07E3BB9027356AC089952719 /* Pods-MemoriesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoriesTests.release.xcconfig"; path = "Target Support Files/Pods-MemoriesTests/Pods-MemoriesTests.release.xcconfig"; sourceTree = "<group>"; };
+		08606258EF8EFEE68BD1F538 /* Pods-Activity.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Activity.dev.xcconfig"; path = "Target Support Files/Pods-Activity/Pods-Activity.dev.xcconfig"; sourceTree = "<group>"; };
 		0EF27686CADC2A5869494D65 /* Pods-Memories-MemoriesUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Memories-MemoriesUITests.release.xcconfig"; path = "Target Support Files/Pods-Memories-MemoriesUITests/Pods-Memories-MemoriesUITests.release.xcconfig"; sourceTree = "<group>"; };
+		14315BACCDDBCBA8209DC662 /* Pods-MemoriesWidgetExtension.prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoriesWidgetExtension.prod.xcconfig"; path = "Target Support Files/Pods-MemoriesWidgetExtension/Pods-MemoriesWidgetExtension.prod.xcconfig"; sourceTree = "<group>"; };
 		1594DDC791C60CB48C1C5A36 /* Pods_MemoriesWidgetExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MemoriesWidgetExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22EF4430BF0FDEFE910DA20D /* Pods-MemoriesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoriesTests.debug.xcconfig"; path = "Target Support Files/Pods-MemoriesTests/Pods-MemoriesTests.debug.xcconfig"; sourceTree = "<group>"; };
 		293FD508FFFD40CE0B7C701E /* Pods_Memories.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Memories.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D5EAEE32A1D51B400FB9C33 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 		2D7C61DC2A1D59040050AAB0 /* Athlete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Athlete.swift; sourceTree = "<group>"; };
 		2D7C61E02A1D5D3B0050AAB0 /* DateFormatter+standard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+standard.swift"; sourceTree = "<group>"; };
+		2DCAC7A12A208D93007A11F9 /* dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = dev.xcconfig; sourceTree = "<group>"; };
+		2DCAC7A22A208DA2007A11F9 /* prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = prod.xcconfig; sourceTree = "<group>"; };
+		2DCAC7A32A208FE7007A11F9 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		2DE5908B2A052D890041EA4D /* Memories.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memories.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DE5908E2A052D890041EA4D /* MemoriesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesApp.swift; sourceTree = "<group>"; };
 		2DE590922A052D8B0041EA4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -108,6 +116,8 @@
 		2DE590BB2A053D710041EA4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2DE590BC2A053D9C0041EA4D /* StravaLoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StravaLoginViewModel.swift; sourceTree = "<group>"; };
 		2DE590BD2A053D9C0041EA4D /* StravaLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StravaLoginView.swift; sourceTree = "<group>"; };
+		3A2D5C1842E758BB3774933D /* Pods-Memories.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Memories.dev.xcconfig"; path = "Target Support Files/Pods-Memories/Pods-Memories.dev.xcconfig"; sourceTree = "<group>"; };
+		3E726FB5D4895F9AA722B29B /* Pods-Activity.prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Activity.prod.xcconfig"; path = "Target Support Files/Pods-Activity/Pods-Activity.prod.xcconfig"; sourceTree = "<group>"; };
 		3F21E04C60208C2B27828C60 /* Pods-Memories.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Memories.release.xcconfig"; path = "Target Support Files/Pods-Memories/Pods-Memories.release.xcconfig"; sourceTree = "<group>"; };
 		576F658A18483F456568D152 /* Pods_Activity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Activity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69283ABD892596A18154262F /* Pods-Activity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Activity.release.xcconfig"; path = "Target Support Files/Pods-Activity/Pods-Activity.release.xcconfig"; sourceTree = "<group>"; };
@@ -117,6 +127,8 @@
 		9E40D207A97937C1AF274B60 /* Pods-MemoriesWidgetExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoriesWidgetExtension.release.xcconfig"; path = "Target Support Files/Pods-MemoriesWidgetExtension/Pods-MemoriesWidgetExtension.release.xcconfig"; sourceTree = "<group>"; };
 		A8DA50D702C66157718FF28F /* Pods-MemoriesWidgetExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoriesWidgetExtension.debug.xcconfig"; path = "Target Support Files/Pods-MemoriesWidgetExtension/Pods-MemoriesWidgetExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		A96CC0E27063C9B676826DFA /* Pods-Memories-MemoriesUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Memories-MemoriesUITests.debug.xcconfig"; path = "Target Support Files/Pods-Memories-MemoriesUITests/Pods-Memories-MemoriesUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		B9E5B628501AE8A4EB53A2DC /* Pods-MemoriesWidgetExtension.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoriesWidgetExtension.dev.xcconfig"; path = "Target Support Files/Pods-MemoriesWidgetExtension/Pods-MemoriesWidgetExtension.dev.xcconfig"; sourceTree = "<group>"; };
+		BBDCF2A17A462A07B567850D /* Pods-Memories.prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Memories.prod.xcconfig"; path = "Target Support Files/Pods-Memories/Pods-Memories.prod.xcconfig"; sourceTree = "<group>"; };
 		CA53BCAF75954410F900601E /* Pods_Memories_MemoriesUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Memories_MemoriesUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E402A37D2A05D27F00C2F3B0 /* Memories.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Memories.entitlements; sourceTree = "<group>"; };
 		E402A3802A05D30300C2F3B0 /* MemoriesWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MemoriesWidgetExtension.entitlements; sourceTree = "<group>"; };
@@ -171,6 +183,9 @@
 		2DE590822A052D890041EA4D = {
 			isa = PBXGroup;
 			children = (
+				2DCAC7A12A208D93007A11F9 /* dev.xcconfig */,
+				2DCAC7A22A208DA2007A11F9 /* prod.xcconfig */,
+				2DCAC7A32A208FE7007A11F9 /* Config.swift */,
 				E402A3812A05D3A400C2F3B0 /* Helper.swift */,
 				E468D3FC2A0663E50017070A /* Analytics.swift */,
 				E402A3802A05D30300C2F3B0 /* MemoriesWidgetExtension.entitlements */,
@@ -248,6 +263,12 @@
 				9E40D207A97937C1AF274B60 /* Pods-MemoriesWidgetExtension.release.xcconfig */,
 				8345DB8F18520FF5D01D69D2 /* Pods-Activity.debug.xcconfig */,
 				69283ABD892596A18154262F /* Pods-Activity.release.xcconfig */,
+				08606258EF8EFEE68BD1F538 /* Pods-Activity.dev.xcconfig */,
+				3E726FB5D4895F9AA722B29B /* Pods-Activity.prod.xcconfig */,
+				3A2D5C1842E758BB3774933D /* Pods-Memories.dev.xcconfig */,
+				BBDCF2A17A462A07B567850D /* Pods-Memories.prod.xcconfig */,
+				B9E5B628501AE8A4EB53A2DC /* Pods-MemoriesWidgetExtension.dev.xcconfig */,
+				14315BACCDDBCBA8209DC662 /* Pods-MemoriesWidgetExtension.prod.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -526,6 +547,7 @@
 			files = (
 				E4604FC12A05C55100D838DF /* MemoriesWidget.swift in Sources */,
 				E468D3FD2A0663E50017070A /* Analytics.swift in Sources */,
+				2DCAC7A42A208FE7007A11F9 /* Config.swift in Sources */,
 				2DE590BF2A053D9C0041EA4D /* StravaLoginView.swift in Sources */,
 				E4604FC42A05C98800D838DF /* MemoriesWidgetView.swift in Sources */,
 				E48E099B2A05C2E6002456E5 /* MemoriesApp.swift in Sources */,
@@ -544,6 +566,7 @@
 				2D7C61DF2A1D5D100050AAB0 /* StravaLoginViewModel.swift in Sources */,
 				E42106C02A0ECB6900187A74 /* Activity.swift in Sources */,
 				2D5EAEE42A1D51B400FB9C33 /* ActivityViewModel.swift in Sources */,
+				2DCAC7A62A208FE7007A11F9 /* Config.swift in Sources */,
 				2D5EAEE62A1D521A00FB9C33 /* Analytics.swift in Sources */,
 				2D5EAEE52A1D521400FB9C33 /* Helper.swift in Sources */,
 			);
@@ -555,6 +578,7 @@
 			files = (
 				E4604FC32A05C6D100D838DF /* MemoriesWidgetView.swift in Sources */,
 				E48E09892A05BF98002456E5 /* MemoriesWidget.swift in Sources */,
+				2DCAC7A52A208FE7007A11F9 /* Config.swift in Sources */,
 				E48E09872A05BF98002456E5 /* MemoriesWidgetBundle.swift in Sources */,
 				E402A3832A05D46800C2F3B0 /* Helper.swift in Sources */,
 			);
@@ -581,8 +605,9 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		2DE590AD2A052D8C0041EA4D /* Debug */ = {
+		2DE590AD2A052D8C0041EA4D /* dev */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2DCAC7A12A208D93007A11F9 /* dev.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -639,10 +664,11 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
-			name = Debug;
+			name = dev;
 		};
-		2DE590AE2A052D8C0041EA4D /* Release */ = {
+		2DE590AE2A052D8C0041EA4D /* prod */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2DCAC7A22A208DA2007A11F9 /* prod.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -693,11 +719,46 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
-			name = Release;
+			name = prod;
 		};
-		2DE590B02A052D8C0041EA4D /* Debug */ = {
+		2DE590B02A052D8C0041EA4D /* dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 780B8DB719AEE79DEF13A098 /* Pods-Memories.debug.xcconfig */;
+			baseConfigurationReference = 3A2D5C1842E758BB3774933D /* Pods-Memories.dev.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Memories/Memories.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Memories/Preview Content\"";
+				DEVELOPMENT_TEAM = YPP2B773SY;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Memories/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Memories;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ikigai.Memories.dev;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = dev;
+		};
+		2DE590B12A052D8C0041EA4D /* prod */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BBDCF2A17A462A07B567850D /* Pods-Memories.prod.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -728,46 +789,11 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
-			name = Debug;
+			name = prod;
 		};
-		2DE590B12A052D8C0041EA4D /* Release */ = {
+		E42106BC2A0ECB5300187A74 /* dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3F21E04C60208C2B27828C60 /* Pods-Memories.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Memories/Memories.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Memories/Preview Content\"";
-				DEVELOPMENT_TEAM = YPP2B773SY;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Memories/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Memories;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ikigai.Memories;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
-		E42106BC2A0ECB5300187A74 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8345DB8F18520FF5D01D69D2 /* Pods-Activity.debug.xcconfig */;
+			baseConfigurationReference = 08606258EF8EFEE68BD1F538 /* Pods-Activity.dev.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -792,7 +818,7 @@
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
-				PRODUCT_BUNDLE_IDENTIFIER = ikigai.Activity;
+				PRODUCT_BUNDLE_IDENTIFIER = ikigai.dev.Activity;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -802,11 +828,11 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = dev;
 		};
-		E42106BD2A0ECB5300187A74 /* Release */ = {
+		E42106BD2A0ECB5300187A74 /* prod */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 69283ABD892596A18154262F /* Pods-Activity.release.xcconfig */;
+			baseConfigurationReference = 3E726FB5D4895F9AA722B29B /* Pods-Activity.prod.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -840,11 +866,42 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = prod;
 		};
-		E48E09912A05BF99002456E5 /* Debug */ = {
+		E48E09912A05BF99002456E5 /* dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A8DA50D702C66157718FF28F /* Pods-MemoriesWidgetExtension.debug.xcconfig */;
+			baseConfigurationReference = B9E5B628501AE8A4EB53A2DC /* Pods-MemoriesWidgetExtension.dev.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = MemoriesWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YPP2B773SY;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MemoriesWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Memories;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ikigai.Memories.dev.MemoriesWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = dev;
+		};
+		E48E09922A05BF99002456E5 /* prod */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 14315BACCDDBCBA8209DC662 /* Pods-MemoriesWidgetExtension.prod.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -871,38 +928,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
-			name = Debug;
-		};
-		E48E09922A05BF99002456E5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9E40D207A97937C1AF274B60 /* Pods-MemoriesWidgetExtension.release.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = MemoriesWidgetExtension.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YPP2B773SY;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MemoriesWidget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Memories;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ikigai.Memories.MemoriesWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
+			name = prod;
 		};
 /* End XCBuildConfiguration section */
 
@@ -910,38 +936,38 @@
 		2DE590862A052D890041EA4D /* Build configuration list for PBXProject "Memories" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2DE590AD2A052D8C0041EA4D /* Debug */,
-				2DE590AE2A052D8C0041EA4D /* Release */,
+				2DE590AD2A052D8C0041EA4D /* dev */,
+				2DE590AE2A052D8C0041EA4D /* prod */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = prod;
 		};
 		2DE590AF2A052D8C0041EA4D /* Build configuration list for PBXNativeTarget "Memories" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2DE590B02A052D8C0041EA4D /* Debug */,
-				2DE590B12A052D8C0041EA4D /* Release */,
+				2DE590B02A052D8C0041EA4D /* dev */,
+				2DE590B12A052D8C0041EA4D /* prod */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = prod;
 		};
 		E42106BE2A0ECB5300187A74 /* Build configuration list for PBXNativeTarget "Activity" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E42106BC2A0ECB5300187A74 /* Debug */,
-				E42106BD2A0ECB5300187A74 /* Release */,
+				E42106BC2A0ECB5300187A74 /* dev */,
+				E42106BD2A0ECB5300187A74 /* prod */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = prod;
 		};
 		E48E09932A05BF99002456E5 /* Build configuration list for PBXNativeTarget "MemoriesWidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E48E09912A05BF99002456E5 /* Debug */,
-				E48E09922A05BF99002456E5 /* Release */,
+				E48E09912A05BF99002456E5 /* dev */,
+				E48E09922A05BF99002456E5 /* prod */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = prod;
 		};
 /* End XCConfigurationList section */
 	};

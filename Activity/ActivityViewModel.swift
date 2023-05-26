@@ -24,8 +24,8 @@ public class ActivityViewModel: NSObject, ObservableObject {
         identify.set(property: AnalyticsProperties.lastSeenDate, value: now)
         identify.append(property: AnalyticsProperties.numTotalSessions, value: 1)
         amplitude.identify(identify: identify)
-
-        let url = URL(string: "https://api-dev.ikigai.fyi/rest/activities/random")!
+        
+        let url = URL(string: "\(Config.backendURL)/rest/activities/random")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(getLoggedAthlete()!.jwt)", forHTTPHeaderField: "Authorization")
