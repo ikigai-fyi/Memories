@@ -28,7 +28,15 @@ enum Config {
         }
     }
     
+    static var env: String {
+        return try! Config.value(for: "ENV")
+    }
+    
     static var backendURL: String {
         return try! Config.value(for: "BACKEND_URL")
+    }
+    
+    static var amplitudeApiKey: String {
+        return try! Config.value(for: "AMPLITUDE_API_KEY")
     }
 }
