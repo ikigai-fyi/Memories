@@ -28,6 +28,11 @@ struct StravaLoginView: View {
             Text("Widgets for Strava")
                 .font(.headline)
             
+            if loginViewModel.isLoading {
+                Spacer()
+                ProgressView()
+            }
+            
           
             Spacer()
             

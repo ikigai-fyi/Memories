@@ -14,6 +14,7 @@ let userDefaultAthlete = "athlete"
 
 @MainActor
 public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentationContextProviding {
+    @Published public var isLoading: Bool = false
     @Published public var athlete: Athlete? = getAthleteFromUserDefault()
     
     public func handleOauthRedirect(url: URL) async {
@@ -21,7 +22,9 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
            let code = components.queryItems?.first(where: { $0.name == "code" }),
            let scope = components.queryItems?.first(where: { $0.name == "scope" })
         {
+            self.isLoading = true
             await loginWithStrava(code: code.value!, scope: scope.value!)
+            self.isLoading = false
         }
     }
     
