@@ -16,9 +16,9 @@ extension Amplitude {
             callback: { (event: BaseEvent, code: Int, message: String) -> Void in
                 print("eventcallback: \(event), code: \(code), message: \(message)")
             },
+            serverZone: ServerZone.EU,
             flushEventsOnClose: true,
-            minTimeBetweenSessionsMillis: 15000,
-            serverZone: ServerZone.EU
+            minTimeBetweenSessionsMillis: 15000
         )
     )
 }
