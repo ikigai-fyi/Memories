@@ -34,20 +34,9 @@ struct MemoriesApp: App {
         }.onChange(of: scenePhase) { newPhase in
             switch newPhase {
             case .active:
-                self.onNewSession()
+                Amplitude.instance.track(eventType: AnalyticsEvents.openApp)
             default: ()
             }
         }
-    }
-    
-    func onNewSession() {
-        // FIXME Amplitude is supposed to have it's own session mechanism?
-        // https://www.docs.developers.amplitude.com/data/sdks/ios-swift/#user-sessions
-        let identify = Identify()
-        let now = DateFormatter.standard.string(from: Date())
-        identify.set(property: AnalyticsProperties.lastSeenDate, value: now)
-        identify.append(property: AnalyticsProperties.numTotalSessions, value: 1)
-        amplitude.identify(identify: identify)
-        amplitude.track(eventType: AnalyticsEvents.openApp)
     }
 }

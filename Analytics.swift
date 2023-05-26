@@ -8,12 +8,19 @@
 import Foundation
 import AmplitudeSwift
 
-let amplitude = Amplitude(
-    configuration: Configuration(
-        apiKey: Config.amplitudeApiKey,
-        serverZone: ServerZone.EU,
+extension Amplitude {
+    static var instance = Amplitude(
+        configuration: Configuration(
+            apiKey: Config.amplitudeApiKey,
+            logLevel: LogLevelEnum.DEBUG,
+            callback: { (event: BaseEvent, code: Int, message: String) -> Void in
+                print("eventcallback: \(event), code: \(code), message: \(message)")
+            },
+            flushEventsOnClose: true,
+            minTimeBetweenSessionsMillis: 15000
+        )
     )
-)
+}
 
 struct AnalyticsEvents {
     static let connectStrava = "connectStrava"
@@ -30,6 +37,4 @@ struct AnalyticsProperties {
     static let addedWidgets = "addedWidgets"
     static let signupDate = "signupDate"
     static let appInstallDate = "appInstallDate"
-    static let numTotalSessions = "numTotalSessions"
-    static let lastSeenDate = "lastSeenDate"
 }

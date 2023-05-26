@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Activity
+import AmplitudeSwift
 
 struct StravaLoginView: View {
     @EnvironmentObject var loginViewModel: StravaLoginViewModel
@@ -37,7 +38,7 @@ struct StravaLoginView: View {
             Spacer()
             
             Button {
-                amplitude.track(eventType: AnalyticsEvents.connectStrava)
+                Amplitude.instance.track(eventType: AnalyticsEvents.connectStrava)
                 
                 // Open Strava app if installed, if will be redirected to our app through a deeplink
                 if UIApplication.shared.canOpenURL(self.loginViewModel.getStravaMobileUrl()) {

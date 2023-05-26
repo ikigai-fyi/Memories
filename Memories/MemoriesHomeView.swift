@@ -9,6 +9,7 @@ import SwiftUI
 import WebKit
 import Activity
 import WidgetKit
+import AmplitudeSwift
 
 struct MemoriesHomeView: View {
     @EnvironmentObject var loginViewModel: StravaLoginViewModel
@@ -78,7 +79,7 @@ struct MemoriesHomeView: View {
                     // Add widget button -----------------------------------------------------
                     VStack{
                         Button {
-                            amplitude.track(eventType: AnalyticsEvents.addWidgetHelp)
+                            Amplitude.instance.track(eventType: AnalyticsEvents.addWidgetHelp)
                             isShowingWebView = true
                         } label: {
                             Label {
@@ -131,7 +132,7 @@ struct MemoriesHomeView: View {
     }
     
     func forceRefreshActivity() async {
-        amplitude.track(eventType: AnalyticsEvents.refreshActivities)
+        Amplitude.instance.track(eventType: AnalyticsEvents.refreshActivities)
         await activityViewModel.fetchAndStoreRandomActivity()
         activityViewModel.forceRefreshWidget()
     }
