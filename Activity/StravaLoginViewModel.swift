@@ -50,15 +50,9 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
             self.saveAthleteToUserDefault(athlete: athlete)
                 
             // analytics
-            let identify = Identify()
-            let uuid = athlete.uuid
+            amplitude.setUserId(userId: athlete.uuid)
             let now = DateFormatter.standard.string(from: Date())
-            
-            // @vincent, not sure you prefer using your own property of the Amplitude one?
-            amplitude.setUserId(userId: uuid)
-            identify.setOnce(property: AnalyticsProperties.userId, value: uuid)
-            
-            identify.setOnce(property: AnalyticsProperties.signupDate, value: now)
+            let identify = Identify().setOnce(property: AnalyticsProperties.signupDate, value: now)
             amplitude.identify(identify: identify)
         } catch {
             print(error)

@@ -25,7 +25,6 @@ struct AnalyticsEvents {
 }
     
 struct AnalyticsProperties {
-    static let userId = "userId"
     static let size = "size"
     static let activeWidget = "activeWidget"
     static let addedWidgets = "addedWidgets"
@@ -34,4 +33,3 @@ struct AnalyticsProperties {
     static let numTotalSessions = "numTotalSessions"
     static let lastSeenDate = "lastSeenDate"
 }
-

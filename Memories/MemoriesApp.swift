@@ -41,6 +41,8 @@ struct MemoriesApp: App {
     }
     
     func onNewSession() {
+        // FIXME Amplitude is supposed to have it's own session mechanism?
+        // https://www.docs.developers.amplitude.com/data/sdks/ios-swift/#user-sessions
         let identify = Identify()
         let now = DateFormatter.standard.string(from: Date())
         identify.set(property: AnalyticsProperties.lastSeenDate, value: now)
