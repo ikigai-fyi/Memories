@@ -102,25 +102,38 @@ struct MemoriesHomeView: View {
                     
                 }
                 .frame(maxWidth: .infinity, minHeight: proxy.size.height)
+                .onAppear{
+                    // First render
+                    self.syncActivity()
+                }
                 .onChange(of: scenePhase) { newPhase in
+                    // Subsequent renders
                     switch newPhase {
                     case .active:
-                        Task {
-                            // Fetch if there is no activity
-                            // If there is, it might come from the home view, or the widget, just load it
-                            await self.activityViewModel.loadActivityFromUserDefaultsOrFetch()
-                            activityViewModel.forceRefreshWidget()
-                        }
+                        self.syncActivity()
                     default: ()
                     }
                 }
             } // scrollview
             .refreshable {
-                amplitude.track(eventType: AnalyticsEvents.refreshActivities)
-                await activityViewModel.fetchAndStoreRandomActivity()
-                activityViewModel.forceRefreshWidget()
+                await self.forceRefreshActivity()
             }
         } // geometryreader
+    }
+    
+    func syncActivity() {
+        Task {
+            // Fetch if there is no activity
+            // If there is, it might come from the home view, or the widget, just load it
+            await self.activityViewModel.loadActivityFromUserDefaultsOrFetch()
+            activityViewModel.forceRefreshWidget()
+        }
+    }
+    
+    func forceRefreshActivity() async {
+        amplitude.track(eventType: AnalyticsEvents.refreshActivities)
+        await activityViewModel.fetchAndStoreRandomActivity()
+        activityViewModel.forceRefreshWidget()
     }
 }
 
