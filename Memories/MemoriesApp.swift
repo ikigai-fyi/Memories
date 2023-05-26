@@ -48,5 +48,6 @@ struct MemoriesApp: App {
         identify.set(property: AnalyticsProperties.lastSeenDate, value: now)
         identify.append(property: AnalyticsProperties.numTotalSessions, value: 1)
         amplitude.identify(identify: identify)
+        amplitude.track(eventType: AnalyticsEvents.openApp)
     }
 }
