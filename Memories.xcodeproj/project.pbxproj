@@ -940,7 +940,7 @@
 				2DE590AE2A052D8C0041EA4D /* prod */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = prod;
+			defaultConfigurationName = dev;
 		};
 		2DE590AF2A052D8C0041EA4D /* Build configuration list for PBXNativeTarget "Memories" */ = {
 			isa = XCConfigurationList;
@@ -949,7 +949,7 @@
 				2DE590B12A052D8C0041EA4D /* prod */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = prod;
+			defaultConfigurationName = dev;
 		};
 		E42106BE2A0ECB5300187A74 /* Build configuration list for PBXNativeTarget "Activity" */ = {
 			isa = XCConfigurationList;
@@ -958,7 +958,7 @@
 				E42106BD2A0ECB5300187A74 /* prod */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = prod;
+			defaultConfigurationName = dev;
 		};
 		E48E09932A05BF99002456E5 /* Build configuration list for PBXNativeTarget "MemoriesWidgetExtension" */ = {
 			isa = XCConfigurationList;
@@ -967,7 +967,7 @@
 				E48E09922A05BF99002456E5 /* prod */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = prod;
+			defaultConfigurationName = dev;
 		};
 /* End XCConfigurationList section */
 	};
