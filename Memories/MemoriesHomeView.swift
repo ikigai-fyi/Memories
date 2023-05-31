@@ -20,106 +20,113 @@ struct MemoriesHomeView: View {
     
     
     var body: some View {
-        GeometryReader { proxy in
-            ScrollView{
-                VStack {
+            VStack {
+                
+                
+                // Spacer -----------------------------------------------------
+                Spacer()
+                    .frame(minHeight: 10, idealHeight: 40, maxHeight: 80)
+                    .fixedSize()
+                
+                // Header ----------------------------------------------------
+                HStack(spacing: 12) {
+                    AsyncImage(url: URL(string: loginViewModel.athlete!.pictureUrl)) { image in
+                        image
+                    } placeholder: {
+                        Color.gray.opacity(0.1)
+                    }
+                    .frame(width: 82, height: 82)
+                    .cornerRadius(41)
                     
-                    
-                    // Spacer -----------------------------------------------------
-                    Spacer()
-                        .frame(minHeight: 10, idealHeight: 40, maxHeight: 80)
-                        .fixedSize()
-                    
-                    // Header ----------------------------------------------------
-                    HStack(spacing: 12) {
-                        AsyncImage(url: URL(string: loginViewModel.athlete!.pictureUrl)) { image in
-                            image
-                        } placeholder: {
-                            Color.gray.opacity(0.1)
-                        }
-                        .frame(width: 82, height: 82)
-                        .cornerRadius(41)
+                    VStack(alignment: .leading) {
+                        Text(loginViewModel.athlete!.firstName)
+                            .font(.headline).bold()
+                        Text(loginViewModel.athlete!.lastName)
+                            .font(.headline).bold()
                         
-                        VStack(alignment: .leading) {
-                            Text(loginViewModel.athlete!.firstName)
-                                .font(.headline).bold()
-                            Text(loginViewModel.athlete!.lastName)
-                                .font(.headline).bold()
-                            
-                        }
-                    }.frame(height: 100)
-                    
-                    // Spacer -----------------------------------------------------
-                    Spacer()
-                    
-                    VStack{
-                        // Activity widget -----------------------------------------------------
-                        if let activity = activityViewModel.activity {
-                            VStack {
-                                MemoriesWidgetView(activity: activity)
-                                    .frame(width: 292, height: 311)
-                                    .background(.gray.opacity(0.1))
-                                    .cornerRadius(12)
-                                    .shadow(radius: 12)
-                                
-                                Text("Your widget preview").font(.subheadline)
-                            }
-                        } else {
-                            ProgressView()
+                    }
+                }.frame(height: 100)
+                
+                // Spacer -----------------------------------------------------
+                Spacer()
+                
+                VStack{
+                    // Activity widget -----------------------------------------------------
+                    if let activity = activityViewModel.activity {
+                        VStack {
+                            MemoriesWidgetView(activity: activity)
                                 .frame(width: 292, height: 311)
                                 .background(.gray.opacity(0.1))
                                 .cornerRadius(12)
+                                .shadow(radius: 12)
                             
+                            HStack{
+                                Text("Your widget preview").font(.subheadline)
+
+
+                                Button {
+                                    Task {
+                                        await self.forceRefreshActivity()
+                                    }
+                                } label: {
+                                    Label {
+                                    } icon: {
+                                        Image(systemName: "arrow.clockwise")
+                                    }.font(.system(size: 12)).foregroundColor(.black)
+
+                                }
+                            }
                         }
-                    }.frame(height: 400)
-                    
-                    // Spacer -----------------------------------------------------
-                    Spacer()
-                    
-                    // Add widget button -----------------------------------------------------
-                    VStack{
-                        Button {
-                            Amplitude.instance.track(eventType: AnalyticsEvents.addWidgetHelp)
-                            isShowingWebView = true
-                        } label: {
-                            Label {
-                                Text("Add widget")
-                                
-                                    .bold()
-                            } icon: {
-                                Image(systemName: "plus.circle.fill")
-                            }.padding()
-                        }
-                        .frame(maxWidth: .infinity)
-                        .background(.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(35)
-                        .sheet(isPresented: $isShowingWebView) {
-                            SheetView(isShowingWebView: self.$isShowingWebView)
+                    } else {
+                        ProgressView()
+                            .frame(width: 292, height: 311)
+                            .background(.gray.opacity(0.1))
+                            .cornerRadius(12)
+                        
+                    }
+                }.frame(height: 400)
+                
+                // Spacer -----------------------------------------------------
+                Spacer()
+                
+                // Add widget button -----------------------------------------------------
+                VStack{
+                    Button {
+                        Amplitude.instance.track(eventType: AnalyticsEvents.addWidgetHelp)
+                        isShowingWebView = true
+                    } label: {
+                        Label {
+                            Text("Add widget")
                             
-                        }
+                                .bold()
+                        } icon: {
+                            Image(systemName: "plus.circle.fill")
+                        }.padding()
                     }
-                    .padding()
-                    
-                }
-                .frame(maxWidth: .infinity, minHeight: proxy.size.height)
-                .onAppear{
-                    // First render
-                    self.syncActivity()
-                }
-                .onChange(of: scenePhase) { newPhase in
-                    // Subsequent renders
-                    switch newPhase {
-                    case .active:
-                        self.syncActivity()
-                    default: ()
+                    .frame(maxWidth: .infinity)
+                    .background(.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(35)
+                    .sheet(isPresented: $isShowingWebView) {
+                        SheetView(isShowingWebView: self.$isShowingWebView)
+                        
                     }
                 }
-            } // scrollview
-            .refreshable {
-                await self.forceRefreshActivity()
+                .padding()
+                
             }
-        } // geometryreader
+            .onAppear{
+                // First render
+                self.syncActivity()
+            }
+            .onChange(of: scenePhase) { newPhase in
+                // Subsequent renders
+                switch newPhase {
+                case .active:
+                    self.syncActivity()
+                default: ()
+                }
+            }
     }
     
     func syncActivity() {
