@@ -15,9 +15,12 @@ let userDefaultUnseenWidgetForceRefresh = "unseen_widget_force_refresh"
 
 public class ActivityViewModel: NSObject, ObservableObject {
     @Published public var activity: Activity? = getActivityFromUserDefault()
+    @Published public var isFetching: Bool = false
+
     
     @MainActor
     public func fetchAndStoreRandomActivity() async {
+        self.isFetching = true
         let url = URL(string: "\(Config.backendURL)/rest/activities/random")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -38,8 +41,11 @@ public class ActivityViewModel: NSObject, ObservableObject {
             } catch {
                 print(error)
             }
+            
+            self.isFetching = false
         } catch {
             print(error)
+            self.isFetching = false
         }
     }
     

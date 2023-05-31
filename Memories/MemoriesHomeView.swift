@@ -17,7 +17,10 @@ struct MemoriesHomeView: View {
     @Environment(\.scenePhase) var scenePhase
     
     @State private var isShowingWebView: Bool = false
-    
+
+    var refreshButtonColor: Color {
+        return activityViewModel.isFetching ? .gray : .black
+    }
     
     var body: some View {
             VStack {
@@ -52,31 +55,14 @@ struct MemoriesHomeView: View {
                 
                 VStack{
                     // Activity widget -----------------------------------------------------
-                    if let activity = activityViewModel.activity {
-                        VStack {
+                    if !activityViewModel.isFetching,
+                       let activity = activityViewModel.activity {
                             MemoriesWidgetView(activity: activity)
                                 .frame(width: 292, height: 311)
                                 .background(.gray.opacity(0.1))
                                 .cornerRadius(12)
                                 .shadow(radius: 12)
                             
-                            HStack{
-                                Text("Your widget preview").font(.subheadline)
-
-
-                                Button {
-                                    Task {
-                                        await self.forceRefreshActivity()
-                                    }
-                                } label: {
-                                    Label {
-                                    } icon: {
-                                        Image(systemName: "arrow.clockwise")
-                                    }.font(.system(size: 12)).foregroundColor(.black)
-
-                                }
-                            }
-                        }
                     } else {
                         ProgressView()
                             .frame(width: 292, height: 311)
@@ -84,6 +70,23 @@ struct MemoriesHomeView: View {
                             .cornerRadius(12)
                         
                     }
+                    HStack{
+                        Text("Your widget preview").font(.subheadline)
+
+                        Button {
+                            print("Button tapped")
+                            print("VM \(activityViewModel.isFetching)")
+                            Task {
+                                await self.forceRefreshActivity()
+                            }
+                        } label: {
+                            Label {
+                            } icon: {
+                                Image(systemName: "arrow.clockwise")
+                            }.font(.system(size: 12)).foregroundColor(refreshButtonColor)
+                        }.disabled(activityViewModel.isFetching)
+                    
+                }
                 }.frame(height: 400)
                 
                 // Spacer -----------------------------------------------------
