@@ -11,11 +11,28 @@ import WidgetKit
 import AmplitudeSwift
 
 let userDefaultAthlete = "athlete"
+let requiredScope = "read,activity:read_all,profile:read_all"
 
 @MainActor
 public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentationContextProviding {
     @Published public var isLoading: Bool = false
     @Published public var athlete: Athlete? = getAthleteFromUserDefault()
+    
+    public func startWebOauth() {
+        let session = ASWebAuthenticationSession(url: self.getStravaWebUrl(), callbackURLScheme: "memories")
+        { callbackURL, error in
+            self.isLoading = false
+            guard let callbackURL = callbackURL else { return }
+            Task {
+                await self.handleOauthRedirect(url: callbackURL)
+            }
+        }
+        
+        session.presentationContextProvider = self
+        session.prefersEphemeralWebBrowserSession = true
+        self.isLoading = true
+        session.start()
+    }
 
     public func handleOauthRedirect(url: URL) async {
         if let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
@@ -29,6 +46,11 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
     }
     
     public func loginWithStrava(code: String, scope: String) async {
+        if scope != requiredScope {
+            print("Scope restricted, error to handle")
+            return
+        }
+        
         let url = URL(string: "\(Config.backendURL)/rest/auth/login/strava")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

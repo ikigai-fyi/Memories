@@ -41,10 +41,11 @@ struct StravaLoginView: View {
                 Amplitude.instance.track(eventType: AnalyticsEvents.connectStrava)
                 
                 // Open Strava app if installed, if will be redirected to our app through a deeplink
+                // UIApplication can only be used in a UIKit context
                 if UIApplication.shared.canOpenURL(self.loginViewModel.getStravaMobileUrl()) {
                     UIApplication.shared.open(self.loginViewModel.getStravaMobileUrl(), options: [:])
                 } else {
-                    print("Install Strava app and login")
+                    self.loginViewModel.startWebOauth()
                 }
             } label: {
                 Text("Connect with Strava")
