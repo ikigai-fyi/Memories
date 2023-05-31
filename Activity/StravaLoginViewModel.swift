@@ -16,7 +16,7 @@ let userDefaultAthlete = "athlete"
 public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentationContextProviding {
     @Published public var isLoading: Bool = false
     @Published public var athlete: Athlete? = getAthleteFromUserDefault()
-    
+
     public func handleOauthRedirect(url: URL) async {
         if let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
            let code = components.queryItems?.first(where: { $0.name == "code" }),
@@ -100,6 +100,20 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
         }
         
         return nil
+    }
+    
+    public static func getActivityFromUserDefault() -> Activity? {
+        if let userDefaults = UserDefaults(suiteName: appGroupName) {
+            if let data = userDefaults.data(forKey: userDefaultActivity) {
+                return try? JSONDecoder().decode(Activity.self, from: data)
+            }
+        }
+        
+        return nil
+    }
+    
+    public static func isLoggedIn() -> Bool {
+        return !(self.getAthleteFromUserDefault() == nil)
     }
     
     func saveAthleteToUserDefault(athlete: Athlete) {

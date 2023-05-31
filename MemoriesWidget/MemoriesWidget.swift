@@ -12,8 +12,9 @@ import Activity
 struct Provider: TimelineProvider {
     private let viewModel = ActivityViewModel()
     
-    func placeholder(in context: Context) -> SimpleEntry {
-        return SimpleEntry(date: Date())
+    @MainActor func placeholder(in context: Context) -> SimpleEntry {
+        print("Displaying placeholder")
+        return SimpleEntry(date: Date(), loggedIn: StravaLoginViewModel.isLoggedIn())
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
@@ -21,22 +22,25 @@ struct Provider: TimelineProvider {
         completion(entry)
     }
 
-    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        // Home screen was forced refresh, update the widget with user defaults only
-        if ActivityViewModel.getUnseenWidgetForceRefreshFromUserDefault() {
-            let activity = ActivityViewModel.getActivityFromUserDefault()
-            viewModel.forceRefreshWidgetProcessed()
-            completion(buildTimeline(activity: activity))
-        } else {
-            Task {
-                await viewModel.fetchAndStoreRandomActivity()
-                completion(buildTimeline(activity: viewModel.activity))
+    @MainActor func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
+        let loggedIn = StravaLoginViewModel.isLoggedIn()
+        if loggedIn {
+            // Home screen was forced refresh, update the widget with user defaults only
+            if ActivityViewModel.getUnseenWidgetForceRefreshFromUserDefault() {
+                let activity = ActivityViewModel.getActivityFromUserDefault()
+                viewModel.forceRefreshWidgetProcessed()
+                completion(buildTimeline(loggedIn: loggedIn, activity: activity))
+            } else {
+                Task {
+                    await viewModel.fetchAndStoreRandomActivity()
+                    completion(buildTimeline(loggedIn: loggedIn, activity: viewModel.activity))
+                }
             }
         }
     }
     
-    private func buildTimeline(activity: Activity?) -> Timeline<SimpleEntry> {
-        let entries = [SimpleEntry(date: Date(), activity: activity)]
+    private func buildTimeline(loggedIn: Bool, activity: Activity?) -> Timeline<SimpleEntry> {
+        let entries = [SimpleEntry(date: Date(), loggedIn: loggedIn, activity: activity)]
         let nextUpdate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
         return Timeline(entries: entries, policy: .after(nextUpdate))
     }
@@ -44,10 +48,12 @@ struct Provider: TimelineProvider {
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
+    let loggedIn: Bool
     let activity: Activity?
     
-    init(date: Date, activity: Activity? = nil) {
+    init(date: Date, loggedIn: Bool = false,  activity: Activity? = nil) {
         self.date = date
+        self.loggedIn = loggedIn
         self.activity = activity
     }
 }
@@ -56,7 +62,7 @@ struct MemoriesWidgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        MemoriesWidgetView(activity: entry.activity)
+        MemoriesWidgetView(loggedIn: entry.loggedIn, activity: entry.activity)
     }
 }
 

@@ -57,7 +57,7 @@ struct MemoriesHomeView: View {
                     // Activity widget -----------------------------------------------------
                     if !activityViewModel.isFetching,
                        let activity = activityViewModel.activity {
-                            MemoriesWidgetView(activity: activity)
+                            MemoriesWidgetView(loggedIn: true, activity: activity)
                                 .frame(width: 292, height: 311)
                                 .background(.gray.opacity(0.1))
                                 .cornerRadius(12)
