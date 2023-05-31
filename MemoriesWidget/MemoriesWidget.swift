@@ -67,8 +67,6 @@ struct MemoriesWidget: Widget {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             MemoriesWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
     }
 }
 
