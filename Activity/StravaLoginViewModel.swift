@@ -11,7 +11,6 @@ import WidgetKit
 import AmplitudeSwift
 
 let userDefaultAthlete = "athlete"
-let requiredScope = "read,activity:read_all,profile:read_all"
 
 @MainActor
 public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentationContextProviding {
@@ -46,7 +45,7 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
     }
     
     public func loginWithStrava(code: String, scope: String) async {
-        if scope != requiredScope {
+        if !(scope.contains("activity:read_all") && scope.contains("profile:read_all")) {
             print("Scope restricted, error to handle")
             return
         }
