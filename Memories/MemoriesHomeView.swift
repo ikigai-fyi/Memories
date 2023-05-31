@@ -74,8 +74,6 @@ struct MemoriesHomeView: View {
                         Text("Your widget preview").font(.subheadline)
 
                         Button {
-                            print("Button tapped")
-                            print("VM \(activityViewModel.isFetching)")
                             Task {
                                 await self.forceRefreshActivity()
                             }
