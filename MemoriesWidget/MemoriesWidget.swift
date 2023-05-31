@@ -12,38 +12,38 @@ import Activity
 struct Provider: TimelineProvider {
     private let viewModel = ActivityViewModel()
     
-    @MainActor func placeholder(in context: Context) -> SimpleEntry {
-        print("Displaying placeholder")
-        return SimpleEntry(date: Date(), loggedIn: StravaLoginViewModel.isLoggedIn())
+    func placeholder(in context: Context) -> SimpleEntry {
+        return SimpleEntry(date: Date())
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date())
-        completion(entry)
+    @MainActor func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
+        let loggedIn = StravaLoginViewModel.isLoggedIn()
+        let activity = ActivityViewModel.getActivityFromUserDefault()
+        completion(SimpleEntry(date: Date(), loggedIn: loggedIn, activity: activity))
     }
 
     @MainActor func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         let loggedIn = StravaLoginViewModel.isLoggedIn()
-        if loggedIn {
-            // Home screen was forced refresh, update the widget with user defaults only
-            if ActivityViewModel.getUnseenWidgetForceRefreshFromUserDefault() {
-                let activity = ActivityViewModel.getActivityFromUserDefault()
-                viewModel.forceRefreshWidgetProcessed()
-                completion(buildTimeline(loggedIn: loggedIn, activity: activity))
-            } else {
-                Task {
-                    await viewModel.fetchAndStoreRandomActivity()
-                    completion(buildTimeline(loggedIn: loggedIn, activity: viewModel.activity))
-                }
+        
+        // Home screen was forced refresh, update the widget with user defaults only
+        if ActivityViewModel.getUnseenWidgetForceRefreshFromUserDefault() {
+            let activity = ActivityViewModel.getActivityFromUserDefault()
+            viewModel.forceRefreshWidgetProcessed()
+            completion(buildTimeline(loggedIn: loggedIn, activity: activity))
+        } else {
+            Task {
+                await viewModel.fetchAndStoreRandomActivity()
+                completion(buildTimeline(loggedIn: loggedIn, activity: viewModel.activity))
             }
         }
     }
     
-    private func buildTimeline(loggedIn: Bool, activity: Activity?) -> Timeline<SimpleEntry> {
+    @MainActor private func buildTimeline(loggedIn: Bool, activity: Activity?) -> Timeline<SimpleEntry> {
         let entries = [SimpleEntry(date: Date(), loggedIn: loggedIn, activity: activity)]
         let nextUpdate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
         return Timeline(entries: entries, policy: .after(nextUpdate))
     }
+    
 }
 
 struct SimpleEntry: TimelineEntry {

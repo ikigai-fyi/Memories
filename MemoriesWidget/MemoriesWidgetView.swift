@@ -87,7 +87,6 @@ struct MemoriesWidgetView: View {
         // handles condition on activity
         Group {
             if let activity = activity {
-                    
                     // handles overlay
                     ZStack{
                         // image container
