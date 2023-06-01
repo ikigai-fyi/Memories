@@ -73,9 +73,9 @@ struct MemoriesHomeView: View {
                        let activity = activityViewModel.activity {
                         MemoriesWidgetView(loggedIn: true, activity: activity)
                             .frame(width: 292, height: 311)
-                            .background(.gray.opacity(0.1))
-                            .cornerRadius(12)
-                            .shadow(radius: 12)
+                            .background(.gray.opacity(0.05))
+                            .cornerRadius(20)
+                            .shadow(radius: 18)
                         
                         
                     } else {
@@ -125,12 +125,14 @@ struct MemoriesHomeView: View {
                     .background(.blue)
                     .foregroundColor(.white)
                     .cornerRadius(35)
+                    .padding()
                     .sheet(isPresented: $isShowingWebView) {
                         SheetView(isShowingWebView: self.$isShowingWebView)
                         
                     }
                 }
                 .padding()
+                .padding([.leading, .trailing], 18)
                 
             }.zIndex(1)
             .onAppear{
