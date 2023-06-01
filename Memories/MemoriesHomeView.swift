@@ -40,13 +40,20 @@ struct MemoriesHomeView: View {
                 
                 // Header ----------------------------------------------------
                 HStack(spacing: 12) {
-                    AsyncImage(url: URL(string: loginViewModel.athlete!.pictureUrl)) { image in
-                        image
-                    } placeholder: {
-                        Color.gray.opacity(0.1)
+                    ZStack{
+                        AsyncImage(url: URL(string: loginViewModel.athlete!.pictureUrl)) { image in
+                            image
+                        } placeholder: {
+                            Color.gray.opacity(0.1)
+                        }
+                        .frame(width: 54, height: 54)
+                        .cornerRadius(27)
+                        .zIndex(1)
+                        
+                        StravaIconView()
+                        .zIndex(10)
+                        
                     }
-                    .frame(width: 82, height: 82)
-                    .cornerRadius(41)
                     
                     VStack(alignment: .leading) {
                         Text(loginViewModel.athlete!.firstName)
@@ -168,6 +175,22 @@ struct MemoriesConfettiView : View {
             Text("").confettiCannon(counter: $counter, num:1, confettis: [.text("👌"), .text("🚀"), .text("🤩"), .text("🔥")], confettiSize: 20, repetitions: 30, repetitionInterval: 0.1)
             Spacer()
         }
+    }
+}
+
+struct StravaIconView : View {
+    var body: some View{
+        HStack{
+            Spacer()
+            VStack{
+                Spacer()
+                Image("Strava")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 18, height: 18)
+                .cornerRadius(4)
+            }
+        }.frame(width: 54, height: 54)
     }
 }
 
