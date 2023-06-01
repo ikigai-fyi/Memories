@@ -10,22 +10,29 @@ import WebKit
 import Activity
 import WidgetKit
 import AmplitudeSwift
+import ConfettiSwiftUI
 
 struct MemoriesHomeView: View {
     @EnvironmentObject var loginViewModel: StravaLoginViewModel
     @EnvironmentObject var activityViewModel: ActivityViewModel
     @Environment(\.scenePhase) var scenePhase
     
+    @State private var counter: Int = 0
+    
     @State private var isShowingWebView: Bool = false
-
+    
     var refreshButtonColor: Color {
         return activityViewModel.isFetching ? .gray : .black
     }
     
     var body: some View {
+        
+        ZStack {
+            
+            MemoriesConfettiView(counter: $counter)
+                .zIndex(10)
+            
             VStack {
-                
-                
                 // Spacer -----------------------------------------------------
                 Spacer()
                     .frame(minHeight: 10, idealHeight: 40, maxHeight: 80)
@@ -53,16 +60,17 @@ struct MemoriesHomeView: View {
                 // Spacer -----------------------------------------------------
                 Spacer()
                 
-                VStack{
+                VStack {
                     // Activity widget -----------------------------------------------------
                     if !activityViewModel.isFetching,
                        let activity = activityViewModel.activity {
-                            MemoriesWidgetView(loggedIn: true, activity: activity)
-                                .frame(width: 292, height: 311)
-                                .background(.gray.opacity(0.1))
-                                .cornerRadius(12)
-                                .shadow(radius: 12)
-                            
+                        MemoriesWidgetView(loggedIn: true, activity: activity)
+                            .frame(width: 292, height: 311)
+                            .background(.gray.opacity(0.1))
+                            .cornerRadius(12)
+                            .shadow(radius: 12)
+                        
+                        
                     } else {
                         ProgressView()
                             .frame(width: 292, height: 311)
@@ -70,21 +78,23 @@ struct MemoriesHomeView: View {
                             .cornerRadius(12)
                         
                     }
-                    HStack{
-                        Text("Your widget preview").font(.subheadline)
-
-                        Button {
-                            Task {
-                                await self.forceRefreshActivity()
-                            }
-                        } label: {
-                            Label {
-                            } icon: {
-                                Image(systemName: "arrow.clockwise")
-                            }.font(.system(size: 12)).foregroundColor(refreshButtonColor)
-                        }.disabled(activityViewModel.isFetching)
                     
-                }
+                    Button {
+                        Task {
+                            await self.forceRefreshActivity()
+                        }
+                    } label: {
+                        Label {
+                            Text("Your widget preview")
+                                .font(.subheadline)
+                        }  icon: {
+                            Image(systemName: "arrow.clockwise")
+                        }.font(.system(size: 12)).foregroundColor(refreshButtonColor)
+                    }.disabled(activityViewModel.isFetching)
+                        
+                    
+                    
+                    
                 }.frame(height: 400)
                 
                 // Spacer -----------------------------------------------------
@@ -115,7 +125,7 @@ struct MemoriesHomeView: View {
                 }
                 .padding()
                 
-            }
+            }.zIndex(1)
             .onAppear{
                 // First render
                 self.syncActivity()
@@ -128,6 +138,7 @@ struct MemoriesHomeView: View {
                 default: ()
                 }
             }
+        }
     }
     
     func syncActivity() {
@@ -142,10 +153,23 @@ struct MemoriesHomeView: View {
     func forceRefreshActivity() async {
         Amplitude.instance.track(eventType: AnalyticsEvents.refreshActivities)
         await activityViewModel.fetchAndStoreRandomActivity()
+        counter += 1
         activityViewModel.forceRefreshWidget()
     }
 }
 
+
+struct MemoriesConfettiView : View {
+    @Binding var counter: Int
+
+    var body: some View{
+        VStack(alignment: .center) {
+            Spacer()
+            Text("").confettiCannon(counter: $counter, num:1, confettis: [.text("👌"), .text("🚀"), .text("🤩"), .text("🔥")], confettiSize: 20, repetitions: 30, repetitionInterval: 0.1)
+            Spacer()
+        }
+    }
+}
 
 struct SheetView : View {
     @Binding var isShowingWebView: Bool
