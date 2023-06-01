@@ -27,127 +27,140 @@ struct MemoriesHomeView: View {
     
     var body: some View {
         
-        ZStack {
-            
-            MemoriesConfettiView(counter: $counter)
-                .zIndex(10)
-            
-            VStack {
-                // Spacer -----------------------------------------------------
-                Spacer()
-                    .frame(minHeight: 10, idealHeight: 40, maxHeight: 80)
-                    .fixedSize()
-                
-                // Header ----------------------------------------------------
-                HStack(spacing: 12) {
-                    ZStack{
-                        AsyncImage(url: URL(string: loginViewModel.athlete!.pictureUrl)) { image in
-                            image
-                        } placeholder: {
-                            Color.gray.opacity(0.1)
-                        }
-                        .frame(width: 54, height: 54)
-                        .cornerRadius(27)
-                        .zIndex(1)
-                        
-                        StravaIconView()
+        GeometryReader { proxy in
+            ScrollView{
+                ZStack {
+                    
+                    MemoriesConfettiView(counter: $counter)
                         .zIndex(10)
-                        
-                    }
                     
-                    VStack(alignment: .leading) {
-                        Text(loginViewModel.athlete!.firstName)
-                            .font(.headline).bold()
-                        Text(loginViewModel.athlete!.lastName)
-                            .font(.headline).bold()
+                    // Content view
+                    VStack {
                         
-                    }
-                }.frame(height: 100)
-                
-                // Spacer -----------------------------------------------------
-                Spacer()
-                
-                VStack {
-                    // Activity widget -----------------------------------------------------
-                    if !activityViewModel.isFetching,
-                       let activity = activityViewModel.activity {
-                        MemoriesWidgetView(loggedIn: true, activity: activity)
-                            .frame(width: 292, height: 311)
-                            .background(.gray.opacity(0.05))
-                            .cornerRadius(20)
-                            .shadow(radius: 18)
+                        // Spacer -----------------------------------------------------
+                        Spacer()
+                            .frame(minHeight: 10, idealHeight: 40, maxHeight: 80)
+                            .fixedSize()
                         
-                        
-                    } else {
-                        ProgressView()
-                            .frame(width: 292, height: 311)
-                            .background(.gray.opacity(0.1))
-                            .cornerRadius(12)
-                        
-                    }
-                    
-                    Button {
-                        Task {
-                            await self.forceRefreshActivity()
-                        }
-                    } label: {
-                        Label {
-                            Text("Your widget preview")
-                                .font(.subheadline)
-                        }  icon: {
-                            Image(systemName: "arrow.clockwise")
-                        }.font(.system(size: 12)).foregroundColor(refreshButtonColor)
-                    }.disabled(activityViewModel.isFetching)
-                        
-                    
-                    
-                    
-                }.frame(height: 400)
-                
-                // Spacer -----------------------------------------------------
-                Spacer()
-                
-                // Add widget button -----------------------------------------------------
-                VStack{
-                    Button {
-                        Amplitude.instance.track(eventType: AnalyticsEvents.addWidgetHelp)
-                        isShowingWebView = true
-                    } label: {
-                        Label {
-                            Text("Add widget")
+                        // Header -----------------------------------------------------
+                        HStack(spacing: 12) {
                             
-                                .bold()
-                        } icon: {
-                            Image(systemName: "plus.circle.fill")
-                        }.padding()
-                    }
-                    .frame(maxWidth: .infinity)
-                    .background(.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(35)
-                    .padding()
-                    .sheet(isPresented: $isShowingWebView) {
-                        SheetView(isShowingWebView: self.$isShowingWebView)
+                            // Picture ------------------------------------------------
+                            ZStack{
+                                AsyncImage(url: URL(string: loginViewModel.athlete!.pictureUrl)) { image in
+                                    image
+                                } placeholder: {
+                                    Color.gray.opacity(0.1)
+                                }
+                                .frame(width: 54, height: 54)
+                                .cornerRadius(27)
+                                .zIndex(1)
+                                
+                                StravaIconView()
+                                    .zIndex(10)
+                                
+                            }
+                            
+                            // Name ---------------------------------------------------
+                            VStack(alignment: .leading) {
+                                Text(loginViewModel.athlete!.firstName)
+                                    .font(.headline).bold()
+                                Text(loginViewModel.athlete!.lastName)
+                                    .font(.headline).bold()
+                                
+                            }
+                        }.frame(height: 100)
                         
+                        // Spacer -----------------------------------------------------
+                        Spacer()
+                        
+                        VStack {
+                            // Activity widget -----------------------------------------------------
+                            if !activityViewModel.isFetching,
+                               let activity = activityViewModel.activity {
+                                MemoriesWidgetView(loggedIn: true, activity: activity)
+                                    .frame(width: 292, height: 311)
+                                    .background(.gray.opacity(0.05))
+                                    .cornerRadius(20)
+                                    .shadow(radius: 18)
+                                
+                            
+                            // Loading view ------------------------------------------------
+                            } else {
+                                ProgressView()
+                                    .frame(width: 292, height: 311)
+                                    .background(.gray.opacity(0.1))
+                                    .cornerRadius(12)
+                                
+                            }
+                            
+                            // Refresh widget ------------------------------------------------
+                            Button {
+                                Task {
+                                    await self.forceRefreshActivity()
+                                }
+                            } label: {
+                                Label {
+                                    Text("Your widget preview")
+                                        .font(.subheadline)
+                                }  icon: {
+                                    Image(systemName: "arrow.clockwise")
+                                }.font(.system(size: 12)).foregroundColor(refreshButtonColor)
+                            }.disabled(activityViewModel.isFetching)
+                            
+                        }.frame(height: 400)
+                        
+                        // Spacer -----------------------------------------------------
+                        Spacer()
+                        
+                        // Add widget button -----------------------------------------------------
+                        VStack{
+                            Button {
+                                Amplitude.instance.track(eventType: AnalyticsEvents.addWidgetHelp)
+                                isShowingWebView = true
+                            } label: {
+                                Label {
+                                    Text("Add widget")
+                                    
+                                        .bold()
+                                } icon: {
+                                    Image(systemName: "plus.circle.fill")
+                                }.padding()
+                            }
+                            .frame(maxWidth: .infinity)
+                            .background(.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(35)
+                            .padding()
+                            .sheet(isPresented: $isShowingWebView) {
+                                SheetView(isShowingWebView: self.$isShowingWebView)
+                                
+                            }
+                        }.padding([.leading, .trailing], 18)
+
+                        Spacer()
+                            .frame(minHeight: 10, idealHeight: 18, maxHeight: 36)
+                            .fixedSize()
+
+                        
+                        
+                    }.zIndex(1) // VStack content view
+                    .frame(maxWidth: .infinity, minHeight: proxy.size.height) // fix height scrollview
+                    .onAppear{
+                        // First render
+                        self.syncActivity()
+                    }
+                    .onChange(of: scenePhase) { newPhase in
+                        // Subsequent renders
+                        switch newPhase {
+                        case .active:
+                            self.syncActivity()
+                        default: ()
+                        }
                     }
                 }
-                .padding()
-                .padding([.leading, .trailing], 18)
-                
-            }.zIndex(1)
-            .onAppear{
-                // First render
-                self.syncActivity()
-            }
-            .onChange(of: scenePhase) { newPhase in
-                // Subsequent renders
-                switch newPhase {
-                case .active:
-                    self.syncActivity()
-                default: ()
-                }
-            }
-        }
+            } // ScrollView
+        } // GeometryView
     }
     
     func syncActivity() {
@@ -170,7 +183,7 @@ struct MemoriesHomeView: View {
 
 struct MemoriesConfettiView : View {
     @Binding var counter: Int
-
+    
     var body: some View{
         VStack(alignment: .center) {
             Spacer()
@@ -187,10 +200,10 @@ struct StravaIconView : View {
             VStack{
                 Spacer()
                 Image("Strava")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 18, height: 18)
-                .cornerRadius(4)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 18, height: 18)
+                    .cornerRadius(4)
             }
         }.frame(width: 54, height: 54)
     }
