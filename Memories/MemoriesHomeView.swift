@@ -17,7 +17,11 @@ struct MemoriesHomeView: View {
     @EnvironmentObject var activityViewModel: ActivityViewModel
     @Environment(\.scenePhase) var scenePhase
     
-    @State private var counter: Int = 0
+    @State private var runConfetti: Int = 0
+    @State private var bikeConfetti: Int = 0
+    @State private var hikeConfetti: Int = 0
+    @State private var skiConfetti: Int = 0
+    @State private var otherConfetti: Int = 0
     
     @State private var isShowingWebView: Bool = false
     
@@ -31,7 +35,7 @@ struct MemoriesHomeView: View {
             ScrollView{
                 ZStack {
                     
-                    MemoriesConfettiView(counter: $counter)
+                    MemoriesConfettiView(runConfetti: $runConfetti, bikeConfetti: $bikeConfetti, hikeConfetti: $hikeConfetti, skiConfetti: $skiConfetti, otherConfetti: $otherConfetti)
                         .zIndex(10)
                     
                     // Content view
@@ -84,8 +88,8 @@ struct MemoriesHomeView: View {
                                     .cornerRadius(20)
                                     .shadow(radius: 18)
                                 
-                            
-                            // Loading view ------------------------------------------------
+                                
+                                // Loading view ------------------------------------------------
                             } else {
                                 ProgressView()
                                     .frame(width: 292, height: 311)
@@ -120,9 +124,7 @@ struct MemoriesHomeView: View {
                                 isShowingWebView = true
                             } label: {
                                 Label {
-                                    Text("Add widget")
-                                    
-                                        .bold()
+                                    Text("Add widget").bold()
                                 } icon: {
                                     Image(systemName: "plus.circle.fill")
                                 }.padding()
@@ -137,27 +139,27 @@ struct MemoriesHomeView: View {
                                 
                             }
                         }.padding([.leading, .trailing], 18)
-
+                        
                         Spacer()
                             .frame(minHeight: 10, idealHeight: 18, maxHeight: 36)
                             .fixedSize()
-
+                        
                         
                         
                     }.zIndex(1) // VStack content view
-                    .frame(maxWidth: .infinity, minHeight: proxy.size.height) // fix height scrollview
-                    .onAppear{
-                        // First render
-                        self.syncActivity()
-                    }
-                    .onChange(of: scenePhase) { newPhase in
-                        // Subsequent renders
-                        switch newPhase {
-                        case .active:
+                        .frame(maxWidth: .infinity, minHeight: proxy.size.height) // fix height scrollview
+                        .onAppear{
+                            // First render
                             self.syncActivity()
-                        default: ()
                         }
-                    }
+                        .onChange(of: scenePhase) { newPhase in
+                            // Subsequent renders
+                            switch newPhase {
+                            case .active:
+                                self.syncActivity()
+                            default: ()
+                            }
+                        }
                 }
             } // ScrollView
         } // GeometryView
@@ -175,19 +177,49 @@ struct MemoriesHomeView: View {
     func forceRefreshActivity() async {
         Amplitude.instance.track(eventType: AnalyticsEvents.refreshActivities)
         await activityViewModel.fetchAndStoreRandomActivity()
-        counter += 1
         activityViewModel.forceRefreshWidget()
+        self.triggerConfettis()
+    }
+    
+    private func triggerConfettis() {
+        switch self.activityViewModel.activity?.getSportType() {
+        case "Run": self.runConfetti += 1
+        case "Ride": self.bikeConfetti += 1
+        case "AlpineSki", "NordicSki": self.skiConfetti += 1
+        case "Hike": self.hikeConfetti += 1
+        case nil: ()
+        default: self.otherConfetti += 1
+        }
     }
 }
 
 
 struct MemoriesConfettiView : View {
-    @Binding var counter: Int
+    @Binding var runConfetti: Int
+    @Binding var bikeConfetti: Int
+    @Binding var hikeConfetti: Int
+    @Binding var skiConfetti: Int
+    @Binding var otherConfetti: Int
+    
+    private func ConfettiView(binding: Binding<Int>, specificEmojis: [String]) -> some View {
+        return Text("").confettiCannon(
+            counter: binding,
+            num: 1,
+            confettis: (specificEmojis + ["🥇", "🔥"]).map {.text($0)},
+            confettiSize: 20,
+            repetitions: 30,
+            repetitionInterval: 0.1
+        )
+    }
     
     var body: some View{
         VStack(alignment: .center) {
             Spacer()
-            Text("").confettiCannon(counter: $counter, num:1, confettis: [.text("👌"), .text("🚀"), .text("🤩"), .text("🔥")], confettiSize: 20, repetitions: 30, repetitionInterval: 0.1)
+            ConfettiView(binding: $runConfetti, specificEmojis: ["🏃‍♀️", "🏃", "🏃‍♂️", "👟"])
+            ConfettiView(binding: $bikeConfetti, specificEmojis: ["🚴‍♀️", "🚴", "🚴‍♂️", "🚵‍♀️", "🚵", "🚵‍♂️"])
+            ConfettiView(binding: $hikeConfetti, specificEmojis: ["🥾", "🏔️"])
+            ConfettiView(binding: $skiConfetti, specificEmojis: ["⛷️", "🎿"])
+            ConfettiView(binding: $otherConfetti, specificEmojis: ["🏃‍♀️", "🚴‍♀️", "⛷️", "🏋️‍♀️"])
             Spacer()
         }
     }

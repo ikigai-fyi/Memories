@@ -54,17 +54,6 @@ public struct Activity : Codable {
     public func getTotalElevationGainInMeters() -> Int? {
         return totalElevationGainInMeters
     }
-    
-    public var emojis: [String] {
-        switch self.sportType {
-        case "Run": return ["🏃‍♀️", "🏃"]
-        case "Ride": return ["🚴‍♀️", "🚴"]
-        case "EBikeRide": return ["🚴‍♀️", "🚴", "⚡️"]
-        case "AlpineSki", "NordicSki": return ["⛷️"]
-        case "Hike": return ["🥾", "🏔️"]
-        default: return ["🏃‍♀️", "🚴‍♀️", "⛷️"]
-        }
-    }
 }
 
 
