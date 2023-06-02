@@ -137,7 +137,12 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
         return !(self.getAthleteFromUserDefault() == nil)
     }
     
-    func saveAthleteToUserDefault(athlete: Athlete) {
+    public func logout() {
+        self.athlete = nil
+        self.saveAthleteToUserDefault(athlete: nil)
+    }
+    
+    func saveAthleteToUserDefault(athlete: Athlete?) {
         if let userDefaults = UserDefaults(suiteName: appGroupName) {
             let athleteData = try! JSONEncoder().encode(athlete)
             userDefaults.set(athleteData, forKey: userDefaultAthlete)

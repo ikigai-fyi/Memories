@@ -75,6 +75,12 @@ struct MemoriesHomeView: View {
                             }
                         }.frame(height: 100)
                         
+                        if Config.env == "dev" {
+                            Button("Logout (dev only - will crash)") {
+                                self.loginViewModel.logout()
+                            }
+                        }
+                        
                         // Spacer -----------------------------------------------------
                         Spacer()
                         
