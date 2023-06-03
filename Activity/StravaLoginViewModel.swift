@@ -71,10 +71,11 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
             self.saveAthleteToUserDefault(athlete: athlete)
                 
             // analytics
-            Amplitude.instance.setUserId(userId: athlete.uuid)
+            Amplitude.instance.setUserId(userId: self.athlete?.uuid)
             let now = DateFormatter.standard.string(from: Date())
             let identify = Identify().setOnce(property: AnalyticsProperties.signupDate, value: now)
             Amplitude.instance.identify(identify: identify)
+            Amplitude.instance.flush()
         } catch {
             print(error)
         }
