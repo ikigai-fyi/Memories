@@ -33,6 +33,8 @@ struct AnalyticsEvents {
 }
     
 struct AnalyticsProperties {
+    static let firstName = "firstName"
+    static let lastName = "lastName"
     static let size = "size"
     static let activeWidget = "activeWidget"
     static let addedWidgets = "addedWidgets"

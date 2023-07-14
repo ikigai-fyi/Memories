@@ -9,6 +9,7 @@ import Foundation
 import AuthenticationServices
 import WidgetKit
 import AmplitudeSwift
+import PostHog
 
 let userDefaultAthlete = "athlete"
 
@@ -70,12 +71,22 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
             self.athlete = athlete
             self.saveAthleteToUserDefault(athlete: athlete)
                 
-            // analytics
+            // analytics - amplitude
             Amplitude.instance.setUserId(userId: self.athlete?.uuid)
             let now = DateFormatter.standard.string(from: Date())
             let identify = Identify().setOnce(property: AnalyticsProperties.signupDate, value: now)
             Amplitude.instance.identify(identify: identify)
             Amplitude.instance.flush()
+            
+            // analytics - posthog
+            if let athlete = self.athlete{
+                PHGPostHog.shared()?.identify(athlete.uuid, properties:[
+                    AnalyticsProperties.firstName: athlete.firstName,
+                    AnalyticsProperties.lastName: athlete.lastName
+                ])
+            }
+            
+            
         } catch {
             print(error)
         }

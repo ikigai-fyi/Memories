@@ -247,6 +247,18 @@ public class Amplitude {
         return self
     }
 
+    public func getUserId() -> String? {
+        return state.userId
+    }
+
+    public func getDeviceId() -> String? {
+        return state.deviceId
+    }
+
+    public func getSessionId() -> Int64 {
+        return sessions.sessionId
+    }
+
     @discardableResult
     public func reset() -> Amplitude {
         _ = setUserId(userId: nil)

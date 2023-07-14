@@ -21,4 +21,6 @@ target 'Activity' do
   use_frameworks!
 
   pod 'AmplitudeSwift', '~> 0.4.4'
+  pod "PostHog", "~> 1.0"
+
 end

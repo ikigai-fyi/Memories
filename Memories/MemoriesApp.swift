@@ -40,6 +40,12 @@ struct MemoriesApp: App {
         }.onChange(of: scenePhase) { newPhase in
             switch newPhase {
             case .active:
+                //posthog
+                if let athlete = self.loginViewModel.athlete {
+                    PHGPostHog.shared()?.identify(athlete.uuid)
+                }
+                
+                // amplitude
                 Amplitude.instance.setUserId(userId: self.loginViewModel.athlete?.uuid)
                 Amplitude.instance.track(eventType: AnalyticsEvents.openApp)
                 

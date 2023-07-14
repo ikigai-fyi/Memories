@@ -1,5 +1,5 @@
 PODS:
-  - AmplitudeSwift (0.4.4)
+  - AmplitudeSwift (0.4.6)
   - PostHog (1.4.4)
   - Sentry (8.7.3):
     - Sentry/Core (= 8.7.3)
@@ -30,11 +30,11 @@ CHECKOUT OPTIONS:
     :tag: 8.7.3
 
 SPEC CHECKSUMS:
-  AmplitudeSwift: 3892296b9c9861bafa3df6c4e5d3e0c456d35fc1
+  AmplitudeSwift: 43f490c1bbc36c4add8ba4b347f5c0b97499a76f
   PostHog: 4b6321b521569092d4ef3a02238d9435dbaeb99f
   Sentry: c7a86f43510a7d5678d4de28d78c28ab351d295b
   SentryPrivate: 2eaabf598a46d4b9b8822aef766df2a84caf2e6f
 
-PODFILE CHECKSUM: 96decdfb960b4657ed8be77b92b3c8e163a289d7
+PODFILE CHECKSUM: 450b8ec0512ca57fe169e45cffc9de4a47f920e0
 
 COCOAPODS: 1.12.1
