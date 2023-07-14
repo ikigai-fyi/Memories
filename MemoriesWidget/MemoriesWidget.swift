@@ -52,7 +52,7 @@ struct Provider: TimelineProvider {
         }
 
         let entries = [SimpleEntry(date: Date(), loggedIn: loggedIn, activity: activity)]
-        let nextUpdate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
+        let nextUpdate = Calendar.current.date(byAdding: .hour, value: 4, to: Date())!
         return Timeline(entries: entries, policy: .after(nextUpdate))
     }
     
