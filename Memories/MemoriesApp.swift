@@ -8,7 +8,6 @@
 import SwiftUI
 import Activity
 import Sentry
-import PostHog
 
 @main
 struct MemoriesApp: App {
@@ -23,7 +22,7 @@ struct MemoriesApp: App {
             options.environment = Config.env
         }
         
-        Analytics.initPostHog()
+        Analytics.initialize()
     }
     
     var body: some Scene {
@@ -36,9 +35,8 @@ struct MemoriesApp: App {
         }.onChange(of: scenePhase) { newPhase in
             switch newPhase {
             case .active:
-                //posthog
-                if let athlete = self.loginViewModel.athlete {
-                    PHGPostHog.shared()?.identify(athlete.uuid)
+                if let athlete = StravaLoginViewModel.getAthleteFromUserDefault() {
+                    Analytics.identify(athlete: athlete)
                 }
             default: ()
             }

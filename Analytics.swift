@@ -7,30 +7,47 @@
 
 import Foundation
 import PostHog
+import Activity
 
 struct Analytics {
-    static func initPostHog(){
+    static func initialize() {
         let configuration = PHGPostHogConfiguration(apiKey: Config.postHogApiKey, host: "https://eu.posthog.com")
         configuration.captureApplicationLifecycleEvents = true
         configuration.recordScreenViews = true
         PHGPostHog.setup(with: configuration)
     }
-}
-
-struct AnalyticsEvents {
-    // screens
-    static let viewLoginScreen = "viewLoginScreen"
     
-    // actions
-    static let connectStrava = "connectStrava"
-    static let addWidgetHelp = "addWidgetHelp"
-    static let refreshActivities = "refreshActivities"
+    static func identify(athlete: Athlete) {
+        PHGPostHog.shared()?.identify(athlete.uuid, properties: [
+            Property.firstName.rawValue: athlete.firstName,
+            Property.lastName.rawValue: athlete.lastName,
+        ])
+    }
     
-    // lifecycle
-    static let systemUpdateWidget = "systemUpdateWidget"
-}
+    static func reset() {
+        PHGPostHog.shared()?.reset()
+    }
     
-struct AnalyticsProperties {
-    static let firstName = "firstName"
-    static let lastName = "lastName"
+    static func capture(event: Event) {
+        PHGPostHog.shared()?.capture(event.rawValue)
+    }
+    
+    
+    enum Event: String {
+        // screens
+        case viewLoginScreen
+        
+        // actions
+        case connectStrava
+        case addWidgetHelp
+        case refreshActivities
+        
+        // lifecycle
+        case systemUpdateWidget
+    }
+        
+    enum Property: String {
+        case firstName
+        case lastName
+    }
 }

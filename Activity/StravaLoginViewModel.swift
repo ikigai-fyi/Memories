@@ -70,15 +70,7 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
             self.athlete = athlete
             self.saveAthleteToUserDefault(athlete: athlete)
             
-            // analytics - posthog
-            if let athlete = self.athlete{
-                PHGPostHog.shared()?.identify(athlete.uuid, properties:[
-                    AnalyticsProperties.firstName: athlete.firstName,
-                    AnalyticsProperties.lastName: athlete.lastName
-                ])
-            }
-            
-            
+            Analytics.identify(athlete: athlete)
         } catch {
             print(error)
         }

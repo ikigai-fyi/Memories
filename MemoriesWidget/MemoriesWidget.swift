@@ -24,6 +24,12 @@ struct Provider: TimelineProvider {
     }
 
     @MainActor func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
+        Analytics.initialize()
+        if let athlete = StravaLoginViewModel.getAthleteFromUserDefault() {
+            Analytics.identify(athlete: athlete)
+            Analytics.capture(event: .systemUpdateWidget)
+        }
+        
         let loggedIn = StravaLoginViewModel.isLoggedIn()
         
         // Home screen was forced refresh, update the widget with user defaults only
@@ -40,20 +46,10 @@ struct Provider: TimelineProvider {
     }
     
     @MainActor private func buildTimeline(loggedIn: Bool, activity: Activity?) -> Timeline<SimpleEntry> {
-        // analytics
-        Analytics.initPostHog()
-        if let postHog = PHGPostHog.shared(){
-            if let uuid = StravaLoginViewModel.athleteIdIfLoggedIn() {
-                postHog.identify(uuid)
-            }
-            postHog.capture(AnalyticsEvents.systemUpdateWidget)
-        }
-
         let entries = [SimpleEntry(date: Date(), loggedIn: loggedIn, activity: activity)]
         let nextUpdate = Calendar.current.date(byAdding: .hour, value: 4, to: Date())!
         return Timeline(entries: entries, policy: .after(nextUpdate))
     }
-    
 }
 
 struct SimpleEntry: TimelineEntry {

@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Activity
-import PostHog
 
 struct StravaLoginView: View {
     @EnvironmentObject var loginViewModel: StravaLoginViewModel
@@ -38,7 +37,7 @@ struct StravaLoginView: View {
             Spacer()
             
             Button {
-                PHGPostHog.shared()?.capture(AnalyticsEvents.connectStrava)
+                Analytics.capture(event: .connectStrava)
                 
                 // Open Strava app if installed, if will be redirected to our app through a deeplink
                 // UIApplication can only be used in a UIKit context
@@ -65,7 +64,7 @@ struct StravaLoginView: View {
                 await loginViewModel.handleOauthRedirect(url: url)
             }
         }.onAppear {
-            PHGPostHog.shared()?.capture(AnalyticsEvents.viewLoginScreen)
+            Analytics.capture(event: .viewLoginScreen)
         }
     }
 }

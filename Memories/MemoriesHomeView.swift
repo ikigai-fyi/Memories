@@ -10,7 +10,6 @@ import WebKit
 import Activity
 import WidgetKit
 import ConfettiSwiftUI
-import PostHog
 
 struct MemoriesHomeView: View {
     @EnvironmentObject var loginViewModel: StravaLoginViewModel
@@ -126,7 +125,7 @@ struct MemoriesHomeView: View {
                         // Add widget button -----------------------------------------------------
                         VStack{
                             Button {
-                                PHGPostHog.shared()?.capture(AnalyticsEvents.addWidgetHelp)
+                                Analytics.capture(event: .addWidgetHelp)
 
                                 isShowingWebView = true
                             } label: {
@@ -182,8 +181,7 @@ struct MemoriesHomeView: View {
     }
     
     func forceRefreshActivity() async {
-        PHGPostHog.shared()?.capture(AnalyticsEvents.refreshActivities)
-
+        Analytics.capture(event: .refreshActivities)
         
         await activityViewModel.fetchAndStoreRandomActivity()
         activityViewModel.forceRefreshWidget()
