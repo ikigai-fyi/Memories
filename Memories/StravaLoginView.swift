@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Activity
-import AmplitudeSwift
 import PostHog
 
 struct StravaLoginView: View {
@@ -39,7 +38,6 @@ struct StravaLoginView: View {
             Spacer()
             
             Button {
-                Amplitude.instance.track(eventType: AnalyticsEvents.connectStrava)
                 PHGPostHog.shared()?.capture(AnalyticsEvents.connectStrava)
                 
                 // Open Strava app if installed, if will be redirected to our app through a deeplink

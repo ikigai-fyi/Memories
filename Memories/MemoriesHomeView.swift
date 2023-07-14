@@ -9,7 +9,6 @@ import SwiftUI
 import WebKit
 import Activity
 import WidgetKit
-import AmplitudeSwift
 import ConfettiSwiftUI
 import PostHog
 
@@ -127,7 +126,6 @@ struct MemoriesHomeView: View {
                         // Add widget button -----------------------------------------------------
                         VStack{
                             Button {
-                                Amplitude.instance.track(eventType: AnalyticsEvents.addWidgetHelp)
                                 PHGPostHog.shared()?.capture(AnalyticsEvents.addWidgetHelp)
 
                                 isShowingWebView = true
@@ -184,7 +182,6 @@ struct MemoriesHomeView: View {
     }
     
     func forceRefreshActivity() async {
-        Amplitude.instance.track(eventType: AnalyticsEvents.refreshActivities)
         PHGPostHog.shared()?.capture(AnalyticsEvents.refreshActivities)
 
         

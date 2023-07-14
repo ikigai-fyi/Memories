@@ -8,7 +8,6 @@
 import SwiftUI
 import Activity
 import Sentry
-import AmplitudeSwift
 import PostHog
 
 @main
@@ -41,13 +40,6 @@ struct MemoriesApp: App {
                 if let athlete = self.loginViewModel.athlete {
                     PHGPostHog.shared()?.identify(athlete.uuid)
                 }
-                
-                // amplitude
-                Amplitude.instance.setUserId(userId: self.loginViewModel.athlete?.uuid)
-                Amplitude.instance.track(eventType: AnalyticsEvents.openApp)
-                
-                // Force flush to
-                Amplitude.instance.flush()
             default: ()
             }
         }

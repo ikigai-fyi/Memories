@@ -10,6 +10,5 @@
 
 ENV = prod
 BACKEND_URL = https:/$()/api.ikigai.fyi
-AMPLITUDE_API_KEY = a559a5b51a65fe2a19fefa2811ff7862
 POSTHOG_API_KEY = phc_AmcjGP1xtoj7nuipPfG9zWRx9NUED8n0lwxuS8GNsQ7
 APP_GROUP_NAME = group.ikigai.Memories

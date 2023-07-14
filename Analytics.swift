@@ -6,23 +6,7 @@
 //
 
 import Foundation
-import AmplitudeSwift
 import PostHog
-
-extension Amplitude {
-    static var instance = Amplitude(
-        configuration: Configuration(
-            apiKey: Config.amplitudeApiKey,
-            logLevel: LogLevelEnum.DEBUG,
-            callback: { (event: BaseEvent, code: Int, message: String) -> Void in
-                print("eventcallback: \(event), code: \(code), message: \(message)")
-            },
-            serverZone: ServerZone.EU,
-            flushEventsOnClose: true,
-            minTimeBetweenSessionsMillis: 15000
-        )
-    )
-}
 
 struct Analytics {
     static func initPostHog(){

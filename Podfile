@@ -18,6 +18,5 @@ target 'Activity' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  pod 'AmplitudeSwift', '~> 0.4.6'
   pod 'PostHog', '~> 1.1'
 end

@@ -7,7 +7,6 @@
 
 import Foundation
 import WidgetKit
-import AmplitudeSwift
 
 let appGroupName = Config.appGroupName
 let userDefaultActivity = "activity"
