@@ -40,6 +40,7 @@
 		E48E09892A05BF98002456E5 /* MemoriesWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48E09882A05BF98002456E5 /* MemoriesWidget.swift */; };
 		E48E098B2A05BF99002456E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E48E098A2A05BF99002456E5 /* Assets.xcassets */; };
 		E48E099B2A05C2E6002456E5 /* MemoriesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE5908E2A052D890041EA4D /* MemoriesApp.swift */; };
+		E4A397112A616485009A2E6F /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E468D3FC2A0663E50017070A /* Analytics.swift */; };
 		E4E501B92A0E9A00009D4993 /* MemoriesHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E501B82A0E9A00009D4993 /* MemoriesHomeView.swift */; };
 		E4F69BA52A293FF80022868A /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = E4F69BA42A293FF80022868A /* ConfettiSwiftUI */; };
 /* End PBXBuildFile section */
@@ -586,6 +587,7 @@
 			files = (
 				E4604FC32A05C6D100D838DF /* MemoriesWidgetView.swift in Sources */,
 				E48E09892A05BF98002456E5 /* MemoriesWidget.swift in Sources */,
+				E4A397112A616485009A2E6F /* Analytics.swift in Sources */,
 				2DCAC7A52A208FE7007A11F9 /* Config.swift in Sources */,
 				E48E09872A05BF98002456E5 /* MemoriesWidgetBundle.swift in Sources */,
 				E402A3832A05D46800C2F3B0 /* Helper.swift in Sources */,

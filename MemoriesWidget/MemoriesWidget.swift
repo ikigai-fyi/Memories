@@ -8,6 +8,7 @@
 import WidgetKit
 import SwiftUI
 import Activity
+import PostHog
 
 struct Provider: TimelineProvider {
     private let viewModel = ActivityViewModel()
@@ -39,6 +40,9 @@ struct Provider: TimelineProvider {
     }
     
     @MainActor private func buildTimeline(loggedIn: Bool, activity: Activity?) -> Timeline<SimpleEntry> {
+        // analytics
+        PHGPostHog.shared()?.capture(AnalyticsEvents.systemUpdateWidget)
+
         let entries = [SimpleEntry(date: Date(), loggedIn: loggedIn, activity: activity)]
         let nextUpdate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
         return Timeline(entries: entries, policy: .after(nextUpdate))
