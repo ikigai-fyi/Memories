@@ -177,11 +177,13 @@ code_sign_if_enabled() {
 
 if [[ "$CONFIGURATION" == "dev" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AmplitudeSwift/AmplitudeSwift.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/PostHog/PostHog.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Sentry/Sentry.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SentryPrivate/SentryPrivate.framework"
 fi
 if [[ "$CONFIGURATION" == "prod" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AmplitudeSwift/AmplitudeSwift.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/PostHog/PostHog.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Sentry/Sentry.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SentryPrivate/SentryPrivate.framework"
 fi

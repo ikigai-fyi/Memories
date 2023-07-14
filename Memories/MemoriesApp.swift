@@ -9,6 +9,7 @@ import SwiftUI
 import Activity
 import Sentry
 import AmplitudeSwift
+import PostHog
 
 @main
 struct MemoriesApp: App {
@@ -22,6 +23,11 @@ struct MemoriesApp: App {
             options.debug = false
             options.environment = Config.env
         }
+        
+        let configuration = PHGPostHogConfiguration(apiKey: Config.postHogApiKey, host: "https://eu.posthog.com")
+        configuration.captureApplicationLifecycleEvents = true
+        configuration.recordScreenViews = true
+        PHGPostHog.setup(with: configuration)
     }
     
     var body: some Scene {

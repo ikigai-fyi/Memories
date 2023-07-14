@@ -1,5 +1,6 @@
 PODS:
   - AmplitudeSwift (0.4.4)
+  - PostHog (1.4.4)
   - Sentry (8.7.3):
     - Sentry/Core (= 8.7.3)
     - SentryPrivate (= 8.7.3)
@@ -9,11 +10,13 @@ PODS:
 
 DEPENDENCIES:
   - AmplitudeSwift (~> 0.4.4)
+  - PostHog (~> 1.0)
   - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`, tag `8.7.3`)
 
 SPEC REPOS:
   trunk:
     - AmplitudeSwift
+    - PostHog
     - SentryPrivate
 
 EXTERNAL SOURCES:
@@ -28,9 +31,10 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AmplitudeSwift: 3892296b9c9861bafa3df6c4e5d3e0c456d35fc1
+  PostHog: 4b6321b521569092d4ef3a02238d9435dbaeb99f
   Sentry: c7a86f43510a7d5678d4de28d78c28ab351d295b
   SentryPrivate: 2eaabf598a46d4b9b8822aef766df2a84caf2e6f
 
-PODFILE CHECKSUM: 47ce9e0565da5a1dfd55e8d98cdf92ca981466f3
+PODFILE CHECKSUM: 96decdfb960b4657ed8be77b92b3c8e163a289d7
 
 COCOAPODS: 1.12.1
