@@ -152,6 +152,10 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
     public func logout() {
         self.athlete = nil
         self.saveAthleteToUserDefault(athlete: nil)
+        
+        // analytics
+        PHGPostHog.shared()?.reset()
+        shared()?.capture
     }
     
     func saveAthleteToUserDefault(athlete: Athlete?) {

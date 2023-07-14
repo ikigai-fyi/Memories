@@ -11,6 +11,7 @@ import Activity
 import WidgetKit
 import AmplitudeSwift
 import ConfettiSwiftUI
+import PostHog
 
 struct MemoriesHomeView: View {
     @EnvironmentObject var loginViewModel: StravaLoginViewModel
@@ -127,6 +128,8 @@ struct MemoriesHomeView: View {
                         VStack{
                             Button {
                                 Amplitude.instance.track(eventType: AnalyticsEvents.addWidgetHelp)
+                                PHGPostHog.shared()?.capture(AnalyticsEvents.addWidgetHelp)
+
                                 isShowingWebView = true
                             } label: {
                                 Label {
@@ -182,6 +185,9 @@ struct MemoriesHomeView: View {
     
     func forceRefreshActivity() async {
         Amplitude.instance.track(eventType: AnalyticsEvents.refreshActivities)
+        PHGPostHog.shared()?.capture(AnalyticsEvents.refreshActivities)
+
+        
         await activityViewModel.fetchAndStoreRandomActivity()
         activityViewModel.forceRefreshWidget()
         self.triggerConfettis()

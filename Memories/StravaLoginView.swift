@@ -8,6 +8,7 @@
 import SwiftUI
 import Activity
 import AmplitudeSwift
+import PostHog
 
 struct StravaLoginView: View {
     @EnvironmentObject var loginViewModel: StravaLoginViewModel
@@ -39,6 +40,7 @@ struct StravaLoginView: View {
             
             Button {
                 Amplitude.instance.track(eventType: AnalyticsEvents.connectStrava)
+                PHGPostHog.shared()?.capture(AnalyticsEvents.connectStrava)
                 
                 // Open Strava app if installed, if will be redirected to our app through a deeplink
                 // UIApplication can only be used in a UIKit context
