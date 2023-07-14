@@ -24,12 +24,19 @@ extension Amplitude {
 }
 
 struct AnalyticsEvents {
+    // screens
+    static let viewLoginScreen = "viewLoginScreen"
+    
+    // actions
     static let connectStrava = "connectStrava"
     static let addWidgetHelp = "addWidgetHelp"
     static let refreshActivities = "refreshActivities"
     static let addWidget = "addWidget"
     static let openApp = "openApp"
     static let removeWidget = "removeWidget"
+    
+    // lifecycle
+    static let systemUpdateWidget = "systemUpdateWidget"
 }
     
 struct AnalyticsProperties {

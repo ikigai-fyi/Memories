@@ -66,8 +66,9 @@ struct StravaLoginView: View {
             Task {
                 await loginViewModel.handleOauthRedirect(url: url)
             }
+        }.onAppear {
+            PHGPostHog.shared()?.capture(AnalyticsEvents.viewLoginScreen)
         }
-
     }
 }
 
