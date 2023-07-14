@@ -41,7 +41,15 @@ struct Provider: TimelineProvider {
     
     @MainActor private func buildTimeline(loggedIn: Bool, activity: Activity?) -> Timeline<SimpleEntry> {
         // analytics
-        PHGPostHog.shared()?.capture(AnalyticsEvents.systemUpdateWidget)
+        // [TODO] DRY
+        let configuration = PHGPostHogConfiguration(apiKey: Config.postHogApiKey, host: "https://eu.posthog.com")
+        configuration.captureApplicationLifecycleEvents = true
+        configuration.recordScreenViews = true
+        PHGPostHog.setup(with: configuration)
+        if let uuid = StravaLoginViewModel.athleteIdIfLoggedIn(), let postHog = PHGPostHog.shared(){
+            postHog.identify(uuid)
+            postHog.capture(AnalyticsEvents.systemUpdateWidget)
+        }
 
         let entries = [SimpleEntry(date: Date(), loggedIn: loggedIn, activity: activity)]
         let nextUpdate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!

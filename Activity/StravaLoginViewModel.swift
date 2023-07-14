@@ -149,6 +149,10 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
         return !(self.getAthleteFromUserDefault() == nil)
     }
     
+    public static func athleteIdIfLoggedIn() -> String? {
+        return self.getAthleteFromUserDefault()?.uuid
+    }
+    
     public func logout() {
         self.athlete = nil
         self.saveAthleteToUserDefault(athlete: nil)
