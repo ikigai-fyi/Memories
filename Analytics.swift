@@ -7,6 +7,7 @@
 
 import Foundation
 import AmplitudeSwift
+import PostHog
 
 extension Amplitude {
     static var instance = Amplitude(
@@ -21,6 +22,15 @@ extension Amplitude {
             minTimeBetweenSessionsMillis: 15000
         )
     )
+}
+
+struct Analytics {
+    static func initPostHog(){
+        let configuration = PHGPostHogConfiguration(apiKey: Config.postHogApiKey, host: "https://eu.posthog.com")
+        configuration.captureApplicationLifecycleEvents = true
+        configuration.recordScreenViews = true
+        PHGPostHog.setup(with: configuration)
+    }
 }
 
 struct AnalyticsEvents {

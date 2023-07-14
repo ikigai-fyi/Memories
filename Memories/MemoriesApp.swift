@@ -24,10 +24,7 @@ struct MemoriesApp: App {
             options.environment = Config.env
         }
         
-        let configuration = PHGPostHogConfiguration(apiKey: Config.postHogApiKey, host: "https://eu.posthog.com")
-        configuration.captureApplicationLifecycleEvents = true
-        configuration.recordScreenViews = true
-        PHGPostHog.setup(with: configuration)
+        Analytics.initPostHog()
     }
     
     var body: some Scene {

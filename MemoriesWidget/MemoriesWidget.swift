@@ -41,13 +41,11 @@ struct Provider: TimelineProvider {
     
     @MainActor private func buildTimeline(loggedIn: Bool, activity: Activity?) -> Timeline<SimpleEntry> {
         // analytics
-        // [TODO] DRY
-        let configuration = PHGPostHogConfiguration(apiKey: Config.postHogApiKey, host: "https://eu.posthog.com")
-        configuration.captureApplicationLifecycleEvents = true
-        configuration.recordScreenViews = true
-        PHGPostHog.setup(with: configuration)
-        if let uuid = StravaLoginViewModel.athleteIdIfLoggedIn(), let postHog = PHGPostHog.shared(){
-            postHog.identify(uuid)
+        Analytics.initPostHog()
+        if let postHog = PHGPostHog.shared(){
+            if let uuid = StravaLoginViewModel.athleteIdIfLoggedIn() {
+                postHog.identify(uuid)
+            }
             postHog.capture(AnalyticsEvents.systemUpdateWidget)
         }
 
@@ -81,6 +79,11 @@ struct MemoriesWidgetEntryView : View {
 struct MemoriesWidget: Widget {
     let kind: String = "MemoriesWidget"
 
+// Note : does not work. Seems not to be executed before buildTimeline() is triggered
+//    init() {
+//        Analytics.initPostHog()
+//    }
+    
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             MemoriesWidgetEntryView(entry: entry)
