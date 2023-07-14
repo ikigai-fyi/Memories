@@ -38,6 +38,8 @@ struct MemoriesApp: App {
                 if let athlete = StravaLoginViewModel.getAthleteFromUserDefault() {
                     Analytics.identify(athlete: athlete)
                 }
+                
+                Analytics.capture(event: .appActive, userProperties: [.lastSeenDate: Date().ISO8601Format()])
             default: ()
             }
         }

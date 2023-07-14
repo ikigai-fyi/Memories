@@ -28,8 +28,18 @@ struct Analytics {
         PHGPostHog.shared()?.reset()
     }
     
-    static func capture(event: Event) {
-        PHGPostHog.shared()?.capture(event.rawValue)
+    static func capture(event: Event, eventProperties: [Property: Any] = [:], userProperties: [Property: Any] = [:]) {
+        var properties = eventProperties.reduce(into: [:]) { result, item in
+            result[item.key.rawValue] = item.value
+        }
+        
+        if !userProperties.isEmpty {
+            properties["$set"] = userProperties.reduce(into: [:]) { result, item in
+                result[item.key.rawValue] = item.value
+            }
+        }
+        
+        PHGPostHog.shared()?.capture(event.rawValue, properties: properties)
     }
     
     
@@ -43,11 +53,13 @@ struct Analytics {
         case refreshActivities
         
         // lifecycle
+        case appActive
         case systemUpdateWidget
     }
         
     enum Property: String {
         case firstName
         case lastName
+        case lastSeenDate
     }
 }
