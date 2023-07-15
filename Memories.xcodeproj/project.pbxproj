@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		2D3779122A1EB80D00629BE3 /* Activity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E42106B32A0ECB5300187A74 /* Activity.framework */; };
 		2D3779172A1EB90800629BE3 /* MemoriesWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E48E097F2A05BF98002456E5 /* MemoriesWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2D3BB7212A629D58003EF280 /* Crisp in Frameworks */ = {isa = PBXBuildFile; productRef = 2D3BB7202A629D58003EF280 /* Crisp */; };
+		2D3BB7232A62A00A003EF280 /* CrispChatViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3BB7222A62A00A003EF280 /* CrispChatViewControllerRepresentable.swift */; };
+		2D3BB7252A62A294003EF280 /* CrispChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3BB7242A62A294003EF280 /* CrispChatView.swift */; };
 		2D5EAEE42A1D51B400FB9C33 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5EAEE32A1D51B400FB9C33 /* ActivityViewModel.swift */; };
 		2D5EAEE52A1D521400FB9C33 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E402A3812A05D3A400C2F3B0 /* Helper.swift */; };
 		2D5EAEE62A1D521A00FB9C33 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E468D3FC2A0663E50017070A /* Analytics.swift */; };
@@ -102,6 +105,8 @@
 		1594DDC791C60CB48C1C5A36 /* Pods_MemoriesWidgetExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MemoriesWidgetExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22EF4430BF0FDEFE910DA20D /* Pods-MemoriesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoriesTests.debug.xcconfig"; path = "Target Support Files/Pods-MemoriesTests/Pods-MemoriesTests.debug.xcconfig"; sourceTree = "<group>"; };
 		293FD508FFFD40CE0B7C701E /* Pods_Memories.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Memories.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D3BB7222A62A00A003EF280 /* CrispChatViewControllerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrispChatViewControllerRepresentable.swift; sourceTree = "<group>"; };
+		2D3BB7242A62A294003EF280 /* CrispChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrispChatView.swift; sourceTree = "<group>"; };
 		2D5EAEE32A1D51B400FB9C33 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 		2D7C61DC2A1D59040050AAB0 /* Athlete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Athlete.swift; sourceTree = "<group>"; };
 		2D7C61E02A1D5D3B0050AAB0 /* DateFormatter+standard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+standard.swift"; sourceTree = "<group>"; };
@@ -157,6 +162,7 @@
 			files = (
 				E4F69BA52A293FF80022868A /* ConfettiSwiftUI in Frameworks */,
 				41102DA3BC0DD1785A68E2C2 /* Pods_Memories.framework in Frameworks */,
+				2D3BB7212A629D58003EF280 /* Crisp in Frameworks */,
 				E42106B92A0ECB5300187A74 /* Activity.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -224,6 +230,8 @@
 				2DE5908E2A052D890041EA4D /* MemoriesApp.swift */,
 				2DE590922A052D8B0041EA4D /* Assets.xcassets */,
 				2DE590942A052D8B0041EA4D /* Preview Content */,
+				2D3BB7222A62A00A003EF280 /* CrispChatViewControllerRepresentable.swift */,
+				2D3BB7242A62A294003EF280 /* CrispChatView.swift */,
 			);
 			path = Memories;
 			sourceTree = "<group>";
@@ -348,6 +356,7 @@
 			name = Memories;
 			packageProductDependencies = (
 				E4F69BA42A293FF80022868A /* ConfettiSwiftUI */,
+				2D3BB7202A629D58003EF280 /* Crisp */,
 			);
 			productName = Memories;
 			productReference = 2DE5908B2A052D890041EA4D /* Memories.app */;
@@ -424,6 +433,7 @@
 			mainGroup = 2DE590822A052D890041EA4D;
 			packageReferences = (
 				E4F69BA32A293FF80022868A /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
+				2D3BB71F2A629D58003EF280 /* XCRemoteSwiftPackageReference "crisp-sdk-ios" */,
 			);
 			productRefGroup = 2DE5908C2A052D890041EA4D /* Products */;
 			projectDirPath = "";
@@ -559,10 +569,12 @@
 				2DCAC7A42A208FE7007A11F9 /* Config.swift in Sources */,
 				2DE590BF2A053D9C0041EA4D /* StravaLoginView.swift in Sources */,
 				E4604FC42A05C98800D838DF /* MemoriesWidgetView.swift in Sources */,
+				2D3BB7232A62A00A003EF280 /* CrispChatViewControllerRepresentable.swift in Sources */,
 				E48E099B2A05C2E6002456E5 /* MemoriesApp.swift in Sources */,
 				E46FD4B52A0EA308000396EA /* WebView.swift in Sources */,
 				E4E501B92A0E9A00009D4993 /* MemoriesHomeView.swift in Sources */,
 				E402A3822A05D3A400C2F3B0 /* Helper.swift in Sources */,
+				2D3BB7252A62A294003EF280 /* CrispChatView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -984,6 +996,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2D3BB71F2A629D58003EF280 /* XCRemoteSwiftPackageReference "crisp-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/crisp-im/crisp-sdk-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		E4F69BA32A293FF80022868A /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI";
@@ -995,6 +1015,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2D3BB7202A629D58003EF280 /* Crisp */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D3BB71F2A629D58003EF280 /* XCRemoteSwiftPackageReference "crisp-sdk-ios" */;
+			productName = Crisp;
+		};
 		E4F69BA42A293FF80022868A /* ConfettiSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E4F69BA32A293FF80022868A /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */;

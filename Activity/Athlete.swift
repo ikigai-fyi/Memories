@@ -13,4 +13,8 @@ public struct Athlete : Codable {
     public let lastName: String
     public let pictureUrl: String
     public let jwt: String
+    
+    public var fullName: String {
+        return "\(self.firstName) \(self.lastName)"
+    }
 }

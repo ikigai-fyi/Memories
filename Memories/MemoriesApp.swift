@@ -8,12 +8,15 @@
 import SwiftUI
 import Activity
 import Sentry
+import Crisp
 
 @main
 struct MemoriesApp: App {
     @StateObject var loginViewModel = StravaLoginViewModel()
     @StateObject var activityViewModel = ActivityViewModel()
     @Environment(\.scenePhase) var scenePhase
+    
+    @State private var isChatPresented = false
     
     init() {
         SentrySDK.start { options in
@@ -23,14 +26,39 @@ struct MemoriesApp: App {
         }
         
         Analytics.initialize()
+        
+        CrispSDK.configure(websiteID: "ddfdd35f-d323-4ca9-8df6-c0380e53ad72")
+        if let athlete = StravaLoginViewModel.getAthleteFromUserDefault() {
+            CrispSDK.user.nickname = athlete.fullName
+            CrispSDK.user.avatar = URL(string: athlete.pictureUrl)
+        }
     }
     
     var body: some Scene {
         WindowGroup {
-            if loginViewModel.athlete == nil {
-                StravaLoginView().environmentObject(loginViewModel)
-            } else {
-                MemoriesHomeView().environmentObject(loginViewModel).environmentObject(activityViewModel)
+            ZStack(alignment: .bottomTrailing) {
+                if loginViewModel.athlete == nil {
+                    StravaLoginView().environmentObject(loginViewModel)
+                } else {
+                    MemoriesHomeView().environmentObject(loginViewModel).environmentObject(activityViewModel)
+                }
+                
+                Button {
+                    self.isChatPresented.toggle()
+                    // Action
+                } label: {
+                    Image(systemName: "questionmark")
+                        .font(.title.weight(.semibold))
+                        .padding()
+                        .background(Color.pink)
+                        .foregroundColor(.white)
+                        .clipShape(Circle())
+                        .shadow(radius: 4, x: 0, y: 4)
+                }
+                .padding()
+                .sheet(isPresented: self.$isChatPresented) {
+                    CrispChatView()
+                }
             }
         }.onChange(of: scenePhase) { newPhase in
             switch newPhase {

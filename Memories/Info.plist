@@ -2,14 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>APP_GROUP_NAME</key>
-	<string>$(APP_GROUP_NAME)</string>
 	<key>AMPLITUDE_API_KEY</key>
 	<string>$(AMPLITUDE_API_KEY)</string>
-	<key>POSTHOG_API_KEY</key>
-	<string>$(POSTHOG_API_KEY)</string>
-	<key>ENV</key>
-	<string>$(ENV)</string>
+	<key>APP_GROUP_NAME</key>
+	<string>$(APP_GROUP_NAME)</string>
 	<key>BACKEND_URL</key>
 	<string>$(BACKEND_URL)</string>
 	<key>CFBundleURLTypes</key>
@@ -25,11 +21,17 @@
 			</array>
 		</dict>
 	</array>
+	<key>ENV</key>
+	<string>$(ENV)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>strava</string>
 	</array>
+	<key>POSTHOG_API_KEY</key>
+	<string>$(POSTHOG_API_KEY)</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Send photos to support chat</string>
 </dict>
 </plist>
