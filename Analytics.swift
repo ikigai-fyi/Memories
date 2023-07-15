@@ -51,6 +51,8 @@ struct Analytics {
         case connectStrava
         case addWidgetHelp
         case refreshActivities
+        case homeFeedbackButtonClicked
+        case loginHelpButtonClicked
         
         // lifecycle
         case appActive

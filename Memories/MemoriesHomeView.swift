@@ -152,6 +152,7 @@ struct MemoriesHomeView: View {
                             
                             Button {
                                 self.isChatPresented.toggle()
+                                Analytics.capture(event: .homeFeedbackButtonClicked)
                             } label: {
                                 Label {
                                     Text("Give feedback").bold()

@@ -71,6 +71,7 @@ struct StravaLoginView: View {
         
         Button {
             self.isChatPresented.toggle()
+            Analytics.capture(event: .loginHelpButtonClicked)
         } label: {
             Text("Need help?")
                 .foregroundColor(.gray)
