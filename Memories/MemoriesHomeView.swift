@@ -10,6 +10,7 @@ import WebKit
 import Activity
 import WidgetKit
 import ConfettiSwiftUI
+import Crisp
 
 struct MemoriesHomeView: View {
     @EnvironmentObject var loginViewModel: StravaLoginViewModel
@@ -23,6 +24,7 @@ struct MemoriesHomeView: View {
     @State private var otherConfetti: Int = 0
     
     @State private var isShowingWebView: Bool = false
+    @State private var isChatPresented: Bool = false
     
     var refreshButtonColor: Color {
         return activityViewModel.isFetching ? .gray : .black
@@ -126,7 +128,7 @@ struct MemoriesHomeView: View {
                         VStack{
                             Button {
                                 Analytics.capture(event: .addWidgetHelp)
-
+                                
                                 isShowingWebView = true
                             } label: {
                                 Label {
@@ -139,33 +141,52 @@ struct MemoriesHomeView: View {
                             .background(.blue)
                             .foregroundColor(.white)
                             .cornerRadius(35)
-                            .padding()
                             .sheet(isPresented: $isShowingWebView) {
                                 SheetView(isShowingWebView: self.$isShowingWebView)
                                 
                             }
+                            
+                            Spacer()
+                                .frame(minHeight: 6, idealHeight: 10, maxHeight: 12)
+                                .fixedSize()
+                            
+                            Button {
+                                self.isChatPresented.toggle()
+                            } label: {
+                                Label {
+                                    Text("Give feedback").bold()
+                                } icon: {
+                                    Image(systemName: "lightbulb.fill")
+                                }.padding()
+                            }
+                            .frame(maxWidth: .infinity)
+                            .background(.orange)
+                            .foregroundColor(.white)
+                            .cornerRadius(35)
+                            .sheet(isPresented: self.$isChatPresented) {
+                                ChatView()
+                            }
+                            
+                            Spacer()
+                                .frame(minHeight: 10, idealHeight: 18, maxHeight: 36)
+                                .fixedSize()
                         }.padding([.leading, .trailing], 18)
                         
-                        Spacer()
-                            .frame(minHeight: 10, idealHeight: 18, maxHeight: 36)
-                            .fixedSize()
-                        
-                        
-                        
-                    }.zIndex(1) // VStack content view
-                        .frame(maxWidth: .infinity, minHeight: proxy.size.height) // fix height scrollview
-                        .onAppear{
-                            // First render
+                    }
+                    .zIndex(1) // VStack content view
+                    .frame(maxWidth: .infinity, minHeight: proxy.size.height) // fix height scrollview
+                    .onAppear{
+                        // First render
+                        self.syncActivity()
+                    }
+                    .onChange(of: scenePhase) { newPhase in
+                        // Subsequent renders
+                        switch newPhase {
+                        case .active:
                             self.syncActivity()
+                        default: ()
                         }
-                        .onChange(of: scenePhase) { newPhase in
-                            // Subsequent renders
-                            switch newPhase {
-                            case .active:
-                                self.syncActivity()
-                            default: ()
-                            }
-                        }
+                    }
                 }
             } // ScrollView
         } // GeometryView
