@@ -36,7 +36,7 @@ struct MemoriesApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ZStack(alignment: .bottomTrailing) {
+            ZStack(alignment: .topTrailing) {
                 if loginViewModel.athlete == nil {
                     StravaLoginView().environmentObject(loginViewModel)
                 } else {
@@ -50,7 +50,7 @@ struct MemoriesApp: App {
                     Image(systemName: "questionmark")
                         .font(.title.weight(.semibold))
                         .padding()
-                        .background(Color.pink)
+                        .background(Color.purple)
                         .foregroundColor(.white)
                         .clipShape(Circle())
                         .shadow(radius: 4, x: 0, y: 4)
