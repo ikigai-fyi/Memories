@@ -16,8 +16,6 @@ struct MemoriesApp: App {
     @StateObject var activityViewModel = ActivityViewModel()
     @Environment(\.scenePhase) var scenePhase
     
-    @State private var isChatPresented = false
-    
     init() {
         SentrySDK.start { options in
             options.dsn = "https://2307db5e8e854158be765b26bce256ed@o4505126569246720.ingest.sentry.io/4505248857784320"
@@ -36,29 +34,10 @@ struct MemoriesApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ZStack(alignment: .topTrailing) {
-                if loginViewModel.athlete == nil {
-                    StravaLoginView().environmentObject(loginViewModel)
-                } else {
-                    MemoriesHomeView().environmentObject(loginViewModel).environmentObject(activityViewModel)
-                }
-                
-                Button {
-                    self.isChatPresented.toggle()
-                    // Action
-                } label: {
-                    Image(systemName: "questionmark")
-                        .font(.title.weight(.semibold))
-                        .padding()
-                        .background(Color.purple)
-                        .foregroundColor(.white)
-                        .clipShape(Circle())
-                        .shadow(radius: 4, x: 0, y: 4)
-                }
-                .padding()
-                .sheet(isPresented: self.$isChatPresented) {
-                    ChatView()
-                }
+            if loginViewModel.athlete == nil {
+                StravaLoginView().environmentObject(loginViewModel)
+            } else {
+                MemoriesHomeView().environmentObject(loginViewModel).environmentObject(activityViewModel)
             }
         }.onChange(of: scenePhase) { newPhase in
             switch newPhase {

@@ -7,9 +7,11 @@
 
 import SwiftUI
 import Activity
+import Crisp
 
 struct StravaLoginView: View {
     @EnvironmentObject var loginViewModel: StravaLoginViewModel
+    @State private var isChatPresented: Bool = false
     
     var body: some View {
         VStack {
@@ -65,6 +67,19 @@ struct StravaLoginView: View {
             }
         }.onAppear {
             Analytics.capture(event: .viewLoginScreen)
+        }
+        
+        Button {
+            self.isChatPresented.toggle()
+        } label: {
+            Text("Need help?")
+                .foregroundColor(.gray)
+                .font(.footnote)
+                .padding()
+        }
+        .padding()
+        .sheet(isPresented: self.$isChatPresented) {
+            ChatView()
         }
     }
 }
