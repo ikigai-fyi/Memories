@@ -57,7 +57,7 @@ struct MemoriesApp: App {
                 }
                 .padding()
                 .sheet(isPresented: self.$isChatPresented) {
-                    CrispChatView()
+                    ChatView()
                 }
             }
         }.onChange(of: scenePhase) { newPhase in
