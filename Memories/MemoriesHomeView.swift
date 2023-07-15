@@ -90,7 +90,7 @@ struct MemoriesHomeView: View {
                             if !activityViewModel.isFetching,
                                let activity = activityViewModel.activity {
                                 MemoriesWidgetView(loggedIn: true, activity: activity)
-                                    .frame(width: 292, height: 311)
+                                    .frame(width: 292, height: 141)
                                     .background(.gray.opacity(0.05))
                                     .cornerRadius(20)
                                     .shadow(radius: 18)
@@ -99,7 +99,7 @@ struct MemoriesHomeView: View {
                                 // Loading view ------------------------------------------------
                             } else {
                                 ProgressView()
-                                    .frame(width: 292, height: 311)
+                                    .frame(width: 292, height: 141)
                                     .background(.gray.opacity(0.1))
                                     .cornerRadius(12)
                                 
@@ -167,11 +167,11 @@ struct MemoriesHomeView: View {
                             .sheet(isPresented: self.$isChatPresented) {
                                 ChatView()
                             }
-                            
-                            Spacer()
-                                .frame(minHeight: 10, idealHeight: 18, maxHeight: 36)
-                                .fixedSize()
                         }.padding([.leading, .trailing], 18)
+                        
+                        Spacer()
+                            .frame(minHeight: 10, idealHeight: 18, maxHeight: 36)
+                            .fixedSize()
                         
                     }
                     .zIndex(1) // VStack content view
