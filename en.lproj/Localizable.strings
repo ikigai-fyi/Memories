@@ -1,0 +1,9 @@
+/* 
+  Localizable.strings
+  Memories
+
+  Created by Paul Nicolet on 15/07/2023.
+  
+*/
+
+// We assume strings are passed as English by default in SwiftUI views

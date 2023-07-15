@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  Memories
+
+  Created by Paul Nicolet on 15/07/2023.
+  
+*/
+
+// Login screen
+"Connect with Strava" = "Se connecter avec Strava";
+"Widgets for Strava" = "Widgets pour Strava";
+"Need help?" = "Besoin d'aide ?";
+
+// Home screen
+"Add widget" = "Ajouter le widget";
+"Give feedback" = "Donner mon avis";
+"Your widget preview" = "Aperçu du widget";
