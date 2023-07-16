@@ -39,7 +39,7 @@ struct MemoriesHomeView: View {
                     MemoriesConfettiView(runConfetti: $runConfetti, bikeConfetti: $bikeConfetti, hikeConfetti: $hikeConfetti, skiConfetti: $skiConfetti, otherConfetti: $otherConfetti)
                         .zIndex(10)
                     
-                    // Content view
+                    // Header view
                     VStack {
                         
                         // Spacer -----------------------------------------------------
@@ -75,8 +75,12 @@ struct MemoriesHomeView: View {
                                 
                             }
                         }.frame(height: 100)
-
                         
+                        Spacer()
+                        
+                    }.zIndex(5)
+                    
+                    VStack {
                         if false && Config.env == "dev" {
                             Button("Logout (dev only - will crash)") {
                                 self.loginViewModel.logout()
@@ -85,6 +89,46 @@ struct MemoriesHomeView: View {
                         
                         // Spacer -----------------------------------------------------
                         Spacer()
+                        
+                        VStack(spacing: 18.0) {
+                            
+                            // TODO : 700 is a random value
+                            if proxy.size.height > 700 {
+                                HStack {
+                                    RowIcon(row: -3)
+                                    Spacer()
+                                    RowIcon(row: -3)
+                                    Spacer()
+                                    RowIcon(row: -3)
+                                    Spacer()
+                                    RowIcon(row: -3)
+                                    
+                                }.frame(maxWidth: .infinity)
+                            }
+                            
+                            HStack {
+                                RowIcon(row: -2)
+                                Spacer()
+                                RowIcon(row: -2)
+                                Spacer()
+                                RowIcon(row: -2)
+                                Spacer()
+                                RowIcon(row: -2)
+                                
+                            }.frame(maxWidth: .infinity)
+                            
+                            HStack {
+                                RowIcon(row: -1)
+                                Spacer()
+                                RowIcon(row: -1)
+                                Spacer()
+                                RowIcon(row: -1)
+                                Spacer()
+                                RowIcon(row: -1)
+                                
+                            }.frame(maxWidth: .infinity)
+                                .padding(.bottom)
+                        }
                         
                         VStack {
                             // Activity widget -----------------------------------------------------
@@ -123,17 +167,6 @@ struct MemoriesHomeView: View {
                         
                         VStack(spacing: 18.0) {
                             HStack {
-                                RowIcon(row: 0)
-                                Spacer()
-                                RowIcon(row: 0)
-                                Spacer()
-                                RowIcon(row: 0)
-                                Spacer()
-                                RowIcon(row: 0)
-
-                            }.frame(maxWidth: .infinity)
-                            
-                            HStack {
                                 RowIcon(row: 1)
                                 Spacer()
                                 RowIcon(row: 1)
@@ -141,7 +174,7 @@ struct MemoriesHomeView: View {
                                 RowIcon(row: 1)
                                 Spacer()
                                 RowIcon(row: 1)
-
+                                
                             }.frame(maxWidth: .infinity)
                             
                             HStack {
@@ -152,10 +185,21 @@ struct MemoriesHomeView: View {
                                 RowIcon(row: 2)
                                 Spacer()
                                 RowIcon(row: 2)
+                                
+                            }.frame(maxWidth: .infinity)
+                            
+                            HStack {
+                                RowIcon(row: 3)
+                                Spacer()
+                                RowIcon(row: 3)
+                                Spacer()
+                                RowIcon(row: 3)
+                                Spacer()
+                                RowIcon(row: 3)
 
                             }.frame(maxWidth: .infinity)
                         }
-                       
+                        
                         
                         // Spacer -----------------------------------------------------
                         Spacer()
@@ -203,10 +247,7 @@ struct MemoriesHomeView: View {
                                 SheetView(isShowingWebView: self.$isShowingWebView)
                                 
                             }
-                            
-//                            Spacer()
-//                                .frame(minHeight: 6, idealHeight: 10, maxHeight: 12)
-//                                .fixedSize()
+
                             
                             Button {
                                 self.isChatPresented.toggle()
@@ -232,9 +273,9 @@ struct MemoriesHomeView: View {
                             .frame(minHeight: 10, idealHeight: 30, maxHeight: 60)
                             .fixedSize()
                         
-                       
+                        
                     }.zIndex(5)
-                   
+                    
                     
                 }.onAppear {
                     Analytics.capture(event: .viewHomeScreen)
@@ -281,12 +322,18 @@ struct RowIcon : View {
     
     var rowColors : [Color] {
         switch (row){
-        case 0 :
-            return [Helper.gradientStart, Helper.gradientStepOne.opacity(1.03)]
+        case -3 :
+            return [Helper.gradientEnd, Helper.gradientStepTwo.opacity(0.97)]
+        case -2 :
+            return [Helper.gradientStepTwo.opacity(1.03), Helper.gradientStepOne.opacity(0.97)]
+        case -1 :
+            return [Helper.gradientStepOne.opacity(1.03), Helper.gradientStart]
         case 1 :
-            return [Helper.gradientStepTwo.opacity(0.97), Helper.gradientStepThree.opacity(1.03)]
+            return [Helper.gradientStart, Helper.gradientStepOne.opacity(1.03)]
         case 2 :
-            return [Helper.gradientStepThree.opacity(0.97), Helper.gradientEnd.opacity(1.03)]
+            return [Helper.gradientStepOne.opacity(0.97), Helper.gradientStepTwo.opacity(1.03)]
+        case 3 :
+            return [Helper.gradientStepTwo.opacity(0.97), Helper.gradientEnd]
         default : return [Helper.gradientStart, Helper.gradientEnd]
         }
         
@@ -297,8 +344,8 @@ struct RowIcon : View {
             .fill(LinearGradient(
                 gradient: .init(colors: rowColors),
                 startPoint: .init(x: 0.5, y: 0), endPoint: .init(x: 0.5, y: 1)))
-        .frame(width: 64, height: 64)
-        .cornerRadius(12)
+            .frame(width: 64, height: 64)
+            .cornerRadius(12)
     }
 }
 
