@@ -13,6 +13,10 @@ struct Constants {
     static let SportsTypeIconEnabled: Bool = true
 }
 
+struct UserDefaultsKeys {
+    static let lastVersionPromptedForReviewKey = "lastVersionPromptedForReviewKey"
+}
+
 struct Helper {
     
     static func buildDataString(elapsedTimeInSeconds: Int, distanceInMeters: Int?, totalElevationGainInMeters: Int?) -> String {

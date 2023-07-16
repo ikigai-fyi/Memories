@@ -11,6 +11,7 @@ import Activity
 import WidgetKit
 import ConfettiSwiftUI
 import Crisp
+import StoreKit
 
 struct MemoriesHomeView: View {
     @EnvironmentObject var loginViewModel: StravaLoginViewModel
@@ -196,7 +197,7 @@ struct MemoriesHomeView: View {
                                 RowIcon(row: 3)
                                 Spacer()
                                 RowIcon(row: 3)
-
+                                
                             }.frame(maxWidth: .infinity)
                         }
                         
@@ -217,6 +218,34 @@ struct MemoriesHomeView: View {
                         switch newPhase {
                         case .active:
                             self.syncActivity()
+                            
+                            // request review
+                            // trigger is widget count > 0 && did not ask before
+                            WidgetCenter.shared.getCurrentConfigurations { results in
+                                guard let widgets = try? results.get() else { return }
+                                let lastVersionPromptedForReview = UserDefaults.standard.string(forKey: UserDefaultsKeys.lastVersionPromptedForReviewKey)
+                                
+                                // Get the current bundle version for the app.
+                                let infoDictionaryKey = kCFBundleVersionKey as String
+                                guard let currentVersion = Bundle.main.object(forInfoDictionaryKey: infoDictionaryKey) as? String
+                                else { fatalError("Expected to find a bundle version in the info dictionary.") }
+                                
+                                // Verify the user completes the process several times and doesn’t receive a prompt for this app version.
+                                if currentVersion != lastVersionPromptedForReview {
+                                    Task { @MainActor in
+                                        // Delay for two seconds to avoid interrupting the person using the app.
+                                        // Use the equation n * 10^9 to convert seconds to nanoseconds.
+                                        try? await Task.sleep(nanoseconds: UInt64(2e9))
+                                        
+                                        let allScenes = UIApplication.shared.connectedScenes
+                                        let scene = allScenes.first { $0.activationState == .foregroundActive }
+                                        if let windowScene = scene as? UIWindowScene {
+                                            SKStoreReviewController.requestReview(in: windowScene)
+                                            UserDefaults.standard.set(currentVersion, forKey: UserDefaultsKeys.lastVersionPromptedForReviewKey)
+                                        }
+                                    }
+                                }
+                            }
                         default: ()
                         }
                     }
