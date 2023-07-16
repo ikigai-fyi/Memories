@@ -59,5 +59,6 @@ struct Helper {
             default: return nil
             }
         }
+        return nil
     }
 }
