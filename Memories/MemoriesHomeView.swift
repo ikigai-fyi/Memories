@@ -272,65 +272,67 @@ struct MemoriesHomeView: View {
                     }
                     
                     
-                    VStack { // Buttons  -----------------------------------------------------
-                        
-                        Spacer()
-                        
-                        // Add widget button -----------------------------------------------------
-                        VStack{
-                            Button {
-                                Analytics.capture(event: .addWidgetHelp)
-                                
-                                isShowingWebView = true
-                            } label: {
-                                Label {
-                                    Text("Add widget").bold()
-                                } icon: {
-                                    Image(systemName: "plus.circle.fill")
-                                }.padding()
-                            }
-                            .frame(maxWidth: .infinity)
-                            .background(.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(35)
-                            .sheet(isPresented: $isShowingWebView) {
-                                SheetView(isShowingWebView: self.$isShowingWebView)
-                                
-                            }
-
-                            
-                            Button {
-                                self.isChatPresented.toggle()
-                                Analytics.capture(event: .shareFeedback, eventProperties: [.from: "homeFeedbackButton"])
-                            } label: {
-                                Label {
-                                    Text("Suggest features").bold()
-                                } icon: {
-                                    Image(systemName: "lightbulb.fill")
-                                }.padding()
-                            }
-                            .frame(maxWidth: .infinity)
-                            .background(.orange)
-                            .foregroundColor(.white)
-                            .cornerRadius(35)
-                            .sheet(isPresented: self.$isChatPresented) {
-                                ChatView()
-                            }
-                        }.padding([.leading, .trailing], 18)
-                        
-                        // Spacer -----------------------------------------------------
-                        Spacer()
-                            .frame(minHeight: 10, idealHeight: 30, maxHeight: 60)
-                            .fixedSize()
-                        
-                        
-                    }.zIndex(5)
+                    
                     
                     
                 }.onAppear {
                     Analytics.capture(event: .viewHomeScreen)
                 }
             } // ScrollView
+            
+            VStack { // Buttons  -----------------------------------------------------
+                
+                Spacer()
+                
+                // Add widget button -----------------------------------------------------
+                VStack{
+                    Button {
+                        Analytics.capture(event: .addWidgetHelp)
+                        
+                        isShowingWebView = true
+                    } label: {
+                        Label {
+                            Text("Add widget").bold()
+                        } icon: {
+                            Image(systemName: "plus.circle.fill")
+                        }.padding()
+                    }
+                    .frame(maxWidth: .infinity)
+                    .background(.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(35)
+                    .sheet(isPresented: $isShowingWebView) {
+                        SheetView(isShowingWebView: self.$isShowingWebView)
+                        
+                    }
+
+                    
+                    Button {
+                        self.isChatPresented.toggle()
+                        Analytics.capture(event: .shareFeedback, eventProperties: [.from: "homeFeedbackButton"])
+                    } label: {
+                        Label {
+                            Text("Suggest features").bold()
+                        } icon: {
+                            Image(systemName: "lightbulb.fill")
+                        }.padding()
+                    }
+                    .frame(maxWidth: .infinity)
+                    .background(.orange)
+                    .foregroundColor(.white)
+                    .cornerRadius(35)
+                    .sheet(isPresented: self.$isChatPresented) {
+                        ChatView()
+                    }
+                }.padding([.leading, .trailing], 18)
+                
+                // Spacer -----------------------------------------------------
+                Spacer()
+                    .frame(minHeight: 10, idealHeight: 30, maxHeight: 60)
+                    .fixedSize()
+                
+                
+            }.zIndex(5)
         } // GeometryView
     }
     
