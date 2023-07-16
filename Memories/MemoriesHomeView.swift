@@ -144,7 +144,7 @@ struct MemoriesHomeView: View {
                                 // Loading view ------------------------------------------------
                             } else {
                                 ProgressView()
-                                    .frame(height: 162)
+                                    .frame(maxWidth: .infinity, minHeight: 162, idealHeight: 162, maxHeight: 162)
                                     .background(Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)))
                                     .cornerRadius(12)
                             }
