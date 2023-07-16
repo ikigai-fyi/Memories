@@ -48,13 +48,17 @@ struct Analytics {
         case viewLoginScreen
         case viewHomeScreen
 
+        // buttons
+        case homeFeedbackButton
+        case profileFeedbackButton
+        
         // actions
         case connectStrava
         case addWidgetHelp
         case refreshActivities
-        case homeFeedbackButtonClicked
+        case shareFeedback
         case loginHelpButtonClicked
-        
+                
         // lifecycle
         case appActive
         case systemUpdateWidget
@@ -62,8 +66,12 @@ struct Analytics {
     }
         
     enum Property: String {
+        // user attributes
         case firstName
         case lastName
         case lastSeenDate
+        
+        //action attributes
+        case from
     }
 }

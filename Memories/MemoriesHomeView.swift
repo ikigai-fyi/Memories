@@ -27,66 +27,76 @@ struct MemoriesHomeView: View {
     @State private var isShowingWebView: Bool = false
     @State private var isChatPresented: Bool = false
     
+    @State private var showingOptions = false
+
+    
     var refreshButtonColor: Color {
         return activityViewModel.isFetching ? .gray : .black
     }
     
     var body: some View {
-        
+    
         GeometryReader { proxy in
+            
+            // Header view
+            VStack {
+                // Header -----------------------------------------------------
+                HStack(spacing: 12) {
+                    
+                    // Spacer -----------------------------------------------------
+                    Spacer()
+                    
+                    // Picture ------------------------------------------------
+                    ZStack{
+                        Button(action: {
+                                    showingOptions = true
+                                }) {
+                                    AsyncImage(url: URL(string: loginViewModel.athlete!.pictureUrl)) { image in
+                                        image.resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(maxWidth: 42, maxHeight: 42)
+                                    } placeholder: {
+                                        Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1))
+                                    }
+                                    .cornerRadius(21)
+                                    .zIndex(1)
+                                    
+                                    
+                                }.confirmationDialog("Profile", isPresented: $showingOptions, titleVisibility: .hidden) {
+                                    if false && Config.env == "dev" {
+                                        Button("Logout", role: .destructive) {
+                                            loginViewModel.logout()
+                                        }
+                                    }
+                                    
+                                    Button("Suggest features") {
+                                        Analytics.capture(event: .shareFeedback, eventProperties: [.from: Analytics.Event.profileFeedbackButton.rawValue])
+                                    }.sheet(isPresented: self.$isChatPresented) {
+                                        ChatView()
+                                    }
+                                    
+                                    Button("Cancel", role: .cancel) {
+                                        
+                                    }
+                                }
+                        
+                                StravaIconView().zIndex(10)
+                        
+                    }
+                    
+                }.padding()
+                
+                Spacer()
+                
+            }.zIndex(5)
+            
             ScrollView{
                 ZStack {
                     
                     MemoriesConfettiView(runConfetti: $runConfetti, bikeConfetti: $bikeConfetti, hikeConfetti: $hikeConfetti, skiConfetti: $skiConfetti, otherConfetti: $otherConfetti)
                         .zIndex(10)
                     
-                    // Header view
                     VStack {
-                        
-                        // Spacer -----------------------------------------------------
-                        Spacer()
-                            .frame(minHeight: 10, idealHeight: 40, maxHeight: 80)
-                            .fixedSize()
-                        
-                        // Header -----------------------------------------------------
-                        HStack(spacing: 12) {
-                            
-                            // Picture ------------------------------------------------
-                            ZStack{
-                                AsyncImage(url: URL(string: loginViewModel.athlete!.pictureUrl)) { image in
-                                    image
-                                } placeholder: {
-                                    Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1))
-                                }
-                                .frame(width: 54, height: 54)
-                                .cornerRadius(27)
-                                .zIndex(1)
-                                
-                                StravaIconView()
-                                    .zIndex(10)
-                                
-                            }
-                            
-                            // Name ---------------------------------------------------
-                            VStack(alignment: .leading) {
-                                Text(loginViewModel.athlete!.firstName)
-                                    .font(.headline).bold()
-                                Text(loginViewModel.athlete!.lastName)
-                                    .font(.headline).bold()
-                                
-                            }
-                        }.frame(height: 100)
-                        
-                        Spacer()
-                        
-                    }.zIndex(5)
-                    
-                    VStack {
-                        if false && Config.env == "dev" {
-                            Button("Logout (dev only - will crash)") {
-                                self.loginViewModel.logout()
-                            }
-                        }
                         
                         // Spacer -----------------------------------------------------
                         Spacer()
@@ -283,7 +293,7 @@ struct MemoriesHomeView: View {
                             
                             Button {
                                 self.isChatPresented.toggle()
-                                Analytics.capture(event: .homeFeedbackButtonClicked)
+                                Analytics.capture(event: .shareFeedback, eventProperties: [.from: Analytics.Event.homeFeedbackButton.rawValue])
                             } label: {
                                 Label {
                                     Text("Suggest features").bold()
@@ -421,10 +431,10 @@ struct StravaIconView : View {
                 Image("Strava")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 18, height: 18)
+                    .frame(width: 12, height: 12)
                     .cornerRadius(4)
             }
-        }.frame(width: 54, height: 54)
+        }.frame(width: 42, height: 42)
     }
 }
 
