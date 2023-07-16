@@ -188,6 +188,8 @@ struct MemoriesHomeView: View {
                         default: ()
                         }
                     }
+                }.onAppear {
+                    Analytics.capture(event: .viewHomeScreen)
                 }
             } // ScrollView
         } // GeometryView

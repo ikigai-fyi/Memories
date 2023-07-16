@@ -46,7 +46,8 @@ struct Analytics {
     enum Event: String {
         // screens
         case viewLoginScreen
-        
+        case viewHomeScreen
+
         // actions
         case connectStrava
         case addWidgetHelp
