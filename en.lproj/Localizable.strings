@@ -7,3 +7,4 @@
 */
 
 // We assume strings are passed as English by default in SwiftUI views
+"url_help_widget" = "https://support.apple.com/en-us/HT207122";

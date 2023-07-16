@@ -433,7 +433,7 @@ struct SheetView : View {
     
     var body: some View{
         NavigationView{
-            WebView(url: URL(string: "https://support.apple.com/en-us/HT207122")!)
+            WebView(url: URL(string: NSLocalizedString("url_help_widget", comment: "comment"))!)
                 .navigationBarTitle(Text(""), displayMode: .inline)
                 .navigationBarItems(trailing: Button(action: {
                     self.isShowingWebView = false
