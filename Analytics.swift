@@ -47,10 +47,6 @@ struct Analytics {
         // screens
         case viewLoginScreen
         case viewHomeScreen
-
-        // buttons
-        case homeFeedbackButton
-        case profileFeedbackButton
         
         // actions
         case connectStrava
@@ -58,7 +54,8 @@ struct Analytics {
         case refreshActivities
         case shareFeedback
         case loginHelpButtonClicked
-                
+        case logout
+
         // lifecycle
         case appActive
         case systemUpdateWidget

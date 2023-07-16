@@ -66,13 +66,14 @@ struct MemoriesHomeView: View {
                             
                                     
                                     Button("Suggest features") {
-                                        Analytics.capture(event: .shareFeedback, eventProperties: [.from: Analytics.Event.profileFeedbackButton.rawValue])
+                                        Analytics.capture(event: .shareFeedback, eventProperties: [.from: "profileFeedbackButton"])
                                     }.sheet(isPresented: self.$isChatPresented) {
                                         ChatView()
                                     }
                                     
                                     if Config.env == "dev" {
                                         Button("Logout", role: .destructive) {
+                                            Analytics.capture(event: .logout)
                                             loginViewModel.logout()
                                         }
                                     }
@@ -295,7 +296,7 @@ struct MemoriesHomeView: View {
                             
                             Button {
                                 self.isChatPresented.toggle()
-                                Analytics.capture(event: .shareFeedback, eventProperties: [.from: Analytics.Event.homeFeedbackButton.rawValue])
+                                Analytics.capture(event: .shareFeedback, eventProperties: [.from: "homeFeedbackButton"])
                             } label: {
                                 Label {
                                     Text("Suggest features").bold()
