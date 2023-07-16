@@ -58,6 +58,7 @@ struct Analytics {
         // lifecycle
         case appActive
         case systemUpdateWidget
+        case systemAskForReview
     }
         
     enum Property: String {

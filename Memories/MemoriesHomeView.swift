@@ -222,7 +222,7 @@ struct MemoriesHomeView: View {
                             // request review
                             // trigger is widget count > 0 && did not ask before
                             WidgetCenter.shared.getCurrentConfigurations { results in
-                                guard let widgets = try? results.get() else { return }
+                                guard (try? results.get()) != nil else { return }
                                 let lastVersionPromptedForReview = UserDefaults.standard.string(forKey: UserDefaultsKeys.lastVersionPromptedForReviewKey)
                                 
                                 // Get the current bundle version for the app.
@@ -242,6 +242,7 @@ struct MemoriesHomeView: View {
                                         let allScenes = UIApplication.shared.connectedScenes
                                         let scene = allScenes.first { $0.activationState == .foregroundActive }
                                         if let windowScene = scene as? UIWindowScene {
+                                            Analytics.capture(event: .systemAskForReview)
                                             SKStoreReviewController.requestReview(in: windowScene)
                                             UserDefaults.standard.set(currentVersion, forKey: UserDefaultsKeys.lastVersionPromptedForReviewKey)
                                         }
