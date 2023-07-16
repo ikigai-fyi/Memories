@@ -71,6 +71,7 @@ struct MemoriesHomeView: View {
                             
                                     
                                     Button("Suggest features") {
+                                        self.isChatPresented.toggle()
                                         Analytics.capture(event: .shareFeedback, eventProperties: [.from: "profileFeedbackButton"])
                                     }.sheet(isPresented: self.$isChatPresented) {
                                         ChatView()
