@@ -214,7 +214,7 @@ struct MemoriesHomeView: View {
                                 Analytics.capture(event: .homeFeedbackButtonClicked)
                             } label: {
                                 Label {
-                                    Text("Give feedback").bold()
+                                    Text("Suggest features").bold()
                                 } icon: {
                                     Image(systemName: "lightbulb.fill")
                                 }.padding()
