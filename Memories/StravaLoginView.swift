@@ -38,25 +38,41 @@ struct StravaLoginView: View {
           
             Spacer()
             
-            Button {
-                Analytics.capture(event: .connectStrava)
-                
-                // Open Strava app if installed, if will be redirected to our app through a deeplink
-                // UIApplication can only be used in a UIKit context
-                if UIApplication.shared.canOpenURL(self.loginViewModel.getStravaMobileUrl()) {
-                    UIApplication.shared.open(self.loginViewModel.getStravaMobileUrl(), options: [:])
-                } else {
-                    self.loginViewModel.startWebOauth()
+            VStack(spacing: 12.0) {
+             
+                Button {
+                    Analytics.capture(event: .connectStrava)
+                    
+                    // Open Strava app if installed, if will be redirected to our app through a deeplink
+                    // UIApplication can only be used in a UIKit context
+                    if UIApplication.shared.canOpenURL(self.loginViewModel.getStravaMobileUrl()) {
+                        UIApplication.shared.open(self.loginViewModel.getStravaMobileUrl(), options: [:])
+                    } else {
+                        self.loginViewModel.startWebOauth()
+                    }
+                } label: {
+                    Text("Connect with Strava")
+                        .bold()
+                        .padding()
                 }
-            } label: {
-                Text("Connect with Strava")
-                    .bold()
-                    .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color(Constants.MainColor))
+                .foregroundColor(.white)
+                .cornerRadius(35)
+                
+                Button {
+                    self.isChatPresented.toggle()
+                    Analytics.capture(event: .loginHelpButtonClicked)
+                } label: {
+                    Text("Need help?")
+                        .foregroundColor(.gray)
+                        .font(.footnote)
+                }
+                .sheet(isPresented: self.$isChatPresented) {
+                    ChatView()
+                }
+                
             }
-            .frame(maxWidth: .infinity)
-            .background(Color(Constants.MainColor))
-            .foregroundColor(.white)
-            .cornerRadius(35)
 
         }
         .frame(maxWidth: .infinity)
@@ -69,19 +85,6 @@ struct StravaLoginView: View {
             Analytics.capture(event: .viewLoginScreen)
         }
         
-        Button {
-            self.isChatPresented.toggle()
-            Analytics.capture(event: .loginHelpButtonClicked)
-        } label: {
-            Text("Need help?")
-                .foregroundColor(.gray)
-                .font(.footnote)
-                .padding()
-        }
-        .padding()
-        .sheet(isPresented: self.$isChatPresented) {
-            ChatView()
-        }
     }
 }
 
