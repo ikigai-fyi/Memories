@@ -122,7 +122,7 @@ struct MemoriesHomeView: View {
                             
                         }
                         
-                        VStack{
+                        VStack(spacing: 18.0) {
                             HStack {
                                 RowIcon(row: 0)
                                 Spacer()
