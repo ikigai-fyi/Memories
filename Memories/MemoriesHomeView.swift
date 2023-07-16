@@ -75,8 +75,9 @@ struct MemoriesHomeView: View {
                                 
                             }
                         }.frame(height: 100)
+
                         
-                        if Config.env == "dev" {
+                        if false && Config.env == "dev" {
                             Button("Logout (dev only - will crash)") {
                                 self.loginViewModel.logout()
                             }
@@ -90,7 +91,7 @@ struct MemoriesHomeView: View {
                             if !activityViewModel.isFetching,
                                let activity = activityViewModel.activity {
                                 MemoriesWidgetView(loggedIn: true, activity: activity)
-                                    .frame(width: 292, height: 141)
+                                    .frame(height: 162)
                                     .background(.gray.opacity(0.05))
                                     .cornerRadius(20)
                                     .shadow(radius: 18)
@@ -99,7 +100,7 @@ struct MemoriesHomeView: View {
                                 // Loading view ------------------------------------------------
                             } else {
                                 ProgressView()
-                                    .frame(width: 292, height: 141)
+                                    .frame( height: 162)
                                     .background(.gray.opacity(0.1))
                                     .cornerRadius(12)
                                 
@@ -119,9 +120,67 @@ struct MemoriesHomeView: View {
                                 }.font(.system(size: 12)).foregroundColor(refreshButtonColor)
                             }.disabled(activityViewModel.isFetching)
                             
-                        }.frame(height: 400)
+                        }
+                        
+                        VStack{
+                            HStack {
+                                RowIcon(row: 0)
+                                Spacer()
+                                RowIcon(row: 0)
+                                Spacer()
+                                RowIcon(row: 0)
+                                Spacer()
+                                RowIcon(row: 0)
+
+                            }.frame(maxWidth: .infinity)
+                            
+                            HStack {
+                                RowIcon(row: 1)
+                                Spacer()
+                                RowIcon(row: 1)
+                                Spacer()
+                                RowIcon(row: 1)
+                                Spacer()
+                                RowIcon(row: 1)
+
+                            }.frame(maxWidth: .infinity)
+                            
+                            HStack {
+                                RowIcon(row: 2)
+                                Spacer()
+                                RowIcon(row: 2)
+                                Spacer()
+                                RowIcon(row: 2)
+                                Spacer()
+                                RowIcon(row: 2)
+
+                            }.frame(maxWidth: .infinity)
+                        }
+                       
                         
                         // Spacer -----------------------------------------------------
+                        Spacer()
+                        
+                    }
+                    .zIndex(1) // VStack content view
+                    .padding([.leading, .trailing], 28)
+                    .frame(maxWidth: .infinity, minHeight: proxy.size.height) // fix height scrollview
+                    .onAppear{
+                        // First render
+                        self.syncActivity()
+                    }
+                    .onChange(of: scenePhase) { newPhase in
+                        // Subsequent renders
+                        switch newPhase {
+                        case .active:
+                            self.syncActivity()
+                        default: ()
+                        }
+                    }
+                    
+                    
+                    VStack { // Buttons  -----------------------------------------------------
+                        
                         Spacer()
                         
                         // Add widget button -----------------------------------------------------
@@ -146,9 +205,9 @@ struct MemoriesHomeView: View {
                                 
                             }
                             
-                            Spacer()
-                                .frame(minHeight: 6, idealHeight: 10, maxHeight: 12)
-                                .fixedSize()
+//                            Spacer()
+//                                .frame(minHeight: 6, idealHeight: 10, maxHeight: 12)
+//                                .fixedSize()
                             
                             Button {
                                 self.isChatPresented.toggle()
@@ -169,25 +228,15 @@ struct MemoriesHomeView: View {
                             }
                         }.padding([.leading, .trailing], 18)
                         
+                        // Spacer -----------------------------------------------------
                         Spacer()
-                            .frame(minHeight: 10, idealHeight: 18, maxHeight: 36)
+                            .frame(minHeight: 10, idealHeight: 30, maxHeight: 60)
                             .fixedSize()
                         
-                    }
-                    .zIndex(1) // VStack content view
-                    .frame(maxWidth: .infinity, minHeight: proxy.size.height) // fix height scrollview
-                    .onAppear{
-                        // First render
-                        self.syncActivity()
-                    }
-                    .onChange(of: scenePhase) { newPhase in
-                        // Subsequent renders
-                        switch newPhase {
-                        case .active:
-                            self.syncActivity()
-                        default: ()
-                        }
-                    }
+                       
+                    }.zIndex(5)
+                   
+                    
                 }.onAppear {
                     Analytics.capture(event: .viewHomeScreen)
                 }
@@ -224,6 +273,35 @@ struct MemoriesHomeView: View {
     }
 }
 
+struct RowIcon : View {
+    var row: Int
+    
+    init(row: Int) {
+        self.row = row
+    }
+    
+    var rowColors : [Color] {
+        switch (row){
+        case 0 :
+            return [Helper.gradientStart, Helper.gradientStepOne.opacity(1.03)]
+        case 1 :
+            return [Helper.gradientStepTwo.opacity(0.97), Helper.gradientStepThree.opacity(1.03)]
+        case 2 :
+            return [Helper.gradientStepThree.opacity(0.97), Helper.gradientEnd.opacity(1.03)]
+        default : return [Helper.gradientStart, Helper.gradientEnd]
+        }
+        
+    }
+    
+    var body: some View{
+        Rectangle()
+            .fill(LinearGradient(
+                gradient: .init(colors: rowColors),
+                startPoint: .init(x: 0.5, y: 0), endPoint: .init(x: 0.5, y: 1)))
+        .frame(width: 64, height: 64)
+        .cornerRadius(12)
+    }
+}
 
 struct MemoriesConfettiView : View {
     @Binding var runConfetti: Int

@@ -61,4 +61,11 @@ struct Helper {
         }
         return nil
     }
+        
+    static let gradientStart = Color(red: 0, green: 0, blue: 0, opacity: 0.08)
+    static let gradientStepOne = Color(red: 0, green: 0, blue: 0, opacity: 0.06)
+    static let gradientStepTwo = Color(red: 0, green: 0, blue: 0, opacity: 0.04)
+    static let gradientStepThree = Color(red: 0, green: 0, blue: 0, opacity: 0.02)
+    static let gradientEnd = Color(red: 0, green: 0, blue: 0, opacity: 0)
+
 }
