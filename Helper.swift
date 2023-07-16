@@ -10,7 +10,7 @@ import SwiftUI
 
 struct Constants {
     static let MainColor: UIColor = UIColor(red: 0.99, green: 0.30, blue: 0.01, alpha: 1.00)
-    static let SportsTypeIconEnabled: Bool = false
+    static let SportsTypeIconEnabled: Bool = true
 }
 
 struct Helper {
@@ -45,9 +45,7 @@ struct Helper {
         return dateFormatter.string(from: date)
     }
     
-    static func getSystemIconForActivityType(activityType: String) -> String?{
-        let defaultImage = "location.fill"
-        
+    static func getSystemIconForActivityType(activityType: String) -> String?{        
         if #available(iOS 16, *) {
             switch activityType {
             case "Hike":
@@ -56,10 +54,10 @@ struct Helper {
                 return "figure.outdoor.cycle"
             case "Run":
                 return "figure.run"
-            default: return defaultImage
+            case "Swim":
+                return "figure.open.water.swim"
+            default: return nil
             }
-        } else {
-            return defaultImage
         }
     }
 }
