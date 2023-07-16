@@ -55,7 +55,7 @@ struct MemoriesHomeView: View {
                                 AsyncImage(url: URL(string: loginViewModel.athlete!.pictureUrl)) { image in
                                     image
                                 } placeholder: {
-                                    Color.gray.opacity(0.1)
+                                    Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1))
                                 }
                                 .frame(width: 54, height: 54)
                                 .cornerRadius(27)
@@ -136,7 +136,7 @@ struct MemoriesHomeView: View {
                                let activity = activityViewModel.activity {
                                 MemoriesWidgetView(loggedIn: true, activity: activity)
                                     .frame(height: 162)
-                                    .background(.gray.opacity(0.05))
+                                    .background(Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)))
                                     .cornerRadius(20)
                                     .shadow(color: Color.black.opacity(0.3), radius: 18)
                                 
@@ -145,7 +145,7 @@ struct MemoriesHomeView: View {
                             } else {
                                 ProgressView()
                                     .frame(height: 162)
-                                    .background(.gray.opacity(0.1))
+                                    .background(Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)))
                                     .cornerRadius(12)
                             }
                             
