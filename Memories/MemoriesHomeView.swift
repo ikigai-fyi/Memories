@@ -63,7 +63,7 @@ struct MemoriesHomeView: View {
                                     
                                     
                                 }.confirmationDialog("Profile", isPresented: $showingOptions, titleVisibility: .hidden) {
-                                    if false && Config.env == "dev" {
+                                    if Config.env == "dev" {
                                         Button("Logout", role: .destructive) {
                                             loginViewModel.logout()
                                         }
