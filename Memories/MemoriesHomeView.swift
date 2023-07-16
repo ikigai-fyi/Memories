@@ -63,16 +63,18 @@ struct MemoriesHomeView: View {
                                     
                                     
                                 }.confirmationDialog("Profile", isPresented: $showingOptions, titleVisibility: .hidden) {
-                                    if Config.env == "dev" {
-                                        Button("Logout", role: .destructive) {
-                                            loginViewModel.logout()
-                                        }
-                                    }
+                            
                                     
                                     Button("Suggest features") {
                                         Analytics.capture(event: .shareFeedback, eventProperties: [.from: Analytics.Event.profileFeedbackButton.rawValue])
                                     }.sheet(isPresented: self.$isChatPresented) {
                                         ChatView()
+                                    }
+                                    
+                                    if Config.env == "dev" {
+                                        Button("Logout", role: .destructive) {
+                                            loginViewModel.logout()
+                                        }
                                     }
                                     
                                     Button("Cancel", role: .cancel) {
