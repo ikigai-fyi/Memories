@@ -233,9 +233,11 @@ struct MemoriesHomeView: View {
                                 // Verify the user completes the process several times and doesn’t receive a prompt for this app version.
                                 if currentVersion != lastVersionPromptedForReview {
                                     Task { @MainActor in
-                                        // Delay for two seconds to avoid interrupting the person using the app.
+                                        // Delay for five seconds to avoid interrupting the person using the app.
                                         // Use the equation n * 10^9 to convert seconds to nanoseconds.
-                                        try? await Task.sleep(nanoseconds: UInt64(2e9))
+                                        
+                                        try? await Task.sleep(nanoseconds: UInt64(5e9))
+
                                         
                                         let allScenes = UIApplication.shared.connectedScenes
                                         let scene = allScenes.first { $0.activationState == .foregroundActive }
