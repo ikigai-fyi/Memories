@@ -43,6 +43,11 @@ struct MemoriesHomeView: View {
                 // Header -----------------------------------------------------
                 HStack(spacing: 12) {
                     
+                    // App name -----------------------------------------------
+                    Text("Memories")
+                        .font(.largeTitle.weight(.heavy))
+                        .foregroundColor(Color(.init(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)))
+                    
                     // Spacer -----------------------------------------------------
                     Spacer()
                     
