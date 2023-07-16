@@ -94,16 +94,15 @@ struct MemoriesHomeView: View {
                                     .frame(height: 162)
                                     .background(.gray.opacity(0.05))
                                     .cornerRadius(20)
-                                    .shadow(radius: 18)
+                                    .shadow(color: Color.black.opacity(0.3), radius: 18)
                                 
                                 
                                 // Loading view ------------------------------------------------
                             } else {
                                 ProgressView()
-                                    .frame( height: 162)
+                                    .frame(height: 162)
                                     .background(.gray.opacity(0.1))
                                     .cornerRadius(12)
-                                
                             }
                             
                             // Refresh widget ------------------------------------------------
