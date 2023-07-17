@@ -91,7 +91,7 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
                 print("[DEBUG] succes")
                 logout()
             } else {
-                print("[DEBUG] error")er
+                print("[DEBUG] error")
             }
             
             
