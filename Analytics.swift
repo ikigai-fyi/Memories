@@ -55,6 +55,7 @@ struct Analytics {
         case shareFeedback
         case loginHelpButtonClicked
         case logout
+        case deleteAccount
 
         // lifecycle
         case appActive

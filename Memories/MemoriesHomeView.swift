@@ -78,15 +78,19 @@ struct MemoriesHomeView: View {
                                     }
                                     
                                     if Config.env == "dev" {
-                                        Button("Logout", role: .destructive) {
+                                        Button("Logout") {
                                             Analytics.capture(event: .logout)
                                             loginViewModel.logout()
                                         }
-                                    }
-                                    
-                                    Button("Cancel", role: .cancel) {
                                         
+                                        Button("Delete my account", role: .destructive) {
+                                            Analytics.capture(event: .deleteAccount)
+                                            Task { await
+                                                loginViewModel.deleteAccount()
+                                            }
+                                        }
                                     }
+                                    Button("Cancel", role: .cancel) {}
                                 }
                         
                                 StravaIconView().zIndex(10)
