@@ -28,6 +28,7 @@ struct MemoriesHomeView: View {
     @State private var isChatPresented: Bool = false
     
     @State private var showingOptions = false
+    @State private var showingAlert = false
 
     
     var refreshButtonColor: Color {
@@ -68,29 +69,36 @@ struct MemoriesHomeView: View {
                                     
                                     
                                 }.confirmationDialog("Profile", isPresented: $showingOptions, titleVisibility: .hidden) {
-                            
-                                    
+
+
                                     Button("Suggest features") {
                                         self.isChatPresented.toggle()
                                         Analytics.capture(event: .shareFeedback, eventProperties: [.from: "profileFeedbackButton"])
                                     }.sheet(isPresented: self.$isChatPresented) {
                                         ChatView()
                                     }
-                                    
-                                    if Config.env == "dev" {
-                                        Button("Logout") {
-                                            Analytics.capture(event: .logout)
-                                            loginViewModel.logout()
-                                        }
-                                        
-                                        Button("Delete my account", role: .destructive) {
-                                            Analytics.capture(event: .deleteAccount)
-                                            Task { await
-                                                loginViewModel.deleteAccount()
-                                            }
+
+                                    Button("Logout") {
+                                        Analytics.capture(event: .logout)
+                                        loginViewModel.logout()
+                                    }
+
+                                    Button("Delete my account", role: .destructive) {
+                                        Analytics.capture(event: .deleteAccount)
+                                        showingAlert = true
+                                    }
+
+                                    Button("Cancel", role: .cancel) {}
+                                }.alert ("Account deletion", isPresented: $showingAlert) {
+                                    Button("OK", role: .destructive) {
+                                        Analytics.capture(event: .confirmDeleteAccount)
+                                        Task { await
+                                            loginViewModel.deleteAccount()
                                         }
                                     }
                                     Button("Cancel", role: .cancel) {}
+                                }message: {
+                                    Text("Are you sure? This action is irreversible.")
                                 }
                         
                                 StravaIconView().zIndex(10)

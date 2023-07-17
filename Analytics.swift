@@ -56,6 +56,7 @@ struct Analytics {
         case loginHelpButtonClicked
         case logout
         case deleteAccount
+        case confirmDeleteAccount
 
         // lifecycle
         case appActive

@@ -83,17 +83,14 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
         request.setValue("Bearer \(StravaLoginViewModel.getAthleteFromUserDefault()!.jwt)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "POST"
         
-
         do {
             let (_, response) = try await URLSession.shared.data(for: request)
-            
             if let r = response as? HTTPURLResponse, r.statusCode == 200 {
-                print("[DEBUG] succes")
                 logout()
+                print("succes")
             } else {
-                print("[DEBUG] error")
+                print("error")
             }
-            
             
         } catch {
             print(error)

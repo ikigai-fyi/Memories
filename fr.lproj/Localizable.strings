@@ -21,3 +21,5 @@
 "Cancel" = "Annuler";
 "url_help_widget" = "https://support.apple.com/fr-fr/HT207122";
 "Delete my account" = "Supprimer mon compte";
+"Account deletion" = "Supprimer mon compte";
+"Are you sure? This action is irreversible." = "Êtes vous sûr(e) ? Cette action est irréversible.";
