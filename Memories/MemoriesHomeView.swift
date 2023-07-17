@@ -56,7 +56,7 @@ struct MemoriesHomeView: View {
                         Button(action: {
                                     showingOptions = true
                                 }) {
-                                    AsyncImage(url: URL(string: loginViewModel.athlete!.pictureUrl)) { image in
+                                    AsyncImage(url: URL(string: loginViewModel.athlete?.pictureUrl ?? "")) { image in
                                         image.resizable()
                                             .aspectRatio(contentMode: .fit)
                                             .frame(maxWidth: 42, maxHeight: 42)

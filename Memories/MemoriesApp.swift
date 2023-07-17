@@ -15,6 +15,7 @@ struct MemoriesApp: App {
     @StateObject var loginViewModel = StravaLoginViewModel()
     @StateObject var activityViewModel = ActivityViewModel()
     @Environment(\.scenePhase) var scenePhase
+
     
     init() {
         SentrySDK.start { options in

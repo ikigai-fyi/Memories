@@ -77,24 +77,23 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
     }
     
     public func deleteAccount() async {
-        let url = URL(string: "\(Config.backendURL)/rest/delete")!
+        let url = URL(string: "\(Config.backendURL)/rest/auth/delete")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(StravaLoginViewModel.getAthleteFromUserDefault()!.jwt)", forHTTPHeaderField: "Authorization")
-        request.httpMethod = "GET"
+        request.httpMethod = "POST"
         
 
         do {
-            let (data, _) = try await URLSession.shared.data(for: request)
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .formatted(.standard)
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            let (_, response) = try await URLSession.shared.data(for: request)
             
-            do {
+            if let r = response as? HTTPURLResponse, r.statusCode == 200 {
+                print("[DEBUG] succes")
                 logout()
-            } catch {
-                print(error)
+            } else {
+                print("[DEBUG] error")er
             }
+            
             
         } catch {
             print(error)
@@ -169,7 +168,6 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
         
         // analytics
         PHGPostHog.shared()?.reset()
-        
     }
 
     
