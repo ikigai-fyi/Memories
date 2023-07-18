@@ -9,6 +9,7 @@ import SwiftUI
 import Activity
 import Sentry
 import Crisp
+import PostHog
 
 @main
 struct MemoriesApp: App {

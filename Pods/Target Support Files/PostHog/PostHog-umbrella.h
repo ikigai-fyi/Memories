@@ -14,6 +14,7 @@
 #import "PHGCapturePayload.h"
 #import "PHGContext.h"
 #import "PHGCrypto.h"
+#import "PHGGroupPayload.h"
 #import "PHGIdentifyPayload.h"
 #import "PHGIntegration.h"
 #import "PHGMiddleware.h"

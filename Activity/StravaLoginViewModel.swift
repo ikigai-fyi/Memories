@@ -70,7 +70,10 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
             self.athlete = athlete
             self.saveAthleteToUserDefault(athlete: athlete)
             
-            Analytics.identify(athlete: athlete)
+            if PHGPostHog.shared() == nil {
+                Analytics.initialize()
+            }
+            Analytics.identify(athlete: athlete)            
         } catch {
             print(error)
         }
@@ -164,7 +167,7 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
         self.saveAthleteToUserDefault(athlete: nil)
         
         // analytics
-        PHGPostHog.shared()?.reset()
+        Analytics.reset()
     }
 
     

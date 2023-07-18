@@ -12,6 +12,7 @@ import WidgetKit
 import ConfettiSwiftUI
 import Crisp
 import StoreKit
+import PostHog
 
 struct MemoriesHomeView: View {
     @EnvironmentObject var loginViewModel: StravaLoginViewModel
@@ -25,6 +26,7 @@ struct MemoriesHomeView: View {
     @State private var otherConfetti: Int = 0
     
     @State private var isShowingWebView: Bool = false
+    @State private var isShowingGifView: Bool = false
     @State private var isChatPresented: Bool = false
     
     @State private var showingOptions = false
@@ -286,8 +288,14 @@ struct MemoriesHomeView: View {
                     if shouldShowAddWidgetHelp{
                         Button {
                             Analytics.capture(event: .addWidgetHelp)
-                            
-                            isShowingWebView = true
+                            print("[DEBUG] (view) FF value \(PHGPostHog.shared()?.getFeatureFlag("activate-widget-gif"))")
+                            if let ff = PHGPostHog.shared()?.getFeatureFlag(("activate-widget-gif")) as? Int,
+                               ff == 0 {
+                                isShowingWebView = true
+                            } else {
+                                isShowingGifView = true
+                            }
+
                         } label: {
                             Label {
                                 Text("Add widget").bold()

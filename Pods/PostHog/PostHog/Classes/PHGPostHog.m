@@ -13,6 +13,7 @@
 #import "PHGCapturePayload.h"
 #import "PHGScreenPayload.h"
 #import "PHGAliasPayload.h"
+#import "PHGGroupPayload.h"
 
 static PHGPostHog *__sharedInstance = nil;
 
@@ -84,6 +85,8 @@ static PHGPostHog *__sharedInstance = nil;
             }
         }
 #endif
+        
+        [self reloadFeatureFlags];
     }
     return self;
 }
@@ -254,6 +257,174 @@ NSString *const PHGBuildKeyV2 = @"PHGBuildKeyV2";
                                     [[PHGAliasPayload alloc] initWithAlias:alias]];
 }
 
+#pragma mark - Group
+
+- (void)group:(NSString *_Nonnull)groupType groupKey:(NSString *_Nonnull)groupKey
+{
+    [self group:groupType groupKey:groupKey properties:nil];
+}
+
+- (void)group:(NSString *_Nonnull)groupType groupKey:(NSString *_Nonnull)groupKey properties:(NSDictionary *)properties
+{
+    NSDictionary *currentGroups = [self.payloadManager getGroups];
+    
+//    TODO: set groups as super property
+    [self.payloadManager saveGroup:groupType groupKey:groupKey];
+    
+    [self run:PHGEventTypeGroup payload: [[PHGGroupPayload alloc] initWithType:groupType groupKey:groupKey properties:PHGCoerceDictionary(properties)]];
+    
+    NSString *possibleGroupKey = [currentGroups objectForKey:groupType];
+
+    if (![possibleGroupKey isEqualToString:groupKey]){
+        [self reloadFeatureFlags];
+    }
+}
+
+- (id)getFeatureFlag:(NSString *)flagKey
+{
+    return [self getFeatureFlag:flagKey options:nil];
+}
+
+- (id)getFeatureFlag:(NSString *)flagKey options:(NSDictionary *)options
+{
+    NSDictionary *variants = [self.payloadManager getFlagVariants];
+    id variantValue = [variants valueForKey:flagKey];
+
+    id send_event = [options valueForKey:@"send_event"];
+
+    if (send_event == nil || [send_event boolValue] != false) {
+        NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+        [properties setValue:flagKey forKey:@"$feature_flag"];
+        [properties setValue:variantValue forKey:@"$feature_flag_response"];
+        
+        
+        [self run:PHGEventTypeCapture payload:
+                                        [[PHGCapturePayload alloc] initWithEvent:@"$feature_flag_called"
+                                                                    properties:PHGCoerceDictionary(properties)]];
+    }
+
+    return variantValue;
+}
+
+- (bool)isFeatureEnabled:(NSString *)flagKey
+{
+    return [self isFeatureEnabled:flagKey options:nil];
+}
+
+- (bool)isFeatureEnabled:(NSString *)flagKey options:(NSDictionary *)options
+{
+    NSArray *keys = [self.payloadManager getFeatureFlags];
+    BOOL isFlagEnabled = [keys containsObject: flagKey];
+    
+    id send_event = [options valueForKey:@"send_event"];
+    
+    if (send_event == nil || [send_event boolValue] != false) {
+        NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+
+        [properties setValue:flagKey forKey:@"$feature_flag"];
+        [properties setValue:@(isFlagEnabled) forKey:@"$feature_flag_response"];
+        
+        [self run:PHGEventTypeCapture payload:
+                                        [[PHGCapturePayload alloc] initWithEvent:@"$feature_flag_called"
+                                                                    properties:PHGCoerceDictionary(properties)]];
+    }
+    
+    return isFlagEnabled;
+}
+
+- (NSString *)getFeatureFlagStringPayload:(NSString *)flagKey defaultValue:(NSString *)defaultValue
+{
+    NSDictionary *payloads = [self.payloadManager getFeatureFlagPayloads];
+    id payload = [payloads valueForKey:flagKey];
+    
+    if( payload == NULL ){
+        return defaultValue;
+    }
+    
+    if ([payload isKindOfClass:[NSString class]]) {
+        return payload;
+    } else {
+        NSLog(@"[Posthog]: Could not retrieve value of type: NSString");
+        return defaultValue;
+    }
+}
+
+- (NSInteger)getFeatureFlagIntegerPayload:(NSString *)flagKey defaultValue:(NSInteger)defaultValue
+{
+    NSDictionary *payloads = [self.payloadManager getFeatureFlagPayloads];
+    id payload = [payloads objectForKey:flagKey];
+    
+    if( payload == NULL ){
+        return defaultValue;
+    }
+    
+    if ([payload isKindOfClass:[NSNumber class]]) {
+        return [payload integerValue];
+    } else {
+        NSLog(@"[Posthog]: Could not retrieve value of type: NSInteger");
+        return defaultValue;
+    }
+}
+
+- (double)getFeatureFlagDoublePayload:(NSString *)flagKey defaultValue:(double)defaultValue
+{
+    NSDictionary *payloads = [self.payloadManager getFeatureFlagPayloads];
+    id payload = [payloads objectForKey:flagKey];
+    
+    if( payload == NULL ){
+        return defaultValue;
+    }
+    
+    if ([payload isKindOfClass:[NSNumber class]]) {
+        return [payload doubleValue];
+    } else {
+        NSLog(@"[Posthog]: Could not retrieve value of type: double");
+        return defaultValue;
+    }
+
+}
+
+- (NSDictionary *)getFeatureFlagDictionaryPayload:(NSString *)flagKey defaultValue:(NSDictionary *)defaultValue
+{
+    NSDictionary *payloads = [self.payloadManager getFeatureFlagPayloads];
+    id payload = [payloads objectForKey:flagKey];
+    
+    if( payload == NULL ){
+        return defaultValue;
+    }
+    
+    if ([payload isKindOfClass:[NSDictionary class]]) {
+        NSDictionary* newDict = (NSDictionary*)payload;
+        return newDict;
+    } else {
+        NSLog(@"[Posthog]: Could not retrieve value of type: NSDictionary");
+        return defaultValue;
+    }
+}
+
+- (NSArray *)getFeatureFlagArrayPayload:(NSString *)flagKey defaultValue:(NSArray *)defaultValue
+{
+    NSDictionary *payloads = [self.payloadManager getFeatureFlagPayloads];
+    id payload = [payloads objectForKey:flagKey];
+    
+    if( payload == NULL ){
+        return defaultValue;
+    }
+    
+    if ([payload isKindOfClass:[NSArray class]]) {
+        NSArray* newDict = (NSArray*)payload;
+        return newDict;
+    } else {
+        NSLog(@"[Posthog]: Could not retrieve value of type: NSArray");
+        return defaultValue;
+    }
+}
+
+- (void)reloadFeatureFlags
+{
+    [self run:PHGEventTypeReloadFeatureFlags payload:nil];
+}
+
 - (void)capturePushNotification:(NSDictionary *)properties fromLaunch:(BOOL)launch
 {
     if (launch) {
@@ -379,7 +550,7 @@ NSString *const PHGBuildKeyV2 = @"PHGBuildKeyV2";
 {
     // this has to match the actual version, NOT what's in info.plist
     // because Apple only accepts X.X.X as versions in the review process.
-    return @"1.3.0";
+    return @"2.0.2";
 }
 
 #pragma mark - Helpers

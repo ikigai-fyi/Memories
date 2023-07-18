@@ -1,5 +1,5 @@
 PODS:
-  - PostHog (1.4.4)
+  - PostHog (2.0.2)
   - Sentry (8.7.3):
     - Sentry/Core (= 8.7.3)
     - SentryPrivate (= 8.7.3)
@@ -8,7 +8,7 @@ PODS:
   - SentryPrivate (8.7.3)
 
 DEPENDENCIES:
-  - PostHog (~> 1.1)
+  - PostHog (~> 2.0.2)
   - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`, tag `8.7.3`)
 
 SPEC REPOS:
@@ -27,10 +27,10 @@ CHECKOUT OPTIONS:
     :tag: 8.7.3
 
 SPEC CHECKSUMS:
-  PostHog: 4b6321b521569092d4ef3a02238d9435dbaeb99f
+  PostHog: f9e5c13ceea86bb5314218c85d16125b797eb332
   Sentry: c7a86f43510a7d5678d4de28d78c28ab351d295b
   SentryPrivate: 2eaabf598a46d4b9b8822aef766df2a84caf2e6f
 
-PODFILE CHECKSUM: d1bd30f1f7ace2c16982c16e591eb8ddb21f24e9
+PODFILE CHECKSUM: e0130613a32ffd54f50ac933c6cda24272c7bf77
 
 COCOAPODS: 1.12.1
