@@ -257,7 +257,8 @@ struct MemoriesHomeView: View {
                             // trigger is widget count > 0 && did not ask before
                             WidgetCenter.shared.getCurrentConfigurations { result in
                                 
-                                if let results = try? result.get(){
+                                if let results = try? result.get(),
+                                    results.count > 0 {
                                     self.shouldShowAddWidgetHelp = false
                                     self.triggerAskForReview()
                                     
