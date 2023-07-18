@@ -69,6 +69,7 @@ struct MemoriesHomeView: View {
                                     } placeholder: {
                                         Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1))
                                     }
+                                    .frame(maxWidth: 42, maxHeight: 42)
                                     .cornerRadius(21)
                                     .zIndex(1)
                                     
