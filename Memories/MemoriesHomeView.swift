@@ -13,12 +13,13 @@ import ConfettiSwiftUI
 import Crisp
 import StoreKit
 import PostHog
+import AVKit
 
 struct MemoriesHomeView: View {
     @EnvironmentObject var loginViewModel: StravaLoginViewModel
     @EnvironmentObject var activityViewModel: ActivityViewModel
     @Environment(\.scenePhase) var scenePhase
-    
+
     @State private var runConfetti: Int = 0
     @State private var bikeConfetti: Int = 0
     @State private var hikeConfetti: Int = 0
@@ -26,7 +27,7 @@ struct MemoriesHomeView: View {
     @State private var otherConfetti: Int = 0
     
     @State private var isShowingWebView: Bool = false
-    @State private var isShowingGifView: Bool = false
+    @State private var isShowingVideoView: Bool = false
     @State private var isChatPresented: Bool = false
     
     @State private var showingOptions = false
@@ -202,6 +203,7 @@ struct MemoriesHomeView: View {
                             }.disabled(activityViewModel.isFetching)
                             
                         }
+                    
                         
                         VStack(spacing: 18.0) {
                             HStack {
@@ -212,9 +214,9 @@ struct MemoriesHomeView: View {
                                 RowIcon(row: 1)
                                 Spacer()
                                 RowIcon(row: 1)
-                                
+
                             }.frame(maxWidth: .infinity)
-                            
+
                             HStack {
                                 RowIcon(row: 2)
                                 Spacer()
@@ -223,9 +225,9 @@ struct MemoriesHomeView: View {
                                 RowIcon(row: 2)
                                 Spacer()
                                 RowIcon(row: 2)
-                                
+
                             }.frame(maxWidth: .infinity)
-                            
+
                             HStack {
                                 RowIcon(row: 3)
                                 Spacer()
@@ -234,7 +236,7 @@ struct MemoriesHomeView: View {
                                 RowIcon(row: 3)
                                 Spacer()
                                 RowIcon(row: 3)
-                                
+
                             }.frame(maxWidth: .infinity)
                         }
                         
@@ -294,8 +296,11 @@ struct MemoriesHomeView: View {
                                ff == 0 {
                                 isShowingWebView = true
                             } else {
-                                isShowingGifView = true
+                                isShowingVideoView = true
                             }
+                                
+                            
+
 
                         } label: {
                             Label {
@@ -309,7 +314,10 @@ struct MemoriesHomeView: View {
                         .foregroundColor(.white)
                         .cornerRadius(35)
                         .sheet(isPresented: $isShowingWebView) {
-                            SheetView(isShowingWebView: self.$isShowingWebView)
+                            SheetWebView(isShowingWebView: self.$isShowingWebView)
+                        }
+                        .sheet(isPresented: $isShowingVideoView) {
+                            SheetVideoView(isShowingVideoView: self.$isShowingVideoView)
                         }
                     }
                     
@@ -482,9 +490,9 @@ struct StravaIconView : View {
     }
 }
 
-struct SheetView : View {
+struct SheetWebView : View {
     @Binding var isShowingWebView: Bool
-    
+
     var body: some View{
         NavigationView{
             WebView(url: URL(string: NSLocalizedString("url_help_widget", comment: "comment"))!)
@@ -497,6 +505,31 @@ struct SheetView : View {
         }
     }
 }
+
+struct SheetVideoView : View {
+    @Binding var isShowingVideoView: Bool
+    @State private var player = AVPlayer(url: URL(string: "https://github.com/ikigai-fyi/Memories/raw/main/Assets/addWidgetHelp.mp4")!)
+
+    var body: some View{
+        NavigationView{
+            
+            VideoPlayer(player: player)
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                .navigationBarTitle(Text(""), displayMode: .inline)
+                .navigationBarItems(trailing: Button(action: {
+                    self.isShowingVideoView = false
+                }) {
+                    Text("Done").bold()
+                })
+                .onAppear{
+                    
+                    player.play()
+                    player.seek(to: .zero)
+                }
+        }
+    }
+}
+
 
 
 struct MemoriesHomeView_Previews: PreviewProvider {
