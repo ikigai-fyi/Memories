@@ -29,6 +29,9 @@ struct MemoriesHomeView: View {
     
     @State private var showingOptions = false
     @State private var showingAlert = false
+    
+    @State private var shouldShowAddWidgetHelp = true
+
 
     
     var refreshButtonColor: Color {
@@ -252,41 +255,20 @@ struct MemoriesHomeView: View {
                             
                             // request review
                             // trigger is widget count > 0 && did not ask before
-                            WidgetCenter.shared.getCurrentConfigurations { results in
-                                guard (try? results.get()) != nil else { return }
-                                let lastVersionPromptedForReview = UserDefaults.standard.string(forKey: UserDefaultsKeys.lastVersionPromptedForReviewKey)
+                            WidgetCenter.shared.getCurrentConfigurations { result in
                                 
-                                // Get the current bundle version for the app.
-                                let infoDictionaryKey = kCFBundleVersionKey as String
-                                guard let currentVersion = Bundle.main.object(forInfoDictionaryKey: infoDictionaryKey) as? String
-                                else { fatalError("Expected to find a bundle version in the info dictionary.") }
-                                
-                                // Verify the user completes the process several times and doesn’t receive a prompt for this app version.
-                                if currentVersion != lastVersionPromptedForReview {
-                                    Task { @MainActor in
-                                        // Delay for five seconds to avoid interrupting the person using the app.
-                                        // Use the equation n * 10^9 to convert seconds to nanoseconds.
-                                        
-                                        try? await Task.sleep(nanoseconds: UInt64(5e9))
-
-                                        
-                                        let allScenes = UIApplication.shared.connectedScenes
-                                        let scene = allScenes.first { $0.activationState == .foregroundActive }
-                                        if let windowScene = scene as? UIWindowScene {
-                                            Analytics.capture(event: .systemAskForReview)
-                                            SKStoreReviewController.requestReview(in: windowScene)
-                                            UserDefaults.standard.set(currentVersion, forKey: UserDefaultsKeys.lastVersionPromptedForReviewKey)
-                                        }
-                                    }
+                                if let results = try? result.get(){
+                                    self.shouldShowAddWidgetHelp = false
+                                    self.triggerAskForReview()
+                                    
+                                } else {
+                                    self.shouldShowAddWidgetHelp = true
                                 }
+                        
                             }
                         default: ()
                         }
                     }
-                    
-                    
-                    
-                    
                     
                 }.onAppear {
                     Analytics.capture(event: .viewHomeScreen)
@@ -299,26 +281,27 @@ struct MemoriesHomeView: View {
                 
                 // Add widget button -----------------------------------------------------
                 VStack{
-                    Button {
-                        Analytics.capture(event: .addWidgetHelp)
-                        
-                        isShowingWebView = true
-                    } label: {
-                        Label {
-                            Text("Add widget").bold()
-                        } icon: {
-                            Image(systemName: "plus.circle.fill")
-                        }.padding()
+                    
+                    if shouldShowAddWidgetHelp{
+                        Button {
+                            Analytics.capture(event: .addWidgetHelp)
+                            
+                            isShowingWebView = true
+                        } label: {
+                            Label {
+                                Text("Add widget").bold()
+                            } icon: {
+                                Image(systemName: "plus.circle.fill")
+                            }.padding()
+                        }
+                        .frame(maxWidth: .infinity)
+                        .background(.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(35)
+                        .sheet(isPresented: $isShowingWebView) {
+                            SheetView(isShowingWebView: self.$isShowingWebView)
+                        }
                     }
-                    .frame(maxWidth: .infinity)
-                    .background(.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(35)
-                    .sheet(isPresented: $isShowingWebView) {
-                        SheetView(isShowingWebView: self.$isShowingWebView)
-                        
-                    }
-
                     
                     Button {
                         self.isChatPresented.toggle()
@@ -374,6 +357,34 @@ struct MemoriesHomeView: View {
         case "Hike": self.hikeConfetti += 1
         case nil: ()
         default: self.otherConfetti += 1
+        }
+    }
+    
+    private func triggerAskForReview(){
+        let lastVersionPromptedForReview = UserDefaults.standard.string(forKey: UserDefaultsKeys.lastVersionPromptedForReviewKey)
+        
+        // Get the current bundle version for the app.
+        let infoDictionaryKey = kCFBundleVersionKey as String
+        guard let currentVersion = Bundle.main.object(forInfoDictionaryKey: infoDictionaryKey) as? String
+        else { fatalError("Expected to find a bundle version in the info dictionary.") }
+        
+        // Verify the user completes the process several times and doesn’t receive a prompt for this app version.
+        if currentVersion != lastVersionPromptedForReview {
+            Task { @MainActor in
+                // Delay for five seconds to avoid interrupting the person using the app.
+                // Use the equation n * 10^9 to convert seconds to nanoseconds.
+                
+                try? await Task.sleep(nanoseconds: UInt64(5e9))
+
+                
+                let allScenes = UIApplication.shared.connectedScenes
+                let scene = allScenes.first { $0.activationState == .foregroundActive }
+                if let windowScene = scene as? UIWindowScene {
+                    Analytics.capture(event: .systemAskForReview)
+                    SKStoreReviewController.requestReview(in: windowScene)
+                    UserDefaults.standard.set(currentVersion, forKey: UserDefaultsKeys.lastVersionPromptedForReviewKey)
+                }
+            }
         }
     }
 }
