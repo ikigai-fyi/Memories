@@ -72,5 +72,6 @@ struct Analytics {
         
         //action attributes
         case from
+        case abTestGroup
     }
 }
