@@ -290,7 +290,7 @@ struct MemoriesHomeView: View {
                     
                     if shouldShowAddWidgetHelp{
                         Button {
-                            if let ff = PHGPostHog.shared()?.getFeatureFlag(("activate-widget-gif")) as? Int,
+                            if let ff = PHGPostHog.shared()?.getFeatureFlag("activate-widget-gif") as? Int,
                                ff == 0 {
                                 Analytics.capture(event: .addWidgetHelp, eventProperties: [.abTestGroup: "0_webView"])
                                 isShowingWebView = true
