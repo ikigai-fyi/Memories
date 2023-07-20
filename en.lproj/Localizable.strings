@@ -8,3 +8,6 @@
 
 // We assume strings are passed as English by default in SwiftUI views
 "url_help_widget" = "https://support.apple.com/en-us/HT207122";
+"url_app" = "https://apps.apple.com/en/app/memories-widget-pour-strava/id6448870765";
+"Share the app" = "Share the app";
+"share_message" = "Download Memories : Widgets for Strava 🏊🚴🏃‍♂️! I use Memories to get a widget that showcase my best sporting memories.";

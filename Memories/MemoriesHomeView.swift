@@ -34,6 +34,7 @@ struct MemoriesHomeView: View {
     @State private var showingAlert = false
     
     @State private var shouldShowAddWidgetHelp = true
+    @State private var shouldShowShareToFriends = false
 
 
     
@@ -265,10 +266,12 @@ struct MemoriesHomeView: View {
                                 if let results = try? result.get(),
                                     results.count > 0 {
                                     self.shouldShowAddWidgetHelp = false
+                                    self.shouldShowShareToFriends = true
                                     self.triggerAskForReview()
                                     
                                 } else {
                                     self.shouldShowAddWidgetHelp = true
+                                    self.shouldShowShareToFriends = false
                                 }
                         
                             }
@@ -299,9 +302,6 @@ struct MemoriesHomeView: View {
                                 isShowingVideoView = true
                             }
                                 
-                            
-
-
                         } label: {
                             Label {
                                 Text("Add widget").bold()
@@ -318,6 +318,20 @@ struct MemoriesHomeView: View {
                         }
                         .sheet(isPresented: $isShowingVideoView) {
                             SheetVideoView(isShowingVideoView: self.$isShowingVideoView)
+                        }
+                    }
+                    
+                    if #available(iOS 16.0, *) {
+                        if shouldShowShareToFriends{
+                            ShareLink(NSLocalizedString("Share the app", comment: "comment"), item: NSLocalizedString("url_app", comment: "comment"), message: Text("share_message"))
+                                .frame(maxWidth: .infinity, minHeight: 52, idealHeight: 52, maxHeight: 52)
+                                    .background(.purple)
+                                    .bold()
+                                    .foregroundColor(.white)
+                                    .cornerRadius(35)
+                                .simultaneousGesture(TapGesture().onEnded() {
+                                    Analytics.capture(event: .shareToFriends)
+                                })
                         }
                     }
                     

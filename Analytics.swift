@@ -53,6 +53,7 @@ struct Analytics {
         case addWidgetHelp
         case refreshActivities
         case shareFeedback
+        case shareToFriends
         case loginHelpButtonClicked
         case logout
         case deleteAccount
