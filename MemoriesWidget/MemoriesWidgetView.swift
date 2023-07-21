@@ -34,25 +34,53 @@ struct ImageContainerView: View {
 
 struct DefaultView: View {
 
-    let loggedIn: Bool
-    let activity: Activity?
+    enum Error {
+        case notLoggedIn
+        case noActivity
+        case noRecentActivityWithPictures
+        case noActivityWithPictures
+        case networkError
+    }
+    
+    var error: Error = .networkError
+    
+    init(loggedIn: Bool, activity: Activity?){
+        if !loggedIn{ self.error = .notLoggedIn }
+        else if activity == nil { self.error = .noActivity}
+        else if let activity = activity {
+            if activity.getPictureUrl() == "" {
+                self.error = .noRecentActivityWithPictures
+            }
+        }
+    }
     
     var title:String {
-        if !loggedIn {
+        switch self.error{
+        case .notLoggedIn:
             return "Getting started"
-        } else if nil == activity {
+        case .noActivity:
             return "Sorry, we can't find activities"
-        } else {
+        case .noRecentActivityWithPictures:
+            return "No picture in recent activities"
+        case .noActivityWithPictures:
+            return "No picture in activities"
+        default:
             return "Sorry, this widget isn't working"
         }
     }
     
     var subtitle:String {
-        if !loggedIn {
+        
+        switch self.error{
+        case .notLoggedIn:
             return "Welcome to Memories. Please open the app to connect your Strava account."
-        } else if nil == activity {
+        case .noActivity:
             return "Time to launch Strava and go for a run !"
-        } else {
+        case .noRecentActivityWithPictures:
+            return "Launch Strava and add pictures to any of your recent activities !"
+        case .noActivityWithPictures:
+            return "Launch Strava and add pictures to any of your activities !"
+        default:
             return "We're having problems fetching content from Memories right now. Try checking back later."
         }
     }
