@@ -9,7 +9,7 @@ import WidgetKit
 import SwiftUI
 
 @main
-struct MemoriesWidgetBundle: WidgetBundle {
+struct MemoriesWidgetBundle: WidgetBundle {    
     var body: some Widget {
         MemoriesWidget()
     }

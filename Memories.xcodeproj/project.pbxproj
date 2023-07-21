@@ -19,6 +19,7 @@
 		2D7C61DE2A1D5CCF0050AAB0 /* Athlete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C61DC2A1D59040050AAB0 /* Athlete.swift */; };
 		2D7C61DF2A1D5D100050AAB0 /* StravaLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE590BC2A053D9C0041EA4D /* StravaLoginViewModel.swift */; };
 		2D7C61E12A1D5D3B0050AAB0 /* DateFormatter+standard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C61E02A1D5D3B0050AAB0 /* DateFormatter+standard.swift */; };
+		2D7F7A7A2A6AA98D00C30723 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 2D7F7A792A6AA98D00C30723 /* Sentry */; };
 		2DCAC7A42A208FE7007A11F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCAC7A32A208FE7007A11F9 /* Config.swift */; };
 		2DCAC7A52A208FE7007A11F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCAC7A32A208FE7007A11F9 /* Config.swift */; };
 		2DCAC7A62A208FE7007A11F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCAC7A32A208FE7007A11F9 /* Config.swift */; };
@@ -161,6 +162,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D7F7A7A2A6AA98D00C30723 /* Sentry in Frameworks */,
 				E4F69BA52A293FF80022868A /* ConfettiSwiftUI in Frameworks */,
 				41102DA3BC0DD1785A68E2C2 /* Pods_Memories.framework in Frameworks */,
 				2D3BB7212A629D58003EF280 /* Crisp in Frameworks */,
@@ -357,6 +359,7 @@
 			packageProductDependencies = (
 				E4F69BA42A293FF80022868A /* ConfettiSwiftUI */,
 				2D3BB7202A629D58003EF280 /* Crisp */,
+				2D7F7A792A6AA98D00C30723 /* Sentry */,
 			);
 			productName = Memories;
 			productReference = 2DE5908B2A052D890041EA4D /* Memories.app */;
@@ -435,6 +438,7 @@
 			packageReferences = (
 				E4F69BA32A293FF80022868A /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 				2D3BB71F2A629D58003EF280 /* XCRemoteSwiftPackageReference "crisp-sdk-ios" */,
+				2D7F7A782A6AA98D00C30723 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 			);
 			productRefGroup = 2DE5908C2A052D890041EA4D /* Products */;
 			projectDirPath = "";
@@ -1020,6 +1024,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		2D7F7A782A6AA98D00C30723 /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/getsentry/sentry-cocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
 		E4F69BA32A293FF80022868A /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI";
@@ -1035,6 +1047,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2D3BB71F2A629D58003EF280 /* XCRemoteSwiftPackageReference "crisp-sdk-ios" */;
 			productName = Crisp;
+		};
+		2D7F7A792A6AA98D00C30723 /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D7F7A782A6AA98D00C30723 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
 		};
 		E4F69BA42A293FF80022868A /* ConfettiSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
