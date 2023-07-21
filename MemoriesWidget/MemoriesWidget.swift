@@ -24,23 +24,19 @@ struct Provider: TimelineProvider {
     }
 
     @MainActor func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        Analytics.initialize()
-        if let athlete = StravaLoginViewModel.getAthleteFromUserDefault() {
-            Analytics.identify(athlete: athlete)
-            Analytics.capture(event: .systemUpdateWidget)
-        }
+        self.onGetTimeline()
         
-        let loggedIn = StravaLoginViewModel.isLoggedIn()
+        let isLoggedIn = StravaLoginViewModel.isLoggedIn()
         
         // Home screen was forced refresh, update the widget with user defaults only
         if ActivityViewModel.getUnseenWidgetForceRefreshFromUserDefault() {
             let activity = ActivityViewModel.getActivityFromUserDefault()
             viewModel.forceRefreshWidgetProcessed()
-            completion(buildTimeline(loggedIn: loggedIn, activity: activity))
+            completion(buildTimeline(loggedIn: isLoggedIn, activity: activity))
         } else {
             Task {
                 await viewModel.fetchAndStoreRandomActivity()
-                completion(buildTimeline(loggedIn: loggedIn, activity: viewModel.activity))
+                completion(buildTimeline(loggedIn: isLoggedIn, activity: viewModel.activity))
             }
         }
     }
@@ -49,6 +45,15 @@ struct Provider: TimelineProvider {
         let entries = [SimpleEntry(date: Date(), loggedIn: loggedIn, activity: activity)]
         let nextUpdate = Calendar.current.date(byAdding: .hour, value: 4, to: Date())!
         return Timeline(entries: entries, policy: .after(nextUpdate))
+    }
+    
+    @MainActor private func onGetTimeline() {
+        Analytics.initialize()
+        if let athlete = StravaLoginViewModel.getAthleteFromUserDefault() {
+            Analytics.identify(athlete: athlete)
+        }
+        
+        Analytics.capture(event: .systemUpdateWidget)
     }
 }
 

@@ -155,7 +155,7 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
     }
     
     public static func isLoggedIn() -> Bool {
-        return !(self.getAthleteFromUserDefault() == nil)
+        return self.getAthleteFromUserDefault() != nil
     }
     
     public static func athleteIdIfLoggedIn() -> String? {
