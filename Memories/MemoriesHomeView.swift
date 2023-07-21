@@ -129,18 +129,18 @@ struct MemoriesHomeView: View {
                         VStack(spacing: 18.0) {
             
                             let smallScreen = proxy.size.height < 700
-                            let halfRow = smallScreen && !isUserActivated
+                            let forceHalfRow = smallScreen && !isUserActivated
 
                             // TODO : 700 is a random value
                             if isUserActivated{
                                 HStack {
-                                    RowIcon(row: -3); Spacer(); RowIcon(row: -3); Spacer(); RowIcon(row: -3); Spacer(); RowIcon(row: -3);
+                                    RowIcon(row: -3, half: smallScreen); Spacer(); RowIcon(row: -3, half: smallScreen); Spacer(); RowIcon(row: -3, half: smallScreen); Spacer(); RowIcon(row: -3, half: smallScreen);
                                 }.frame(maxWidth: .infinity)
                             }
                                 
                             
                             HStack {
-                                RowIcon(row: -2, half: halfRow); Spacer(); RowIcon(row: -2, half: halfRow); Spacer(); RowIcon(row: -2, half: halfRow); Spacer(); RowIcon(row: -2, half: halfRow)
+                                RowIcon(row: -2, half: forceHalfRow); Spacer(); RowIcon(row: -2, half: forceHalfRow); Spacer(); RowIcon(row: -2, half: forceHalfRow); Spacer(); RowIcon(row: -2, half: forceHalfRow)
                             }.frame(maxWidth: .infinity)
                         
                             
