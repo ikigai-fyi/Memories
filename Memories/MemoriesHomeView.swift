@@ -409,7 +409,7 @@ struct ActivationView: View{
     var body: some View{
         VStack(alignment: .center, spacing: 14) {
             
-            Text("You're almost there ! 🎉")
+            Text("You're almost there! 🎉")
                 .font(.title2)
                 .fontWeight(.semibold)
                 .padding()
@@ -579,7 +579,7 @@ struct SheetVideoView : View {
                         self.isShowingVideoView = false
                     } label: {
                         Label {
-                            Text("Ok, got it !").bold()
+                            Text("Ok, got it!").bold()
                         } icon: {
                             Image(systemName: "checkmark.circle.fill")
                         }.padding()
