@@ -13,7 +13,7 @@ struct Analytics {
     static func initialize() {
         let configuration = PHGPostHogConfiguration(apiKey: Config.postHogApiKey, host: "https://eu.posthog.com")
         configuration.captureApplicationLifecycleEvents = true
-        configuration.recordScreenViews = true
+        configuration.recordScreenViews = false
         configuration.flushAt = 1
         PHGPostHog.setup(with: configuration)
     }
