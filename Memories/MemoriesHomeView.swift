@@ -176,7 +176,7 @@ struct MemoriesHomeView: View {
                                 }
                             } label: {
                                 Label {
-                                    Text("Your widget preview")
+                                    Text(self.isUserActivated ? "Refresh widget" : "Your widget preview")
                                         .font(.subheadline)
                                 }  icon: {
                                     Image(systemName: "arrow.clockwise")
