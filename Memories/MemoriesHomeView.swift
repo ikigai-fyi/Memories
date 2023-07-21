@@ -286,7 +286,7 @@ struct MemoriesHomeView: View {
                         .cornerRadius(35)
                         .sheet(isPresented: self.$isChatPresented) {
                             ChatView()
-                        }.padding([.leading, .trailing], 18)
+                        }
                     }
                 }.padding([.leading, .trailing], 18)
                 
