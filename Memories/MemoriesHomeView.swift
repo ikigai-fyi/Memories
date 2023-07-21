@@ -447,6 +447,7 @@ struct ActivationView: View{
                         isShowingWebView = true
                     } else {
                         Analytics.capture(event: .addWidgetHelp, eventProperties: [.abTestGroup: "1_videoView"])
+                        let url = Helper.createLocalUrl(for: "addWidgetHelp", ofType: "mp4")
                         isShowingVideoView = true
                     }
                 }
@@ -549,8 +550,8 @@ struct SheetWebView : View {
 
 struct SheetVideoView : View {
     @Binding var isShowingVideoView: Bool
-    @State private var player = AVPlayer(url: URL(string: "https://github.com/ikigai-fyi/Memories/raw/main/Assets/addWidgetHelp.mp4")!)
-    
+        @State private var player = AVPlayer(url: Helper.createLocalUrl(for: "addWidgetHelp", ofType: "mp4")!)
+
     var body: some View{
         NavigationView{
             
