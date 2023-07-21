@@ -550,25 +550,53 @@ struct SheetWebView : View {
 
 struct SheetVideoView : View {
     @Binding var isShowingVideoView: Bool
-        @State private var player = AVPlayer(url: Helper.createLocalUrl(for: "addWidgetHelp", ofType: "mp4")!)
-
+    @State private var player = AVPlayer(url: Helper.createLocalUrl(for: "addWidgetHelp", ofType: "mp4")!)
+  
+    
     var body: some View{
-        NavigationView{
-            
-            VideoPlayer(player: player)
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                .navigationBarTitle(Text(""), displayMode: .inline)
-                .navigationBarItems(trailing: Button(action: {
-                    self.isShowingVideoView = false
-                }) {
-                    Text("Done").bold()
-                })
-                .onAppear{
+        GeometryReader { proxy in
+
+            NavigationView{
+                VStack(spacing:18){
+                    Spacer()
+                   
+                    VideoPlayer(player: player)
+                        .frame(
+                            width: 0.5614583333 * 0.8 * proxy.size.height,
+                            height: 0.8 * proxy.size.height
+                        ).navigationBarTitle(Text(""), displayMode: .inline)
+                        .background(.white)
+                        .cornerRadius(8)
+                        .navigationBarTitle(Text(""), displayMode: .inline)
+                        .zIndex(1)
+                        .onAppear{
+                            player.play()
+                            player.seek(to: .zero)
+                        }.padding()
                     
-                    player.play()
-                    player.seek(to: .zero)
+                    Button {
+                        Analytics.capture(event: .goToHomeScreenAfterHelpVideo)
+                        self.isShowingVideoView = false
+                    } label: {
+                        Label {
+                            Text("Ok, got it !").bold()
+                        } icon: {
+                            Image(systemName: "checkmark.circle.fill")
+                        }.padding()
+                    }
+                    .frame(maxWidth: .infinity)
+                    .background(.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(35)
+                    
+                    
+
+                } .padding([.leading, .trailing, .bottom], 28)
+
                 }
-        }
+                
+            }
+        
     }
 }
 

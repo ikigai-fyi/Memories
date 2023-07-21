@@ -59,6 +59,8 @@ struct Analytics {
         case logout
         case deleteAccount
         case confirmDeleteAccount
+        case goToHomeScreenAfterHelpVideo
+        case playAgainAddWidgetHelpVideo
 
         // lifecycle
         case appActive
