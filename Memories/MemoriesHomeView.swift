@@ -19,7 +19,7 @@ struct MemoriesHomeView: View {
     @EnvironmentObject var loginViewModel: StravaLoginViewModel
     @EnvironmentObject var activityViewModel: ActivityViewModel
     @Environment(\.scenePhase) var scenePhase
-
+    
     @State private var runConfetti: Int = 0
     @State private var bikeConfetti: Int = 0
     @State private var hikeConfetti: Int = 0
@@ -33,17 +33,16 @@ struct MemoriesHomeView: View {
     @State private var showingOptions = false
     @State private var showingAlert = false
     
-    @State private var shouldShowAddWidgetHelp = true
-    @State private var shouldShowShareToFriends = false
+    @State private var isUserActivated = false
 
-
+    
     
     var refreshButtonColor: Color {
         return activityViewModel.isFetching ? .gray : .black
     }
     
     var body: some View {
-    
+        
         GeometryReader { proxy in
             
             // Header view
@@ -62,54 +61,54 @@ struct MemoriesHomeView: View {
                     // Picture ------------------------------------------------
                     ZStack{
                         Button(action: {
-                                    showingOptions = true
-                                }) {
-                                    AsyncImage(url: URL(string: loginViewModel.athlete?.pictureUrl ?? "")) { image in
-                                        image.resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(maxWidth: 42, maxHeight: 42)
-                                    } placeholder: {
-                                        Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1))
-                                    }
+                            showingOptions = true
+                        }) {
+                            AsyncImage(url: URL(string: loginViewModel.athlete?.pictureUrl ?? "")) { image in
+                                image.resizable()
+                                    .aspectRatio(contentMode: .fit)
                                     .frame(maxWidth: 42, maxHeight: 42)
-                                    .cornerRadius(21)
-                                    .zIndex(1)
-                                    
-                                    
-                                }.confirmationDialog("Profile", isPresented: $showingOptions, titleVisibility: .hidden) {
-
-
-                                    Button("Suggest features") {
-                                        self.isChatPresented.toggle()
-                                        Analytics.capture(event: .shareFeedback, eventProperties: [.from: "profileFeedbackButton"])
-                                    }.sheet(isPresented: self.$isChatPresented) {
-                                        ChatView()
-                                    }
-
-                                    Button("Logout") {
-                                        Analytics.capture(event: .logout)
-                                        loginViewModel.logout()
-                                    }
-
-                                    Button("Delete my account", role: .destructive) {
-                                        Analytics.capture(event: .deleteAccount)
-                                        showingAlert = true
-                                    }
-
-                                    Button("Cancel", role: .cancel) {}
-                                }.alert ("Account deletion", isPresented: $showingAlert) {
-                                    Button("OK", role: .destructive) {
-                                        Analytics.capture(event: .confirmDeleteAccount)
-                                        Task { await
-                                            loginViewModel.deleteAccount()
-                                        }
-                                    }
-                                    Button("Cancel", role: .cancel) {}
-                                }message: {
-                                    Text("Are you sure? This action is irreversible.")
+                            } placeholder: {
+                                Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1))
+                            }
+                            .frame(maxWidth: 42, maxHeight: 42)
+                            .cornerRadius(21)
+                            .zIndex(1)
+                            
+                            
+                        }.confirmationDialog("Profile", isPresented: $showingOptions, titleVisibility: .hidden) {
+                            
+                            
+                            Button("Suggest features") {
+                                self.isChatPresented.toggle()
+                                Analytics.capture(event: .shareFeedback, eventProperties: [.from: "profileFeedbackButton"])
+                            }.sheet(isPresented: self.$isChatPresented) {
+                                ChatView()
+                            }
+                            
+                            Button("Logout") {
+                                Analytics.capture(event: .logout)
+                                loginViewModel.logout()
+                            }
+                            
+                            Button("Delete my account", role: .destructive) {
+                                Analytics.capture(event: .deleteAccount)
+                                showingAlert = true
+                            }
+                            
+                            Button("Cancel", role: .cancel) {}
+                        }.alert ("Account deletion", isPresented: $showingAlert) {
+                            Button("OK", role: .destructive) {
+                                Analytics.capture(event: .confirmDeleteAccount)
+                                Task { await
+                                    loginViewModel.deleteAccount()
                                 }
+                            }
+                            Button("Cancel", role: .cancel) {}
+                        }message: {
+                            Text("Are you sure? This action is irreversible.")
+                        }
                         
-                                StravaIconView().zIndex(10)
+                        StravaIconView().zIndex(10)
                         
                     }
                     
@@ -127,45 +126,26 @@ struct MemoriesHomeView: View {
                     
                     VStack {
                         
-                        // Spacer -----------------------------------------------------
-                        Spacer()
-                        
                         VStack(spacing: 18.0) {
-                            
+            
+                            let smallScreen = proxy.size.height < 700
+                            let halfRow = smallScreen && !isUserActivated
+
                             // TODO : 700 is a random value
-                            if proxy.size.height > 700 {
+                            if isUserActivated{
                                 HStack {
-                                    RowIcon(row: -3)
-                                    Spacer()
-                                    RowIcon(row: -3)
-                                    Spacer()
-                                    RowIcon(row: -3)
-                                    Spacer()
-                                    RowIcon(row: -3)
-                                    
+                                    RowIcon(row: -3); Spacer(); RowIcon(row: -3); Spacer(); RowIcon(row: -3); Spacer(); RowIcon(row: -3);
                                 }.frame(maxWidth: .infinity)
                             }
+                                
                             
                             HStack {
-                                RowIcon(row: -2)
-                                Spacer()
-                                RowIcon(row: -2)
-                                Spacer()
-                                RowIcon(row: -2)
-                                Spacer()
-                                RowIcon(row: -2)
-                                
+                                RowIcon(row: -2, half: halfRow); Spacer(); RowIcon(row: -2, half: halfRow); Spacer(); RowIcon(row: -2, half: halfRow); Spacer(); RowIcon(row: -2, half: halfRow)
                             }.frame(maxWidth: .infinity)
+                        
                             
                             HStack {
-                                RowIcon(row: -1)
-                                Spacer()
-                                RowIcon(row: -1)
-                                Spacer()
-                                RowIcon(row: -1)
-                                Spacer()
-                                RowIcon(row: -1)
-                                
+                                RowIcon(row: -1); Spacer(); RowIcon(row: -1); Spacer(); RowIcon(row: -1); Spacer(); RowIcon(row: -1)
                             }.frame(maxWidth: .infinity)
                                 .padding(.bottom)
                         }
@@ -204,43 +184,21 @@ struct MemoriesHomeView: View {
                             }.disabled(activityViewModel.isFetching)
                             
                         }
-                    
+                        
                         
                         VStack(spacing: 18.0) {
                             HStack {
-                                RowIcon(row: 1)
-                                Spacer()
-                                RowIcon(row: 1)
-                                Spacer()
-                                RowIcon(row: 1)
-                                Spacer()
-                                RowIcon(row: 1)
-
+                                RowIcon(row: 1); Spacer(); RowIcon(row: 1); Spacer(); RowIcon(row: 1); Spacer(); RowIcon(row: 1)
                             }.frame(maxWidth: .infinity)
-
+                            
                             HStack {
-                                RowIcon(row: 2)
-                                Spacer()
-                                RowIcon(row: 2)
-                                Spacer()
-                                RowIcon(row: 2)
-                                Spacer()
-                                RowIcon(row: 2)
-
+                                RowIcon(row: 2); Spacer(); RowIcon(row: 2); Spacer(); RowIcon(row: 2); Spacer(); RowIcon(row: 2)
                             }.frame(maxWidth: .infinity)
-
+                            
                             HStack {
-                                RowIcon(row: 3)
-                                Spacer()
-                                RowIcon(row: 3)
-                                Spacer()
-                                RowIcon(row: 3)
-                                Spacer()
-                                RowIcon(row: 3)
-
+                                RowIcon(row: 3); Spacer(); RowIcon(row: 3); Spacer(); RowIcon(row: 3); Spacer(); RowIcon(row: 3)
                             }.frame(maxWidth: .infinity)
                         }
-                        
                         
                         // Spacer -----------------------------------------------------
                         Spacer()
@@ -264,16 +222,14 @@ struct MemoriesHomeView: View {
                             WidgetCenter.shared.getCurrentConfigurations { result in
                                 
                                 if let results = try? result.get(),
-                                    results.count > 0 {
-                                    self.shouldShowAddWidgetHelp = false
-                                    self.shouldShowShareToFriends = true
+                                   results.count > 0 {
+                                    self.isUserActivated = true
                                     self.triggerAskForReview()
                                     
                                 } else {
-                                    self.shouldShowAddWidgetHelp = true
-                                    self.shouldShowShareToFriends = false
+                                    self.isUserActivated = false
                                 }
-                        
+                                
                             }
                         default: ()
                         }
@@ -291,68 +247,49 @@ struct MemoriesHomeView: View {
                 // Add widget button -----------------------------------------------------
                 VStack{
                     
-                    if shouldShowAddWidgetHelp{
+                    if !isUserActivated{
+                        ActivationView(
+                            isShowingWebView: $isShowingWebView,
+                            isShowingVideoView: $isShowingVideoView,
+                            isChatPresented: $isChatPresented
+                        ).background(.white)
+                            .cornerRadius(22)
+                            .shadow(color: Color.black.opacity(0.3), radius: 18)
+                        
+                    } else {
+                        
+                        if #available(iOS 16.0, *) {
+                        ShareLink(NSLocalizedString("Share the app", comment: "comment"), item: NSLocalizedString("url_app", comment: "comment"), message: Text("share_message"))
+                            .frame(maxWidth: .infinity, minHeight: 52, idealHeight: 52, maxHeight: 52)
+                            .background(.purple)
+                            .bold()
+                            .foregroundColor(.white)
+                            .cornerRadius(35)
+                            .simultaneousGesture(TapGesture().onEnded() {
+                                Analytics.capture(event: .shareToFriends)
+                            })
+                        }
+                    
                         Button {
-                            if let ff = PHGPostHog.shared()?.getFeatureFlag("activate-widget-gif") as? Int,
-                               ff == 0 {
-                                Analytics.capture(event: .addWidgetHelp, eventProperties: [.abTestGroup: "0_webView"])
-                                isShowingWebView = true
-                            } else {
-                                Analytics.capture(event: .addWidgetHelp, eventProperties: [.abTestGroup: "1_videoView"])
-                                isShowingVideoView = true
-                            }
-                                
+                            self.isChatPresented.toggle()
+                            Analytics.capture(event: .shareFeedback, eventProperties: [.from: "homeFeedbackButton"])
                         } label: {
                             Label {
-                                Text("Add widget").bold()
+                                Text("Suggest features").bold()
                             } icon: {
-                                Image(systemName: "plus.circle.fill")
+                                Image(systemName: "lightbulb.fill")
                             }.padding()
                         }
                         .frame(maxWidth: .infinity)
-                        .background(.blue)
+                        .background(.orange)
                         .foregroundColor(.white)
                         .cornerRadius(35)
-                        .sheet(isPresented: $isShowingWebView) {
-                            SheetWebView(isShowingWebView: self.$isShowingWebView)
-                        }
-                        .sheet(isPresented: $isShowingVideoView) {
-                            SheetVideoView(isShowingVideoView: self.$isShowingVideoView)
-                        }
-                    }
-                    
-                    if #available(iOS 16.0, *) {
-                        if shouldShowShareToFriends{
-                            ShareLink(NSLocalizedString("Share the app", comment: "comment"), item: NSLocalizedString("url_app", comment: "comment"), message: Text("share_message"))
-                                .frame(maxWidth: .infinity, minHeight: 52, idealHeight: 52, maxHeight: 52)
-                                    .background(.purple)
-                                    .bold()
-                                    .foregroundColor(.white)
-                                    .cornerRadius(35)
-                                .simultaneousGesture(TapGesture().onEnded() {
-                                    Analytics.capture(event: .shareToFriends)
-                                })
-                        }
-                    }
-                    
-                    Button {
-                        self.isChatPresented.toggle()
-                        Analytics.capture(event: .shareFeedback, eventProperties: [.from: "homeFeedbackButton"])
-                    } label: {
-                        Label {
-                            Text("Suggest features").bold()
-                        } icon: {
-                            Image(systemName: "lightbulb.fill")
-                        }.padding()
-                    }
-                    .frame(maxWidth: .infinity)
-                    .background(.orange)
-                    .foregroundColor(.white)
-                    .cornerRadius(35)
-                    .sheet(isPresented: self.$isChatPresented) {
-                        ChatView()
+                        .sheet(isPresented: self.$isChatPresented) {
+                            ChatView()
+                        }.padding([.leading, .trailing], 18)
                     }
                 }.padding([.leading, .trailing], 18)
+                
                 
                 // Spacer -----------------------------------------------------
                 Spacer()
@@ -407,7 +344,7 @@ struct MemoriesHomeView: View {
                 // Use the equation n * 10^9 to convert seconds to nanoseconds.
                 
                 try? await Task.sleep(nanoseconds: UInt64(5e9))
-
+                
                 
                 let allScenes = UIApplication.shared.connectedScenes
                 let scene = allScenes.first { $0.activationState == .foregroundActive }
@@ -424,8 +361,14 @@ struct MemoriesHomeView: View {
 struct RowIcon : View {
     var row: Int
     
-    init(row: Int) {
+    private var height: CGFloat = 64.0
+    private let width: CGFloat = 64.0
+    
+    init(row: Int, half: Bool = false) {
         self.row = row
+        if half{
+            self.height = self.height / 2
+        }
     }
     
     var rowColors : [Color] {
@@ -452,9 +395,93 @@ struct RowIcon : View {
             .fill(LinearGradient(
                 gradient: .init(colors: rowColors),
                 startPoint: .init(x: 0.5, y: 0), endPoint: .init(x: 0.5, y: 1)))
-            .frame(width: 64, height: 64)
+            .frame(width: self.width, height: self.height)
             .cornerRadius(12)
     }
+}
+
+struct ActivationView: View{
+    
+    @Binding var isShowingWebView: Bool
+    @Binding var isShowingVideoView: Bool
+    @Binding var isChatPresented: Bool
+    
+    var body: some View{
+        VStack(alignment: .center, spacing: 14) {
+            
+            Text("You're almost there ! 🎉")
+                .font(.title2)
+                .fontWeight(.semibold)
+                .padding()
+            
+            HStack{
+                
+                Image(systemName: "checkmark.circle.fill")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(maxWidth: 42, maxHeight: 42)
+                    .foregroundColor(Color(uiColor: .systemGray6))
+                    .frame(width: 25, height: 25, alignment: .center)
+                
+                Button("Connect with Strava") {}
+                    .frame(maxWidth: .infinity)
+                    .padding([.top, .bottom], 12)
+                    .background(Color(uiColor: .systemGray6))
+                    .foregroundColor(Color(uiColor: .darkGray))
+                    .cornerRadius(35)
+                    .disabled(true)
+            }
+            
+            HStack{
+                Image(systemName: "circle")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(maxWidth: 42, maxHeight: 42)
+                    .frame(width: 25, height: 25, alignment: .center)
+                    .foregroundColor(.blue)
+                
+                Button {
+                    if let ff = PHGPostHog.shared()?.getFeatureFlag("activate-widget-gif") as? Int,
+                       ff == 0 {
+                        Analytics.capture(event: .addWidgetHelp, eventProperties: [.abTestGroup: "0_webView"])
+                        isShowingWebView = true
+                    } else {
+                        Analytics.capture(event: .addWidgetHelp, eventProperties: [.abTestGroup: "1_videoView"])
+                        isShowingVideoView = true
+                    }
+                }
+            label: {
+                Text("Add widget").bold()
+            }
+            .frame(maxWidth: .infinity)
+            .padding([.top, .bottom], 12)
+            .background(.blue)
+            .foregroundColor(.white)
+            .cornerRadius(35)
+            .sheet(isPresented: $isShowingWebView) {
+                SheetWebView(isShowingWebView: $isShowingWebView)
+            }
+            .sheet(isPresented: $isShowingVideoView) {
+                SheetVideoView(isShowingVideoView: $isShowingVideoView)
+            }
+            }
+                
+            Button {
+                self.isChatPresented.toggle()
+                Analytics.capture(event: .loginHelpButtonClicked)
+            } label: {
+                Text("Need help?")
+                    .foregroundColor(.gray)
+                    .font(.footnote)
+            }
+            .sheet(isPresented: $isChatPresented) {
+                ChatView()
+            }
+            
+        }.padding(EdgeInsets(top: 20, leading: 18, bottom: 20, trailing: 18))
+    }
+    
+    
 }
 
 struct MemoriesConfettiView : View {
@@ -506,7 +533,7 @@ struct StravaIconView : View {
 
 struct SheetWebView : View {
     @Binding var isShowingWebView: Bool
-
+    
     var body: some View{
         NavigationView{
             WebView(url: URL(string: NSLocalizedString("url_help_widget", comment: "comment"))!)
@@ -523,7 +550,7 @@ struct SheetWebView : View {
 struct SheetVideoView : View {
     @Binding var isShowingVideoView: Bool
     @State private var player = AVPlayer(url: URL(string: "https://github.com/ikigai-fyi/Memories/raw/main/Assets/addWidgetHelp.mp4")!)
-
+    
     var body: some View{
         NavigationView{
             
