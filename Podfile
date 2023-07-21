@@ -16,6 +16,4 @@ end
 target 'Activity' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-
-  pod 'PostHog', '~> 2.0.2'
 end

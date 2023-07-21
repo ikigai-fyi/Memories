@@ -20,6 +20,7 @@
 		2D7C61DF2A1D5D100050AAB0 /* StravaLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE590BC2A053D9C0041EA4D /* StravaLoginViewModel.swift */; };
 		2D7C61E12A1D5D3B0050AAB0 /* DateFormatter+standard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C61E02A1D5D3B0050AAB0 /* DateFormatter+standard.swift */; };
 		2D7F7A7A2A6AA98D00C30723 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 2D7F7A792A6AA98D00C30723 /* Sentry */; };
+		2D7F7A7F2A6AAAAB00C30723 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = 2D7F7A7E2A6AAAAB00C30723 /* PostHog */; };
 		2DCAC7A42A208FE7007A11F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCAC7A32A208FE7007A11F9 /* Config.swift */; };
 		2DCAC7A52A208FE7007A11F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCAC7A32A208FE7007A11F9 /* Config.swift */; };
 		2DCAC7A62A208FE7007A11F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCAC7A32A208FE7007A11F9 /* Config.swift */; };
@@ -175,6 +176,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31D90A2569F002EAA95C4C95 /* Pods_Activity.framework in Frameworks */,
+				2D7F7A7F2A6AAAAB00C30723 /* PostHog in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,7 +347,6 @@
 				2DE590872A052D890041EA4D /* Sources */,
 				2DE590882A052D890041EA4D /* Frameworks */,
 				2DE590892A052D890041EA4D /* Resources */,
-				91F5FD3AE59AE30155C539A6 /* [CP] Embed Pods Frameworks */,
 				E42106BB2A0ECB5300187A74 /* Embed Frameworks */,
 				2D37791A2A1EB90800629BE3 /* Embed Foundation Extensions */,
 			);
@@ -380,6 +381,9 @@
 			dependencies = (
 			);
 			name = Activity;
+			packageProductDependencies = (
+				2D7F7A7E2A6AAAAB00C30723 /* PostHog */,
+			);
 			productName = Activity;
 			productReference = E42106B32A0ECB5300187A74 /* Activity.framework */;
 			productType = "com.apple.product-type.framework";
@@ -439,6 +443,7 @@
 				E4F69BA32A293FF80022868A /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 				2D3BB71F2A629D58003EF280 /* XCRemoteSwiftPackageReference "crisp-sdk-ios" */,
 				2D7F7A782A6AA98D00C30723 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+				2D7F7A7B2A6AAA1700C30723 /* XCRemoteSwiftPackageReference "posthog-ios" */,
 			);
 			productRefGroup = 2DE5908C2A052D890041EA4D /* Products */;
 			projectDirPath = "";
@@ -502,23 +507,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		91F5FD3AE59AE30155C539A6 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Memories/Pods-Memories-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Memories/Pods-Memories-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Memories/Pods-Memories-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C7E3110F191A587686BE92BF /* [CP] Check Pods Manifest.lock */ = {
@@ -1032,6 +1020,14 @@
 				minimumVersion = 8.0.0;
 			};
 		};
+		2D7F7A7B2A6AAA1700C30723 /* XCRemoteSwiftPackageReference "posthog-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/PostHog/posthog-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		E4F69BA32A293FF80022868A /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI";
@@ -1052,6 +1048,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2D7F7A782A6AA98D00C30723 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
 			productName = Sentry;
+		};
+		2D7F7A7E2A6AAAAB00C30723 /* PostHog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D7F7A7B2A6AAA1700C30723 /* XCRemoteSwiftPackageReference "posthog-ios" */;
+			productName = PostHog;
 		};
 		E4F69BA42A293FF80022868A /* ConfettiSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
