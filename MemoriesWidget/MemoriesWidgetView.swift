@@ -33,7 +33,7 @@ struct ImageContainerView: View {
 
 
 struct DefaultView: View {
-
+    
     enum Error {
         case notLoggedIn
         case noActivity
@@ -98,7 +98,7 @@ struct DefaultView: View {
                 .minimumScaleFactor(0.7)
                 .foregroundColor(.gray)
                 .lineLimit(4)
-
+            
             
         } // vstack
         .padding()
@@ -115,73 +115,73 @@ struct MemoriesWidgetView: View {
         // handles condition on activity
         Group {
             if let activity = activity {
-                    // handles overlay
-                    ZStack{
-                        // image container
-                        ImageContainerView(activity: activity)
-                            .zIndex(1)
+                // handles overlay
+                ZStack{
+                    // image container
+                    ImageContainerView(activity: activity)
+                        .zIndex(1)
+                    
+                    // text container
+                    VStack(alignment: .leading, spacing: 4.0) {
                         
-                        // text container
-                        VStack(alignment: .leading, spacing: 4.0) {
+                        Spacer()
+                        
+                        HStack(spacing: 4.0){
+                            
+                            // type
+                            if Constants.SportsTypeIconEnabled, let type = Helper.getSystemIconForActivityType(
+                                activityType: activity.getSportType()
+                            ) {
+                                Image(systemName: type)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 12, height: 12)
+                                    .foregroundColor(.white)
+                            }
+                            
+                            // city
+                            Text(activity.getCity())
+                                .font(.title3).bold().foregroundColor(.white).shadow(radius: 5)
+                            
+                            Spacer()
+                        }
+                        
+                        // datetime
+                        Text(Helper.buildDateTimeString(date: activity.getStartDatetime()))
+                            .font(.subheadline).bold().foregroundColor(.white).shadow(radius: 5)
+                        
+                        // other data
+                        HStack{
+                            Text(Helper.buildDataString(
+                                elapsedTimeInSeconds: activity.getElapsedTimeInSeconds(),
+                                distanceInMeters: activity.getDistanceInMeters(),
+                                totalElevationGainInMeters: activity.getTotalElevationGainInMeters())
+                            )
+                            .font(.subheadline)
+                            .bold()
+                            .foregroundColor(.white)
+                            .shadow(radius: 5)
+                            .lineLimit(1)
                             
                             Spacer()
                             
-                            HStack(spacing: 4.0){
-                                
-                                // type
-                                if Constants.SportsTypeIconEnabled, let type = Helper.getSystemIconForActivityType(
-                                    activityType: activity.getSportType()
-                                ) {
-                                    Image(systemName: type)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 12, height: 12)
-                                        .foregroundColor(.white)
-                                }
-                                
-                                // city
-                                Text(activity.getCity())
-                                    .font(.title3).bold().foregroundColor(.white).shadow(radius: 5)
-                                
-                                Spacer()
-                            }
-                            
-                            // datetime
-                            Text(Helper.buildDateTimeString(date: activity.getStartDatetime()))
-                                .font(.subheadline).bold().foregroundColor(.white).shadow(radius: 5)
-                            
-                            // other data
-                            HStack{
-                                Text(Helper.buildDataString(
-                                    elapsedTimeInSeconds: activity.getElapsedTimeInSeconds(),
-                                    distanceInMeters: activity.getDistanceInMeters(),
-                                    totalElevationGainInMeters: activity.getTotalElevationGainInMeters())
-                                )
-                                .font(.subheadline)
-                                .bold()
-                                .foregroundColor(.white)
-                                .shadow(radius: 5)
-                                .lineLimit(1)
-                                
-                                Spacer()
-                                
-                            } // other data
-                        } // text container
-                        .padding()
-                        .zIndex(10)
-                        
-                    } // zstack
-                } // condition
-                else {
-                    DefaultView(loggedIn: loggedIn, activity: activity)
-                }
-            } // group
-        }
+                        } // other data
+                    } // text container
+                    .padding()
+                    .zIndex(10)
+                    
+                } // zstack
+            } // condition
+            else {
+                DefaultView(loggedIn: loggedIn, activity: activity)
+            }
+        } // group
     }
-    
-    struct MemoriesWidgetView_Previews: PreviewProvider {
-        static var previews: some View {
-            MemoriesWidgetView(loggedIn: false, activity: nil)
-        }
+}
+
+struct MemoriesWidgetView_Previews: PreviewProvider {
+    static var previews: some View {
+        MemoriesWidgetView(loggedIn: false, activity: nil)
     }
-    
+}
+
