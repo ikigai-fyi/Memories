@@ -33,16 +33,8 @@ struct ImageContainerView: View {
 
 
 struct ErrorView: View {
-    
-    enum Error {
-        case notLoggedIn
-        case noActivity
-        case noRecentActivityWithPictures
-        case noActivityWithPictures
-        case other
-    }
-    
-    var error: Error?
+
+    var error: ActivityError?
     
     var title: String {
         switch self.error {
@@ -98,7 +90,7 @@ struct ErrorView: View {
 struct MemoriesWidgetView: View {
     
     let activity: Activity?
-    let error: ErrorView.Error?
+    let error: ActivityError?
     
     var body: some View {
         
