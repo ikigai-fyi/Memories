@@ -10,6 +10,7 @@ import WidgetKit
 
 let appGroupName = Config.appGroupName
 let userDefaultActivity = "activity"
+let userDefaultError = "error"
 let userDefaultUnseenWidgetForceRefresh = "unseen_widget_force_refresh"
 
 public class ActivityViewModel: NSObject, ObservableObject {
@@ -39,26 +40,20 @@ public class ActivityViewModel: NSObject, ObservableObject {
                 if response.statusCode == 200 {
                     do {
                         let decoded = try decoder.decode(Activity.self, from: data)
-                        self.activity = decoded
-                        self.error = nil
-                        self.saveActivityToUserDefault(activity : decoded)
+                        self.setState(activity: decoded, error: nil)
                     } catch {
-                        self.error = .other
-                        self.activity = nil
+                        self.setState(activity: nil, error: .other)
                     }
                 } else {
                     let errorPayload = try! decoder.decode(APIError.Payload.self, from: data)
                     let apiError = APIError(statusCode: response.statusCode, payload: errorPayload)
-                    self.error = ActivityError(apiError)
-                    self.activity = nil
+                    self.setState(activity: nil, error: ActivityError(apiError))
                 }
             } else {
-                self.error = .other
-                self.activity = nil
+                self.setState(activity: nil, error: .other)
             }
         } catch {
-            self.error = .other
-            self.activity = nil
+            self.setState(activity: nil, error: .other)
         }
         
         self.isFetching = false
@@ -74,9 +69,13 @@ public class ActivityViewModel: NSObject, ObservableObject {
     }
     
     @MainActor
-    public func loadActivityFromUserDefaultsOrFetch() async {
+    public func loadStateFromUserDefaultsOrFetch() async {
         if let activity = ActivityViewModel.getActivityFromUserDefault() {
             self.activity = activity
+            self.error = nil
+        } else if let error = ActivityViewModel.getErrorFromUserDefault() {
+            self.activity = nil
+            self.error = error
         } else {
             await self.fetchAndStoreRandomActivity()
         }
@@ -92,10 +91,35 @@ public class ActivityViewModel: NSObject, ObservableObject {
         return nil
     }
     
-    func saveActivityToUserDefault(activity: Activity) {
+    public static func getErrorFromUserDefault() -> ActivityError? {
+        if let userDefaults = UserDefaults(suiteName: appGroupName) {
+            if let data = userDefaults.data(forKey: userDefaultError) {
+                return try? JSONDecoder().decode(ActivityError.self, from: data)
+            }
+        }
+        
+        return nil
+    }
+    
+    private func setState(activity: Activity?, error: ActivityError?) {
+        self.activity = activity
+        self.saveActivityToUserDefault(activity: activity)
+        
+        self.error = error
+        self.saveErrorToUserDefault(error: error)
+    }
+    
+    private func saveActivityToUserDefault(activity: Activity?) {
         if let userDefaults = UserDefaults(suiteName: appGroupName) {
             let activityData = try! JSONEncoder().encode(activity)
             userDefaults.set(activityData, forKey: userDefaultActivity)
+        }
+    }
+    
+    private func saveErrorToUserDefault(error: ActivityError?) {
+        if let userDefaults = UserDefaults(suiteName: appGroupName) {
+            let errorData = try! JSONEncoder().encode(error)
+            userDefaults.set(errorData, forKey: userDefaultError)
         }
     }
     
@@ -123,17 +147,17 @@ public class ActivityViewModel: NSObject, ObservableObject {
     }
     
     @MainActor private func getJwt() -> String {
-        var jwt = getLoggedAthlete()!.jwt
+        let loggedJwt = getLoggedAthlete()!.jwt
         
         // Always return logged user JWT in prod
         if Config.env == "prod" {
-            return jwt
+            return loggedJwt
         }
         
         if let fakeBehaviour = self.fakeBehaviour {
             return fakeBehaviour.jwt
         }
         
-        return jwt
+        return loggedJwt
     }
 }

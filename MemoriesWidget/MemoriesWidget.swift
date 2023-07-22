@@ -20,7 +20,8 @@ struct Provider: TimelineProvider {
     @MainActor func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
         let loggedIn = StravaLoginViewModel.isLoggedIn()
         let activity = ActivityViewModel.getActivityFromUserDefault()
-        completion(SimpleEntry(date: Date(), loggedIn: loggedIn, activity: activity))
+        let error = ActivityViewModel.getErrorFromUserDefault()
+        completion(SimpleEntry(date: Date(), activity: activity, error: error))
     }
 
     @MainActor func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
@@ -31,18 +32,19 @@ struct Provider: TimelineProvider {
         // Home screen was forced refresh, update the widget with user defaults only
         if ActivityViewModel.getUnseenWidgetForceRefreshFromUserDefault() {
             let activity = ActivityViewModel.getActivityFromUserDefault()
+            let error = ActivityViewModel.getErrorFromUserDefault()
             viewModel.forceRefreshWidgetProcessed()
-            completion(buildTimeline(loggedIn: isLoggedIn, activity: activity))
+            completion(buildTimeline(activity: activity, error: error))
         } else {
             Task {
                 await viewModel.fetchAndStoreRandomActivity()
-                completion(buildTimeline(loggedIn: isLoggedIn, activity: viewModel.activity))
+                completion(buildTimeline(activity: viewModel.activity, error: viewModel.error))
             }
         }
     }
     
-    @MainActor private func buildTimeline(loggedIn: Bool, activity: Activity?) -> Timeline<SimpleEntry> {
-        let entries = [SimpleEntry(date: Date(), loggedIn: loggedIn, activity: activity)]
+    @MainActor private func buildTimeline(activity: Activity?, error: ActivityError?) -> Timeline<SimpleEntry> {
+        let entries = [SimpleEntry(date: Date(), activity: activity, error: error)]
         let nextUpdate = Calendar.current.date(byAdding: .hour, value: 4, to: Date())!
         return Timeline(entries: entries, policy: .after(nextUpdate))
     }
@@ -59,13 +61,13 @@ struct Provider: TimelineProvider {
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
-    let loggedIn: Bool
     let activity: Activity?
+    let error: ActivityError?
     
-    init(date: Date, loggedIn: Bool = false,  activity: Activity? = nil) {
+    init(date: Date, activity: Activity? = nil, error: ActivityError? = nil) {
         self.date = date
-        self.loggedIn = loggedIn
         self.activity = activity
+        self.error = error
     }
 }
 
@@ -73,7 +75,7 @@ struct MemoriesWidgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        MemoriesWidgetView(activity: entry.activity, error: nil)
+        MemoriesWidgetView(activity: entry.activity, error: entry.error)
     }
 }
 
