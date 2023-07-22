@@ -14,10 +14,11 @@ let userDefaultUnseenWidgetForceRefresh = "unseen_widget_force_refresh"
 
 public class ActivityViewModel: NSObject, ObservableObject {
     @Published public var activity: Activity? = getActivityFromUserDefault()
+    @Published public var error: ActivityError? = nil
     @Published public var isFetching: Bool = false
     
     public var fakeBehaviour: FakeBehaviour? = nil
-
+    
     
     @MainActor
     public func fetchAndStoreRandomActivity() async {
@@ -28,26 +29,39 @@ public class ActivityViewModel: NSObject, ObservableObject {
         request.setValue("Bearer \(self.getJwt())", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         
-
         do {
-            let (data, _) = try await URLSession.shared.data(for: request)
+            let (data, response) = try await URLSession.shared.data(for: request)
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .formatted(.standard)
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             
-            do {
-                let decoded = try decoder.decode(Activity.self, from: data)
-                self.activity = decoded
-                saveActivityToUserDefault(activity : self.activity!)
-            } catch {
-                print(error)
+            if let response = response as? HTTPURLResponse {
+                if response.statusCode == 200 {
+                    do {
+                        let decoded = try decoder.decode(Activity.self, from: data)
+                        self.activity = decoded
+                        self.error = nil
+                        self.saveActivityToUserDefault(activity : decoded)
+                    } catch {
+                        self.error = .other
+                        self.activity = nil
+                    }
+                } else {
+                    let errorPayload = try! decoder.decode(APIError.Payload.self, from: data)
+                    let apiError = APIError(statusCode: response.statusCode, payload: errorPayload)
+                    self.error = ActivityError(apiError)
+                    self.activity = nil
+                }
+            } else {
+                self.error = .other
+                self.activity = nil
             }
-            
-            self.isFetching = false
         } catch {
-            print(error)
-            self.isFetching = false
+            self.error = .other
+            self.activity = nil
         }
+        
+        self.isFetching = false
     }
     
     public func forceRefreshWidget() {

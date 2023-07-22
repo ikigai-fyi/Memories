@@ -167,9 +167,8 @@ struct MemoriesHomeView: View {
                         
                         VStack {
                             // Activity widget -----------------------------------------------------
-                            if !activityViewModel.isFetching,
-                               let activity = activityViewModel.activity {
-                                MemoriesWidgetView(activity: activity, error: nil)
+                            if !activityViewModel.isFetching {
+                                MemoriesWidgetView(activity: activityViewModel.activity, error: activityViewModel.error)
                                     .frame(height: 162)
                                     .background(Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)))
                                     .cornerRadius(20)
