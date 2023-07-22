@@ -32,6 +32,10 @@ enum Config {
         return try! Config.value(for: "ENV")
     }
     
+    static var isDev: Bool {
+        return self.env == "dev"
+    }
+    
     static var backendURL: String {
         return try! Config.value(for: "BACKEND_URL")
     }

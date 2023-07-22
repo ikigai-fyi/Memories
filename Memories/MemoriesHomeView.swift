@@ -77,8 +77,10 @@ struct MemoriesHomeView: View {
                             
                             
                         }.confirmationDialog("Profile", isPresented: $showingOptions, titleVisibility: .hidden) {
-                            Button("[dev] Set fake behaviour (\(activityViewModel.fakeBehaviour?.title ?? "none"))") {
-                                showingFakeBehaviourAlert = true
+                            if Config.isDev {
+                                Button("[dev] Set fake behaviour (\(activityViewModel.fakeBehaviour?.title ?? "none"))") {
+                                    showingFakeBehaviourAlert = true
+                                }
                             }
                             
                             Button("Suggest features") {
