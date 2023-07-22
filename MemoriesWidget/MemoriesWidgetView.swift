@@ -70,12 +70,12 @@ struct ErrorView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 6){
             
-            Text(title)
+            Text(NSLocalizedString(title, comment: "comment"))
                 .font(.headline)
                 .bold()
                 .minimumScaleFactor(0.7)
                 .lineLimit(2)
-            Text(subtitle)
+            Text(NSLocalizedString(subtitle, comment: "comment"))
                 .font(.caption)
                 .minimumScaleFactor(0.7)
                 .foregroundColor(.gray)
