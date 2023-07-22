@@ -40,6 +40,12 @@ public class ActivityViewModel: NSObject, ObservableObject {
             if let response = response as? HTTPURLResponse {
                 if response.statusCode == 200 {
                     do {
+                        
+                        Analytics.capture(
+                            event: .systemFetchedRandomActivity,
+                            userProperties: [.lastActivityFetchState: "success"])
+
+                        
                         let decoded = try decoder.decode(Activity.self, from: data)
                         self.setState(activity: decoded, error: nil)
                     } catch {
@@ -49,7 +55,14 @@ public class ActivityViewModel: NSObject, ObservableObject {
                 } else {
                     let errorPayload = try! decoder.decode(APIError.Payload.self, from: data)
                     let apiError = APIError(statusCode: response.statusCode, payload: errorPayload)
-                    self.setState(activity: nil, error: ActivityError(apiError))
+                    
+                    let activityError: ActivityError = ActivityError(apiError)
+                    self.setState(activity: nil, error: activityError)
+                    
+                    Analytics.capture(
+                        event: .systemFetchedRandomActivity,
+                        userProperties: [.lastActivityFetchState: activityError.rawValue])
+                    
                 }
             } else {
                 self.setState(activity: nil, error: .other)

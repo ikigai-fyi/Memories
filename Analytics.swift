@@ -65,6 +65,7 @@ struct Analytics {
 
         // lifecycle
         case appActive
+        case systemFetchedRandomActivity
         case systemUpdateWidget
         case systemAskForReview
     }
@@ -74,7 +75,8 @@ struct Analytics {
         case firstName
         case lastName
         case lastSeenDate
-        
+        case lastActivityFetchState
+
         //action attributes
         case from
         case abTestGroup
