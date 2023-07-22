@@ -73,7 +73,7 @@ struct MemoriesWidgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        MemoriesWidgetView(loggedIn: entry.loggedIn, activity: entry.activity)
+        MemoriesWidgetView(activity: entry.activity, error: nil)
     }
 }
 

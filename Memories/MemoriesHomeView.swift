@@ -169,7 +169,7 @@ struct MemoriesHomeView: View {
                             // Activity widget -----------------------------------------------------
                             if !activityViewModel.isFetching,
                                let activity = activityViewModel.activity {
-                                MemoriesWidgetView(loggedIn: true, activity: activity)
+                                MemoriesWidgetView(activity: activity, error: nil)
                                     .frame(height: 162)
                                     .background(Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)))
                                     .cornerRadius(20)

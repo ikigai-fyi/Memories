@@ -32,30 +32,20 @@ struct ImageContainerView: View {
 
 
 
-struct DefaultView: View {
+struct ErrorView: View {
     
     enum Error {
         case notLoggedIn
         case noActivity
         case noRecentActivityWithPictures
         case noActivityWithPictures
-        case networkError
+        case other
     }
     
-    var error: Error = .networkError
+    var error: Error?
     
-    init(loggedIn: Bool, activity: Activity?){
-        if !loggedIn{ self.error = .notLoggedIn }
-        else if activity == nil { self.error = .noActivity}
-        else if let activity = activity {
-            if activity.getPictureUrl() == "" {
-                self.error = .noRecentActivityWithPictures
-            }
-        }
-    }
-    
-    var title:String {
-        switch self.error{
+    var title: String {
+        switch self.error {
         case .notLoggedIn:
             return "Getting started"
         case .noActivity:
@@ -69,9 +59,9 @@ struct DefaultView: View {
         }
     }
     
-    var subtitle:String {
+    var subtitle: String {
         
-        switch self.error{
+        switch self.error {
         case .notLoggedIn:
             return "Welcome to Memories. Please open the app to connect your Strava account."
         case .noActivity:
@@ -107,8 +97,8 @@ struct DefaultView: View {
 
 struct MemoriesWidgetView: View {
     
-    let loggedIn: Bool
     let activity: Activity?
+    let error: ErrorView.Error?
     
     var body: some View {
         
@@ -173,7 +163,7 @@ struct MemoriesWidgetView: View {
                 } // zstack
             } // condition
             else {
-                DefaultView(loggedIn: loggedIn, activity: activity)
+                ErrorView(error: error)
             }
         } // group
     }
@@ -181,7 +171,7 @@ struct MemoriesWidgetView: View {
 
 struct MemoriesWidgetView_Previews: PreviewProvider {
     static var previews: some View {
-        MemoriesWidgetView(loggedIn: false, activity: nil)
+        MemoriesWidgetView(activity: nil, error: .notLoggedIn)
     }
 }
 
