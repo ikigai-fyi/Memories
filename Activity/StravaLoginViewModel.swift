@@ -32,24 +32,33 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
         self.isLoading = true
         session.start()
     }
-
-    public func handleOauthRedirect(url: URL) async {
-        if let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-           let code = components.queryItems?.first(where: { $0.name == "code" }),
-           let scope = components.queryItems?.first(where: { $0.name == "scope" })
-        {
-            self.isLoading = true
-            await loginWithStrava(code: code.value!, scope: scope.value!)
-            self.isLoading = false
-        }
-    }
     
-    public func loginWithStrava(code: String, scope: String) async {
-        if !(scope.contains("activity:read_all") && scope.contains("profile:read_all")) {
-            print("Scope restricted, error to handle")
+    public func handleOauthRedirect(url: URL) async {
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+              let code = components.queryItems?.first(where: { $0.name == "code" })?.value,
+              let scope = components.queryItems?.first(where: { $0.name == "scope" })?.value
+        else {
+            print("Invalid redirect URL")
+            Analytics.capture(event: .receivedInvalidStravaOauthRedirect, eventProperties: [.cause: "invalid url"])
             return
         }
         
+        guard scope.contains("activity:read_all") && scope.contains("profile:read_all")
+        else {
+            print("Scope restricted")
+            Analytics.capture(event: .receivedInvalidStravaOauthRedirect, eventProperties: [.cause: "invalid scope"])
+            return
+        }
+        
+        Analytics.capture(event: .receivedValidStravaOauthRedirect)
+        
+        self.isLoading = true
+        await loginWithStrava(code: code, scope: scope)
+        self.isLoading = false
+        
+    }
+    
+    public func loginWithStrava(code: String, scope: String) async {
         let url = URL(string: "\(Config.backendURL)/rest/auth/login/strava")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -58,7 +67,7 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
         let json = ["code": code, "scope": scope]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         request.httpBody = jsonData
-
+        
         do {
             let (data, _) = try await URLSession.shared.data(for: request)
             let decoder = JSONDecoder()
@@ -73,7 +82,7 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
             if PHGPostHog.shared() == nil {
                 Analytics.initialize()
             }
-            Analytics.identify(athlete: athlete)            
+            Analytics.identify(athlete: athlete)
         } catch {
             print(error)
         }
@@ -169,7 +178,7 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
         // analytics
         Analytics.reset()
     }
-
+    
     
     func saveAthleteToUserDefault(athlete: Athlete?) {
         if let userDefaults = UserDefaults(suiteName: appGroupName) {

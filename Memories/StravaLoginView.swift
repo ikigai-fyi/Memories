@@ -41,13 +41,13 @@ struct StravaLoginView: View {
             VStack(spacing: 12.0) {
              
                 Button {
-                    Analytics.capture(event: .connectStrava)
-                    
                     // Open Strava app if installed, if will be redirected to our app through a deeplink
                     // UIApplication can only be used in a UIKit context
                     if UIApplication.shared.canOpenURL(self.loginViewModel.getStravaMobileUrl()) {
+                        Analytics.capture(event: .connectStrava, eventProperties: [.with: "stravaApp"])
                         UIApplication.shared.open(self.loginViewModel.getStravaMobileUrl(), options: [:])
                     } else {
+                        Analytics.capture(event: .connectStrava, eventProperties: [.with: "stravaWebview"])
                         self.loginViewModel.startWebOauth()
                     }
                 } label: {

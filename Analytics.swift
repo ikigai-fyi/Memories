@@ -51,6 +51,8 @@ struct Analytics {
         
         // actions
         case connectStrava
+        case receivedValidStravaOauthRedirect
+        case receivedInvalidStravaOauthRedirect
         case addWidgetHelp
         case refreshActivities
         case shareFeedback
@@ -76,5 +78,7 @@ struct Analytics {
         //action attributes
         case from
         case abTestGroup
+        case cause
+        case with
     }
 }
