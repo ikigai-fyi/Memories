@@ -9,6 +9,7 @@ import WidgetKit
 import SwiftUI
 import Activity
 import PostHog
+import Sentry
 
 struct Provider: TimelineProvider {
     private let viewModel = ActivityViewModel()
@@ -25,9 +26,8 @@ struct Provider: TimelineProvider {
     }
 
     @MainActor func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
+        self.initializeDependencies()
         self.onGetTimeline()
-        
-        let isLoggedIn = StravaLoginViewModel.isLoggedIn()
         
         // Home screen was forced refresh, update the widget with user defaults only
         if ActivityViewModel.getUnseenWidgetForceRefreshFromUserDefault() {
@@ -50,12 +50,22 @@ struct Provider: TimelineProvider {
     }
     
     @MainActor private func onGetTimeline() {
-        Analytics.initialize()
         if let athlete = StravaLoginViewModel.getAthleteFromUserDefault() {
             Analytics.identify(athlete: athlete)
         }
         
         Analytics.capture(event: .systemUpdateWidget)
+    }
+    
+    @MainActor private func initializeDependencies() {
+        // We don't really know where to do that for widgets, so we do it for every timeline refresh, as it's pretty rare
+        SentrySDK.start { options in
+            options.dsn = "https://2307db5e8e854158be765b26bce256ed@o4505126569246720.ingest.sentry.io/4505248857784320"
+            options.debug = false
+            options.environment = Config.env
+        }
+        
+        Analytics.initialize()
     }
 }
 
@@ -81,11 +91,6 @@ struct MemoriesWidgetEntryView : View {
 
 struct MemoriesWidget: Widget {
     let kind: String = "MemoriesWidget"
-
-// Note : does not work. Seems not to be executed before buildTimeline() is triggered
-//    init() {
-//        Analytics.initPostHog()
-//    }
     
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in

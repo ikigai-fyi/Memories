@@ -7,6 +7,7 @@
 
 import Foundation
 import WidgetKit
+import Sentry
 
 let appGroupName = Config.appGroupName
 let userDefaultActivity = "activity"
@@ -42,6 +43,7 @@ public class ActivityViewModel: NSObject, ObservableObject {
                         let decoded = try decoder.decode(Activity.self, from: data)
                         self.setState(activity: decoded, error: nil)
                     } catch {
+                        SentrySDK.capture(error: error)
                         self.setState(activity: nil, error: .other)
                     }
                 } else {
@@ -53,6 +55,7 @@ public class ActivityViewModel: NSObject, ObservableObject {
                 self.setState(activity: nil, error: .other)
             }
         } catch {
+            SentrySDK.capture(error: error)
             self.setState(activity: nil, error: .other)
         }
         

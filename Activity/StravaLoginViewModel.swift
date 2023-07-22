@@ -9,6 +9,7 @@ import Foundation
 import AuthenticationServices
 import WidgetKit
 import PostHog
+import Sentry
 
 let userDefaultAthlete = "athlete"
 
@@ -84,7 +85,7 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
             }
             Analytics.identify(athlete: athlete)
         } catch {
-            print(error)
+            SentrySDK.capture(error: error)
         }
     }
     
@@ -105,7 +106,7 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
             }
             
         } catch {
-            print(error)
+            SentrySDK.capture(error: error)
         }
     }
     
