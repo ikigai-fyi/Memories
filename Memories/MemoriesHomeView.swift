@@ -34,7 +34,7 @@ struct MemoriesHomeView: View {
     @State private var showingAlert = false
     
     @State private var isUserActivated = false
-
+    
     
     
     var refreshButtonColor: Color {
@@ -127,22 +127,22 @@ struct MemoriesHomeView: View {
                     VStack {
                         
                         VStack(spacing: 18.0) {
-            
+                            
                             let smallScreen = proxy.size.height < 700
                             let forceHalfRow = smallScreen && !isUserActivated
-
+                            
                             // TODO : 700 is a random value
                             if isUserActivated{
                                 HStack {
                                     RowIcon(row: -3, half: smallScreen); Spacer(); RowIcon(row: -3, half: smallScreen); Spacer(); RowIcon(row: -3, half: smallScreen); Spacer(); RowIcon(row: -3, half: smallScreen);
                                 }.frame(maxWidth: .infinity)
                             }
-                                
+                            
                             
                             HStack {
                                 RowIcon(row: -2, half: forceHalfRow); Spacer(); RowIcon(row: -2, half: forceHalfRow); Spacer(); RowIcon(row: -2, half: forceHalfRow); Spacer(); RowIcon(row: -2, half: forceHalfRow)
                             }.frame(maxWidth: .infinity)
-                        
+                            
                             
                             HStack {
                                 RowIcon(row: -1); Spacer(); RowIcon(row: -1); Spacer(); RowIcon(row: -1); Spacer(); RowIcon(row: -1)
@@ -259,17 +259,17 @@ struct MemoriesHomeView: View {
                     } else {
                         
                         if #available(iOS 16.0, *) {
-                        ShareLink(NSLocalizedString("Share the app", comment: "comment"), item: NSLocalizedString("url_app", comment: "comment"), message: Text("share_message"))
-                            .frame(maxWidth: .infinity, minHeight: 52, idealHeight: 52, maxHeight: 52)
-                            .background(.purple)
-                            .bold()
-                            .foregroundColor(.white)
-                            .cornerRadius(35)
-                            .simultaneousGesture(TapGesture().onEnded() {
-                                Analytics.capture(event: .shareToFriends)
-                            })
+                            ShareLink(NSLocalizedString("Share the app", comment: "comment"), item: NSLocalizedString("url_app", comment: "comment"), message: Text("share_message"))
+                                .frame(maxWidth: .infinity, minHeight: 52, idealHeight: 52, maxHeight: 52)
+                                .background(.purple)
+                                .bold()
+                                .foregroundColor(.white)
+                                .cornerRadius(35)
+                                .simultaneousGesture(TapGesture().onEnded() {
+                                    Analytics.capture(event: .shareToFriends)
+                                })
                         }
-                    
+                        
                         Button {
                             self.isChatPresented.toggle()
                             Analytics.capture(event: .shareFeedback, eventProperties: [.from: "homeFeedbackButton"])
@@ -466,7 +466,7 @@ struct ActivationView: View{
                 SheetVideoView(isShowingVideoView: $isShowingVideoView)
             }
             }
-                
+            
             Button {
                 self.isChatPresented.toggle()
                 Analytics.capture(event: .loginHelpButtonClicked)
@@ -551,15 +551,15 @@ struct SheetWebView : View {
 struct SheetVideoView : View {
     @Binding var isShowingVideoView: Bool
     @State private var player = AVPlayer(url: Helper.createLocalUrl(for: "addWidgetHelp", ofType: "mp4")!)
-  
+    
     
     var body: some View{
         GeometryReader { proxy in
-
+            
             NavigationView{
                 VStack(spacing:18){
                     Spacer()
-                   
+                    
                     VideoPlayer(player: player)
                         .frame(
                             width: 0.5614583333 * 0.8 * proxy.size.height,
@@ -590,12 +590,12 @@ struct SheetVideoView : View {
                     .cornerRadius(35)
                     
                     
-
+                    
                 } .padding([.leading, .trailing, .bottom], 28)
-
-                }
                 
             }
+            
+        }
         
     }
 }
