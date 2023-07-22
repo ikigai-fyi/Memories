@@ -13,6 +13,7 @@
 		2D3BB72A2A6338D3003EF280 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2D3BB72E2A6338D3003EF280 /* Localizable.strings */; };
 		2D3BB72B2A6338D3003EF280 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2D3BB72E2A6338D3003EF280 /* Localizable.strings */; };
 		2D3BB72C2A6338D3003EF280 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2D3BB72E2A6338D3003EF280 /* Localizable.strings */; };
+		2D3DBEEC2A6C086C00B2685B /* FakeBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3DBEEB2A6C086C00B2685B /* FakeBehaviour.swift */; };
 		2D5EAEE42A1D51B400FB9C33 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5EAEE32A1D51B400FB9C33 /* ActivityViewModel.swift */; };
 		2D5EAEE52A1D521400FB9C33 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E402A3812A05D3A400C2F3B0 /* Helper.swift */; };
 		2D5EAEE62A1D521A00FB9C33 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E468D3FC2A0663E50017070A /* Analytics.swift */; };
@@ -100,6 +101,7 @@
 /* Begin PBXFileReference section */
 		2D3BB72D2A6338D3003EF280 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2D3BB72F2A6338E8003EF280 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2D3DBEEB2A6C086C00B2685B /* FakeBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeBehaviour.swift; sourceTree = "<group>"; };
 		2D5EAEE32A1D51B400FB9C33 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 		2D7C61DC2A1D59040050AAB0 /* Athlete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Athlete.swift; sourceTree = "<group>"; };
 		2D7C61E02A1D5D3B0050AAB0 /* DateFormatter+standard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+standard.swift"; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 				2D5EAEE32A1D51B400FB9C33 /* ActivityViewModel.swift */,
 				2DE590BC2A053D9C0041EA4D /* StravaLoginViewModel.swift */,
 				2D7C61E02A1D5D3B0050AAB0 /* DateFormatter+standard.swift */,
+				2D3DBEEB2A6C086C00B2685B /* FakeBehaviour.swift */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -452,6 +455,7 @@
 				2D7C61DE2A1D5CCF0050AAB0 /* Athlete.swift in Sources */,
 				2D7C61DF2A1D5D100050AAB0 /* StravaLoginViewModel.swift in Sources */,
 				E42106C02A0ECB6900187A74 /* Activity.swift in Sources */,
+				2D3DBEEC2A6C086C00B2685B /* FakeBehaviour.swift in Sources */,
 				2D5EAEE42A1D51B400FB9C33 /* ActivityViewModel.swift in Sources */,
 				2DCAC7A62A208FE7007A11F9 /* Config.swift in Sources */,
 				2D5EAEE62A1D521A00FB9C33 /* Analytics.swift in Sources */,

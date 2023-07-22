@@ -15,6 +15,8 @@ let userDefaultUnseenWidgetForceRefresh = "unseen_widget_force_refresh"
 public class ActivityViewModel: NSObject, ObservableObject {
     @Published public var activity: Activity? = getActivityFromUserDefault()
     @Published public var isFetching: Bool = false
+    
+    var fakeBehaviour: FakeBehaviour? = nil
 
     
     @MainActor
@@ -23,7 +25,7 @@ public class ActivityViewModel: NSObject, ObservableObject {
         let url = URL(string: "\(Config.backendURL)/rest/activities/random")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("Bearer \(getLoggedAthlete()!.jwt)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(self.getJwt())", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         
 
@@ -104,5 +106,20 @@ public class ActivityViewModel: NSObject, ObservableObject {
     
     @MainActor private func getLoggedAthlete() -> Athlete? {
         return StravaLoginViewModel.getAthleteFromUserDefault()
+    }
+    
+    @MainActor private func getJwt() -> String {
+        var jwt = getLoggedAthlete()!.jwt
+        
+        // Always return logged user JWT in prod
+        if Config.env == "prod" {
+            return jwt
+        }
+        
+        if let fakeBehaviour = self.fakeBehaviour {
+            return fakeBehaviour.jwt
+        }
+        
+        return jwt
     }
 }
