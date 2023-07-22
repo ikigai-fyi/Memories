@@ -7,9 +7,16 @@
 
 import Foundation
 
-enum FakeBehaviour {
+public enum FakeBehaviour {
     case noActivity
     case noPicture
+    
+    public var title: String {
+        switch self {
+        case .noActivity: return "No activity"
+        case .noPicture: return "No picture"
+        }
+    }
     
     public var jwt: String {
         switch self {

@@ -16,7 +16,7 @@ public class ActivityViewModel: NSObject, ObservableObject {
     @Published public var activity: Activity? = getActivityFromUserDefault()
     @Published public var isFetching: Bool = false
     
-    var fakeBehaviour: FakeBehaviour? = nil
+    public var fakeBehaviour: FakeBehaviour? = nil
 
     
     @MainActor

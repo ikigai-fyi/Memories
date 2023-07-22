@@ -32,6 +32,7 @@ struct MemoriesHomeView: View {
     
     @State private var showingOptions = false
     @State private var showingAlert = false
+    @State private var showingFakeBehaviourAlert = false
     
     @State private var isUserActivated = false
     
@@ -76,7 +77,9 @@ struct MemoriesHomeView: View {
                             
                             
                         }.confirmationDialog("Profile", isPresented: $showingOptions, titleVisibility: .hidden) {
-                            
+                            Button("[dev] Set fake behaviour (\(activityViewModel.fakeBehaviour?.title ?? "none"))") {
+                                showingFakeBehaviourAlert = true
+                            }
                             
                             Button("Suggest features") {
                                 self.isChatPresented.toggle()
@@ -104,8 +107,18 @@ struct MemoriesHomeView: View {
                                 }
                             }
                             Button("Cancel", role: .cancel) {}
-                        }message: {
+                        } message: {
                             Text("Are you sure? This action is irreversible.")
+                        }.alert ("[dev] Set fake behaviour", isPresented: $showingFakeBehaviourAlert) {
+                            Button("Remove fake behaviour") {
+                                activityViewModel.fakeBehaviour = nil
+                            }
+                            Button(FakeBehaviour.noActivity.title) {
+                                activityViewModel.fakeBehaviour = .noActivity
+                            }
+                            Button(FakeBehaviour.noPicture.title) {
+                                activityViewModel.fakeBehaviour = .noPicture
+                            }
                         }
                         
                         StravaIconView().zIndex(10)
