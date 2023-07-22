@@ -415,6 +415,7 @@ struct RowIcon : View {
 }
 
 struct ActivationView: View{
+    @EnvironmentObject var activityViewModel: ActivityViewModel
     
     @Binding var isShowingWebView: Bool
     @Binding var isShowingVideoView: Bool
@@ -445,6 +446,35 @@ struct ActivationView: View{
                     .cornerRadius(35)
                     .disabled(true)
             }
+            
+            if UIApplication.shared.canOpenURL(URL(string: "strava://record/new")!) &&
+                (activityViewModel.error == .noActivity ||
+                activityViewModel.error == .noActivityWithPictures ||
+                activityViewModel.error == .noRecentActivityWithPictures ){ // and detect Strava exists
+                
+                HStack{
+                    Image(systemName: "circle")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxWidth: 42, maxHeight: 42)
+                        .frame(width: 25, height: 25, alignment: .center)
+                        .foregroundColor(.orange)
+                    
+                    Button {
+                        UIApplication.shared.open(URL(string: "strava://record/new")!, options: [:])
+                    }
+                label: {
+                    Text("Open Strava").bold()
+                }
+                .frame(maxWidth: .infinity)
+                .padding([.top, .bottom], 12)
+                .background(.orange)
+                .foregroundColor(.white)
+                .cornerRadius(35)
+                }
+                
+            }
+
             
             HStack{
                 Image(systemName: "circle")
