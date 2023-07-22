@@ -57,11 +57,11 @@ struct ErrorView: View {
         case .notLoggedIn:
             return "Welcome to Memories. Please open the app to connect your Strava account."
         case .noActivity:
-            return "Time to launch Strava and go for a run !"
+            return "Time to launch Strava and go for a run!"
         case .noRecentActivityWithPictures:
-            return "Launch Strava and add pictures to any of your recent activities !"
+            return "Launch Strava and add pictures to any of your recent activities!"
         case .noActivityWithPictures:
-            return "Launch Strava and add pictures to any of your activities !"
+            return "Launch Strava and add pictures to any of your activities!"
         default:
             return "We're having problems fetching content from Memories right now. Try checking back later."
         }

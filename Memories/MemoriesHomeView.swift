@@ -169,7 +169,7 @@ struct MemoriesHomeView: View {
                             // Activity widget -----------------------------------------------------
                             if !activityViewModel.isFetching {
                                 MemoriesWidgetView(activity: activityViewModel.activity, error: activityViewModel.error)
-                                    .frame(height: 162)
+                                    .frame(maxWidth: .infinity, minHeight: 162, idealHeight: 162, maxHeight: 162)
                                     .background(Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)))
                                     .cornerRadius(20)
                                     .shadow(color: Color.black.opacity(0.3), radius: 18)

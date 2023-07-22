@@ -30,3 +30,23 @@
 "Refresh widget" = "Actualiser le widget";
 "Ok, got it !" = "Ok, j'ai compris !";
 
+// Errors --------------
+// notLoggedIn:
+"Getting started" = "C'est parti !";
+"Welcome to Memories. Please open the app to connect your Strava account." = "Bienvenue sur Memories. Ouvrez l'app pour connecter votre compte Strava.";
+
+//noActivity:
+"Sorry, we can't find activities" = "Aucune activitée trouvée";
+"Time to launch Strava and go for a run!" = "À vous de jouer ! Lancez Strava et démarrez une activité.";
+
+//noRecentActivityWithPictures:
+"No picture in recent activities" = "Aucune activité récente ne contient de photo";
+"Launch Strava and add pictures to any of your recent activities!" = "Ouvrez Strava et ajoutez une image à l'une de vos activités récentes.";
+
+//noActivityWithPictures:
+"No picture in activities" = "Aucune activité ne contient de photo";
+"Launch Strava and add pictures to any of your activities!" = "Ouvrez Strava et ajoutez une image à l'une de vos activités.";
+
+//default
+"Sorry, this widget isn't working" = "Oups, le widget ne fonctionne pas";
+"We're having problems fetching content from Memories right now. Try checking back later." = "Nous avons des difficultés à accéder à Memories. Réessayez dans quelques instants.";
