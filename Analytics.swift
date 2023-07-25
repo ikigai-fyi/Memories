@@ -63,7 +63,7 @@ struct Analytics {
         case deleteAccount
         case confirmDeleteAccount
         case goToHomeScreenAfterHelpVideo
-        case setMeasurementSystemToMetric
+        case updateSettingMeasurementSystem
 
         // lifecycle
         case appActive
@@ -78,12 +78,13 @@ struct Analytics {
         case lastName
         case lastSeenDate
         case lastActivityFetchState
-        case measurementSystemIsMetric
+        case measurementSystem
 
         //action attributes
         case from
         case abTestGroup
         case cause
         case with
+        case settingValue
     }
 }

@@ -342,7 +342,7 @@ struct SettingsView: View {
     @State private var showingFakeBehaviourAlert = false
     @State private var isShowingAlert = false
     @State private var measurementSystemString: String = Helper.getIsUserUsingMetricSystemFromUserDefaults()! ? NSLocalizedString("Metric", comment: "comment") : NSLocalizedString("Imperial", comment: "comment")
-
+    
     
     var body: some View {
         NavigationView {
@@ -403,10 +403,18 @@ struct SettingsView: View {
                 
                 Section(header: Text("Widget settings")) {
                     Button(NSLocalizedString("Units", comment: "comment") + " : \(measurementSystemString)") {
-                        let current = Helper.getIsUserUsingMetricSystemFromUserDefaults()!
-                        self.measurementSystemString = !current ? NSLocalizedString("Metric", comment: "comment") : NSLocalizedString("Imperial", comment: "comment")
-                        Analytics.capture(event: .setMeasurementSystemToMetric, userProperties: [.measurementSystemIsMetric: !current])
-                        Helper.saveIsUserUsingMetricSystemFromUserDefaults(metric: !current)
+                        let currentIsMetric = Helper.getIsUserUsingMetricSystemFromUserDefaults()!
+                        let newIsMetric = !currentIsMetric
+                        
+                        let string = newIsMetric ? "Metric" : "Imperial"
+                        self.measurementSystemString = NSLocalizedString(string, comment: "comment")
+                        
+                        Helper.saveIsUserUsingMetricSystemFromUserDefaults(metric: newIsMetric)
+                        Analytics.capture(
+                            event: .updateSettingMeasurementSystem,
+                            eventProperties: [.settingValue: string],
+                            userProperties: [.measurementSystem: string]
+                        )
                     }
                 }
                 
@@ -444,7 +452,7 @@ struct SettingsView: View {
                 Text("Done").bold()
             })
             
-
+            
             
         }
     }
