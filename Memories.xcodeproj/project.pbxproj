@@ -107,6 +107,7 @@
 		2D3DBEEB2A6C086C00B2685B /* FakeBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeBehaviour.swift; sourceTree = "<group>"; };
 		2D3DBEED2A6C17BD00B2685B /* ActivityError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityError.swift; sourceTree = "<group>"; };
 		2D3DBEEF2A6C188000B2685B /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		2D5271682A6FDD5900989AE8 /* ci_post_xcodebuild.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_xcodebuild.sh; sourceTree = "<group>"; };
 		2D5EAEE32A1D51B400FB9C33 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 		2D7C61DC2A1D59040050AAB0 /* Athlete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Athlete.swift; sourceTree = "<group>"; };
 		2D7C61E02A1D5D3B0050AAB0 /* DateFormatter+standard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+standard.swift"; sourceTree = "<group>"; };
@@ -175,6 +176,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D5271672A6FDD5900989AE8 /* ci_scripts */ = {
+			isa = PBXGroup;
+			children = (
+				2D5271682A6FDD5900989AE8 /* ci_post_xcodebuild.sh */,
+			);
+			path = ci_scripts;
+			sourceTree = "<group>";
+		};
 		2DE590822A052D890041EA4D = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +200,7 @@
 				E48E09852A05BF98002456E5 /* MemoriesWidget */,
 				E42106B42A0ECB5300187A74 /* Activity */,
 				E48E09802A05BF98002456E5 /* Frameworks */,
+				2D5271672A6FDD5900989AE8 /* ci_scripts */,
 				2DE5908C2A052D890041EA4D /* Products */,
 			);
 			sourceTree = "<group>";
