@@ -415,10 +415,8 @@ struct SettingsView: View {
                     }
                 }
                 
-            
-                Section(header: Text("Developer")){
-                    
-                    if Config.isDev {
+                if !Config.isDev {
+                    Section(header: Text("Developer")){
                         Button("[Dev] Set fake behaviour (\(activityViewModel.fakeBehaviour?.title ?? "none"))") {
                             showingFakeBehaviourAlert = true
                         }.alert ("[dev] Set fake behaviour", isPresented: $showingFakeBehaviourAlert) {
@@ -431,7 +429,6 @@ struct SettingsView: View {
                             Button(FakeBehaviour.noPicture.title) {
                                 activityViewModel.fakeBehaviour = .noPicture
                             }
-                            
                         }
                     }
                 }
