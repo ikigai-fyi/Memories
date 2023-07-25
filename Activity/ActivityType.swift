@@ -63,8 +63,8 @@ public enum ActivityType {
         private var measurementFormatter: MeasurementFormatter {
             
             // Fetch configuration of the device
-            let locale = Locale.current
-            //let locale = Locale(identifier: "en_US") // To test imperial
+            let userStoredMeasurementSystem = Helper.getIsUserUsingMetricSystemFromUserDefaults()!
+            let locale = Locale(identifier: userStoredMeasurementSystem ? "fr_FR" : "en_US")
 
             // Build a formatter to handle conversions miles/meters
             let formatter = MeasurementFormatter()

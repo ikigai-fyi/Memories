@@ -15,9 +15,26 @@ struct Constants {
 
 struct UserDefaultsKeys {
     static let lastVersionPromptedForReviewKey = "lastVersionPromptedForReviewKey"
+    static let userMeasurementSystem = "userMeasurementSystem"
 }
 
 struct Helper {
+    
+    static func getIsUserUsingMetricSystemFromUserDefaults() -> Bool? {
+        if let userDefaults = UserDefaults(suiteName: Config.appGroupName) {
+            if let data = userDefaults.data(forKey: UserDefaultsKeys.userMeasurementSystem) {
+                return try? JSONDecoder().decode(Bool.self, from: data)
+            }
+        }
+        return Locale.current.usesMetricSystem
+    }
+    
+    static func saveIsUserUsingMetricSystemFromUserDefaults(metric: Bool) {
+        if let userDefaults = UserDefaults(suiteName: Config.appGroupName) {
+            let locale = try! JSONEncoder().encode(metric)
+            userDefaults.set(locale, forKey: UserDefaultsKeys.userMeasurementSystem)
+        }
+    }
     
     static func createLocalUrl(for filename: String, ofType: String) -> URL? {
            let fileManager = FileManager.default

@@ -16,13 +16,9 @@
 "Suggest features" = "Donner mon avis";
 "Your widget preview" = "Aperçu du widget";
 "Done" = "Terminer";
-"Logout" = "Se déconnecter";
-"Profile" = "Profil";
 "Cancel" = "Annuler";
 "url_help_widget" = "https://support.apple.com/fr-fr/HT207122";
-"Delete my account" = "Supprimer mon compte";
 "Share the app" = "Partager à un ami";
-"Account deletion" = "Supprimer mon compte";
 "Are you sure? This action is irreversible." = "Êtes vous sûr(e) ? Cette action est irréversible.";
 "share_message" = "Télécharge Memories : Widgets pour Strava 🏊🚴🏃‍♂️! J'utilise Menories pour ajouter un widget qui affiche mes meilleurs souvenirs sportifs.";
 "url_app" = "https://apps.apple.com/fr/app/memories-widget-pour-strava/id6448870765";
@@ -50,3 +46,17 @@
 //default
 "Sorry, this widget isn't working" = "Oups, le widget ne fonctionne pas";
 "We're having problems fetching content from Memories right now. Try checking back later." = "Nous avons des difficultés à accéder à Memories. Réessayez dans quelques instants.";
+
+
+//setings
+"Successfully connected to Strava" = "Compte lié à Strava";
+"Logout" = "Se déconnecter";
+"Profile" = "Profil";
+"Delete my account" = "Supprimer mon compte";
+"Account deletion" = "Supprimer mon compte";
+"Widget settings" = "Réglages du widget";
+"Units" = "Unités de mesure";
+"Metric" = "Métrique";
+"Imperial" = "Imperial";
+"Contact us" = "Nous contacter";
+"Settings" = "Réglages";

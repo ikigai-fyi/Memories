@@ -29,10 +29,7 @@ struct MemoriesHomeView: View {
     @State private var isShowingWebView: Bool = false
     @State private var isShowingVideoView: Bool = false
     @State private var isChatPresented: Bool = false
-    
-    @State private var showingOptions = false
-    @State private var showingAlert = false
-    @State private var showingFakeBehaviourAlert = false
+    @State private var isShowingOptions: Bool = false
     
     @State private var isUserActivated = false
     
@@ -62,7 +59,7 @@ struct MemoriesHomeView: View {
                     // Picture ------------------------------------------------
                     ZStack{
                         Button(action: {
-                            showingOptions = true
+                            isShowingOptions = true
                         }) {
                             AsyncImage(url: URL(string: loginViewModel.athlete?.pictureUrl ?? "")) { image in
                                 image.resizable()
@@ -76,51 +73,8 @@ struct MemoriesHomeView: View {
                             .zIndex(1)
                             
                             
-                        }.confirmationDialog("Profile", isPresented: $showingOptions, titleVisibility: .hidden) {
-                            if Config.isDev {
-                                Button("[dev] Set fake behaviour (\(activityViewModel.fakeBehaviour?.title ?? "none"))") {
-                                    showingFakeBehaviourAlert = true
-                                }
-                            }
-                            
-                            Button("Suggest features") {
-                                self.isChatPresented.toggle()
-                                Analytics.capture(event: .shareFeedback, eventProperties: [.from: "profileFeedbackButton"])
-                            }.sheet(isPresented: self.$isChatPresented) {
-                                ChatView()
-                            }
-                            
-                            Button("Logout") {
-                                Analytics.capture(event: .logout)
-                                loginViewModel.logout()
-                            }
-                            
-                            Button("Delete my account", role: .destructive) {
-                                Analytics.capture(event: .deleteAccount)
-                                showingAlert = true
-                            }
-                            
-                            Button("Cancel", role: .cancel) {}
-                        }.alert ("Account deletion", isPresented: $showingAlert) {
-                            Button("OK", role: .destructive) {
-                                Analytics.capture(event: .confirmDeleteAccount)
-                                Task { await
-                                    loginViewModel.deleteAccount()
-                                }
-                            }
-                            Button("Cancel", role: .cancel) {}
-                        } message: {
-                            Text("Are you sure? This action is irreversible.")
-                        }.alert ("[dev] Set fake behaviour", isPresented: $showingFakeBehaviourAlert) {
-                            Button("Remove fake behaviour") {
-                                activityViewModel.fakeBehaviour = nil
-                            }
-                            Button(FakeBehaviour.noActivity.title) {
-                                activityViewModel.fakeBehaviour = .noActivity
-                            }
-                            Button(FakeBehaviour.noPicture.title) {
-                                activityViewModel.fakeBehaviour = .noPicture
-                            }
+                        }.sheet(isPresented: $isShowingOptions) {
+                            SettingsView(isShowingOptions: $isShowingOptions, isChatPresented: $isChatPresented)
                         }
                         
                         StravaIconView().zIndex(10)
@@ -372,6 +326,129 @@ struct MemoriesHomeView: View {
     }
 }
 
+struct SettingsView: View {
+    @EnvironmentObject var activityViewModel: ActivityViewModel
+    @EnvironmentObject var loginViewModel: StravaLoginViewModel
+    
+    // inherited
+    @Binding var isShowingOptions: Bool
+    @Binding var isChatPresented: Bool
+    
+    // state
+    @State private var showingFakeBehaviourAlert = false
+    @State private var isShowingAlert = false
+    @State private var measurementSystemString: String = Helper.getIsUserUsingMetricSystemFromUserDefaults()! ? NSLocalizedString("Metric", comment: "comment") : NSLocalizedString("Imperial", comment: "comment")
+
+    
+    var body: some View {
+        NavigationView {
+            Form {
+                Section(header: Text("Profile")) {
+                    
+                    if let athlete = loginViewModel.athlete {
+                        HStack(spacing: 12) {
+                            AsyncImage(url: URL(string: athlete.pictureUrl)) { image in
+                                image.resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(maxWidth: 64, maxHeight: 64)
+                            } placeholder: {
+                                Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1))
+                            }
+                            .frame(maxWidth: 64, maxHeight: 64)
+                            .cornerRadius(32)
+                            .zIndex(1)
+                            
+                            VStack(alignment: .leading, spacing: 4) {
+                                
+                                HStack(spacing: 8) {
+                                    
+                                    Text("\(athlete.firstName) \(athlete.lastName)").bold()
+                                    Spacer()
+                                }
+                                
+                                Text("Successfully connected to Strava")
+                                    .font(.caption)
+                            }
+                            
+                        }.frame(maxWidth: .infinity, alignment: .center)
+                    }
+                    
+                    
+                    Button("Logout") {
+                        Analytics.capture(event: .logout)
+                        loginViewModel.logout()
+                    }
+                    
+                    Button("Delete my account", role: .destructive) {
+                        Analytics.capture(event: .deleteAccount)
+                        isShowingAlert = true
+                    }.alert ("Account deletion", isPresented: $isShowingAlert) {
+                        Button("OK", role: .destructive) {
+                            Analytics.capture(event: .confirmDeleteAccount)
+                            Task { await
+                                loginViewModel.deleteAccount()
+                            }
+                        }
+                        Button("Cancel", role: .cancel) {}
+                    } message: {
+                        Text("Are you sure? This action is irreversible.")
+                    }
+                }
+                
+                
+                
+                Section(header: Text("Widget settings")) {
+                    Button(NSLocalizedString("Units", comment: "comment") + " : \(measurementSystemString)") {
+                        let current = Helper.getIsUserUsingMetricSystemFromUserDefaults()!
+                        self.measurementSystemString = !current ? NSLocalizedString("Metric", comment: "comment") : NSLocalizedString("Imperial", comment: "comment")
+                        Analytics.capture(event: .setMeasurementSystemToMetric, userProperties: [.measurementSystemIsMetric: !current])
+                        Helper.saveIsUserUsingMetricSystemFromUserDefaults(metric: !current)
+                    }
+                }
+                
+                Section(header: Text("Contact us")){
+                    Button("Suggest features") {
+                        self.isChatPresented.toggle()
+                        Analytics.capture(event: .shareFeedback, eventProperties: [.from: "profileFeedbackButton"])
+                    }.sheet(isPresented: self.$isChatPresented) {
+                        ChatView()
+                    }
+                }
+                
+            
+                Section(header: Text("Developer")){
+                    
+                    if Config.isDev {
+                        Button("[Dev] Set fake behaviour (\(activityViewModel.fakeBehaviour?.title ?? "none"))") {
+                            showingFakeBehaviourAlert = true
+                        }.alert ("[dev] Set fake behaviour", isPresented: $showingFakeBehaviourAlert) {
+                            Button("Remove fake behaviour") {
+                                activityViewModel.fakeBehaviour = nil
+                            }
+                            Button(FakeBehaviour.noActivity.title) {
+                                activityViewModel.fakeBehaviour = .noActivity
+                            }
+                            Button(FakeBehaviour.noPicture.title) {
+                                activityViewModel.fakeBehaviour = .noPicture
+                            }
+                            
+                        }
+                    }
+                }
+            }
+            .navigationBarTitle("Settings", displayMode: .inline)
+            .navigationBarItems(trailing: Button(action: {
+                self.isShowingOptions = false
+            }) {
+                Text("Done").bold()
+            })
+            
+
+            
+        }
+    }
+}
+
 struct RowIcon : View {
     var row: Int
     
@@ -419,6 +496,7 @@ struct ActivationView: View{
     @Binding var isShowingWebView: Bool
     @Binding var isShowingVideoView: Bool
     @Binding var isChatPresented: Bool
+    
     
     var body: some View{
         VStack(alignment: .center, spacing: 14) {
