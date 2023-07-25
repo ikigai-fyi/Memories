@@ -152,6 +152,26 @@ struct MemoriesWidgetView: View {
                 ErrorView(error: error)
             }
         } // group
+        .widgetBackground(backgroundView: BackgroundView())
+    }
+}
+
+struct BackgroundView: View {
+    var body: some View {
+        Spacer()
+    }
+}
+
+extension View {
+    // Warning iOS 17 Support StandBy mode 
+    func widgetBackground(backgroundView: some View) -> some View {
+        if #available(iOS 17.0, *) {
+            return containerBackground(for: .widget) {
+                backgroundView
+            }
+        } else {
+            return background(backgroundView)
+        }
     }
 }
 

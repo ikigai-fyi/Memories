@@ -96,6 +96,7 @@ struct MemoriesWidget: Widget {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             MemoriesWidgetEntryView(entry: entry)
         }
+        .contentMarginsDisabled() // Warning iOS 17 StandBy
     }
 }
 
