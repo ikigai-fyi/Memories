@@ -73,7 +73,9 @@ struct MemoriesHomeView: View {
                             .zIndex(1)
                             
                             
-                        }.sheet(isPresented: $isShowingOptions) {
+                        }.sheet(isPresented: $isShowingOptions, onDismiss: {
+                            activityViewModel.forceRefreshWidget()
+                        }) {
                             SettingsView(isShowingOptions: $isShowingOptions, isChatPresented: $isChatPresented)
                         }
                         
@@ -127,6 +129,7 @@ struct MemoriesHomeView: View {
                                     .background(Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)))
                                     .cornerRadius(20)
                                     .shadow(color: Color.black.opacity(0.3), radius: 18)
+                                    .id(activityViewModel.stateValue)
                                 
                                 
                                 // Loading view ------------------------------------------------

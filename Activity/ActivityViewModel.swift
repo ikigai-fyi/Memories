@@ -19,6 +19,11 @@ public class ActivityViewModel: NSObject, ObservableObject {
     @Published public var error: ActivityError? = nil
     @Published public var isFetching: Bool = false
     
+    // Honest work: just an integer that is bound to views that need to be refreshed sometimes
+    // For instance, to force a widget preview refresh after settings change, just increase this value
+    // Usage: View().id(viewModel.stateValue)
+    @Published public var stateValue: Int = 0
+    
     public var fakeBehaviour: FakeBehaviour? = nil
     
     
@@ -76,6 +81,7 @@ public class ActivityViewModel: NSObject, ObservableObject {
     }
     
     public func forceRefreshWidget() {
+        self.stateValue += 1
         self.saveUnseenWidgetForceRefreshFromUserDefault(value: true)
         WidgetCenter.shared.reloadAllTimelines()
     }
