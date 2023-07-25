@@ -165,7 +165,7 @@ struct BackgroundView: View {
 extension View {
     // Warning iOS 17 Support StandBy mode 
     func widgetBackground(backgroundView: some View) -> some View {
-        if #available(iOS 17.0, *) {
+        if #available(iOS 17.0, iOSApplicationExtension 17.0, *) {
             return containerBackground(for: .widget) {
                 backgroundView
             }
