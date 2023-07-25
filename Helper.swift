@@ -34,18 +34,41 @@ struct Helper {
        }
     
     static func buildDataString(elapsedTimeInSeconds: Int, distanceInMeters: Int?, totalElevationGainInMeters: Int?) -> String {
+        
+        // Fetch configuration of the device
+        let locale = NSLocale.current //Locale(identifier: "EN_UK")
+        
+        // Build a formatter to handle conversions miles/meters
+        var formatter = MeasurementFormatter()
+        formatter.locale = locale // apply locale
+        formatter.unitStyle = .medium // show .ft, not ' neither feet
+        formatter.unitOptions = .naturalScale // auto convert yards to miles, m to km etc
+        
+        // Number formatter for distance (e.g. 12.5km)
+        let distanceNumberFormatter = NumberFormatter()
+        distanceNumberFormatter.maximumFractionDigits = 2
+        distanceNumberFormatter.numberStyle = .decimal
+        
+        // Number formatter for elevation (e.g. 128ftkm)
+        let elevationNumberFormatter = NumberFormatter()
+        elevationNumberFormatter.numberStyle = .none
+        
         var strs: [String] = []
         
         if let distanceInMeters = distanceInMeters{
-            strs.append(String(format: "%.2f km", Double(distanceInMeters) / 1000))
+            formatter.numberFormatter = distanceNumberFormatter
+            let distance = formatter.string(from: Measurement(value: Double(distanceInMeters), unit: UnitLength.meters))
+            strs.append(distance)
         }
         
         if let totalElevationGainInMeters = totalElevationGainInMeters{
-            strs.append("\(totalElevationGainInMeters) m")
+            formatter.numberFormatter = elevationNumberFormatter
+            var totalElevationGain = formatter.string(from: Measurement(value: Double(totalElevationGainInMeters), unit: UnitLength.meters))
+            strs.append(totalElevationGain)
         }
         
         let dateFormatter = DateComponentsFormatter()
-        dateFormatter.allowedUnits = [.hour, .minute, .second]
+        dateFormatter.allowedUnits = elapsedTimeInSeconds > 3600 ? [.hour, .minute] : [.minute, .second]
         dateFormatter.unitsStyle = .abbreviated
         strs.append(dateFormatter.string(from: TimeInterval(elapsedTimeInSeconds))!)
         
