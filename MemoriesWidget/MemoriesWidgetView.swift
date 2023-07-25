@@ -111,9 +111,7 @@ struct MemoriesWidgetView: View {
                         HStack(spacing: 4.0){
                             
                             // type
-                            if Constants.SportsTypeIconEnabled, let type = Helper.getSystemIconForActivityType(
-                                activityType: activity.getSportType()
-                            ) {
+                            if Constants.SportsTypeIconEnabled, let type = activity.getSystemIcon() {
                                 Image(systemName: type)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
@@ -134,11 +132,7 @@ struct MemoriesWidgetView: View {
                         
                         // other data
                         HStack{
-                            Text(Helper.buildDataString(
-                                elapsedTimeInSeconds: activity.getElapsedTimeInSeconds(),
-                                distanceInMeters: activity.getDistanceInMeters(),
-                                totalElevationGainInMeters: activity.getTotalElevationGainInMeters())
-                            )
+                            Text(activity.buildDataString())
                             .font(.subheadline)
                             .bold()
                             .foregroundColor(.white)

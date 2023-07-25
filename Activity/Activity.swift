@@ -54,6 +54,19 @@ public struct Activity : Codable {
     public func getTotalElevationGainInMeters() -> Int? {
         return totalElevationGainInMeters
     }
+    
+    public func buildDataString() -> String {
+        return ActivityType.formatActivityString(activity: self)
+    }
+    
+    
+    public func getSystemIcon() -> String? {
+        if #available(iOS 16, *) {
+            let activityDataFormat: ActivityType = ActivityType.enumForString(str: self.getSportType())
+            return activityDataFormat.systemIcon
+        }
+        return nil
+    }
 }
 
 
