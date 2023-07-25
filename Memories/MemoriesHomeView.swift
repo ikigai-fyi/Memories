@@ -59,6 +59,7 @@ struct MemoriesHomeView: View {
                     // Picture ------------------------------------------------
                     ZStack{
                         Button(action: {
+                            Analytics.capture(event: .viewSettingsScreen)
                             isShowingOptions = true
                         }) {
                             AsyncImage(url: URL(string: loginViewModel.athlete?.pictureUrl ?? "")) { image in

@@ -48,6 +48,7 @@ struct Analytics {
         // screens
         case viewLoginScreen
         case viewHomeScreen
+        case viewSettingsScreen
         
         // actions
         case connectStrava
