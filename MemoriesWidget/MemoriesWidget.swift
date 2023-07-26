@@ -19,7 +19,6 @@ struct Provider: TimelineProvider {
     }
 
     @MainActor func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let loggedIn = StravaLoginViewModel.isLoggedIn()
         let activity = ActivityViewModel.getActivityFromUserDefault()
         let error = ActivityViewModel.getErrorFromUserDefault()
         completion(SimpleEntry(date: Date(), activity: activity, error: error))

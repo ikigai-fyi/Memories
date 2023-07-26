@@ -548,7 +548,6 @@ struct ActivationView: View{
                         isShowingWebView = true
                     } else {
                         Analytics.capture(event: .addWidgetHelp, eventProperties: [.abTestGroup: "1_videoView"])
-                        let url = Helper.createLocalUrl(for: "addWidgetHelp", ofType: "mp4")
                         isShowingVideoView = true
                     }
                 }
