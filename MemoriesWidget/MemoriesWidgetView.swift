@@ -152,7 +152,7 @@ struct MemoriesWidgetView: View {
                 ErrorView(error: error)
             }
         } // group
-        .widgetBackground(backgroundView: BackgroundView())
+//        .widgetBackground(backgroundView: BackgroundView()) iOS 17
     }
 }
 
@@ -162,18 +162,18 @@ struct BackgroundView: View {
     }
 }
 
-extension View {
-    // Warning iOS 17 Support StandBy mode 
-    func widgetBackground(backgroundView: some View) -> some View {
-        if #available(iOS 17.0, iOSApplicationExtension 17.0, *) {
-            return containerBackground(for: .widget) {
-                backgroundView
-            }
-        } else {
-            return background(backgroundView)
-        }
-    }
-}
+//extension View {
+//    // Warning iOS 17 Support StandBy mode 
+//    func widgetBackground(backgroundView: some View) -> some View {
+//        if #available(iOS 17.0, iOSApplicationExtension 17.0, *) {
+//            return containerBackground(for: .widget) {
+//                backgroundView
+//            }
+//        } else {
+//            return background(backgroundView)
+//        }
+//    }
+//}
 
 struct MemoriesWidgetView_Previews: PreviewProvider {
     static var previews: some View {
