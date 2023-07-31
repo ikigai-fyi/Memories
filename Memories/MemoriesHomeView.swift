@@ -442,7 +442,7 @@ struct SettingsView: View {
                         Helper.saveUserWidgetRefreshRatePerDay(refreshRatePerDay: widgetRefreshRatePerDay)
                         
                         Analytics.capture(
-                            event: .updateRefreshRatePerDay,
+                            event: .updateSettingRefreshRatePerDay,
                             eventProperties: [.settingValue: widgetRefreshRatePerDay],
                             userProperties: [.refreshRatePerDay: widgetRefreshRatePerDay]
                         )
