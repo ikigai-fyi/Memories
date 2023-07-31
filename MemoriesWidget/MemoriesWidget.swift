@@ -44,7 +44,8 @@ struct Provider: TimelineProvider {
     
     @MainActor private func buildTimeline(activity: Activity?, error: ActivityError?) -> Timeline<SimpleEntry> {
         let entries = [SimpleEntry(date: Date(), activity: activity, error: error)]
-        let nextUpdate = Calendar.current.date(byAdding: .hour, value: 4, to: Date())!
+        let refreshRate = Int(24 / Helper.getUserWidgetRefreshRate()!)
+        let nextUpdate = Calendar.current.date(byAdding: .hour, value: refreshRate, to: Date())!
         return Timeline(entries: entries, policy: .after(nextUpdate))
     }
     

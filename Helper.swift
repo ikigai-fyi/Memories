@@ -16,6 +16,7 @@ struct Constants {
 struct UserDefaultsKeys {
     static let lastVersionPromptedForReviewKey = "lastVersionPromptedForReviewKey"
     static let userMeasurementSystem = "userMeasurementSystem"
+    static let userwidgetRefreshRate = "userWidgetRefreshRate"
 }
 
 struct Helper {
@@ -33,6 +34,22 @@ struct Helper {
         if let userDefaults = UserDefaults(suiteName: Config.appGroupName) {
             let locale = try! JSONEncoder().encode(metric)
             userDefaults.set(locale, forKey: UserDefaultsKeys.userMeasurementSystem)
+        }
+    }
+    
+    static func getUserWidgetRefreshRate() -> Int? {
+        if let userDefaults = UserDefaults(suiteName: Config.appGroupName) {
+            if let data = userDefaults.data(forKey: UserDefaultsKeys.userwidgetRefreshRate) {
+                return try? JSONDecoder().decode(Int.self, from: data)
+            }
+        }
+        return 4
+    }
+    
+    static func saveUserWidgetRefreshRate(refreshRate: Int) {
+        if let userDefaults = UserDefaults(suiteName: Config.appGroupName) {
+            let refreshRate = try! JSONEncoder().encode(refreshRate)
+            userDefaults.set(refreshRate, forKey: UserDefaultsKeys.userwidgetRefreshRate)
         }
     }
     
