@@ -136,6 +136,8 @@ struct MemoriesHomeView: View {
                                     .onTapGesture {
                                         guard let activity = activityViewModel.activity else { return }
                                         
+                                        Analytics.capture(event: .openActivityOnStrava, eventProperties: [.from: "preview"])
+                                        
                                         // Give some room for the press animation to play before opening the link
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                                             UIApplication.shared.open(activity.stravaUrl)
@@ -144,6 +146,8 @@ struct MemoriesHomeView: View {
                                     .onOpenURL { url in
                                         guard url == Constants.WidgetTouchedDeeplinkURL,
                                               let activity = activityViewModel.activity else { return }
+                                        
+                                        Analytics.capture(event: .openActivityOnStrava, eventProperties: [.from: "widget"])
                                         UIApplication.shared.open(activity.stravaUrl)
                                     }
                                     .onLongPressGesture(minimumDuration: 0, perform: {}) { _ in
