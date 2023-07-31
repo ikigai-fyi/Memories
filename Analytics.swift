@@ -64,6 +64,7 @@ struct Analytics {
         case confirmDeleteAccount
         case goToHomeScreenAfterHelpVideo
         case updateSettingMeasurementSystem
+        case updateRefreshRate
 
         // lifecycle
         case appActive
@@ -79,6 +80,7 @@ struct Analytics {
         case lastSeenDate
         case lastActivityFetchState
         case measurementSystem
+        case refreshRate
 
         //action attributes
         case from

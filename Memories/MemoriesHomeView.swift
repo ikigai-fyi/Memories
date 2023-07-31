@@ -420,6 +420,12 @@ struct SettingsView: View {
                     
                     Stepper("Refresh \(widgetRefreshRate)x per day", value: $widgetRefreshRate, in: 1...12, step: 1){_ in
                         Helper.saveUserWidgetRefreshRate(refreshRate: widgetRefreshRate)
+                        
+                        Analytics.capture(
+                            event: .updateRefreshRate,
+                            eventProperties: [.settingValue: widgetRefreshRate],
+                            userProperties: [.refreshRate: widgetRefreshRate]
+                        )
                     }
 
                 }
