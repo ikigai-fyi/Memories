@@ -33,6 +33,8 @@ struct MemoriesHomeView: View {
     
     @State private var isUserActivated = false
     
+    @State var activityTap = false
+    
     
     
     var refreshButtonColor: Color {
@@ -133,13 +135,22 @@ struct MemoriesHomeView: View {
                                     .id(activityViewModel.stateValue)
                                     .onTapGesture {
                                         guard let activity = activityViewModel.activity else { return }
-                                        UIApplication.shared.open(activity.stravaUrl)
+                                        
+                                        // Give some room for the press animation to play before opening the link
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                            UIApplication.shared.open(activity.stravaUrl)
+                                        }
                                     }
                                     .onOpenURL { url in
                                         guard url == Constants.WidgetTouchedDeeplinkURL,
                                               let activity = activityViewModel.activity else { return }
                                         UIApplication.shared.open(activity.stravaUrl)
                                     }
+                                    .onLongPressGesture(minimumDuration: 0, perform: {}) { _ in
+                                        activityTap.toggle()
+                                    }
+                                    .scaleEffect(activityTap ? 0.95 : 1)
+                                    .animation(.spring(response: 0.4, dampingFraction: 0.6), value: activityTap)
                                 
                                 
                                 // Loading view ------------------------------------------------
