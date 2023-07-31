@@ -34,6 +34,7 @@ struct MemoriesHomeView: View {
     @State private var isUserActivated = false
     
     @State var activityTap = false
+    @State var titleEgg = false
     
     
     
@@ -54,6 +55,11 @@ struct MemoriesHomeView: View {
                     Text("Memories")
                         .font(.largeTitle.weight(.heavy))
                         .foregroundColor(Color(.init(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)))
+                        .scaleEffect(x: titleEgg ? -1 : 1, y: 1)
+                        .animation(.spring(), value: titleEgg)
+                        .onTapGesture(count: 3) {
+                            titleEgg.toggle()
+                        }
                     
                     // Spacer -----------------------------------------------------
                     Spacer()
