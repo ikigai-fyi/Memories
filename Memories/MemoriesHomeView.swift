@@ -341,7 +341,7 @@ struct SettingsView: View {
     // state
     @State private var showingFakeBehaviourAlert = false
     @State private var isShowingAlert = false
-    @AppStorage("widgetRefreshRate") var widgetRefreshRate: Int = Helper.getUserWidgetRefreshRate()!
+    @AppStorage(UserDefaultsKeys.userWidgetRefreshRatePerDay) var widgetRefreshRatePerDay: Int = Helper.getUserWidgetRefreshRatePerDay()!
     @State private var measurementSystemString: String = Helper.getIsUserUsingMetricSystemFromUserDefaults()! ? NSLocalizedString("Metric", comment: "comment") : NSLocalizedString("Imperial", comment: "comment")
     
     
@@ -418,13 +418,13 @@ struct SettingsView: View {
                         )
                     }
                     
-                    Stepper("Refresh \(widgetRefreshRate)x per day", value: $widgetRefreshRate, in: 1...12, step: 1){_ in
-                        Helper.saveUserWidgetRefreshRate(refreshRate: widgetRefreshRate)
+                    Stepper("Refresh \(widgetRefreshRatePerDay)x per day", value: $widgetRefreshRatePerDay, in: 1...12, step: 1){_ in
+                        Helper.saveUserWidgetRefreshRatePerDay(refreshRatePerDay: widgetRefreshRatePerDay)
                         
                         Analytics.capture(
-                            event: .updateRefreshRate,
-                            eventProperties: [.settingValue: widgetRefreshRate],
-                            userProperties: [.refreshRate: widgetRefreshRate]
+                            event: .updateRefreshRatePerDay,
+                            eventProperties: [.settingValue: widgetRefreshRatePerDay],
+                            userProperties: [.refreshRatePerDay: widgetRefreshRatePerDay]
                         )
                     }
 

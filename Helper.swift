@@ -16,7 +16,7 @@ struct Constants {
 struct UserDefaultsKeys {
     static let lastVersionPromptedForReviewKey = "lastVersionPromptedForReviewKey"
     static let userMeasurementSystem = "userMeasurementSystem"
-    static let userwidgetRefreshRate = "userWidgetRefreshRate"
+    static let userWidgetRefreshRatePerDay = "userWidgetRefreshRatePerDay"
 }
 
 struct Helper {
@@ -37,19 +37,19 @@ struct Helper {
         }
     }
     
-    static func getUserWidgetRefreshRate() -> Int? {
+    static func getUserWidgetRefreshRatePerDay() -> Int? {
         if let userDefaults = UserDefaults(suiteName: Config.appGroupName) {
-            if let data = userDefaults.data(forKey: UserDefaultsKeys.userwidgetRefreshRate) {
+            if let data = userDefaults.data(forKey: UserDefaultsKeys.userWidgetRefreshRatePerDay) {
                 return try? JSONDecoder().decode(Int.self, from: data)
             }
         }
         return 4
     }
     
-    static func saveUserWidgetRefreshRate(refreshRate: Int) {
+    static func saveUserWidgetRefreshRatePerDay(refreshRatePerDay: Int) {
         if let userDefaults = UserDefaults(suiteName: Config.appGroupName) {
-            let refreshRate = try! JSONEncoder().encode(refreshRate)
-            userDefaults.set(refreshRate, forKey: UserDefaultsKeys.userwidgetRefreshRate)
+            let refreshRate = try! JSONEncoder().encode(refreshRatePerDay)
+            userDefaults.set(refreshRate, forKey: UserDefaultsKeys.userWidgetRefreshRatePerDay)
         }
     }
     
