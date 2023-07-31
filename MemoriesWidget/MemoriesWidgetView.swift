@@ -33,7 +33,7 @@ struct ImageContainerView: View {
 
 
 struct ErrorView: View {
-
+    
     var error: ActivityError?
     
     var title: String {
@@ -133,11 +133,11 @@ struct MemoriesWidgetView: View {
                         // other data
                         HStack{
                             Text(activity.buildDataString())
-                            .font(.subheadline)
-                            .bold()
-                            .foregroundColor(.white)
-                            .shadow(radius: 5)
-                            .lineLimit(1)
+                                .font(.subheadline)
+                                .bold()
+                                .foregroundColor(.white)
+                                .shadow(radius: 5)
+                                .lineLimit(1)
                             
                             Spacer()
                             
@@ -152,7 +152,8 @@ struct MemoriesWidgetView: View {
                 ErrorView(error: error)
             }
         } // group
-//        .widgetBackground(backgroundView: BackgroundView()) iOS 17
+        .widgetURL(Constants.WidgetTouchedDeeplinkURL)
+        //        .widgetBackground(backgroundView: BackgroundView()) iOS 17
     }
 }
 

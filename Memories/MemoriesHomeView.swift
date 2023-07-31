@@ -135,6 +135,11 @@ struct MemoriesHomeView: View {
                                         guard let activity = activityViewModel.activity else { return }
                                         UIApplication.shared.open(activity.stravaUrl)
                                     }
+                                    .onOpenURL { url in
+                                        guard url == Constants.WidgetTouchedDeeplinkURL,
+                                              let activity = activityViewModel.activity else { return }
+                                        UIApplication.shared.open(activity.stravaUrl)
+                                    }
                                 
                                 
                                 // Loading view ------------------------------------------------
@@ -431,7 +436,7 @@ struct SettingsView: View {
                             userProperties: [.refreshRatePerDay: widgetRefreshRatePerDay]
                         )
                     }
-
+                    
                 }
                 
                 Section(header: Text("Contact us")){
