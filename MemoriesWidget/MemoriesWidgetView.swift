@@ -121,7 +121,7 @@ struct MemoriesWidgetView: View {
                             
                             // city
                             Text(activity.getCity())
-                                .font(.title3).bold().foregroundColor(.white).shadow(radius: 5)
+                                .font(.title3).bold().foregroundColor(.white).shadow(radius: 5).lineLimit(1)
                             
                             Spacer()
                         }
