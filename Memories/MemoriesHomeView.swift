@@ -131,6 +131,10 @@ struct MemoriesHomeView: View {
                                     .cornerRadius(20)
                                     .shadow(color: Color.black.opacity(0.3), radius: 18)
                                     .id(activityViewModel.stateValue)
+                                    .onTapGesture {
+                                        guard let activity = activityViewModel.activity else { return }
+                                        UIApplication.shared.open(activity.stravaUrl)
+                                    }
                                 
                                 
                                 // Loading view ------------------------------------------------
