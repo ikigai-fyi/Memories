@@ -14,14 +14,17 @@ public struct Activity : Codable {
     let pictureUrl: String
     let elapsedTimeInSeconds: Int
     let startDatetime: Date
-    let stravaId: String
 
     let polyline: String?
     let distanceInMeters: Int?
     let totalElevationGainInMeters: Int?
     
-    public var stravaUrl: URL {
-        return URL(string: "https://www.strava.com/activities/\(self.stravaId)")!
+    // Introduced in 1.7 (August 2023), let as optional to not corrupt UserDefaults
+    let stravaId: String?
+    
+    public var stravaUrl: URL? {
+        guard let stravaId = self.stravaId else { return nil }
+        return URL(string: "https://www.strava.com/activities/\(stravaId)")!
     }
     
     public func getName() -> String {

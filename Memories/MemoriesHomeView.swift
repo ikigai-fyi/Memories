@@ -140,21 +140,25 @@ struct MemoriesHomeView: View {
                                     .shadow(color: Color.black.opacity(0.3), radius: 18)
                                     .id(activityViewModel.stateValue)
                                     .onTapGesture {
-                                        guard let activity = activityViewModel.activity else { return }
+                                        guard let activity = activityViewModel.activity,
+                                              let stravaUrl = activity.stravaUrl
+                                        else { return }
                                         
                                         Analytics.capture(event: .openActivityOnStrava, eventProperties: [.from: "preview"])
                                         
                                         // Give some room for the press animation to play before opening the link
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                            UIApplication.shared.open(activity.stravaUrl)
+                                            UIApplication.shared.open(stravaUrl)
                                         }
                                     }
                                     .onOpenURL { url in
                                         guard url == Constants.WidgetTouchedDeeplinkURL,
-                                              let activity = activityViewModel.activity else { return }
+                                              let activity = activityViewModel.activity,
+                                              let stravaUrl = activity.stravaUrl
+                                        else { return }
                                         
                                         Analytics.capture(event: .openActivityOnStrava, eventProperties: [.from: "widget"])
-                                        UIApplication.shared.open(activity.stravaUrl)
+                                        UIApplication.shared.open(stravaUrl)
                                     }
                                     .onLongPressGesture(minimumDuration: 0, perform: {}) { _ in
                                         activityTap.toggle()
