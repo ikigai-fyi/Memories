@@ -145,16 +145,20 @@ struct MemoriesHomeView: View {
                                     .scaleEffect(activityTap ? 0.95 : 1)
                                     .animation(.spring(response: 0.4, dampingFraction: 0.6), value: activityTap)
                                 
-//                                    .onTapGesture {
-//                                        guard let activity = activityViewModel.activity, activity.stravaUrl != nil
-//                                        else { return }
+                                    .onTapGesture {
+                                        guard
+                                            let activity = activityViewModel.activity,
+                                            let stravaUrl = activity.stravaUrl
+                                        else { return }
+                                        
+                                        Analytics.capture(event: .openActivityOnStrava, eventProperties: [.from: "preview"])
+                                        
+                                        // Give some room for the press animation to play before opening the link
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                            UIApplication.shared.open(stravaUrl)
+                                        }
+                                    }
 //
-//                                        Analytics.capture(event: .openActivityOnStrava, eventProperties: [.from: "preview"])
-//
-//                                        // Give some room for the press animation to play before opening the link
-//                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-//                                        }
-//                                    }
 //                                    .onOpenURL { url in
 //                                        guard url == Constants.WidgetTouchedDeeplinkURL,
 //                                              let activity = activityViewModel.activity, activity.stravaUrl != nil
@@ -184,18 +188,64 @@ struct MemoriesHomeView: View {
                             }
                             
                             // Refresh widget ------------------------------------------------
-                            Button {
-                                Task {
-                                    await self.forceRefreshActivity()
-                                }
-                            } label: {
-                                Label {
-                                    Text(self.isUserActivated ? "Refresh widget" : "Your widget preview")
-                                        .font(.subheadline)
-                                }  icon: {
-                                    Image(systemName: "arrow.clockwise")
-                                }.font(.system(size: 12)).foregroundColor(refreshButtonColor)
-                            }.disabled(activityViewModel.isFetching)
+                            if !isUserActivated {
+                                Button {
+                                    Task {
+                                        await self.forceRefreshActivity()
+                                    }
+                                } label: {
+                                    Label {
+                                        Text("Your widget preview").font(.subheadline)
+                                    }  icon: {
+                                        Image(systemName: "arrow.clockwise")
+                                    }.font(.system(size: 12)).foregroundColor(refreshButtonColor)
+                                }.disabled(activityViewModel.isFetching)
+                            } else {
+                                HStack{
+                                    
+                                    Button {
+                                        Task {
+                                            await self.forceRefreshActivity()
+                                        }
+                                    } label: {
+                                        Label {
+                                            Text("Refresh").bold()
+                                        } icon: {
+                                            Image(systemName: "arrow.clockwise")
+                                        }
+                                    }
+                                    .frame(maxWidth: .infinity)
+                                    .padding([.top, .bottom], 12)
+                                    .background(.blue)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(35)
+                                    .disabled(activityViewModel.isFetching)
+                                    
+                                    
+                                    Button {
+                                        guard
+                                            let activity = activityViewModel.activity,
+                                            let stravaUrl = activity.stravaUrl
+                                        else { return }
+
+                                        Analytics.capture(event: .openActivityOnStrava, eventProperties: [.from: "button"])
+                                        UIApplication.shared.open(stravaUrl)
+
+                                    } label: {
+                                        Label {
+                                            Text("Strava").bold()
+                                        } icon: {
+                                            Image(systemName: "link")
+                                        }
+                                    }
+                                    .frame(maxWidth: .infinity)
+                                    .padding([.top, .bottom], 12)
+                                    .background(Color(.init(red: 0.99, green: 0.10, blue: 0.0, alpha: 1)))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(35)
+
+                                }.padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                            }
                             
                         }
                         
@@ -259,7 +309,7 @@ struct MemoriesHomeView: View {
                 Spacer()
                 
                 // Add widget button -----------------------------------------------------
-                VStack{
+                VStack(spacing: 10){
                     
                     if !isUserActivated{
                         ActivationView(
@@ -271,19 +321,6 @@ struct MemoriesHomeView: View {
                             .shadow(color: Color.black.opacity(0.3), radius: 18)
                         
                     } else {
-                        
-                        if #available(iOS 16.0, *) {
-                            ShareLink(NSLocalizedString("Share the app", comment: "comment"), item: NSLocalizedString("url_app", comment: "comment"), message: Text("share_message"))
-                                .frame(maxWidth: .infinity, minHeight: 52, idealHeight: 52, maxHeight: 52)
-                                .background(.purple)
-                                .bold()
-                                .foregroundColor(.white)
-                                .cornerRadius(35)
-                                .simultaneousGesture(TapGesture().onEnded() {
-                                    Analytics.capture(event: .shareToFriends)
-                                })
-                        }
-                        
                         Button {
                             self.isChatPresented.toggle()
                             Analytics.capture(event: .shareFeedback, eventProperties: [.from: "homeFeedbackButton"])
@@ -301,6 +338,17 @@ struct MemoriesHomeView: View {
                         .sheet(isPresented: self.$isChatPresented) {
                             ChatView()
                         }
+                        
+                        if #available(iOS 16.0, *) {
+                            ShareLink(NSLocalizedString("Share the app", comment: "comment"), item: NSLocalizedString("url_app", comment: "comment"), message: Text("share_message"))
+                                .frame(maxWidth: .infinity)
+                                .font(.system(size: 14)).foregroundColor(refreshButtonColor)
+                                .simultaneousGesture(TapGesture().onEnded() {
+                                    Analytics.capture(event: .shareToFriends)
+                                })
+                            
+                        }
+                        
                     }
                 }.padding([.leading, .trailing], 18)
                 
