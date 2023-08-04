@@ -30,10 +30,7 @@ struct MemoriesHomeView: View {
     @State private var isShowingVideoView: Bool = false
     @State private var isChatPresented: Bool = false
     @State private var isShowingOptions: Bool = false
-    
-    @State private var isShowingOpenStravaAlert = false
-    @State private var stravaUrl = false
-    
+
     @State private var isUserActivated = false
     
     @State var activityTap = false
@@ -142,42 +139,41 @@ struct MemoriesHomeView: View {
                                     .cornerRadius(20)
                                     .shadow(color: Color.black.opacity(0.3), radius: 18)
                                     .id(activityViewModel.stateValue)
-                                    .onTapGesture {
-                                        guard let activity = activityViewModel.activity, activity.stravaUrl != nil
-                                        else { return }
-                                        
-                                        Analytics.capture(event: .openActivityOnStrava, eventProperties: [.from: "preview"])
-                                        
-                                        // Give some room for the press animation to play before opening the link
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                            isShowingOpenStravaAlert = true
-                                        }
-                                    }
-                                    .onOpenURL { url in
-                                        guard url == Constants.WidgetTouchedDeeplinkURL,
-                                              let activity = activityViewModel.activity, activity.stravaUrl != nil
-                                        else { return }
-                                        
-                                        Analytics.capture(event: .openActivityOnStrava, eventProperties: [.from: "widget"])
-                                        isShowingOpenStravaAlert = true
-                                    }
-                                    .alert ("Open activity in Strava", isPresented: $isShowingOpenStravaAlert) {
-                                        Button("OK") {
-                                            guard let activity = activityViewModel.activity,
-                                                  let stravaUrl = activity.stravaUrl
-                                            else { return }
-                                            
-                                            Analytics.capture(event: .confirmOpenActivityOnStrava)
-                                            UIApplication.shared.open(stravaUrl)
-                                        }
-                                        Button("Cancel", role: .cancel) {}
-                                    }
                                     .onLongPressGesture(minimumDuration: 0, perform: {}) { _ in
                                         activityTap.toggle()
                                     }
                                     .scaleEffect(activityTap ? 0.95 : 1)
                                     .animation(.spring(response: 0.4, dampingFraction: 0.6), value: activityTap)
                                 
+//                                    .onTapGesture {
+//                                        guard let activity = activityViewModel.activity, activity.stravaUrl != nil
+//                                        else { return }
+//
+//                                        Analytics.capture(event: .openActivityOnStrava, eventProperties: [.from: "preview"])
+//
+//                                        // Give some room for the press animation to play before opening the link
+//                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+//                                        }
+//                                    }
+//                                    .onOpenURL { url in
+//                                        guard url == Constants.WidgetTouchedDeeplinkURL,
+//                                              let activity = activityViewModel.activity, activity.stravaUrl != nil
+//                                        else { return }
+//
+//                                        Analytics.capture(event: .openActivityOnStrava, eventProperties: [.from: "widget"])
+//                                    }
+//                                    .alert ("Open activity in Strava", isPresented: $isShowingOpenStravaAlert) {
+//                                        Button("OK") {
+//                                            guard let activity = activityViewModel.activity,
+//                                                  let stravaUrl = activity.stravaUrl
+//                                            else { return }
+//
+//                                            Analytics.capture(event: .confirmOpenActivityOnStrava)
+//                                            UIApplication.shared.open(stravaUrl)
+//                                        }
+//                                        Button("Cancel", role: .cancel) {}
+//                                    }
+                                   
                                 
                                 // Loading view ------------------------------------------------
                             } else {
