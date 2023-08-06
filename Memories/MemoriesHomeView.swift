@@ -137,7 +137,6 @@ struct MemoriesHomeView: View {
                                     .shadow(color: Color.black.opacity(0.3), radius: 18)
                                     .id(activityViewModel.stateValue)
                                     .onTapGesture {
-                                        print("[DEBUG]")
                                         guard
                                             let activity = activityViewModel.activity,
                                             let stravaUrl = activity.stravaUrl
