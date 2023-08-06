@@ -142,15 +142,12 @@ struct MemoriesHomeView: View {
                                     .scaleEffect(activityTap ? 0.95 : 1)
                                     .animation(.spring(response: 0.4, dampingFraction: 0.6), value: activityTap)
                                     .onTapGesture {
-                                        print("[DEBUG] TOUCHED before")
 
                                         guard
                                             let activity = activityViewModel.activity,
                                             let stravaUrl = activity.stravaUrl
                                         else { return }
-                                        
-                                        print("[DEBUG] TOUCHED")
-                                        
+                                                                                
                                         Analytics.capture(event: .openActivityOnStrava, eventProperties: [.from: "preview"])
                                         
                                         // Give some room for the press animation to play before opening the link
