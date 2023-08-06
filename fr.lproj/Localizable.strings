@@ -18,7 +18,7 @@
 "Done" = "Terminer";
 "Cancel" = "Annuler";
 "url_help_widget" = "https://support.apple.com/fr-fr/HT207122";
-"Share the app" = "Partager à un ami";
+"Share the app" = "Partager l'app";
 "Are you sure? This action is irreversible." = "Êtes vous sûr(e) ? Cette action est irréversible.";
 "share_message" = "Télécharge Memories : Widgets pour Strava 🏊🚴🏃‍♂️! J'utilise Menories pour ajouter un widget qui affiche mes meilleurs souvenirs sportifs.";
 "url_app" = "https://apps.apple.com/fr/app/memories-widget-pour-strava/id6448870765";
@@ -26,6 +26,7 @@
 "Refresh widget" = "Actualiser le widget";
 "Ok, got it !" = "Ok, j'ai compris !";
 "Open activity in Strava" = "Ouvrir dans Strava";
+"Refresh" = "Raffraichir";
 
 // Errors --------------
 // notLoggedIn:

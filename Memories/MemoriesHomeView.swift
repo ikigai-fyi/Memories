@@ -36,12 +36,9 @@ struct MemoriesHomeView: View {
     @State var activityTap = false
     @State var titleEgg = false
     
-    
-    
-    var refreshButtonColor: Color {
-        return activityViewModel.isFetching ? .gray : .black
-    }
-    
+    var previewRefreshButtonTextColor: Color {return activityViewModel.isFetching ? .gray : .black}   
+    var refreshButtonTextColor: Color {return activityViewModel.isFetching ? .white.opacity(0.7) : .white}
+
     var body: some View {
         
         GeometryReader { proxy in
@@ -144,12 +141,15 @@ struct MemoriesHomeView: View {
                                     }
                                     .scaleEffect(activityTap ? 0.95 : 1)
                                     .animation(.spring(response: 0.4, dampingFraction: 0.6), value: activityTap)
-                                
                                     .onTapGesture {
+                                        print("[DEBUG] TOUCHED before")
+
                                         guard
                                             let activity = activityViewModel.activity,
                                             let stravaUrl = activity.stravaUrl
                                         else { return }
+                                        
+                                        print("[DEBUG] TOUCHED")
                                         
                                         Analytics.capture(event: .openActivityOnStrava, eventProperties: [.from: "preview"])
                                         
@@ -158,26 +158,6 @@ struct MemoriesHomeView: View {
                                             UIApplication.shared.open(stravaUrl)
                                         }
                                     }
-//
-//                                    .onOpenURL { url in
-//                                        guard url == Constants.WidgetTouchedDeeplinkURL,
-//                                              let activity = activityViewModel.activity, activity.stravaUrl != nil
-//                                        else { return }
-//
-//                                        Analytics.capture(event: .openActivityOnStrava, eventProperties: [.from: "widget"])
-//                                    }
-//                                    .alert ("Open activity in Strava", isPresented: $isShowingOpenStravaAlert) {
-//                                        Button("OK") {
-//                                            guard let activity = activityViewModel.activity,
-//                                                  let stravaUrl = activity.stravaUrl
-//                                            else { return }
-//
-//                                            Analytics.capture(event: .confirmOpenActivityOnStrava)
-//                                            UIApplication.shared.open(stravaUrl)
-//                                        }
-//                                        Button("Cancel", role: .cancel) {}
-//                                    }
-                                   
                                 
                                 // Loading view ------------------------------------------------
                             } else {
@@ -198,7 +178,7 @@ struct MemoriesHomeView: View {
                                         Text("Your widget preview").font(.subheadline)
                                     }  icon: {
                                         Image(systemName: "arrow.clockwise")
-                                    }.font(.system(size: 12)).foregroundColor(refreshButtonColor)
+                                    }.font(.system(size: 12)).foregroundColor(previewRefreshButtonTextColor)
                                 }.disabled(activityViewModel.isFetching)
                             } else {
                                 HStack{
@@ -212,12 +192,12 @@ struct MemoriesHomeView: View {
                                             Text("Refresh").bold()
                                         } icon: {
                                             Image(systemName: "arrow.clockwise")
-                                        }
+                                        }.foregroundColor(refreshButtonTextColor)
                                     }
                                     .frame(maxWidth: .infinity)
                                     .padding([.top, .bottom], 12)
                                     .background(.blue)
-                                    .foregroundColor(.white)
+                                    .foregroundColor(.blue)
                                     .cornerRadius(35)
                                     .disabled(activityViewModel.isFetching)
                                     
@@ -342,7 +322,7 @@ struct MemoriesHomeView: View {
                         if #available(iOS 16.0, *) {
                             ShareLink(NSLocalizedString("Share the app", comment: "comment"), item: NSLocalizedString("url_app", comment: "comment"), message: Text("share_message"))
                                 .frame(maxWidth: .infinity)
-                                .font(.system(size: 14)).foregroundColor(refreshButtonColor)
+                                .font(.system(size: 14)).foregroundColor(.black)
                                 .simultaneousGesture(TapGesture().onEnded() {
                                     Analytics.capture(event: .shareToFriends)
                                 })
