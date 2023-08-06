@@ -136,13 +136,8 @@ struct MemoriesHomeView: View {
                                     .cornerRadius(20)
                                     .shadow(color: Color.black.opacity(0.3), radius: 18)
                                     .id(activityViewModel.stateValue)
-                                    .onLongPressGesture(minimumDuration: 0, perform: {}) { _ in
-                                        activityTap.toggle()
-                                    }
-                                    .scaleEffect(activityTap ? 0.95 : 1)
-                                    .animation(.spring(response: 0.4, dampingFraction: 0.6), value: activityTap)
                                     .onTapGesture {
-
+                                        print("[DEBUG]")
                                         guard
                                             let activity = activityViewModel.activity,
                                             let stravaUrl = activity.stravaUrl
@@ -155,6 +150,11 @@ struct MemoriesHomeView: View {
                                             UIApplication.shared.open(stravaUrl)
                                         }
                                     }
+                                    .onLongPressGesture(minimumDuration: 0, perform: {}) { _ in
+                                        activityTap.toggle()
+                                    }
+                                    .scaleEffect(activityTap ? 0.95 : 1)
+                                    .animation(.spring(response: 0.4, dampingFraction: 0.6), value: activityTap)
                                 
                                 // Loading view ------------------------------------------------
                             } else {
