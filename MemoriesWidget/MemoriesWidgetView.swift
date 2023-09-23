@@ -153,7 +153,6 @@ struct MemoriesWidgetView: View {
             }
         } // group
         .widgetURL(Constants.WidgetTouchedDeeplinkURL)
-        //        .widgetBackground(backgroundView: BackgroundView()) iOS 17
     }
 }
 
@@ -162,19 +161,6 @@ struct BackgroundView: View {
         Spacer()
     }
 }
-
-//extension View {
-//    // Warning iOS 17 Support StandBy mode 
-//    func widgetBackground(backgroundView: some View) -> some View {
-//        if #available(iOS 17.0, iOSApplicationExtension 17.0, *) {
-//            return containerBackground(for: .widget) {
-//                backgroundView
-//            }
-//        } else {
-//            return background(backgroundView)
-//        }
-//    }
-//}
 
 struct MemoriesWidgetView_Previews: PreviewProvider {
     static var previews: some View {
