@@ -64,7 +64,6 @@ struct Analytics {
         case confirmDeleteAccount
         case goToHomeScreenAfterHelpVideo
         case openActivityOnStrava
-        case confirmOpenActivityOnStrava
         case updateSettingMeasurementSystem
         case updateSettingRefreshRatePerDay
 
