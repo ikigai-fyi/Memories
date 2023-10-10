@@ -119,8 +119,8 @@ struct MemoriesWidgetView: View {
                                     .foregroundColor(.white)
                             }
                             
-                            // city
-                            Text(activity.getCity())
+                            // city or custom name
+                            Text(activity.getHasCustomName() ? activity.getName() : activity.getCity())
                                 .font(.title3).bold().foregroundColor(.white).shadow(radius: 5).lineLimit(1)
                             
                             Spacer()

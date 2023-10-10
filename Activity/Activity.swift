@@ -19,8 +19,9 @@ public struct Activity : Codable {
     let distanceInMeters: Int?
     let totalElevationGainInMeters: Int?
     
-    // Introduced in 1.7 (August 2023), let as optional to not corrupt UserDefaults
-    let stravaId: String?
+    // Let as optional to not corrupt UserDefaults
+    let stravaId: String? // Introduced in 1.7 (August 2023)
+    let hasCustomName: Bool? // Introduced in 1.11 (October 2023)
     
     public var stravaUrl: URL? {
         guard let stravaId = self.stravaId else { return nil }
@@ -29,6 +30,10 @@ public struct Activity : Codable {
     
     public func getName() -> String {
         return name
+    }
+    
+    public func getHasCustomName() -> Bool {
+        return hasCustomName ?? false
     }
 
     public func getCity() -> String {
