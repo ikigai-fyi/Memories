@@ -44,7 +44,7 @@ struct Helper {
                 return try? JSONDecoder().decode(Int.self, from: data)
             }
         }
-        return 24
+        return 1
     }
     
     static func saveUserWidgetRefreshRatePerDay(refreshRatePerDay: Int) {
