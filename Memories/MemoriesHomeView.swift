@@ -484,7 +484,7 @@ struct SettingsView: View {
                         )
                     }
                     
-                    Stepper(String(format: NSLocalizedString("Refresh %dx per day", comment: "comment"), widgetRefreshRatePerDay), value: $widgetRefreshRatePerDay, in: 1...12, step: 1){_ in
+                    Stepper(String(format: NSLocalizedString("Refresh %dx per day", comment: "comment"), widgetRefreshRatePerDay), value: $widgetRefreshRatePerDay, in: 1...4, step: 1){_ in
                         Helper.saveUserWidgetRefreshRatePerDay(refreshRatePerDay: widgetRefreshRatePerDay)
                         
                         Analytics.capture(
