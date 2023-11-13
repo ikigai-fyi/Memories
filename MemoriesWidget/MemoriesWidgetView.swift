@@ -153,6 +153,7 @@ struct MemoriesWidgetView: View {
             }
         } // group
         .widgetURL(Constants.WidgetTouchedDeeplinkURL)
+        .widgetBackground(Color.clear)
     }
 }
 
@@ -165,6 +166,19 @@ struct BackgroundView: View {
 struct MemoriesWidgetView_Previews: PreviewProvider {
     static var previews: some View {
         MemoriesWidgetView(activity: nil, error: .notLoggedIn)
+    }
+}
+
+extension View {
+    // https://stackoverflow.com/questions/76595240/widget-on-ios-17-beta-device-adopt-containerbackground-api
+    func widgetBackground(_ backgroundView: some View) -> some View {
+        if #available(iOS 17.0, *) {
+            return containerBackground(for: .widget) {
+                backgroundView
+            }
+        } else {
+            return background(backgroundView)
+        }
     }
 }
 
