@@ -28,7 +28,7 @@ public class ActivityViewModel: NSObject, ObservableObject {
     
     
     @MainActor
-    public func fetchAndStoreRandomActivity() async {
+    public func fetchRandomActivity(persist: Bool = true) async {
         self.isFetching = true
         let url = URL(string: "\(Config.backendURL)/rest/activities/random")!
         var request = URLRequest(url: url)
@@ -52,17 +52,17 @@ public class ActivityViewModel: NSObject, ObservableObject {
 
                         
                         let decoded = try decoder.decode(Activity.self, from: data)
-                        self.setState(activity: decoded, error: nil)
+                        self.setState(activity: decoded, error: nil, persist: persist)
                     } catch {
                         SentrySDK.capture(error: error)
-                        self.setState(activity: nil, error: .other)
+                        self.setState(activity: nil, error: .other, persist: persist)
                     }
                 } else {
                     let errorPayload = try! decoder.decode(APIError.Payload.self, from: data)
                     let apiError = APIError(statusCode: response.statusCode, payload: errorPayload)
                     
                     let activityError: ActivityError = ActivityError(apiError)
-                    self.setState(activity: nil, error: activityError)
+                    self.setState(activity: nil, error: activityError, persist: persist)
                     
                     Analytics.capture(
                         event: .systemFetchedRandomActivity,
@@ -70,11 +70,11 @@ public class ActivityViewModel: NSObject, ObservableObject {
                     
                 }
             } else {
-                self.setState(activity: nil, error: .other)
+                self.setState(activity: nil, error: .other, persist: persist)
             }
         } catch {
             SentrySDK.capture(error: error)
-            self.setState(activity: nil, error: .other)
+            self.setState(activity: nil, error: .other, persist: persist)
         }
         
         self.isFetching = false
@@ -99,7 +99,7 @@ public class ActivityViewModel: NSObject, ObservableObject {
             self.activity = nil
             self.error = error
         } else {
-            await self.fetchAndStoreRandomActivity()
+            await self.fetchRandomActivity()
         }
     }
     
@@ -123,12 +123,14 @@ public class ActivityViewModel: NSObject, ObservableObject {
         return nil
     }
     
-    private func setState(activity: Activity?, error: ActivityError?) {
+    private func setState(activity: Activity?, error: ActivityError?, persist: Bool) {
         self.activity = activity
-        self.saveActivityToUserDefault(activity: activity)
-        
         self.error = error
-        self.saveErrorToUserDefault(error: error)
+        
+        if persist {
+            self.saveActivityToUserDefault(activity: activity)
+            self.saveErrorToUserDefault(error: error)
+        }
     }
     
     private func saveActivityToUserDefault(activity: Activity?) {

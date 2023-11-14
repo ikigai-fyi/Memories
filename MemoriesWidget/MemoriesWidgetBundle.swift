@@ -11,6 +11,14 @@ import SwiftUI
 @main
 struct MemoriesWidgetBundle: WidgetBundle {
     var body: some Widget {
-        MemoriesWidget()
+        widgets()
+    }
+    
+    func widgets() -> some Widget {
+        if #available(iOSApplicationExtension 17.0, *) {
+            return ConfigurableMemoriesWidget()
+        }
+        
+        return MemoriesWidget()
     }
 }

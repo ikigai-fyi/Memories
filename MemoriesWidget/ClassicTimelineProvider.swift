@@ -36,7 +36,7 @@ struct ClassicTimelineProvider: TimelineProvider {
             completion(self.common.buildTimeline(activity: activity, error: error))
         } else {
             Task {
-                await viewModel.fetchAndStoreRandomActivity()
+                await viewModel.fetchRandomActivity()
                 completion(self.common.buildTimeline(activity: viewModel.activity, error: viewModel.error))
             }
         }
