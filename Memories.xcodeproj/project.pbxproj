@@ -23,6 +23,14 @@
 		2D7C61DE2A1D5CCF0050AAB0 /* Athlete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C61DC2A1D59040050AAB0 /* Athlete.swift */; };
 		2D7C61DF2A1D5D100050AAB0 /* StravaLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE590BC2A053D9C0041EA4D /* StravaLoginViewModel.swift */; };
 		2D7C61E12A1D5D3B0050AAB0 /* DateFormatter+standard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C61E02A1D5D3B0050AAB0 /* DateFormatter+standard.swift */; };
+		2D7EFD482B037F2800B3D624 /* MemoriesWidgetConfigurationIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EFD472B037F2800B3D624 /* MemoriesWidgetConfigurationIntent.swift */; };
+		2D7EFD492B037F2800B3D624 /* MemoriesWidgetConfigurationIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EFD472B037F2800B3D624 /* MemoriesWidgetConfigurationIntent.swift */; };
+		2D7EFD4B2B0385D900B3D624 /* SimpleEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EFD4A2B0385D900B3D624 /* SimpleEntry.swift */; };
+		2D7EFD4C2B0385D900B3D624 /* SimpleEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EFD4A2B0385D900B3D624 /* SimpleEntry.swift */; };
+		2D7EFD4E2B03862000B3D624 /* TimelineCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EFD4D2B03862000B3D624 /* TimelineCommon.swift */; };
+		2D7EFD4F2B03862000B3D624 /* TimelineCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EFD4D2B03862000B3D624 /* TimelineCommon.swift */; };
+		2D7EFD512B0386C200B3D624 /* ClassicTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EFD502B0386C200B3D624 /* ClassicTimelineProvider.swift */; };
+		2D7EFD522B0386C200B3D624 /* ClassicTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7EFD502B0386C200B3D624 /* ClassicTimelineProvider.swift */; };
 		2D7F7A7F2A6AAAAB00C30723 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = 2D7F7A7E2A6AAAAB00C30723 /* PostHog */; };
 		2DCAC7A42A208FE7007A11F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCAC7A32A208FE7007A11F9 /* Config.swift */; };
 		2DCAC7A52A208FE7007A11F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCAC7A32A208FE7007A11F9 /* Config.swift */; };
@@ -111,6 +119,10 @@
 		2D5EAEE32A1D51B400FB9C33 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 		2D7C61DC2A1D59040050AAB0 /* Athlete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Athlete.swift; sourceTree = "<group>"; };
 		2D7C61E02A1D5D3B0050AAB0 /* DateFormatter+standard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+standard.swift"; sourceTree = "<group>"; };
+		2D7EFD472B037F2800B3D624 /* MemoriesWidgetConfigurationIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesWidgetConfigurationIntent.swift; sourceTree = "<group>"; };
+		2D7EFD4A2B0385D900B3D624 /* SimpleEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleEntry.swift; sourceTree = "<group>"; };
+		2D7EFD4D2B03862000B3D624 /* TimelineCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCommon.swift; sourceTree = "<group>"; };
+		2D7EFD502B0386C200B3D624 /* ClassicTimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassicTimelineProvider.swift; sourceTree = "<group>"; };
 		2DCAC7A12A208D93007A11F9 /* dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = dev.xcconfig; sourceTree = "<group>"; };
 		2DCAC7A22A208DA2007A11F9 /* prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = prod.xcconfig; sourceTree = "<group>"; };
 		2DCAC7A32A208FE7007A11F9 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -288,6 +300,10 @@
 				E4604FC22A05C6D100D838DF /* MemoriesWidgetView.swift */,
 				E48E098A2A05BF99002456E5 /* Assets.xcassets */,
 				E48E098C2A05BF99002456E5 /* Info.plist */,
+				2D7EFD472B037F2800B3D624 /* MemoriesWidgetConfigurationIntent.swift */,
+				2D7EFD4A2B0385D900B3D624 /* SimpleEntry.swift */,
+				2D7EFD4D2B03862000B3D624 /* TimelineCommon.swift */,
+				2D7EFD502B0386C200B3D624 /* ClassicTimelineProvider.swift */,
 			);
 			path = MemoriesWidget;
 			sourceTree = "<group>";
@@ -457,9 +473,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4604FC12A05C55100D838DF /* MemoriesWidget.swift in Sources */,
+				2D7EFD512B0386C200B3D624 /* ClassicTimelineProvider.swift in Sources */,
+				2D7EFD482B037F2800B3D624 /* MemoriesWidgetConfigurationIntent.swift in Sources */,
 				E468D3FD2A0663E50017070A /* Analytics.swift in Sources */,
+				2D7EFD4E2B03862000B3D624 /* TimelineCommon.swift in Sources */,
 				2DCAC7A42A208FE7007A11F9 /* Config.swift in Sources */,
 				2DE590BF2A053D9C0041EA4D /* StravaLoginView.swift in Sources */,
+				2D7EFD4B2B0385D900B3D624 /* SimpleEntry.swift in Sources */,
 				E4604FC42A05C98800D838DF /* MemoriesWidgetView.swift in Sources */,
 				E48E099B2A05C2E6002456E5 /* MemoriesApp.swift in Sources */,
 				E46FD4B52A0EA308000396EA /* WebView.swift in Sources */,
@@ -491,7 +511,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D7EFD4C2B0385D900B3D624 /* SimpleEntry.swift in Sources */,
+				2D7EFD492B037F2800B3D624 /* MemoriesWidgetConfigurationIntent.swift in Sources */,
+				2D7EFD522B0386C200B3D624 /* ClassicTimelineProvider.swift in Sources */,
 				E4604FC32A05C6D100D838DF /* MemoriesWidgetView.swift in Sources */,
+				2D7EFD4F2B03862000B3D624 /* TimelineCommon.swift in Sources */,
 				E48E09892A05BF98002456E5 /* MemoriesWidget.swift in Sources */,
 				E4A397112A616485009A2E6F /* Analytics.swift in Sources */,
 				2DCAC7A52A208FE7007A11F9 /* Config.swift in Sources */,
@@ -668,10 +692,12 @@
 				INFOPLIST_FILE = Memories/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Memories;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Send photos to support chat";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -703,10 +729,12 @@
 				INFOPLIST_FILE = Memories/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Memories;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Send photos to support chat";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

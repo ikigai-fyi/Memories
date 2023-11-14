@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIUserInterfaceStyle</key>
-	<string>Light</string>
 	<key>AMPLITUDE_API_KEY</key>
 	<string>$(AMPLITUDE_API_KEY)</string>
 	<key>APP_GROUP_NAME</key>
@@ -31,9 +29,11 @@
 	<array>
 		<string>strava</string>
 	</array>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>WidgetConfigurationIntent</string>
+	</array>
 	<key>POSTHOG_API_KEY</key>
 	<string>$(POSTHOG_API_KEY)</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Send photos to support chat</string>
 </dict>
 </plist>
