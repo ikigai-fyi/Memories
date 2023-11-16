@@ -90,6 +90,7 @@ struct ErrorView: View {
 struct MemoriesWidgetView: View {
     
     let activity: Activity?
+    let pickType: PickType?
     let error: ActivityError?
     
     var body: some View {
@@ -124,6 +125,10 @@ struct MemoriesWidgetView: View {
                                 .font(.title3).bold().foregroundColor(.white).shadow(radius: 5).lineLimit(1)
                             
                             Spacer()
+                        }
+                        
+                        if pickType == .xYearsAgo {
+                            Text("🎂 \(activity.xYearsAgo) years ago").bold()
                         }
                         
                         // datetime
@@ -165,7 +170,7 @@ struct BackgroundView: View {
 
 struct MemoriesWidgetView_Previews: PreviewProvider {
     static var previews: some View {
-        MemoriesWidgetView(activity: nil, error: .notLoggedIn)
+        MemoriesWidgetView(activity: nil, pickType: nil, error: .notLoggedIn)
     }
 }
 

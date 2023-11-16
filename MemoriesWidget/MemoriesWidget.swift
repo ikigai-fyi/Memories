@@ -72,11 +72,13 @@ struct Provider: TimelineProvider {
 struct SimpleEntry: TimelineEntry {
     let date: Date
     let activity: Activity?
+    let pickType: PickType?
     let error: ActivityError?
     
-    init(date: Date, activity: Activity? = nil, error: ActivityError? = nil) {
+    init(date: Date, activity: Activity? = nil, pickType: PickType? = nil, error: ActivityError? = nil) {
         self.date = date
         self.activity = activity
+        self.pickType = pickType
         self.error = error
     }
 }
@@ -85,7 +87,7 @@ struct MemoriesWidgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        MemoriesWidgetView(activity: entry.activity, error: entry.error)
+        MemoriesWidgetView(activity: entry.activity, pickType: entry.pickType, error: entry.error)
     }
 }
 

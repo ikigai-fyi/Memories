@@ -28,6 +28,10 @@ public struct Activity : Codable {
         return URL(string: "https://www.strava.com/activities/\(stravaId)")!
     }
     
+    public var xYearsAgo: Int {
+        return Calendar.current.dateComponents([.year], from: self.getStartDatetime(), to: Date()).year!
+    }
+    
     public func getName() -> String {
         return name
     }

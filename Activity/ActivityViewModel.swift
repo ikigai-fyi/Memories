@@ -11,11 +11,13 @@ import Sentry
 
 let appGroupName = Config.appGroupName
 let userDefaultActivity = "activity"
+let userDefaultPickType = "pick_type"
 let userDefaultError = "error"
 let userDefaultUnseenWidgetForceRefresh = "unseen_widget_force_refresh"
 
 public class ActivityViewModel: NSObject, ObservableObject {
     @Published public var activity: Activity? = getActivityFromUserDefault()
+    @Published public var pickType: PickType? = getPickTypeFromUserDefault()
     @Published public var error: ActivityError? = nil
     @Published public var isFetching: Bool = false
     
@@ -30,7 +32,7 @@ public class ActivityViewModel: NSObject, ObservableObject {
     @MainActor
     public func fetchAndStoreRandomActivity() async {
         self.isFetching = true
-        let url = URL(string: "\(Config.backendURL)/rest/activities/random")!
+        let url = URL(string: "\(Config.backendURL)/rest/activities/pick")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(self.getJwt())", forHTTPHeaderField: "Authorization")
@@ -51,18 +53,18 @@ public class ActivityViewModel: NSObject, ObservableObject {
                             userProperties: [.lastActivityFetchState: "success"])
 
                         
-                        let decoded = try decoder.decode(Activity.self, from: data)
-                        self.setState(activity: decoded, error: nil)
+                        let decoded = try decoder.decode(ActivityPick.self, from: data)
+                        self.setState(activity: decoded.activity, pickType: decoded.pickType, error: nil)
                     } catch {
                         SentrySDK.capture(error: error)
-                        self.setState(activity: nil, error: .other)
+                        self.setState(activity: nil, pickType: nil , error: .other)
                     }
                 } else {
                     let errorPayload = try! decoder.decode(APIError.Payload.self, from: data)
                     let apiError = APIError(statusCode: response.statusCode, payload: errorPayload)
                     
                     let activityError: ActivityError = ActivityError(apiError)
-                    self.setState(activity: nil, error: activityError)
+                    self.setState(activity: nil, pickType: nil, error: activityError)
                     
                     Analytics.capture(
                         event: .systemFetchedRandomActivity,
@@ -70,11 +72,11 @@ public class ActivityViewModel: NSObject, ObservableObject {
                     
                 }
             } else {
-                self.setState(activity: nil, error: .other)
+                self.setState(activity: nil, pickType: nil, error: .other)
             }
         } catch {
             SentrySDK.capture(error: error)
-            self.setState(activity: nil, error: .other)
+            self.setState(activity: nil, pickType: nil, error: .other)
         }
         
         self.isFetching = false
@@ -113,6 +115,16 @@ public class ActivityViewModel: NSObject, ObservableObject {
         return nil
     }
     
+    public static func getPickTypeFromUserDefault() -> PickType? {
+        if let userDefaults = UserDefaults(suiteName: appGroupName) {
+            if let data = userDefaults.data(forKey: userDefaultPickType) {
+                return try? JSONDecoder().decode(PickType.self, from: data)
+            }
+        }
+        
+        return nil
+    }
+    
     public static func getErrorFromUserDefault() -> ActivityError? {
         if let userDefaults = UserDefaults(suiteName: appGroupName) {
             if let data = userDefaults.data(forKey: userDefaultError) {
@@ -123,9 +135,12 @@ public class ActivityViewModel: NSObject, ObservableObject {
         return nil
     }
     
-    private func setState(activity: Activity?, error: ActivityError?) {
+    private func setState(activity: Activity?, pickType: PickType?, error: ActivityError?) {
         self.activity = activity
         self.saveActivityToUserDefault(activity: activity)
+        
+        self.pickType = pickType
+        self.savePickTypeToUserDefault(pickType: pickType)
         
         self.error = error
         self.saveErrorToUserDefault(error: error)
@@ -135,6 +150,13 @@ public class ActivityViewModel: NSObject, ObservableObject {
         if let userDefaults = UserDefaults(suiteName: appGroupName) {
             let activityData = try! JSONEncoder().encode(activity)
             userDefaults.set(activityData, forKey: userDefaultActivity)
+        }
+    }
+    
+    private func savePickTypeToUserDefault(pickType: PickType?) {
+        if let userDefaults = UserDefaults(suiteName: appGroupName) {
+            let pickTypeData = try! JSONEncoder().encode(pickType)
+            userDefaults.set(pickTypeData, forKey: userDefaultPickType)
         }
     }
     
