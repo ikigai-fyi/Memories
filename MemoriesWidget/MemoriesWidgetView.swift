@@ -90,6 +90,7 @@ struct ErrorView: View {
 struct MemoriesWidgetView: View {
     
     let activity: Activity?
+    let pickType: PickType?
     let error: ActivityError?
     
     var body: some View {
@@ -102,6 +103,19 @@ struct MemoriesWidgetView: View {
                     // image container
                     ImageContainerView(activity: activity)
                         .zIndex(1)
+                    
+                    // X years ago badge
+                    if pickType == .xYearsAgo {
+                        VStack {
+                            HStack {
+                                Spacer()
+                                XYearsAgoBadgeView(years: activity.xYearsAgo)
+                            }
+                            Spacer()
+                        }
+                        .padding(8)
+                        .zIndex(2)
+                    }
                     
                     // text container
                     VStack(alignment: .leading, spacing: 4.0) {
@@ -165,7 +179,7 @@ struct BackgroundView: View {
 
 struct MemoriesWidgetView_Previews: PreviewProvider {
     static var previews: some View {
-        MemoriesWidgetView(activity: nil, error: .notLoggedIn)
+        MemoriesWidgetView(activity: nil, pickType: nil, error: .notLoggedIn)
     }
 }
 

@@ -24,6 +24,9 @@
 		2D7C61DF2A1D5D100050AAB0 /* StravaLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE590BC2A053D9C0041EA4D /* StravaLoginViewModel.swift */; };
 		2D7C61E12A1D5D3B0050AAB0 /* DateFormatter+standard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C61E02A1D5D3B0050AAB0 /* DateFormatter+standard.swift */; };
 		2D7F7A7F2A6AAAAB00C30723 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = 2D7F7A7E2A6AAAAB00C30723 /* PostHog */; };
+		2D85D7292B0683F90006C9F0 /* PickType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D85D7282B0683F90006C9F0 /* PickType.swift */; };
+		2D85D72B2B0685350006C9F0 /* ActivityPick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D85D72A2B0685350006C9F0 /* ActivityPick.swift */; };
+		2D85D72D2B07996B0006C9F0 /* XYearsAgoBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D85D72C2B07996B0006C9F0 /* XYearsAgoBadgeView.swift */; };
 		2DCAC7A42A208FE7007A11F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCAC7A32A208FE7007A11F9 /* Config.swift */; };
 		2DCAC7A52A208FE7007A11F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCAC7A32A208FE7007A11F9 /* Config.swift */; };
 		2DCAC7A62A208FE7007A11F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCAC7A32A208FE7007A11F9 /* Config.swift */; };
@@ -111,6 +114,9 @@
 		2D5EAEE32A1D51B400FB9C33 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 		2D7C61DC2A1D59040050AAB0 /* Athlete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Athlete.swift; sourceTree = "<group>"; };
 		2D7C61E02A1D5D3B0050AAB0 /* DateFormatter+standard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+standard.swift"; sourceTree = "<group>"; };
+		2D85D7282B0683F90006C9F0 /* PickType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickType.swift; sourceTree = "<group>"; };
+		2D85D72A2B0685350006C9F0 /* ActivityPick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityPick.swift; sourceTree = "<group>"; };
+		2D85D72C2B07996B0006C9F0 /* XYearsAgoBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYearsAgoBadgeView.swift; sourceTree = "<group>"; };
 		2DCAC7A12A208D93007A11F9 /* dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = dev.xcconfig; sourceTree = "<group>"; };
 		2DCAC7A22A208DA2007A11F9 /* prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = prod.xcconfig; sourceTree = "<group>"; };
 		2DCAC7A32A208FE7007A11F9 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -267,6 +273,8 @@
 				2D3DBEED2A6C17BD00B2685B /* ActivityError.swift */,
 				2D3DBEEF2A6C188000B2685B /* APIError.swift */,
 				E4101AD22A6FA767000E2B31 /* ActivityType.swift */,
+				2D85D7282B0683F90006C9F0 /* PickType.swift */,
+				2D85D72A2B0685350006C9F0 /* ActivityPick.swift */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -286,6 +294,7 @@
 				E48E09862A05BF98002456E5 /* MemoriesWidgetBundle.swift */,
 				E48E09882A05BF98002456E5 /* MemoriesWidget.swift */,
 				E4604FC22A05C6D100D838DF /* MemoriesWidgetView.swift */,
+				2D85D72C2B07996B0006C9F0 /* XYearsAgoBadgeView.swift */,
 				E48E098A2A05BF99002456E5 /* Assets.xcassets */,
 				E48E098C2A05BF99002456E5 /* Info.plist */,
 			);
@@ -472,6 +481,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D85D72D2B07996B0006C9F0 /* XYearsAgoBadgeView.swift in Sources */,
 				2D7C61E12A1D5D3B0050AAB0 /* DateFormatter+standard.swift in Sources */,
 				2D7C61DE2A1D5CCF0050AAB0 /* Athlete.swift in Sources */,
 				2D7C61DF2A1D5D100050AAB0 /* StravaLoginViewModel.swift in Sources */,
@@ -481,7 +491,9 @@
 				2D5EAEE42A1D51B400FB9C33 /* ActivityViewModel.swift in Sources */,
 				2DCAC7A62A208FE7007A11F9 /* Config.swift in Sources */,
 				2D5EAEE62A1D521A00FB9C33 /* Analytics.swift in Sources */,
+				2D85D72B2B0685350006C9F0 /* ActivityPick.swift in Sources */,
 				2D5EAEE52A1D521400FB9C33 /* Helper.swift in Sources */,
+				2D85D7292B0683F90006C9F0 /* PickType.swift in Sources */,
 				2D3DBEEE2A6C17BD00B2685B /* ActivityError.swift in Sources */,
 				2D3DBEF02A6C188000B2685B /* APIError.swift in Sources */,
 			);
