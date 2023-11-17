@@ -104,6 +104,19 @@ struct MemoriesWidgetView: View {
                     ImageContainerView(activity: activity)
                         .zIndex(1)
                     
+                    // X years ago badge
+                    if pickType == .xYearsAgo {
+                        VStack {
+                            HStack {
+                                Spacer()
+                                XYearsAgoBadgeView(years: activity.xYearsAgo)
+                            }
+                            Spacer()
+                        }
+                        .padding(8)
+                        .zIndex(2)
+                    }
+                    
                     // text container
                     VStack(alignment: .leading, spacing: 4.0) {
                         
@@ -125,10 +138,6 @@ struct MemoriesWidgetView: View {
                                 .font(.title3).bold().foregroundColor(.white).shadow(radius: 5).lineLimit(1)
                             
                             Spacer()
-                        }
-                        
-                        if pickType == .xYearsAgo {
-                            Text("🎂 \(activity.xYearsAgo) years ago").bold()
                         }
                         
                         // datetime

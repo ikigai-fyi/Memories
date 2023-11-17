@@ -63,3 +63,7 @@
 "Contact us" = "Nous contacter";
 "Settings" = "Réglages";
 "Refresh %dx per day" = "Mis à jour %dx par jour";
+
+// Widget
+"%d year" = "%d an";
+"%d years" = "%d ans";
