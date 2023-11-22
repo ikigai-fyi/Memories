@@ -349,7 +349,7 @@ struct MemoriesHomeView: View {
     func forceRefreshActivity() async {
         Analytics.capture(event: .refreshActivities)
         
-        await activityViewModel.fetchMemory()
+        await activityViewModel.fetchMemory(refresh: true)
         activityViewModel.forceRefreshWidget()
         self.triggerConfettis()
     }
