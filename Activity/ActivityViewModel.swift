@@ -9,12 +9,6 @@ import Foundation
 import WidgetKit
 import Sentry
 
-let appGroupName = Config.appGroupName
-let userDefaultActivity = "activity"
-let userDefaultPickType = "pick_type"
-let userDefaultError = "error"
-let userDefaultUnseenWidgetForceRefresh = "unseen_widget_force_refresh"
-
 public class ActivityViewModel: NSObject, ObservableObject {
     @Published public var memory: Memory? = nil
     @Published public var error: ActivityError? = nil
@@ -94,31 +88,7 @@ public class ActivityViewModel: NSObject, ObservableObject {
     
     public func forceRefreshWidget() {
         self.stateValue += 1
-        self.saveUnseenWidgetForceRefreshFromUserDefault(value: true)
         WidgetCenter.shared.reloadAllTimelines()
-    }
-    
-    public func forceRefreshWidgetProcessed() {
-        self.saveUnseenWidgetForceRefreshFromUserDefault(value: false)
-    }
-    
-    public static func getUnseenWidgetForceRefreshFromUserDefault() -> Bool {
-        if let userDefaults = UserDefaults(suiteName: appGroupName) {
-            if let data = userDefaults.data(forKey: userDefaultUnseenWidgetForceRefresh) {
-                if let value = try? JSONDecoder().decode(Bool.self, from: data) {
-                    return value
-                }
-            }
-        }
-        
-        return false
-    }
-    
-    func saveUnseenWidgetForceRefreshFromUserDefault(value: Bool) {
-        if let userDefaults = UserDefaults(suiteName: appGroupName) {
-            let data = try! JSONEncoder().encode(value)
-            userDefaults.set(data, forKey: userDefaultUnseenWidgetForceRefresh)
-        }
     }
     
     @MainActor private func getLoggedAthlete() -> Athlete? {

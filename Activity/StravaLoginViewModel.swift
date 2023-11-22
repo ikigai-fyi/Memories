@@ -11,6 +11,7 @@ import WidgetKit
 import PostHog
 import Sentry
 
+let appGroupName = Config.appGroupName
 let userDefaultAthlete = "athlete"
 
 @MainActor
@@ -148,16 +149,6 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
         if let userDefaults = UserDefaults(suiteName: appGroupName) {
             if let data = userDefaults.data(forKey: userDefaultAthlete) {
                 return try? JSONDecoder().decode(Athlete.self, from: data)
-            }
-        }
-        
-        return nil
-    }
-    
-    public static func getActivityFromUserDefault() -> Activity? {
-        if let userDefaults = UserDefaults(suiteName: appGroupName) {
-            if let data = userDefaults.data(forKey: userDefaultActivity) {
-                return try? JSONDecoder().decode(Activity.self, from: data)
             }
         }
         
