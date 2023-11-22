@@ -130,7 +130,7 @@ struct MemoriesHomeView: View {
                         VStack {
                             // Activity widget -----------------------------------------------------
                             if !activityViewModel.isFetching {
-                                MemoriesWidgetView(activity: activityViewModel.activity, pickType: activityViewModel.pickType, error: activityViewModel.error)
+                                MemoriesWidgetView(memory: activityViewModel.memory, error: activityViewModel.error)
                                     .frame(maxWidth: .infinity, minHeight: 162, idealHeight: 162, maxHeight: 162)
                                     .background(Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)))
                                     .cornerRadius(20)
@@ -138,7 +138,7 @@ struct MemoriesHomeView: View {
                                     .id(activityViewModel.stateValue)
                                     .onTapGesture {
                                         guard
-                                            let activity = activityViewModel.activity,
+                                            let activity = activityViewModel.memory?.activity,
                                             let stravaUrl = activity.stravaUrl
                                         else { return }
                                                                                 
@@ -200,7 +200,7 @@ struct MemoriesHomeView: View {
                                     
                                     Button {
                                         guard
-                                            let activity = activityViewModel.activity,
+                                            let activity = activityViewModel.memory?.activity,
                                             let stravaUrl = activity.stravaUrl
                                         else { return }
 
@@ -341,9 +341,7 @@ struct MemoriesHomeView: View {
     
     func syncActivity() {
         Task {
-            // Fetch if there is no activity
-            // If there is, it might come from the home view, or the widget, just load it
-            await self.activityViewModel.loadStateFromUserDefaultsOrFetch()
+            await self.activityViewModel.fetchMemory()
             activityViewModel.forceRefreshWidget()
         }
     }
@@ -351,13 +349,13 @@ struct MemoriesHomeView: View {
     func forceRefreshActivity() async {
         Analytics.capture(event: .refreshActivities)
         
-        await activityViewModel.fetchAndStoreRandomActivity()
+        await activityViewModel.fetchMemory()
         activityViewModel.forceRefreshWidget()
         self.triggerConfettis()
     }
     
     private func triggerConfettis() {
-        switch self.activityViewModel.activity?.getSportType() {
+        switch self.activityViewModel.memory?.activity.getSportType() {
         case "Run": self.runConfetti += 1
         case "Ride": self.bikeConfetti += 1
         case "AlpineSki", "NordicSki": self.skiConfetti += 1
