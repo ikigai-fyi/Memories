@@ -249,13 +249,21 @@ struct MemoriesHomeView: View {
                     .frame(maxWidth: .infinity, minHeight: proxy.size.height) // fix height scrollview
                     .onAppear{
                         // First render
-                        self.syncActivity()
+                        if !self.activityViewModel.hasMemory {
+                            Task {
+                                await self.activityViewModel.fetchMemory()
+                            }
+                        }
                     }
                     .onChange(of: scenePhase) { newPhase in
                         // Subsequent renders
                         switch newPhase {
                         case .active:
-                            self.syncActivity()
+                            if !self.activityViewModel.hasMemory {
+                                Task {
+                                    await self.activityViewModel.fetchMemory()
+                                }
+                            }
                             
                             // request review
                             // trigger is widget count > 0 && did not ask before
@@ -337,13 +345,6 @@ struct MemoriesHomeView: View {
                 
             }.zIndex(5)
         } // GeometryView
-    }
-    
-    func syncActivity() {
-        Task {
-            await self.activityViewModel.fetchMemory()
-            activityViewModel.forceRefreshWidget()
-        }
     }
     
     func forceRefreshActivity() async {

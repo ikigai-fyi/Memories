@@ -21,6 +21,10 @@ public class ActivityViewModel: NSObject, ObservableObject {
     
     public var fakeBehaviour: FakeBehaviour? = nil
     
+    public var hasMemory: Bool {
+        return self.memory != nil
+    }
+    
     
     @MainActor
     public func fetchMemory(refresh: Bool = false) async {
