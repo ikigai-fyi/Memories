@@ -80,7 +80,7 @@ struct MemoriesHomeView: View {
                             
                             
                         }.sheet(isPresented: $isShowingOptions, onDismiss: {
-                            activityViewModel.forceRefreshWidget()
+                            self.forceRenderWidgetViews()
                         }) {
                             SettingsView(isShowingOptions: $isShowingOptions, isChatPresented: $isChatPresented)
                         }
@@ -130,7 +130,7 @@ struct MemoriesHomeView: View {
                         VStack {
                             // Activity widget -----------------------------------------------------
                             if !activityViewModel.isFetching {
-                                MemoriesWidgetView(activity: activityViewModel.activity, pickType: activityViewModel.pickType, error: activityViewModel.error)
+                                MemoriesWidgetView(memory: activityViewModel.memory, error: activityViewModel.error)
                                     .frame(maxWidth: .infinity, minHeight: 162, idealHeight: 162, maxHeight: 162)
                                     .background(Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)))
                                     .cornerRadius(20)
@@ -138,7 +138,7 @@ struct MemoriesHomeView: View {
                                     .id(activityViewModel.stateValue)
                                     .onTapGesture {
                                         guard
-                                            let activity = activityViewModel.activity,
+                                            let activity = activityViewModel.memory?.activity,
                                             let stravaUrl = activity.stravaUrl
                                         else { return }
                                                                                 
@@ -167,7 +167,7 @@ struct MemoriesHomeView: View {
                             if !isUserActivated {
                                 Button {
                                     Task {
-                                        await self.forceRefreshActivity()
+                                        await self.forceRefreshMemory()
                                     }
                                 } label: {
                                     Label {
@@ -181,7 +181,7 @@ struct MemoriesHomeView: View {
                                     
                                     Button {
                                         Task {
-                                            await self.forceRefreshActivity()
+                                            await self.forceRefreshMemory()
                                         }
                                     } label: {
                                         Label {
@@ -200,7 +200,7 @@ struct MemoriesHomeView: View {
                                     
                                     Button {
                                         guard
-                                            let activity = activityViewModel.activity,
+                                            let activity = activityViewModel.memory?.activity,
                                             let stravaUrl = activity.stravaUrl
                                         else { return }
 
@@ -249,13 +249,21 @@ struct MemoriesHomeView: View {
                     .frame(maxWidth: .infinity, minHeight: proxy.size.height) // fix height scrollview
                     .onAppear{
                         // First render
-                        self.syncActivity()
+                        if !self.activityViewModel.hasMemory {
+                            Task {
+                                await self.activityViewModel.fetchMemory()
+                            }
+                        }
                     }
                     .onChange(of: scenePhase) { newPhase in
                         // Subsequent renders
                         switch newPhase {
                         case .active:
-                            self.syncActivity()
+                            if !self.activityViewModel.hasMemory {
+                                Task {
+                                    await self.activityViewModel.fetchMemory()
+                                }
+                            }
                             
                             // request review
                             // trigger is widget count > 0 && did not ask before
@@ -339,25 +347,21 @@ struct MemoriesHomeView: View {
         } // GeometryView
     }
     
-    func syncActivity() {
-        Task {
-            // Fetch if there is no activity
-            // If there is, it might come from the home view, or the widget, just load it
-            await self.activityViewModel.loadStateFromUserDefaultsOrFetch()
-            activityViewModel.forceRefreshWidget()
-        }
-    }
-    
-    func forceRefreshActivity() async {
+    func forceRefreshMemory() async {
         Analytics.capture(event: .refreshActivities)
         
-        await activityViewModel.fetchAndStoreRandomActivity()
-        activityViewModel.forceRefreshWidget()
+        await activityViewModel.fetchMemory(refresh: true)
+        self.forceRenderWidgetViews()
         self.triggerConfettis()
     }
     
+    func forceRenderWidgetViews() {
+        self.activityViewModel.stateValue += 1
+        WidgetCenter.shared.reloadAllTimelines()
+    }
+    
     private func triggerConfettis() {
-        switch self.activityViewModel.activity?.getSportType() {
+        switch self.activityViewModel.memory?.activity.getSportType() {
         case "Run": self.runConfetti += 1
         case "Ride": self.bikeConfetti += 1
         case "AlpineSki", "NordicSki": self.skiConfetti += 1

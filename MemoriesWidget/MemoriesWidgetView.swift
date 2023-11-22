@@ -89,27 +89,26 @@ struct ErrorView: View {
 
 struct MemoriesWidgetView: View {
     
-    let activity: Activity?
-    let pickType: PickType?
+    let memory: Memory?
     let error: ActivityError?
     
     var body: some View {
         
         // handles condition on activity
         Group {
-            if let activity = activity {
+            if let memory = memory {
                 // handles overlay
                 ZStack{
                     // image container
-                    ImageContainerView(activity: activity)
+                    ImageContainerView(activity: memory.activity)
                         .zIndex(1)
                     
                     // X years ago badge
-                    if pickType == .xYearsAgo {
+                    if memory.type == .xYearsAgo {
                         VStack {
                             HStack {
                                 Spacer()
-                                XYearsAgoBadgeView(years: activity.xYearsAgo)
+                                XYearsAgoBadgeView(years: memory.activity.xYearsAgo)
                             }
                             Spacer()
                         }
@@ -125,7 +124,7 @@ struct MemoriesWidgetView: View {
                         HStack(spacing: 4.0){
                             
                             // type
-                            if Constants.SportsTypeIconEnabled, let type = activity.getSystemIcon() {
+                            if Constants.SportsTypeIconEnabled, let type = memory.activity.getSystemIcon() {
                                 Image(systemName: type)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
@@ -134,19 +133,19 @@ struct MemoriesWidgetView: View {
                             }
                             
                             // city or custom name
-                            Text(activity.getHasCustomName() ? activity.getName() : activity.getCity())
+                            Text(memory.activity.getHasCustomName() ? memory.activity.getName() : memory.activity.getCity())
                                 .font(.title3).bold().foregroundColor(.white).shadow(radius: 5).lineLimit(1)
                             
                             Spacer()
                         }
                         
                         // datetime
-                        Text(Helper.buildDateTimeString(date: activity.getStartDatetime()))
+                        Text(Helper.buildDateTimeString(date: memory.activity.getStartDatetime()))
                             .font(.subheadline).bold().foregroundColor(.white).shadow(radius: 5)
                         
                         // other data
                         HStack{
-                            Text(activity.buildDataString())
+                            Text(memory.activity.buildDataString())
                                 .font(.subheadline)
                                 .bold()
                                 .foregroundColor(.white)
@@ -179,7 +178,7 @@ struct BackgroundView: View {
 
 struct MemoriesWidgetView_Previews: PreviewProvider {
     static var previews: some View {
-        MemoriesWidgetView(activity: nil, pickType: nil, error: .notLoggedIn)
+        MemoriesWidgetView(memory: nil, error: .notLoggedIn)
     }
 }
 

@@ -41,7 +41,6 @@ public struct XYearsAgoBadgeView: View {
         }
         .padding([.bottom, .top], 6)
         .padding([.leading, .trailing], 8)
-        .preferredColorScheme(.light)
         .background(.regularMaterial)
         .clipShape(Capsule(style: .circular))
     }

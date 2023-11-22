@@ -19,36 +19,25 @@ struct Provider: TimelineProvider {
     }
 
     @MainActor func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let activity = ActivityViewModel.getActivityFromUserDefault()
-        let error = ActivityViewModel.getErrorFromUserDefault()
-        completion(SimpleEntry(date: Date(), activity: activity, error: error))
+        Task {
+            await viewModel.fetchMemory()
+            let entry = SimpleEntry(date: Date(), memory: viewModel.memory, error: viewModel.error)
+            completion(entry)
+        }
     }
 
     @MainActor func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         self.initializeDependencies()
         self.onGetTimeline()
         
-        // Home screen was forced refresh, update the widget with user defaults only
-        if ActivityViewModel.getUnseenWidgetForceRefreshFromUserDefault() {
-            let activity = ActivityViewModel.getActivityFromUserDefault()
-            let error = ActivityViewModel.getErrorFromUserDefault()
-            viewModel.forceRefreshWidgetProcessed()
-            completion(buildTimeline(activity: activity, error: error))
-        } else {
-            Task {
-                await viewModel.fetchAndStoreRandomActivity()
-                completion(buildTimeline(activity: viewModel.activity, error: viewModel.error))
-            }
+        Task {
+            await viewModel.fetchMemory()
+            let entries = [SimpleEntry(date: Date(), memory: viewModel.memory, error: viewModel.error)]
+            let nextUpdate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
+            completion(Timeline(entries: entries, policy: .after(nextUpdate)))
         }
     }
-    
-    @MainActor private func buildTimeline(activity: Activity?, error: ActivityError?) -> Timeline<SimpleEntry> {
-        let entries = [SimpleEntry(date: Date(), activity: activity, error: error)]
-        let refreshRate = Int(24 / Helper.getUserWidgetRefreshRatePerDay()!)
-        let nextUpdate = Calendar.current.date(byAdding: .hour, value: refreshRate, to: Date())!
-        return Timeline(entries: entries, policy: .after(nextUpdate))
-    }
-    
+
     @MainActor private func onGetTimeline() {
         if let athlete = StravaLoginViewModel.getAthleteFromUserDefault() {
             Analytics.identify(athlete: athlete)
@@ -71,14 +60,12 @@ struct Provider: TimelineProvider {
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
-    let activity: Activity?
-    let pickType: PickType?
+    let memory: Memory?
     let error: ActivityError?
     
-    init(date: Date, activity: Activity? = nil, pickType: PickType? = nil, error: ActivityError? = nil) {
+    init(date: Date, memory: Memory? = nil, error: ActivityError? = nil) {
         self.date = date
-        self.activity = activity
-        self.pickType = pickType
+        self.memory = memory
         self.error = error
     }
 }
@@ -87,7 +74,7 @@ struct MemoriesWidgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        MemoriesWidgetView(activity: entry.activity, pickType: entry.pickType, error: entry.error)
+        MemoriesWidgetView(memory: entry.memory, error: entry.error)
     }
 }
 
