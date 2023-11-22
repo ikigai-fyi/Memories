@@ -19,7 +19,11 @@ struct Provider: TimelineProvider {
     }
 
     @MainActor func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        completion(SimpleEntry(date: Date(), memory: viewModel.memory, error: viewModel.error))
+        Task {
+            await viewModel.fetchMemory()
+            let entry = SimpleEntry(date: Date(), memory: viewModel.memory, error: viewModel.error)
+            completion(entry)
+        }
     }
 
     @MainActor func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
