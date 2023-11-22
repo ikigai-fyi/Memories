@@ -80,7 +80,7 @@ struct MemoriesHomeView: View {
                             
                             
                         }.sheet(isPresented: $isShowingOptions, onDismiss: {
-                            activityViewModel.forceRefreshWidget()
+                            self.forceRenderWidgetViews()
                         }) {
                             SettingsView(isShowingOptions: $isShowingOptions, isChatPresented: $isChatPresented)
                         }
@@ -167,7 +167,7 @@ struct MemoriesHomeView: View {
                             if !isUserActivated {
                                 Button {
                                     Task {
-                                        await self.forceRefreshActivity()
+                                        await self.forceRefreshMemory()
                                     }
                                 } label: {
                                     Label {
@@ -181,7 +181,7 @@ struct MemoriesHomeView: View {
                                     
                                     Button {
                                         Task {
-                                            await self.forceRefreshActivity()
+                                            await self.forceRefreshMemory()
                                         }
                                     } label: {
                                         Label {
@@ -347,12 +347,17 @@ struct MemoriesHomeView: View {
         } // GeometryView
     }
     
-    func forceRefreshActivity() async {
+    func forceRefreshMemory() async {
         Analytics.capture(event: .refreshActivities)
         
         await activityViewModel.fetchMemory(refresh: true)
-        activityViewModel.forceRefreshWidget()
+        self.forceRenderWidgetViews()
         self.triggerConfettis()
+    }
+    
+    func forceRenderWidgetViews() {
+        self.activityViewModel.stateValue += 1
+        WidgetCenter.shared.reloadAllTimelines()
     }
     
     private func triggerConfettis() {

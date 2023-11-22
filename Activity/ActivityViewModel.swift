@@ -90,11 +90,6 @@ public class ActivityViewModel: NSObject, ObservableObject {
         self.isFetching = false
     }
     
-    public func forceRefreshWidget() {
-        self.stateValue += 1
-        WidgetCenter.shared.reloadAllTimelines()
-    }
-    
     @MainActor private func getLoggedAthlete() -> Athlete? {
         return StravaLoginViewModel.getAthleteFromUserDefault()
     }
