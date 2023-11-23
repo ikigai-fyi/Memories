@@ -20,6 +20,7 @@
 		2D5EAEE42A1D51B400FB9C33 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5EAEE32A1D51B400FB9C33 /* ActivityViewModel.swift */; };
 		2D5EAEE52A1D521400FB9C33 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E402A3812A05D3A400C2F3B0 /* Helper.swift */; };
 		2D5EAEE62A1D521A00FB9C33 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E468D3FC2A0663E50017070A /* Analytics.swift */; };
+		2D6064642B0FA8C50049D42C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6064632B0FA8C50049D42C /* SettingsView.swift */; };
 		2D7C61DE2A1D5CCF0050AAB0 /* Athlete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C61DC2A1D59040050AAB0 /* Athlete.swift */; };
 		2D7C61DF2A1D5D100050AAB0 /* StravaLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE590BC2A053D9C0041EA4D /* StravaLoginViewModel.swift */; };
 		2D7C61E12A1D5D3B0050AAB0 /* DateFormatter+standard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C61E02A1D5D3B0050AAB0 /* DateFormatter+standard.swift */; };
@@ -111,6 +112,7 @@
 		2D3DBEEF2A6C188000B2685B /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		2D5271682A6FDD5900989AE8 /* ci_post_xcodebuild.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_xcodebuild.sh; sourceTree = "<group>"; };
 		2D5EAEE32A1D51B400FB9C33 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
+		2D6064632B0FA8C50049D42C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		2D7C61DC2A1D59040050AAB0 /* Athlete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Athlete.swift; sourceTree = "<group>"; };
 		2D7C61E02A1D5D3B0050AAB0 /* DateFormatter+standard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+standard.swift"; sourceTree = "<group>"; };
 		2D85D72A2B0685350006C9F0 /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				2DE590BD2A053D9C0041EA4D /* StravaLoginView.swift */,
 				E4E501B82A0E9A00009D4993 /* MemoriesHomeView.swift */,
 				E46FD4B42A0EA308000396EA /* WebView.swift */,
+				2D6064632B0FA8C50049D42C /* SettingsView.swift */,
 				2DE590BB2A053D710041EA4D /* Info.plist */,
 				2DE5908E2A052D890041EA4D /* MemoriesApp.swift */,
 				2DE590922A052D8B0041EA4D /* Assets.xcassets */,
@@ -467,6 +470,7 @@
 				2DCAC7A42A208FE7007A11F9 /* Config.swift in Sources */,
 				2DE590BF2A053D9C0041EA4D /* StravaLoginView.swift in Sources */,
 				E4604FC42A05C98800D838DF /* MemoriesWidgetView.swift in Sources */,
+				2D6064642B0FA8C50049D42C /* SettingsView.swift in Sources */,
 				E48E099B2A05C2E6002456E5 /* MemoriesApp.swift in Sources */,
 				E46FD4B52A0EA308000396EA /* WebView.swift in Sources */,
 				E4E501B92A0E9A00009D4993 /* MemoriesHomeView.swift in Sources */,
