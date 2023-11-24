@@ -30,6 +30,7 @@ struct MemoriesHomeView: View {
     @State private var isShowingVideoView: Bool = false
     @State private var isChatPresented: Bool = false
     @State private var isShowingOptions: Bool = false
+    @State private var isShowingShareSheet: Bool = false
 
     @State private var isUserActivated = false
     
@@ -346,8 +347,10 @@ struct MemoriesHomeView: View {
             }.zIndex(5)
         }.onOpenURL{ url in
             if url.absoluteString == "memories://share-from-widget" {
-                self.triggerConfettis()
+                self.isShowingShareSheet = true
             }
+        }.sheet(isPresented: self.$isShowingShareSheet, onDismiss: {}) {
+            ActivityViewController()
         }
     }
     
@@ -651,5 +654,14 @@ struct SheetVideoView : View {
 struct MemoriesHomeView_Previews: PreviewProvider {
     static var previews: some View {
         MemoriesHomeView()
+    }
+}
+
+struct ActivityViewController: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: ["I'm sharing that to you 😁"], applicationActivities: nil)
+    }
+    
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {
     }
 }
