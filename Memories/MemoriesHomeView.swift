@@ -18,6 +18,7 @@ import AVKit
 struct MemoriesHomeView: View {
     @EnvironmentObject var loginViewModel: StravaLoginViewModel
     @EnvironmentObject var activityViewModel: ActivityViewModel
+    @Environment(\.displayScale) var displayScale
     @Environment(\.scenePhase) var scenePhase
     
     @State private var runConfetti: Int = 0
@@ -131,7 +132,11 @@ struct MemoriesHomeView: View {
                         VStack {
                             // Activity widget -----------------------------------------------------
                             if !activityViewModel.isFetching {
-                                MemoriesWidgetView(memory: activityViewModel.memory, error: activityViewModel.error)
+                                MemoriesWidgetView(
+                                    memory: activityViewModel.memory,
+                                    error: activityViewModel.error,
+                                    withBadges: true
+                                )
                                     .frame(maxWidth: .infinity, minHeight: 162, idealHeight: 162, maxHeight: 162)
                                     .background(Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)))
                                     .cornerRadius(20)
@@ -349,9 +354,50 @@ struct MemoriesHomeView: View {
             if url.absoluteString == "memories://share-from-widget" {
                 self.isShowingShareSheet = true
             }
-        }.sheet(isPresented: self.$isShowingShareSheet, onDismiss: {}) {
-            ActivityViewController()
+        }.sheet(isPresented: self.$isShowingShareSheet) {
+            ActivityViewController(items: self.buildShareItems())
         }
+    }
+    
+    func buildShareItems() -> [Any] {
+        var items: [Any] = [
+            "Memory from Memories for Strava ❤️ <https://apps.apple.com/fr/app/memories-widgets-pour-strava/id6448870765>",
+        ]
+        
+        if #available(iOS 16.0, *), let image = self.renderAsImage() {
+            items.append(image)
+        }
+        
+        return items
+    }
+    
+    @available(iOS 16.0, *)
+    func renderAsImage() -> UIImage? {
+        let view = HStack(alignment: .center) {
+            VStack(alignment: .center) {
+                MemoriesWidgetView(
+                    memory: activityViewModel.memory,
+                    error: activityViewModel.error,
+                    withBadges: false
+                )
+                    .frame(width: 360, height: 170)
+                    .cornerRadius(15)
+                    .padding(15)
+            }
+        }
+            .background(.white)
+            .cornerRadius(15)
+        
+        let renderer = ImageRenderer(content: view)
+
+        // make sure and use the correct display scale for this device
+        renderer.scale = displayScale
+
+        if let uiImage = renderer.uiImage {
+            return uiImage
+        }
+        
+        return nil
     }
     
     func forceRefreshMemory() async {
@@ -658,8 +704,10 @@ struct MemoriesHomeView_Previews: PreviewProvider {
 }
 
 struct ActivityViewController: UIViewControllerRepresentable {
+    let items: [Any]
+    
     func makeUIViewController(context: Context) -> UIActivityViewController {
-        UIActivityViewController(activityItems: ["I'm sharing that to you 😁"], applicationActivities: nil)
+        return UIActivityViewController(activityItems: items, applicationActivities: nil)
     }
     
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {

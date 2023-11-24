@@ -91,6 +91,7 @@ struct MemoriesWidgetView: View {
     
     let memory: Memory?
     let error: ActivityError?
+    let withBadges: Bool
     
     var body: some View {
         
@@ -103,21 +104,23 @@ struct MemoriesWidgetView: View {
                     ImageContainerView(activity: memory.activity)
                         .zIndex(1)
                     
-                    HStack {
-                        Spacer()
-                        VStack(alignment: .trailing) {
-                            Link(destination: URL(string: "memories://share-from-widget")!) {
-                                ShareBadgeView()
-                            }
-                            
-                            if memory.type == .xYearsAgo {
-                                XYearsAgoBadgeView(years: memory.activity.xYearsAgo)
-                            }
+                    if withBadges {
+                        HStack {
                             Spacer()
+                            VStack(alignment: .trailing) {
+                                Link(destination: URL(string: "memories://share-from-widget")!) {
+                                    ShareBadgeView()
+                                }
+                                
+                                if memory.type == .xYearsAgo {
+                                    XYearsAgoBadgeView(years: memory.activity.xYearsAgo)
+                                }
+                                Spacer()
+                            }
                         }
+                        .padding(12)
+                        .zIndex(2)
                     }
-                    .padding(12)
-                    .zIndex(2)
                     
                     
                     // text container
@@ -182,7 +185,7 @@ struct BackgroundView: View {
 
 struct MemoriesWidgetView_Previews: PreviewProvider {
     static var previews: some View {
-        MemoriesWidgetView(memory: nil, error: .notLoggedIn)
+        MemoriesWidgetView(memory: nil, error: .notLoggedIn, withBadges: true)
     }
 }
 
