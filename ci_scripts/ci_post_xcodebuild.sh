@@ -8,7 +8,7 @@ export INSTALL_DIR=$PWD
 
 if [[ $(command -v sentry-cli) == "" ]]; then
     echo "Installing Sentry CLI"
-    brew install getsentry/tools/sentry-cli
+    brew install getsentry/tools/sentry-cli@2.22.1
 fi
 
 echo "Uploading dSYM to Sentry"
