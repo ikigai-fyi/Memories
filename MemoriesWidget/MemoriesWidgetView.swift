@@ -103,18 +103,22 @@ struct MemoriesWidgetView: View {
                     ImageContainerView(activity: memory.activity)
                         .zIndex(1)
                     
-                    // X years ago badge
-                    if memory.type == .xYearsAgo {
-                        VStack {
-                            HStack {
-                                Spacer()
+                    HStack {
+                        Spacer()
+                        VStack(alignment: .trailing) {
+                            Link(destination: URL(string: "memories://share-from-widget")!) {
+                                ShareBadgeView()
+                            }
+                            
+                            if memory.type == .xYearsAgo {
                                 XYearsAgoBadgeView(years: memory.activity.xYearsAgo)
                             }
                             Spacer()
                         }
-                        .padding(8)
-                        .zIndex(2)
                     }
+                    .padding(12)
+                    .zIndex(2)
+                    
                     
                     // text container
                     VStack(alignment: .leading, spacing: 4.0) {

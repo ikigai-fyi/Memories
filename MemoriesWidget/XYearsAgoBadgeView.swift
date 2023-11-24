@@ -20,29 +20,27 @@ public struct XYearsAgoBadgeView: View {
     }
     
     public var body: some View {
-        HStack(spacing: 4) {
-            if #available(iOS 16, *) {
-                Image(systemName: "birthday.cake").font(.caption)
-                    .foregroundColor(MemoriesRed)
-            }
-            Text(self.contentString)
-                .font(.caption)
-                .fontWeight(.semibold)
-                .foregroundStyle(
-                    .linearGradient(
-                        colors: [
-                            MemoriesRed,
-                            MemoriesPurple
-                        ],
-                        startPoint: .leading,
-                        endPoint: .trailing
+        BadgeView {
+            HStack(spacing: 4) {
+                if #available(iOS 16, *) {
+                    Image(systemName: "birthday.cake").font(.caption)
+                        .foregroundColor(MemoriesRed)
+                }
+                Text(self.contentString)
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(
+                        .linearGradient(
+                            colors: [
+                                MemoriesRed,
+                                MemoriesPurple
+                            ],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
                     )
-                )
+            }
         }
-        .padding([.bottom, .top], 6)
-        .padding([.leading, .trailing], 8)
-        .background(.regularMaterial)
-        .clipShape(Capsule(style: .circular))
     }
 }
 

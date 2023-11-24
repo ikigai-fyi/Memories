@@ -344,7 +344,11 @@ struct MemoriesHomeView: View {
                 
                 
             }.zIndex(5)
-        } // GeometryView
+        }.onOpenURL{ url in
+            if url.absoluteString == "memories://share-from-widget" {
+                self.triggerConfettis()
+            }
+        }
     }
     
     func forceRefreshMemory() async {
