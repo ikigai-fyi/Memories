@@ -360,10 +360,11 @@ struct MemoriesHomeView: View {
     }
     
     func buildShareItems() -> [Any] {
-        var items: [Any] = [
-            "Memory from Memories for Strava ❤️ <https://apps.apple.com/fr/app/memories-widgets-pour-strava/id6448870765>",
-        ]
+        let shareMessage = NSLocalizedString("widget_share_message", comment: "comment")
+        let appUrl = NSLocalizedString("url_app", comment: "comment")
+        let text = "\(shareMessage) <\(appUrl)>"
         
+        var items: [Any] = [text]
         if #available(iOS 16.0, *), let image = self.renderAsImage() {
             items.append(image)
         }
