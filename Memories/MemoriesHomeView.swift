@@ -352,10 +352,14 @@ struct MemoriesHomeView: View {
                 
             }.zIndex(5)
         }.onOpenURL{ url in
-            if url.absoluteString.hasPrefix("memories://share-memory") {
-                let from = url.absoluteString.hasSuffix("from-widget") ? "widget" : "preview"
-                Analytics.capture(event: .shareMemory, eventProperties: [.from: from])
+            switch Deeplink(from: url) {
+            case .shareMemoryFromPreview:
+                Analytics.capture(event: .shareMemory, eventProperties: [.from: "preview"])
                 self.isShowingShareSheet = true
+            case .shareMemoryFromWidget:
+                Analytics.capture(event: .shareMemory, eventProperties: [.from: "widget"])
+                self.isShowingShareSheet = true
+            case nil: return
             }
         }.sheet(isPresented: self.$isShowingShareSheet) {
             ShareView(items: self.buildShareItems())

@@ -10,6 +10,9 @@
 		2D3779122A1EB80D00629BE3 /* Activity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E42106B32A0ECB5300187A74 /* Activity.framework */; };
 		2D3779172A1EB90800629BE3 /* MemoriesWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E48E097F2A05BF98002456E5 /* MemoriesWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2D3874E52B12232300B2E7B6 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3874E42B12232300B2E7B6 /* ShareView.swift */; };
+		2D3874E72B1228C900B2E7B6 /* Deeplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3874E62B1228C900B2E7B6 /* Deeplink.swift */; };
+		2D3874E82B1228C900B2E7B6 /* Deeplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3874E62B1228C900B2E7B6 /* Deeplink.swift */; };
+		2D3874E92B1228C900B2E7B6 /* Deeplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3874E62B1228C900B2E7B6 /* Deeplink.swift */; };
 		2D3BB7212A629D58003EF280 /* Crisp in Frameworks */ = {isa = PBXBuildFile; productRef = 2D3BB7202A629D58003EF280 /* Crisp */; };
 		2D3BB72A2A6338D3003EF280 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2D3BB72E2A6338D3003EF280 /* Localizable.strings */; };
 		2D3BB72B2A6338D3003EF280 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2D3BB72E2A6338D3003EF280 /* Localizable.strings */; };
@@ -112,6 +115,7 @@
 
 /* Begin PBXFileReference section */
 		2D3874E42B12232300B2E7B6 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
+		2D3874E62B1228C900B2E7B6 /* Deeplink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deeplink.swift; sourceTree = "<group>"; };
 		2D3BB72D2A6338D3003EF280 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2D3BB72F2A6338E8003EF280 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2D3DBEEB2A6C086C00B2685B /* FakeBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeBehaviour.swift; sourceTree = "<group>"; };
@@ -207,6 +211,7 @@
 				2DCAC7A32A208FE7007A11F9 /* Config.swift */,
 				E402A3812A05D3A400C2F3B0 /* Helper.swift */,
 				E468D3FC2A0663E50017070A /* Analytics.swift */,
+				2D3874E62B1228C900B2E7B6 /* Deeplink.swift */,
 				E402A3802A05D30300C2F3B0 /* MemoriesWidgetExtension.entitlements */,
 				2D3BB72E2A6338D3003EF280 /* Localizable.strings */,
 				2DE5908D2A052D890041EA4D /* Memories */,
@@ -482,6 +487,7 @@
 				2D4211452B10EDEB0085AA78 /* XYearsAgoBadgeView.swift in Sources */,
 				E4604FC12A05C55100D838DF /* MemoriesWidget.swift in Sources */,
 				E468D3FD2A0663E50017070A /* Analytics.swift in Sources */,
+				2D3874E72B1228C900B2E7B6 /* Deeplink.swift in Sources */,
 				2DCAC7A42A208FE7007A11F9 /* Config.swift in Sources */,
 				2DE590BF2A053D9C0041EA4D /* StravaLoginView.swift in Sources */,
 				E4604FC42A05C98800D838DF /* MemoriesWidgetView.swift in Sources */,
@@ -507,6 +513,7 @@
 				2D5EAEE42A1D51B400FB9C33 /* ActivityViewModel.swift in Sources */,
 				2DCAC7A62A208FE7007A11F9 /* Config.swift in Sources */,
 				2D5EAEE62A1D521A00FB9C33 /* Analytics.swift in Sources */,
+				2D3874E92B1228C900B2E7B6 /* Deeplink.swift in Sources */,
 				2D85D72B2B0685350006C9F0 /* Memory.swift in Sources */,
 				2D5EAEE52A1D521400FB9C33 /* Helper.swift in Sources */,
 				2D3DBEEE2A6C17BD00B2685B /* ActivityError.swift in Sources */,
@@ -523,6 +530,7 @@
 				E4604FC32A05C6D100D838DF /* MemoriesWidgetView.swift in Sources */,
 				E48E09892A05BF98002456E5 /* MemoriesWidget.swift in Sources */,
 				E4A397112A616485009A2E6F /* Analytics.swift in Sources */,
+				2D3874E82B1228C900B2E7B6 /* Deeplink.swift in Sources */,
 				2DCAC7A52A208FE7007A11F9 /* Config.swift in Sources */,
 				2D4211442B10EC3D0085AA78 /* BadgeView.swift in Sources */,
 				E48E09872A05BF98002456E5 /* MemoriesWidgetBundle.swift in Sources */,

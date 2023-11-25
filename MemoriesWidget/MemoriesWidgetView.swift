@@ -109,8 +109,8 @@ struct MemoriesWidgetView: View {
                         HStack {
                             Spacer()
                             VStack(alignment: .trailing) {
-                                let destinationUrl = self.isInWidget ? "memories://share-memory-from-widget" : "memories://share-memory-from-preview"
-                                Link(destination: URL(string: destinationUrl)!) {
+                                let deeplink = self.isInWidget ? Deeplink.shareMemoryFromWidget : Deeplink.shareMemoryFromPreview
+                                Link(destination: deeplink.url) {
                                     ShareBadgeView()
                                 }
                                 
