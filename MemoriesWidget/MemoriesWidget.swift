@@ -74,7 +74,7 @@ struct MemoriesWidgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        MemoriesWidgetView(memory: entry.memory, error: entry.error, withBadges: true)
+        MemoriesWidgetView(memory: entry.memory, error: entry.error, withBadges: true, isInWidget: true)
     }
 }
 

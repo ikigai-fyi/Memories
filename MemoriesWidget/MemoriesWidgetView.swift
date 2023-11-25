@@ -92,6 +92,7 @@ struct MemoriesWidgetView: View {
     let memory: Memory?
     let error: ActivityError?
     let withBadges: Bool
+    let isInWidget: Bool
     
     var body: some View {
         
@@ -108,7 +109,8 @@ struct MemoriesWidgetView: View {
                         HStack {
                             Spacer()
                             VStack(alignment: .trailing) {
-                                Link(destination: URL(string: "memories://share-memory")!) {
+                                let destinationUrl = self.isInWidget ? "memories://share-memory-from-widget" : "memories://share-memory-from-preview"
+                                Link(destination: URL(string: destinationUrl)!) {
                                     ShareBadgeView()
                                 }
                                 
@@ -185,7 +187,7 @@ struct BackgroundView: View {
 
 struct MemoriesWidgetView_Previews: PreviewProvider {
     static var previews: some View {
-        MemoriesWidgetView(memory: nil, error: .notLoggedIn, withBadges: true)
+        MemoriesWidgetView(memory: nil, error: .notLoggedIn, withBadges: true, isInWidget: true)
     }
 }
 

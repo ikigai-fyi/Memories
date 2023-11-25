@@ -135,7 +135,8 @@ struct MemoriesHomeView: View {
                                 MemoriesWidgetView(
                                     memory: activityViewModel.memory,
                                     error: activityViewModel.error,
-                                    withBadges: true
+                                    withBadges: true,
+                                    isInWidget: false
                                 )
                                     .frame(maxWidth: .infinity, minHeight: 162, idealHeight: 162, maxHeight: 162)
                                     .background(Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)))
@@ -351,8 +352,9 @@ struct MemoriesHomeView: View {
                 
             }.zIndex(5)
         }.onOpenURL{ url in
-            if url.absoluteString == "memories://share-memory" {
-                Analytics.capture(event: .shareMemory)
+            if url.absoluteString.hasPrefix("memories://share-memory") {
+                let from = url.absoluteString.hasSuffix("from-widget") ? "widget" : "preview"
+                Analytics.capture(event: .shareMemory, eventProperties: [.from: from])
                 self.isShowingShareSheet = true
             }
         }.sheet(isPresented: self.$isShowingShareSheet) {
@@ -380,7 +382,8 @@ struct MemoriesHomeView: View {
                 MemoriesWidgetView(
                     memory: activityViewModel.memory,
                     error: activityViewModel.error,
-                    withBadges: false
+                    withBadges: false,
+                    isInWidget: false
                 )
                     .frame(width: 360, height: 170)
                     .cornerRadius(15)
