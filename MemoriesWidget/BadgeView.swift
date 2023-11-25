@@ -19,6 +19,7 @@ struct BadgeView<Content> : View where Content : View {
             .padding([.bottom, .top], 6)
             .padding([.leading, .trailing], 10)
             .background(.regularMaterial)
+            .environment(\.colorScheme, .light)
             .clipShape(Capsule(style: .circular))
     }
 }
