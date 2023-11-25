@@ -108,7 +108,7 @@ struct MemoriesWidgetView: View {
                         HStack {
                             Spacer()
                             VStack(alignment: .trailing) {
-                                Link(destination: URL(string: "memories://share-from-widget")!) {
+                                Link(destination: URL(string: "memories://share-memory")!) {
                                     ShareBadgeView()
                                 }
                                 

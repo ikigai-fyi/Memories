@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2D3779122A1EB80D00629BE3 /* Activity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E42106B32A0ECB5300187A74 /* Activity.framework */; };
 		2D3779172A1EB90800629BE3 /* MemoriesWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E48E097F2A05BF98002456E5 /* MemoriesWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2D3874E52B12232300B2E7B6 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3874E42B12232300B2E7B6 /* ShareView.swift */; };
 		2D3BB7212A629D58003EF280 /* Crisp in Frameworks */ = {isa = PBXBuildFile; productRef = 2D3BB7202A629D58003EF280 /* Crisp */; };
 		2D3BB72A2A6338D3003EF280 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2D3BB72E2A6338D3003EF280 /* Localizable.strings */; };
 		2D3BB72B2A6338D3003EF280 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2D3BB72E2A6338D3003EF280 /* Localizable.strings */; };
@@ -110,6 +111,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2D3874E42B12232300B2E7B6 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		2D3BB72D2A6338D3003EF280 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2D3BB72F2A6338E8003EF280 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2D3DBEEB2A6C086C00B2685B /* FakeBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeBehaviour.swift; sourceTree = "<group>"; };
@@ -236,8 +238,9 @@
 				E4E501B82A0E9A00009D4993 /* MemoriesHomeView.swift */,
 				E46FD4B42A0EA308000396EA /* WebView.swift */,
 				2D6064632B0FA8C50049D42C /* SettingsView.swift */,
-				2DE590BB2A053D710041EA4D /* Info.plist */,
 				2DE5908E2A052D890041EA4D /* MemoriesApp.swift */,
+				2D3874E42B12232300B2E7B6 /* ShareView.swift */,
+				2DE590BB2A053D710041EA4D /* Info.plist */,
 				2DE590922A052D8B0041EA4D /* Assets.xcassets */,
 				2DE590942A052D8B0041EA4D /* Preview Content */,
 			);
@@ -474,6 +477,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D3874E52B12232300B2E7B6 /* ShareView.swift in Sources */,
 				2D4211412B10E9D30085AA78 /* ShareBadgeView.swift in Sources */,
 				2D4211452B10EDEB0085AA78 /* XYearsAgoBadgeView.swift in Sources */,
 				E4604FC12A05C55100D838DF /* MemoriesWidget.swift in Sources */,

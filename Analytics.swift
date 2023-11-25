@@ -49,6 +49,7 @@ struct Analytics {
         case viewLoginScreen
         case viewHomeScreen
         case viewSettingsScreen
+        case viewShareScreen
         
         // actions
         case connectStrava
@@ -66,6 +67,7 @@ struct Analytics {
         case openActivityOnStrava
         case updateSettingMeasurementSystem
         case updateSettingRefreshRatePerDay
+        case shareMemory
 
         // lifecycle
         case appActive

@@ -351,11 +351,12 @@ struct MemoriesHomeView: View {
                 
             }.zIndex(5)
         }.onOpenURL{ url in
-            if url.absoluteString == "memories://share-from-widget" {
+            if url.absoluteString == "memories://share-memory" {
+                Analytics.capture(event: .shareMemory)
                 self.isShowingShareSheet = true
             }
         }.sheet(isPresented: self.$isShowingShareSheet) {
-            ActivityViewController(items: self.buildShareItems())
+            ShareView(items: self.buildShareItems())
         }
     }
     
@@ -701,16 +702,5 @@ struct SheetVideoView : View {
 struct MemoriesHomeView_Previews: PreviewProvider {
     static var previews: some View {
         MemoriesHomeView()
-    }
-}
-
-struct ActivityViewController: UIViewControllerRepresentable {
-    let items: [Any]
-    
-    func makeUIViewController(context: Context) -> UIActivityViewController {
-        return UIActivityViewController(activityItems: items, applicationActivities: nil)
-    }
-    
-    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {
     }
 }
