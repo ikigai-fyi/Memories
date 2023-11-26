@@ -396,7 +396,7 @@ struct MemoriesHomeView: View {
             }
         }
             .background(.white)
-            .cornerRadius(15)
+            .cornerRadius(30)
         
         let renderer = ImageRenderer(content: view)
 
