@@ -13,7 +13,7 @@ import PostHog
 @main
 struct MemoriesApp: App {
     @StateObject var loginViewModel = StravaLoginViewModel()
-    @StateObject var activityViewModel = ActivityViewModel()
+    @StateObject var memoryViewModel = MemoryViewModel()
     @Environment(\.scenePhase) var scenePhase
 
     
@@ -39,7 +39,7 @@ struct MemoriesApp: App {
             if loginViewModel.athlete == nil {
                 StravaLoginView().environmentObject(loginViewModel)
             } else {
-                MemoriesHomeView().environmentObject(loginViewModel).environmentObject(activityViewModel)
+                MemoriesHomeView().environmentObject(loginViewModel).environmentObject(memoryViewModel)
             }
         }.onChange(of: scenePhase) { newPhase in
             switch newPhase {

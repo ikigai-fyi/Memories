@@ -1,5 +1,5 @@
 //
-//  ActivityViewModel.swift
+//  memoryViewModel.swift
 //  Activity
 //
 //  Created by Paul Nicolet on 23/05/2023.
@@ -9,7 +9,7 @@ import Foundation
 import WidgetKit
 import Sentry
 
-class ActivityViewModel: NSObject, ObservableObject {
+class MemoryViewModel: NSObject, ObservableObject {
     @Published var memory: Memory? = nil
     @Published var error: ActivityError? = nil
     @Published var isFetching: Bool = false

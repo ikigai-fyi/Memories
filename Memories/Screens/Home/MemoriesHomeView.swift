@@ -16,7 +16,7 @@ import AVKit
 
 struct MemoriesHomeView: View {
     @EnvironmentObject var loginViewModel: StravaLoginViewModel
-    @EnvironmentObject var activityViewModel: ActivityViewModel
+    @EnvironmentObject var memoryViewModel: MemoryViewModel
     @Environment(\.displayScale) var displayScale
     @Environment(\.scenePhase) var scenePhase
     
@@ -38,11 +38,11 @@ struct MemoriesHomeView: View {
     @State var titleEgg = false
     
     var previewRefreshButtonTextColor: Color {
-        return activityViewModel.isFetchingInitial ? .gray : .black
+        return memoryViewModel.isFetchingInitial ? .gray : .black
     }
     
     var refreshButtonTextColor: Color {
-        return activityViewModel.isFetchingInitial ? .white.opacity(0.7) : .white
+        return memoryViewModel.isFetchingInitial ? .white.opacity(0.7) : .white
     }
 
     var body: some View {
@@ -135,10 +135,10 @@ struct MemoriesHomeView: View {
                         
                         VStack {
                             // Activity widget -----------------------------------------------------
-                            if !self.activityViewModel.isFetchingInitial {
+                            if !self.memoryViewModel.isFetchingInitial {
                                 MemoriesWidgetView(
-                                    memory: activityViewModel.memory,
-                                    error: activityViewModel.error,
+                                    memory: memoryViewModel.memory,
+                                    error: memoryViewModel.error,
                                     withBadges: true,
                                     isInWidget: false
                                 )
@@ -146,10 +146,10 @@ struct MemoriesHomeView: View {
                                     .background(Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)))
                                     .cornerRadius(20)
                                     .shadow(color: Color.black.opacity(0.3), radius: 18)
-                                    .id(activityViewModel.stateValue)
+                                    .id(memoryViewModel.stateValue)
                                     .onTapGesture {
                                         guard
-                                            let activity = activityViewModel.memory?.activity,
+                                            let activity = memoryViewModel.memory?.activity,
                                             let stravaUrl = activity.stravaUrl
                                         else { return }
                                                                                 
@@ -186,7 +186,7 @@ struct MemoriesHomeView: View {
                                     }  icon: {
                                         Image(systemName: "arrow.clockwise")
                                     }.font(.system(size: 12)).foregroundColor(previewRefreshButtonTextColor)
-                                }.disabled(activityViewModel.isFetching)
+                                }.disabled(memoryViewModel.isFetching)
                             } else {
                                 HStack{
                                     
@@ -206,12 +206,12 @@ struct MemoriesHomeView: View {
                                     .background(.blue)
                                     .foregroundColor(.blue)
                                     .cornerRadius(35)
-                                    .disabled(activityViewModel.isFetching)
+                                    .disabled(memoryViewModel.isFetching)
                                     
                                     
                                     Button {
                                         guard
-                                            let activity = activityViewModel.memory?.activity,
+                                            let activity = memoryViewModel.memory?.activity,
                                             let stravaUrl = activity.stravaUrl
                                         else { return }
 
@@ -261,7 +261,7 @@ struct MemoriesHomeView: View {
                     .onAppear{
                         // First render
                         Task {
-                            await self.activityViewModel.fetchMemory()
+                            await self.memoryViewModel.fetchMemory()
                         }
                     }
                     .onChange(of: scenePhase) { newPhase in
@@ -269,7 +269,7 @@ struct MemoriesHomeView: View {
                         switch newPhase {
                         case .active:
                             Task {
-                                await self.activityViewModel.fetchMemory()
+                                await self.memoryViewModel.fetchMemory()
                             }
                             
                             // request review
@@ -384,8 +384,8 @@ struct MemoriesHomeView: View {
         let view = HStack(alignment: .center) {
             VStack(alignment: .center) {
                 MemoriesWidgetView(
-                    memory: activityViewModel.memory,
-                    error: activityViewModel.error,
+                    memory: memoryViewModel.memory,
+                    error: memoryViewModel.error,
                     withBadges: false,
                     isInWidget: false
                 )
@@ -412,18 +412,18 @@ struct MemoriesHomeView: View {
     func forceRefreshMemory() async {
         Analytics.capture(event: .refreshActivities)
         
-        await activityViewModel.fetchMemory(refresh: true)
+        await memoryViewModel.fetchMemory(refresh: true)
         self.forceRenderWidgetViews()
         self.triggerConfettis()
     }
     
     func forceRenderWidgetViews() {
-        self.activityViewModel.stateValue += 1
+        self.memoryViewModel.stateValue += 1
         WidgetCenter.shared.reloadAllTimelines()
     }
     
     private func triggerConfettis() {
-        switch self.activityViewModel.memory?.activity.getSportType() {
+        switch self.memoryViewModel.memory?.activity.getSportType() {
         case "Run": self.runConfetti += 1
         case "Ride": self.bikeConfetti += 1
         case "AlpineSki", "NordicSki": self.skiConfetti += 1

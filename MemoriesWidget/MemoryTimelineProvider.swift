@@ -10,7 +10,7 @@ import WidgetKit
 import Sentry
 
 struct MemoryTimelineProvider: TimelineProvider {
-    private let viewModel = ActivityViewModel()
+    private let viewModel = MemoryViewModel()
     
     func placeholder(in context: Context) -> MemoryTimelineEntry {
         return MemoryTimelineEntry(date: Date())
