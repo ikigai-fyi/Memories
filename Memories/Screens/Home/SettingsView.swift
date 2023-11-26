@@ -6,12 +6,11 @@
 //
 
 import SwiftUI
-import Activity
 import Crisp
 import Sentry
 
 struct SettingsView: View {
-    @EnvironmentObject var activityViewModel: ActivityViewModel
+    @EnvironmentObject var memoryViewModel: MemoryViewModel
     @EnvironmentObject var loginViewModel: StravaLoginViewModel
     
     // inherited
@@ -138,17 +137,17 @@ struct SettingsView: View {
                 
                 if Config.isDev {
                     Section(header: Text("Developer")){
-                        Button("Set fake behaviour (\(activityViewModel.fakeBehaviour?.title ?? "none"))") {
+                        Button("Set fake behaviour (\(memoryViewModel.fakeBehaviour?.title ?? "none"))") {
                             showingFakeBehaviourAlert = true
                         }.alert ("Set fake behaviour", isPresented: $showingFakeBehaviourAlert) {
                             Button("Remove fake behaviour") {
-                                activityViewModel.fakeBehaviour = nil
+                                memoryViewModel.fakeBehaviour = nil
                             }
                             Button(FakeBehaviour.noActivity.title) {
-                                activityViewModel.fakeBehaviour = .noActivity
+                                memoryViewModel.fakeBehaviour = .noActivity
                             }
                             Button(FakeBehaviour.noPicture.title) {
-                                activityViewModel.fakeBehaviour = .noPicture
+                                memoryViewModel.fakeBehaviour = .noPicture
                             }
                         }
                     }

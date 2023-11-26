@@ -15,11 +15,11 @@ let appGroupName = Config.appGroupName
 let userDefaultAthlete = "athlete"
 
 @MainActor
-public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentationContextProviding {
-    @Published public var isLoading: Bool = false
-    @Published public var athlete: Athlete? = getAthleteFromUserDefault()
+class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentationContextProviding {
+    @Published var isLoading: Bool = false
+    @Published var athlete: Athlete? = getAthleteFromUserDefault()
     
-    public func startWebOauth() {
+    func startWebOauth() {
         let session = ASWebAuthenticationSession(url: self.getStravaWebUrl(), callbackURLScheme: "memories")
         { callbackURL, error in
             self.isLoading = false
@@ -35,7 +35,7 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
         session.start()
     }
     
-    public func handleOauthRedirect(url: URL) async {
+    func handleOauthRedirect(url: URL) async {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
               let code = components.queryItems?.first(where: { $0.name == "code" })?.value,
               let scope = components.queryItems?.first(where: { $0.name == "scope" })?.value
@@ -60,7 +60,7 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
         
     }
     
-    public func loginWithStrava(code: String, scope: String) async {
+    func loginWithStrava(code: String, scope: String) async {
         let url = URL(string: "\(Config.backendURL)/rest/auth/login/strava")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -90,7 +90,7 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
         }
     }
     
-    public func deleteAccount() async {
+    func deleteAccount() async {
         let url = URL(string: "\(Config.backendURL)/rest/auth/delete")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -121,7 +121,7 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
         return components.url!
     }
     
-    public func getStravaMobileUrl() -> URL {
+    func getStravaMobileUrl() -> URL {
         var components = URLComponents()
         components.scheme = "strava"
         components.host = "oauth"
@@ -141,11 +141,11 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
         ]
     }
     
-    public func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
         return ASPresentationAnchor()
     }
     
-    public static func getAthleteFromUserDefault() -> Athlete? {
+    static func getAthleteFromUserDefault() -> Athlete? {
         if let userDefaults = UserDefaults(suiteName: appGroupName) {
             if let data = userDefaults.data(forKey: userDefaultAthlete) {
                 return try? JSONDecoder().decode(Athlete.self, from: data)
@@ -155,15 +155,15 @@ public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticati
         return nil
     }
     
-    public static func isLoggedIn() -> Bool {
+    static func isLoggedIn() -> Bool {
         return self.getAthleteFromUserDefault() != nil
     }
     
-    public static func athleteIdIfLoggedIn() -> String? {
+    static func athleteIdIfLoggedIn() -> String? {
         return self.getAthleteFromUserDefault()?.uuid
     }
     
-    public func logout() {
+    func logout() {
         self.athlete = nil
         self.saveAthleteToUserDefault(athlete: nil)
         

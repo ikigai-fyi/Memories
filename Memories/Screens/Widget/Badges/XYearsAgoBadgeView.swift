@@ -10,11 +10,11 @@ import SwiftUI
 let MemoriesRed = Color(red: 249/255, green: 59/255, blue: 121/255)
 let MemoriesPurple = Color(red: 161/255, green: 91/255, blue: 226/255)
 
-public struct XYearsAgoBadgeView: View {
+struct XYearsAgoBadgeView: View {
     let years: Int
     private let contentString: String
     
-    public init(years: Int) {
+    init(years: Int) {
         self.years = years
         self.contentString = String(format: NSLocalizedString(self.years > 1 ? "%d years" : "%d year", comment: ""), self.years)
     }

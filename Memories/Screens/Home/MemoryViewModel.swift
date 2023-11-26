@@ -1,5 +1,5 @@
 //
-//  ActivityViewModel.swift
+//  memoryViewModel.swift
 //  Activity
 //
 //  Created by Paul Nicolet on 23/05/2023.
@@ -9,25 +9,33 @@ import Foundation
 import WidgetKit
 import Sentry
 
-public class ActivityViewModel: NSObject, ObservableObject {
-    @Published public var memory: Memory? = nil
-    @Published public var error: ActivityError? = nil
-    @Published public var isFetching: Bool = false
+class MemoryViewModel: NSObject, ObservableObject {
+    @Published var memory: Memory? = nil
+    @Published var error: ActivityError? = nil
+    @Published var isFetching: Bool = false
     
     // Honest work: just an integer that is bound to views that need to be refreshed sometimes
     // For instance, to force a widget preview refresh after settings change, just increase this value
     // Usage: View().id(viewModel.stateValue)
-    @Published public var stateValue: Int = 0
+    @Published var stateValue: Int = 0
     
-    public var fakeBehaviour: FakeBehaviour? = nil
+    var fakeBehaviour: FakeBehaviour? = nil
     
-    public var hasMemory: Bool {
+    private var hasMemory: Bool {
         return self.memory != nil
+    }
+    
+    var isFetchingInitial: Bool {
+        return self.isFetching && !self.hasMemory
     }
     
     
     @MainActor
-    public func fetchMemory(refresh: Bool = false) async {
+    func fetchMemory(refresh: Bool = false) async {
+        if refresh {
+            self.memory = nil
+        }
+        
         self.isFetching = true
         var url = URLComponents(string: "\(Config.backendURL)/rest/memories/current")!
         if refresh {

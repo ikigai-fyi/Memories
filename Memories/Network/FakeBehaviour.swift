@@ -9,18 +9,18 @@ import Foundation
 
 /// Define behaviours to ease dev experience
 /// This works only because JWTs have infinite lifetime as of today
-public enum FakeBehaviour {
+enum FakeBehaviour {
     case noActivity
     case noPicture
     
-    public var title: String {
+    var title: String {
         switch self {
         case .noActivity: return "No activity"
         case .noPicture: return "No picture"
         }
     }
     
-    public var jwt: String {
+    var jwt: String {
         switch self {
         case .noActivity:
             // Strava user: "nicoletpaul+teststrava+noactivity@..."

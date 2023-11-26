@@ -7,12 +7,12 @@
 
 import Foundation
 
-public class Memory: Codable {
+class Memory: Codable {
     public let activity: Activity
     public let type: MemoryType
 }
 
-public enum MemoryType : String, Codable {
+enum MemoryType : String, Codable {
     case random = "random"
     case xYearsAgo = "x_years_ago"
 }
