@@ -9,7 +9,7 @@ import Foundation
 import WidgetKit
 import Sentry
 
-public class ActivityViewModel: NSObject, ObservableObject {
+class ActivityViewModel: NSObject, ObservableObject {
     @Published public var memory: Memory? = nil
     @Published public var error: ActivityError? = nil
     @Published public var isFetching: Bool = false

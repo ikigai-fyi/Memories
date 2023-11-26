@@ -19,8 +19,6 @@
 		2D0A72A92B13AADB00C1B561 /* Athlete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C61DC2A1D59040050AAB0 /* Athlete.swift */; };
 		2D0A72AA2B13AAEA00C1B561 /* Athlete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C61DC2A1D59040050AAB0 /* Athlete.swift */; };
 		2D0A72AB2B13AAED00C1B561 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42106BF2A0ECB6900187A74 /* Activity.swift */; };
-		2D0A72AC2B13AAF000C1B561 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5EAEE32A1D51B400FB9C33 /* ActivityViewModel.swift */; };
-		2D0A72AD2B13AAF200C1B561 /* StravaLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE590BC2A053D9C0041EA4D /* StravaLoginViewModel.swift */; };
 		2D0A72AE2B13AAF400C1B561 /* DateFormatter+standard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C61E02A1D5D3B0050AAB0 /* DateFormatter+standard.swift */; };
 		2D0A72AF2B13AAF600C1B561 /* FakeBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3DBEEB2A6C086C00B2685B /* FakeBehaviour.swift */; };
 		2D0A72B02B13AAF900C1B561 /* ActivityError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3DBEED2A6C17BD00B2685B /* ActivityError.swift */; };
@@ -47,6 +45,8 @@
 		2D6064642B0FA8C50049D42C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6064632B0FA8C50049D42C /* SettingsView.swift */; };
 		2DAB2A632B13AD4700C45C09 /* MemoryTimelineEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB2A622B13AD4700C45C09 /* MemoryTimelineEntry.swift */; };
 		2DAB2A652B13AD7900C45C09 /* MemoryTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB2A642B13AD7900C45C09 /* MemoryTimelineProvider.swift */; };
+		2DAB2A6E2B13B0D300C45C09 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5EAEE32A1D51B400FB9C33 /* ActivityViewModel.swift */; };
+		2DAB2A6F2B13B0E900C45C09 /* StravaLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE590BC2A053D9C0041EA4D /* StravaLoginViewModel.swift */; };
 		2DCAC7A42A208FE7007A11F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCAC7A32A208FE7007A11F9 /* Config.swift */; };
 		2DCAC7A52A208FE7007A11F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCAC7A32A208FE7007A11F9 /* Config.swift */; };
 		2DE590932A052D8B0041EA4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DE590922A052D8B0041EA4D /* Assets.xcassets */; };
@@ -187,15 +187,97 @@
 			path = ci_scripts;
 			sourceTree = "<group>";
 		};
+		2DAB2A662B13AE8B00C45C09 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2D7C61DC2A1D59040050AAB0 /* Athlete.swift */,
+				E42106BF2A0ECB6900187A74 /* Activity.swift */,
+				E4101AD22A6FA767000E2B31 /* ActivityType.swift */,
+				2D85D72A2B0685350006C9F0 /* Memory.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		2DAB2A672B13AEE500C45C09 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				2DE590BD2A053D9C0041EA4D /* StravaLoginView.swift */,
+				2DE590BC2A053D9C0041EA4D /* StravaLoginViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		2DAB2A682B13AF3C00C45C09 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				E4E501B82A0E9A00009D4993 /* MemoriesHomeView.swift */,
+				2D3874E42B12232300B2E7B6 /* ShareView.swift */,
+				2D6064632B0FA8C50049D42C /* SettingsView.swift */,
+				2D5EAEE32A1D51B400FB9C33 /* ActivityViewModel.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		2DAB2A692B13AF8900C45C09 /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				E4604FC22A05C6D100D838DF /* MemoriesWidgetView.swift */,
+				2DAB2A6D2B13B07300C45C09 /* Badges */,
+			);
+			path = Widget;
+			sourceTree = "<group>";
+		};
+		2DAB2A6A2B13AFCE00C45C09 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				2D3DBEEF2A6C188000B2685B /* APIError.swift */,
+				2D3DBEED2A6C17BD00B2685B /* ActivityError.swift */,
+				2D3DBEEB2A6C086C00B2685B /* FakeBehaviour.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		2DAB2A6B2B13B00000C45C09 /* CommonViews */ = {
+			isa = PBXGroup;
+			children = (
+				E46FD4B42A0EA308000396EA /* WebView.swift */,
+			);
+			path = CommonViews;
+			sourceTree = "<group>";
+		};
+		2DAB2A6C2B13B01400C45C09 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2D7C61E02A1D5D3B0050AAB0 /* DateFormatter+standard.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		2DAB2A6D2B13B07300C45C09 /* Badges */ = {
+			isa = PBXGroup;
+			children = (
+				2D4211422B10EC3D0085AA78 /* BadgeView.swift */,
+				2D42113F2B10E97E0085AA78 /* ShareBadgeView.swift */,
+				2D85D72C2B07996B0006C9F0 /* XYearsAgoBadgeView.swift */,
+			);
+			path = Badges;
+			sourceTree = "<group>";
+		};
+		2DAB2A702B13B10100C45C09 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				2DAB2A672B13AEE500C45C09 /* Login */,
+				2DAB2A682B13AF3C00C45C09 /* Home */,
+				2DAB2A692B13AF8900C45C09 /* Widget */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
 		2DE590822A052D890041EA4D = {
 			isa = PBXGroup;
 			children = (
 				2DCAC7A12A208D93007A11F9 /* dev.xcconfig */,
 				2DCAC7A22A208DA2007A11F9 /* prod.xcconfig */,
-				2DCAC7A32A208FE7007A11F9 /* Config.swift */,
-				E402A3812A05D3A400C2F3B0 /* Helper.swift */,
-				E468D3FC2A0663E50017070A /* Analytics.swift */,
-				2D3874E62B1228C900B2E7B6 /* Deeplink.swift */,
 				E402A3802A05D30300C2F3B0 /* MemoriesWidgetExtension.entitlements */,
 				2D3BB72E2A6338D3003EF280 /* Localizable.strings */,
 				2DE5908D2A052D890041EA4D /* Memories */,
@@ -221,26 +303,16 @@
 			isa = PBXGroup;
 			children = (
 				E402A37D2A05D27F00C2F3B0 /* Memories.entitlements */,
-				2DE590BD2A053D9C0041EA4D /* StravaLoginView.swift */,
-				E4E501B82A0E9A00009D4993 /* MemoriesHomeView.swift */,
-				E46FD4B42A0EA308000396EA /* WebView.swift */,
-				2D6064632B0FA8C50049D42C /* SettingsView.swift */,
 				2DE5908E2A052D890041EA4D /* MemoriesApp.swift */,
-				2D3874E42B12232300B2E7B6 /* ShareView.swift */,
-				2D7C61DC2A1D59040050AAB0 /* Athlete.swift */,
-				E42106BF2A0ECB6900187A74 /* Activity.swift */,
-				2D5EAEE32A1D51B400FB9C33 /* ActivityViewModel.swift */,
-				2DE590BC2A053D9C0041EA4D /* StravaLoginViewModel.swift */,
-				2D7C61E02A1D5D3B0050AAB0 /* DateFormatter+standard.swift */,
-				2D3DBEEB2A6C086C00B2685B /* FakeBehaviour.swift */,
-				2D3DBEED2A6C17BD00B2685B /* ActivityError.swift */,
-				2D3DBEEF2A6C188000B2685B /* APIError.swift */,
-				E4101AD22A6FA767000E2B31 /* ActivityType.swift */,
-				2D85D72A2B0685350006C9F0 /* Memory.swift */,
-				E4604FC22A05C6D100D838DF /* MemoriesWidgetView.swift */,
-				2D85D72C2B07996B0006C9F0 /* XYearsAgoBadgeView.swift */,
-				2D42113F2B10E97E0085AA78 /* ShareBadgeView.swift */,
-				2D4211422B10EC3D0085AA78 /* BadgeView.swift */,
+				2DAB2A702B13B10100C45C09 /* Screens */,
+				2DAB2A6A2B13AFCE00C45C09 /* Network */,
+				2DAB2A662B13AE8B00C45C09 /* Models */,
+				2DAB2A6B2B13B00000C45C09 /* CommonViews */,
+				2DAB2A6C2B13B01400C45C09 /* Extensions */,
+				2DCAC7A32A208FE7007A11F9 /* Config.swift */,
+				E402A3812A05D3A400C2F3B0 /* Helper.swift */,
+				E468D3FC2A0663E50017070A /* Analytics.swift */,
+				2D3874E62B1228C900B2E7B6 /* Deeplink.swift */,
 				2DE590BB2A053D710041EA4D /* Info.plist */,
 				2DE590922A052D8B0041EA4D /* Assets.xcassets */,
 				2DE590942A052D8B0041EA4D /* Preview Content */,
@@ -449,12 +521,12 @@
 			files = (
 				2D4211462B10EDEB0085AA78 /* XYearsAgoBadgeView.swift in Sources */,
 				2D4211402B10E97E0085AA78 /* ShareBadgeView.swift in Sources */,
+				2DAB2A6E2B13B0D300C45C09 /* ActivityViewModel.swift in Sources */,
+				2DAB2A6F2B13B0E900C45C09 /* StravaLoginViewModel.swift in Sources */,
 				2D0A72B22B13AAFD00C1B561 /* ActivityType.swift in Sources */,
 				2D0A72AE2B13AAF400C1B561 /* DateFormatter+standard.swift in Sources */,
 				E4604FC32A05C6D100D838DF /* MemoriesWidgetView.swift in Sources */,
 				2D0A72AA2B13AAEA00C1B561 /* Athlete.swift in Sources */,
-				2D0A72AC2B13AAF000C1B561 /* ActivityViewModel.swift in Sources */,
-				2D0A72AD2B13AAF200C1B561 /* StravaLoginViewModel.swift in Sources */,
 				2D0A72B32B13AB0000C1B561 /* Memory.swift in Sources */,
 				E48E09892A05BF98002456E5 /* MemoriesWidget.swift in Sources */,
 				2DAB2A652B13AD7900C45C09 /* MemoryTimelineProvider.swift in Sources */,

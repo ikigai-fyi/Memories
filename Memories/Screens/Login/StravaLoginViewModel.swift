@@ -15,7 +15,7 @@ let appGroupName = Config.appGroupName
 let userDefaultAthlete = "athlete"
 
 @MainActor
-public class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentationContextProviding {
+class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentationContextProviding {
     @Published public var isLoading: Bool = false
     @Published public var athlete: Athlete? = getAthleteFromUserDefault()
     
