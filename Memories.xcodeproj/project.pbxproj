@@ -237,12 +237,12 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
-		2DAB2A6B2B13B00000C45C09 /* CommonViews */ = {
+		2DAB2A6B2B13B00000C45C09 /* BaseViews */ = {
 			isa = PBXGroup;
 			children = (
 				E46FD4B42A0EA308000396EA /* WebView.swift */,
 			);
-			path = CommonViews;
+			path = BaseViews;
 			sourceTree = "<group>";
 		};
 		2DAB2A6C2B13B01400C45C09 /* Extensions */ = {
@@ -305,9 +305,9 @@
 				E402A37D2A05D27F00C2F3B0 /* Memories.entitlements */,
 				2DE5908E2A052D890041EA4D /* MemoriesApp.swift */,
 				2DAB2A702B13B10100C45C09 /* Screens */,
-				2DAB2A6A2B13AFCE00C45C09 /* Network */,
 				2DAB2A662B13AE8B00C45C09 /* Models */,
-				2DAB2A6B2B13B00000C45C09 /* CommonViews */,
+				2DAB2A6A2B13AFCE00C45C09 /* Network */,
+				2DAB2A6B2B13B00000C45C09 /* BaseViews */,
 				2DAB2A6C2B13B01400C45C09 /* Extensions */,
 				2DCAC7A32A208FE7007A11F9 /* Config.swift */,
 				E402A3812A05D3A400C2F3B0 /* Helper.swift */,
