@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Activity
 import Sentry
 import Crisp
 import PostHog

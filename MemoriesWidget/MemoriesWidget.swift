@@ -7,7 +7,6 @@
 
 import WidgetKit
 import SwiftUI
-import Activity
 import PostHog
 import Sentry
 

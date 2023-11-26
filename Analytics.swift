@@ -7,7 +7,6 @@
 
 import Foundation
 import PostHog
-import Activity
 
 struct Analytics {
     static func initialize() {

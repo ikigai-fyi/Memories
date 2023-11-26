@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Activity
 import Crisp
 
 struct StravaLoginView: View {

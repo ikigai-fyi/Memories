@@ -7,7 +7,6 @@
 
 import SwiftUI
 import WebKit
-import Activity
 import WidgetKit
 import ConfettiSwiftUI
 import Crisp
