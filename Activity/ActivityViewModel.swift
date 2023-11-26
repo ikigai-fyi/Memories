@@ -21,13 +21,21 @@ public class ActivityViewModel: NSObject, ObservableObject {
     
     public var fakeBehaviour: FakeBehaviour? = nil
     
-    public var hasMemory: Bool {
+    private var hasMemory: Bool {
         return self.memory != nil
+    }
+    
+    public var isFetchingInitial: Bool {
+        return self.isFetching && !self.hasMemory
     }
     
     
     @MainActor
     public func fetchMemory(refresh: Bool = false) async {
+        if refresh {
+            self.memory = nil
+        }
+        
         self.isFetching = true
         var url = URLComponents(string: "\(Config.backendURL)/rest/memories/current")!
         if refresh {

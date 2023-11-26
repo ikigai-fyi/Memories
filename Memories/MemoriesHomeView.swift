@@ -38,8 +38,13 @@ struct MemoriesHomeView: View {
     @State var activityTap = false
     @State var titleEgg = false
     
-    var previewRefreshButtonTextColor: Color {return activityViewModel.isFetching ? .gray : .black}   
-    var refreshButtonTextColor: Color {return activityViewModel.isFetching ? .white.opacity(0.7) : .white}
+    var previewRefreshButtonTextColor: Color {
+        return activityViewModel.isFetchingInitial ? .gray : .black
+    }
+    
+    var refreshButtonTextColor: Color {
+        return activityViewModel.isFetchingInitial ? .white.opacity(0.7) : .white
+    }
 
     var body: some View {
         
@@ -131,7 +136,7 @@ struct MemoriesHomeView: View {
                         
                         VStack {
                             // Activity widget -----------------------------------------------------
-                            if !activityViewModel.isFetching {
+                            if !self.activityViewModel.isFetchingInitial {
                                 MemoriesWidgetView(
                                     memory: activityViewModel.memory,
                                     error: activityViewModel.error,
@@ -256,20 +261,16 @@ struct MemoriesHomeView: View {
                     .frame(maxWidth: .infinity, minHeight: proxy.size.height) // fix height scrollview
                     .onAppear{
                         // First render
-                        if !self.activityViewModel.hasMemory {
-                            Task {
-                                await self.activityViewModel.fetchMemory()
-                            }
+                        Task {
+                            await self.activityViewModel.fetchMemory()
                         }
                     }
                     .onChange(of: scenePhase) { newPhase in
                         // Subsequent renders
                         switch newPhase {
                         case .active:
-                            if !self.activityViewModel.hasMemory {
-                                Task {
-                                    await self.activityViewModel.fetchMemory()
-                                }
+                            Task {
+                                await self.activityViewModel.fetchMemory()
                             }
                             
                             // request review
