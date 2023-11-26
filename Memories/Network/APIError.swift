@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct APIError : Codable {
+struct APIError : Codable {
     let statusCode: Int
     let payload: Payload
     

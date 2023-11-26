@@ -7,14 +7,14 @@
 
 import Foundation
 
-public enum ActivityType {
+enum ActivityType {
     case hike
     case ride
     case run
     case swim
     case none
     
-    public var systemIcon: String {
+    var systemIcon: String {
         switch self {
         case .hike: return "mountain.2.fill"
         case .ride: return "figure.outdoor.cycle"
@@ -24,7 +24,7 @@ public enum ActivityType {
         }
     }
     
-    public var format: [ActivityStringFormat] {
+    var format: [ActivityStringFormat] {
         switch self {
         case .hike: return [.distance(activityType: self), .elevation, .time]
         case .ride: return  [.distance(activityType: self), .elevation]
@@ -34,7 +34,7 @@ public enum ActivityType {
         }
     }
     
-    public var targetDistanceUnit: UnitLength {
+    var targetDistanceUnit: UnitLength {
         switch self {
         case .hike: return UnitLength.kilometers
         case .ride: return UnitLength.kilometers
@@ -44,7 +44,7 @@ public enum ActivityType {
         }
     }
     
-    public var targetDistanceUnitImperial: UnitLength {
+    var targetDistanceUnitImperial: UnitLength {
         switch self {
         case .hike: return UnitLength.miles
         case .ride: return UnitLength.miles
@@ -54,7 +54,7 @@ public enum ActivityType {
         }
     }
     
-    public enum ActivityStringFormat {
+    enum ActivityStringFormat {
         case time
         case pace(activityType: ActivityType)
         case distance(activityType: ActivityType)
@@ -97,7 +97,7 @@ public enum ActivityType {
             return numberFormatter
         }
         
-        public func stringRepresentation(elapsedTimeInSeconds: Int, distanceInMeters: Int? = nil, totalElevationGainInMeters : Int? = nil) -> String? {
+        func stringRepresentation(elapsedTimeInSeconds: Int, distanceInMeters: Int? = nil, totalElevationGainInMeters : Int? = nil) -> String? {
             switch self {
                 case .time:
                     return formatTime(elapsedTimeInSeconds: elapsedTimeInSeconds)
@@ -162,7 +162,7 @@ public enum ActivityType {
         
     // static functions
     
-    public static func enumForString(str: String) -> ActivityType{
+    static func enumForString(str: String) -> ActivityType{
         switch str {
         case "Hike": return .hike
         case "Ride": return .ride
@@ -178,7 +178,7 @@ public enum ActivityType {
                                                totalElevationGainInMeters: activity.getTotalElevationGainInMeters())
     }
     
-    public static func formatActivityString(activity: Activity) -> String {
+    static func formatActivityString(activity: Activity) -> String {
         let activityDataFormat: ActivityType = enumForString(str : activity.getSportType())
         var strs: [String] = []
         

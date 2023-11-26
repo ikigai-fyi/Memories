@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum ActivityError : String, Codable {
+enum ActivityError : String, Codable {
     case notLoggedIn
     case noActivity
     case noRecentActivityWithPictures

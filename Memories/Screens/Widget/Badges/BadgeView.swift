@@ -10,7 +10,7 @@ import SwiftUI
 struct BadgeView<Content> : View where Content : View {
     let content: () -> Content
     
-    public init(@ViewBuilder content: @escaping () -> Content) {
+    init(@ViewBuilder content: @escaping () -> Content) {
         self.content = content
     }
     

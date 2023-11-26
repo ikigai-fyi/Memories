@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Activity : Codable {
+struct Activity : Codable {
     let name: String
     let city: String
     let sportType: String
@@ -23,61 +23,61 @@ public struct Activity : Codable {
     let stravaId: String? // Introduced in 1.7 (August 2023)
     let hasCustomName: Bool? // Introduced in 1.11 (October 2023)
     
-    public var stravaUrl: URL? {
+    var stravaUrl: URL? {
         guard let stravaId = self.stravaId else { return nil }
         return URL(string: "https://www.strava.com/activities/\(stravaId)")!
     }
     
-    public var xYearsAgo: Int {
+    var xYearsAgo: Int {
         return Calendar.current.dateComponents([.year], from: self.getStartDatetime(), to: Date()).year!
     }
     
-    public func getName() -> String {
+    func getName() -> String {
         return name
     }
     
-    public func getHasCustomName() -> Bool {
+    func getHasCustomName() -> Bool {
         return hasCustomName ?? false
     }
 
-    public func getCity() -> String {
+    func getCity() -> String {
         return city
     }
 
-    public func getSportType() -> String {
+    func getSportType() -> String {
         return sportType
     }
     
-    public func getStartDatetime() -> Date {
+    func getStartDatetime() -> Date {
         return startDatetime
     }
 
-    public func getPictureUrl() -> String {
+    func getPictureUrl() -> String {
         return pictureUrl
     }
 
-    public func getElapsedTimeInSeconds() -> Int {
+    func getElapsedTimeInSeconds() -> Int {
         return elapsedTimeInSeconds
     }
     
-    public func getPolyline() -> String? {
+    func getPolyline() -> String? {
         return polyline
     }
 
-    public func getDistanceInMeters() -> Int? {
+    func getDistanceInMeters() -> Int? {
         return distanceInMeters
     }
     
-    public func getTotalElevationGainInMeters() -> Int? {
+    func getTotalElevationGainInMeters() -> Int? {
         return totalElevationGainInMeters
     }
     
-    public func buildDataString() -> String {
+    func buildDataString() -> String {
         return ActivityType.formatActivityString(activity: self)
     }
     
     
-    public func getSystemIcon() -> String? {
+    func getSystemIcon() -> String? {
         if #available(iOS 16, *) {
             let activityDataFormat: ActivityType = ActivityType.enumForString(str: self.getSportType())
             return activityDataFormat.systemIcon
