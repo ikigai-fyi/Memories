@@ -29,7 +29,7 @@ struct Activity : Codable {
     }
     
     var xYearsAgo: Int {
-        return Calendar.current.dateComponents([.year], from: self.getStartDatetime(), to: Date()).year!
+        return Calendar.current.dateComponents([.year], from: self.getStartDatetime().noTime, to: Date().noTime).year!
     }
     
     func getName() -> String {

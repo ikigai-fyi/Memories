@@ -14,12 +14,12 @@
 		2D0A72A42B13AADB00C1B561 /* StravaLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE590BC2A053D9C0041EA4D /* StravaLoginViewModel.swift */; };
 		2D0A72A52B13AADB00C1B561 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3DBEEF2A6C188000B2685B /* APIError.swift */; };
 		2D0A72A62B13AADB00C1B561 /* ActivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4101AD22A6FA767000E2B31 /* ActivityType.swift */; };
-		2D0A72A72B13AADB00C1B561 /* DateFormatter+standard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C61E02A1D5D3B0050AAB0 /* DateFormatter+standard.swift */; };
+		2D0A72A72B13AADB00C1B561 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C61E02A1D5D3B0050AAB0 /* DateFormatter.swift */; };
 		2D0A72A82B13AADB00C1B561 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42106BF2A0ECB6900187A74 /* Activity.swift */; };
 		2D0A72A92B13AADB00C1B561 /* Athlete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C61DC2A1D59040050AAB0 /* Athlete.swift */; };
 		2D0A72AA2B13AAEA00C1B561 /* Athlete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C61DC2A1D59040050AAB0 /* Athlete.swift */; };
 		2D0A72AB2B13AAED00C1B561 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42106BF2A0ECB6900187A74 /* Activity.swift */; };
-		2D0A72AE2B13AAF400C1B561 /* DateFormatter+standard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C61E02A1D5D3B0050AAB0 /* DateFormatter+standard.swift */; };
+		2D0A72AE2B13AAF400C1B561 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C61E02A1D5D3B0050AAB0 /* DateFormatter.swift */; };
 		2D0A72AF2B13AAF600C1B561 /* FakeBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3DBEEB2A6C086C00B2685B /* FakeBehaviour.swift */; };
 		2D0A72B02B13AAF900C1B561 /* ActivityError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3DBEED2A6C17BD00B2685B /* ActivityError.swift */; };
 		2D0A72B12B13AAFB00C1B561 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3DBEEF2A6C188000B2685B /* APIError.swift */; };
@@ -43,6 +43,8 @@
 		2D4211452B10EDEB0085AA78 /* XYearsAgoBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D85D72C2B07996B0006C9F0 /* XYearsAgoBadgeView.swift */; };
 		2D4211462B10EDEB0085AA78 /* XYearsAgoBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D85D72C2B07996B0006C9F0 /* XYearsAgoBadgeView.swift */; };
 		2D6064642B0FA8C50049D42C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6064632B0FA8C50049D42C /* SettingsView.swift */; };
+		2D7C9D392B14A9DC005B76EF /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C9D382B14A9DC005B76EF /* Date.swift */; };
+		2D7C9D3A2B14A9DC005B76EF /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C9D382B14A9DC005B76EF /* Date.swift */; };
 		2DAB2A632B13AD4700C45C09 /* MemoryTimelineEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB2A622B13AD4700C45C09 /* MemoryTimelineEntry.swift */; };
 		2DAB2A652B13AD7900C45C09 /* MemoryTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB2A642B13AD7900C45C09 /* MemoryTimelineProvider.swift */; };
 		2DAB2A6E2B13B0D300C45C09 /* MemoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5EAEE32A1D51B400FB9C33 /* MemoryViewModel.swift */; };
@@ -117,7 +119,8 @@
 		2D5EAEE32A1D51B400FB9C33 /* MemoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryViewModel.swift; sourceTree = "<group>"; };
 		2D6064632B0FA8C50049D42C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		2D7C61DC2A1D59040050AAB0 /* Athlete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Athlete.swift; sourceTree = "<group>"; };
-		2D7C61E02A1D5D3B0050AAB0 /* DateFormatter+standard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+standard.swift"; sourceTree = "<group>"; };
+		2D7C61E02A1D5D3B0050AAB0 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		2D7C9D382B14A9DC005B76EF /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		2D85D72A2B0685350006C9F0 /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
 		2D85D72C2B07996B0006C9F0 /* XYearsAgoBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYearsAgoBadgeView.swift; sourceTree = "<group>"; };
 		2DAB2A622B13AD4700C45C09 /* MemoryTimelineEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryTimelineEntry.swift; sourceTree = "<group>"; };
@@ -248,7 +251,8 @@
 		2DAB2A6C2B13B01400C45C09 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				2D7C61E02A1D5D3B0050AAB0 /* DateFormatter+standard.swift */,
+				2D7C61E02A1D5D3B0050AAB0 /* DateFormatter.swift */,
+				2D7C9D382B14A9DC005B76EF /* Date.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -494,6 +498,7 @@
 				2D0A72A42B13AADB00C1B561 /* StravaLoginViewModel.swift in Sources */,
 				2D4211452B10EDEB0085AA78 /* XYearsAgoBadgeView.swift in Sources */,
 				2D0A72A22B13AADB00C1B561 /* FakeBehaviour.swift in Sources */,
+				2D7C9D392B14A9DC005B76EF /* Date.swift in Sources */,
 				2D0A72A82B13AADB00C1B561 /* Activity.swift in Sources */,
 				E468D3FD2A0663E50017070A /* Analytics.swift in Sources */,
 				2D0A72A62B13AADB00C1B561 /* ActivityType.swift in Sources */,
@@ -507,7 +512,7 @@
 				E48E099B2A05C2E6002456E5 /* MemoriesApp.swift in Sources */,
 				E46FD4B52A0EA308000396EA /* WebView.swift in Sources */,
 				2D0A72A32B13AADB00C1B561 /* ActivityError.swift in Sources */,
-				2D0A72A72B13AADB00C1B561 /* DateFormatter+standard.swift in Sources */,
+				2D0A72A72B13AADB00C1B561 /* DateFormatter.swift in Sources */,
 				E4E501B92A0E9A00009D4993 /* MemoriesHomeView.swift in Sources */,
 				2D4211432B10EC3D0085AA78 /* BadgeView.swift in Sources */,
 				E402A3822A05D3A400C2F3B0 /* Helper.swift in Sources */,
@@ -519,12 +524,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D7C9D3A2B14A9DC005B76EF /* Date.swift in Sources */,
 				2D4211462B10EDEB0085AA78 /* XYearsAgoBadgeView.swift in Sources */,
 				2D4211402B10E97E0085AA78 /* ShareBadgeView.swift in Sources */,
 				2DAB2A6E2B13B0D300C45C09 /* MemoryViewModel.swift in Sources */,
 				2DAB2A6F2B13B0E900C45C09 /* StravaLoginViewModel.swift in Sources */,
 				2D0A72B22B13AAFD00C1B561 /* ActivityType.swift in Sources */,
-				2D0A72AE2B13AAF400C1B561 /* DateFormatter+standard.swift in Sources */,
+				2D0A72AE2B13AAF400C1B561 /* DateFormatter.swift in Sources */,
 				E4604FC32A05C6D100D838DF /* MemoriesWidgetView.swift in Sources */,
 				2D0A72AA2B13AAEA00C1B561 /* Athlete.swift in Sources */,
 				2D0A72B32B13AB0000C1B561 /* Memory.swift in Sources */,
