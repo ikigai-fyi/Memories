@@ -7,9 +7,6 @@
 
 import SwiftUI
 
-let MemoriesRed = Color(red: 249/255, green: 59/255, blue: 121/255)
-let MemoriesPurple = Color(red: 161/255, green: 91/255, blue: 226/255)
-
 struct XYearsAgoBadgeView: View {
     let years: Int
     private let contentString: String
@@ -24,7 +21,7 @@ struct XYearsAgoBadgeView: View {
             HStack(spacing: 4) {
                 if #available(iOS 16, *) {
                     Image(systemName: "birthday.cake").font(.caption)
-                        .foregroundColor(MemoriesRed)
+                        .foregroundColor(Constants.MemoriesRed)
                 }
                 Text(self.contentString)
                     .font(.caption)
@@ -32,8 +29,8 @@ struct XYearsAgoBadgeView: View {
                     .foregroundStyle(
                         .linearGradient(
                             colors: [
-                                MemoriesRed,
-                                MemoriesPurple
+                                Constants.MemoriesRed,
+                                Constants.MemoriesPurple
                             ],
                             startPoint: .leading,
                             endPoint: .trailing

@@ -45,6 +45,8 @@
 		2D6064642B0FA8C50049D42C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6064632B0FA8C50049D42C /* SettingsView.swift */; };
 		2D7C9D392B14A9DC005B76EF /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C9D382B14A9DC005B76EF /* Date.swift */; };
 		2D7C9D3A2B14A9DC005B76EF /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C9D382B14A9DC005B76EF /* Date.swift */; };
+		2D7C9D412B14FA43005B76EF /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C9D402B14FA43005B76EF /* Color.swift */; };
+		2D7C9D422B14FA43005B76EF /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C9D402B14FA43005B76EF /* Color.swift */; };
 		2DAB2A632B13AD4700C45C09 /* MemoryTimelineEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB2A622B13AD4700C45C09 /* MemoryTimelineEntry.swift */; };
 		2DAB2A652B13AD7900C45C09 /* MemoryTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB2A642B13AD7900C45C09 /* MemoryTimelineProvider.swift */; };
 		2DAB2A6E2B13B0D300C45C09 /* MemoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5EAEE32A1D51B400FB9C33 /* MemoryViewModel.swift */; };
@@ -121,6 +123,7 @@
 		2D7C61DC2A1D59040050AAB0 /* Athlete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Athlete.swift; sourceTree = "<group>"; };
 		2D7C61E02A1D5D3B0050AAB0 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		2D7C9D382B14A9DC005B76EF /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		2D7C9D402B14FA43005B76EF /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		2D85D72A2B0685350006C9F0 /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
 		2D85D72C2B07996B0006C9F0 /* XYearsAgoBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYearsAgoBadgeView.swift; sourceTree = "<group>"; };
 		2DAB2A622B13AD4700C45C09 /* MemoryTimelineEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryTimelineEntry.swift; sourceTree = "<group>"; };
@@ -253,6 +256,7 @@
 			children = (
 				2D7C61E02A1D5D3B0050AAB0 /* DateFormatter.swift */,
 				2D7C9D382B14A9DC005B76EF /* Date.swift */,
+				2D7C9D402B14FA43005B76EF /* Color.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -509,6 +513,7 @@
 				E4604FC42A05C98800D838DF /* MemoriesWidgetView.swift in Sources */,
 				2D0A72A92B13AADB00C1B561 /* Athlete.swift in Sources */,
 				2D6064642B0FA8C50049D42C /* SettingsView.swift in Sources */,
+				2D7C9D412B14FA43005B76EF /* Color.swift in Sources */,
 				E48E099B2A05C2E6002456E5 /* MemoriesApp.swift in Sources */,
 				E46FD4B52A0EA308000396EA /* WebView.swift in Sources */,
 				2D0A72A32B13AADB00C1B561 /* ActivityError.swift in Sources */,
@@ -529,6 +534,7 @@
 				2D4211402B10E97E0085AA78 /* ShareBadgeView.swift in Sources */,
 				2DAB2A6E2B13B0D300C45C09 /* MemoryViewModel.swift in Sources */,
 				2DAB2A6F2B13B0E900C45C09 /* StravaLoginViewModel.swift in Sources */,
+				2D7C9D422B14FA43005B76EF /* Color.swift in Sources */,
 				2D0A72B22B13AAFD00C1B561 /* ActivityType.swift in Sources */,
 				2D0A72AE2B13AAF400C1B561 /* DateFormatter.swift in Sources */,
 				E4604FC32A05C6D100D838DF /* MemoriesWidgetView.swift in Sources */,

@@ -355,14 +355,38 @@ struct MemoriesHomeView: View {
             switch Deeplink(from: url) {
             case .shareMemoryFromPreview:
                 Analytics.capture(event: .shareMemory, eventProperties: [.from: "preview"])
-                self.isShowingShareSheet = true
+                self.shareWidget()
             case .shareMemoryFromWidget:
                 Analytics.capture(event: .shareMemory, eventProperties: [.from: "widget"])
-                self.isShowingShareSheet = true
+                self.shareWidget()
             case nil: return
             }
         }.sheet(isPresented: self.$isShowingShareSheet) {
             ShareView(items: self.buildShareItems())
+        }
+    }
+    
+    func shareWidget() {
+        let url = URL(string: "instagram-stories://share?source_application=\(336982085722872)")!
+        
+        if #unavailable(iOS 16) {
+            self.isShowingShareSheet = true
+        } else if !UIApplication.shared.canOpenURL(url) {
+            self.isShowingShareSheet = true
+        } else {
+            guard let imageData = self.renderAsImage()?.pngData() else { return }
+            let pasteboardItems: [String: Any] = [
+                "com.instagram.sharedSticker.stickerImage": imageData,
+                "com.instagram.sharedSticker.backgroundTopColor": Constants.MemoriesRed.toHex()!,
+                "com.instagram.sharedSticker.backgroundBottomColor": Constants.MemoriesPurple.toHex()!
+            ]
+            let pasteboardOptions = [UIPasteboard.OptionsKey.expirationDate: Date().addingTimeInterval(60 * 5)]
+            UIPasteboard.general.setItems([pasteboardItems], options: pasteboardOptions)
+            UIApplication.shared.open(
+                url,
+                options: [:],
+                completionHandler: nil
+            )
         }
     }
     

@@ -10,6 +10,8 @@ import SwiftUI
 
 struct Constants {
     static let MainColor: UIColor = UIColor(red: 0.99, green: 0.30, blue: 0.01, alpha: 1.00)
+    static let MemoriesRed = Color(red: 249/255, green: 59/255, blue: 121/255)
+    static let MemoriesPurple = Color(red: 161/255, green: 91/255, blue: 226/255)
     static let SportsTypeIconEnabled: Bool = true
     static let WidgetTouchedDeeplinkURL: URL = URL(string: "memories://widget-touched-url")!
 }
