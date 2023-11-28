@@ -8,12 +8,21 @@
 import SwiftUI
 
 struct ShareBadgeView: View {
+    
     var body: some View {
         BadgeView {
-            Text("share")
-                .textCase(.uppercase)
-                .font(.caption.bold())
-                .foregroundColor(.black.opacity(0.8))
+            HStack(spacing: 4) {
+                Image(uiImage: UIImage(named: "Instagram")!)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: 16, maxHeight: 16)
+                    .foregroundColor(.black.opacity(0.8))
+                
+                Text("share")
+                    .textCase(.uppercase)
+                    .font(.caption.bold())
+                    .foregroundColor(.black.opacity(0.8))
+            }
         }
     }
 }

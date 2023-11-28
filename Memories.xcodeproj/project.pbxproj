@@ -42,6 +42,8 @@
 		2D4211442B10EC3D0085AA78 /* BadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4211422B10EC3D0085AA78 /* BadgeView.swift */; };
 		2D4211452B10EDEB0085AA78 /* XYearsAgoBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D85D72C2B07996B0006C9F0 /* XYearsAgoBadgeView.swift */; };
 		2D4211462B10EDEB0085AA78 /* XYearsAgoBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D85D72C2B07996B0006C9F0 /* XYearsAgoBadgeView.swift */; };
+		2D52A02C2B15CB2900B6316D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DE590922A052D8B0041EA4D /* Assets.xcassets */; };
+		2D52A02E2B15D13D00B6316D /* WidgetSharingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D52A02D2B15D13D00B6316D /* WidgetSharingManager.swift */; };
 		2D6064642B0FA8C50049D42C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6064632B0FA8C50049D42C /* SettingsView.swift */; };
 		2D7C9D392B14A9DC005B76EF /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C9D382B14A9DC005B76EF /* Date.swift */; };
 		2D7C9D3A2B14A9DC005B76EF /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C9D382B14A9DC005B76EF /* Date.swift */; };
@@ -118,6 +120,7 @@
 		2D42113F2B10E97E0085AA78 /* ShareBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareBadgeView.swift; sourceTree = "<group>"; };
 		2D4211422B10EC3D0085AA78 /* BadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeView.swift; sourceTree = "<group>"; };
 		2D5271682A6FDD5900989AE8 /* ci_post_xcodebuild.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_xcodebuild.sh; sourceTree = "<group>"; };
+		2D52A02D2B15D13D00B6316D /* WidgetSharingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSharingManager.swift; sourceTree = "<group>"; };
 		2D5EAEE32A1D51B400FB9C33 /* MemoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryViewModel.swift; sourceTree = "<group>"; };
 		2D6064632B0FA8C50049D42C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		2D7C61DC2A1D59040050AAB0 /* Athlete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Athlete.swift; sourceTree = "<group>"; };
@@ -228,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				E4604FC22A05C6D100D838DF /* MemoriesWidgetView.swift */,
+				2D52A02D2B15D13D00B6316D /* WidgetSharingManager.swift */,
 				2DAB2A6D2B13B07300C45C09 /* Badges */,
 			);
 			path = Widget;
@@ -286,7 +290,6 @@
 			children = (
 				2DCAC7A12A208D93007A11F9 /* dev.xcconfig */,
 				2DCAC7A22A208DA2007A11F9 /* prod.xcconfig */,
-				E402A3802A05D30300C2F3B0 /* MemoriesWidgetExtension.entitlements */,
 				2D3BB72E2A6338D3003EF280 /* Localizable.strings */,
 				2DE5908D2A052D890041EA4D /* Memories */,
 				E48E09852A05BF98002456E5 /* MemoriesWidget */,
@@ -365,6 +368,7 @@
 		E48E09852A05BF98002456E5 /* MemoriesWidget */ = {
 			isa = PBXGroup;
 			children = (
+				E402A3802A05D30300C2F3B0 /* MemoriesWidgetExtension.entitlements */,
 				E48E09862A05BF98002456E5 /* MemoriesWidgetBundle.swift */,
 				E48E09882A05BF98002456E5 /* MemoriesWidget.swift */,
 				2DAB2A622B13AD4700C45C09 /* MemoryTimelineEntry.swift */,
@@ -485,6 +489,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E48E098B2A05BF99002456E5 /* Assets.xcassets in Resources */,
+				2D52A02C2B15CB2900B6316D /* Assets.xcassets in Resources */,
 				2D3BB72B2A6338D3003EF280 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -518,6 +523,7 @@
 				E46FD4B52A0EA308000396EA /* WebView.swift in Sources */,
 				2D0A72A32B13AADB00C1B561 /* ActivityError.swift in Sources */,
 				2D0A72A72B13AADB00C1B561 /* DateFormatter.swift in Sources */,
+				2D52A02E2B15D13D00B6316D /* WidgetSharingManager.swift in Sources */,
 				E4E501B92A0E9A00009D4993 /* MemoriesHomeView.swift in Sources */,
 				2D4211432B10EC3D0085AA78 /* BadgeView.swift in Sources */,
 				E402A3822A05D3A400C2F3B0 /* Helper.swift in Sources */,
@@ -773,7 +779,7 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = MemoriesWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MemoriesWidget/MemoriesWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = YPP2B773SY;
@@ -804,7 +810,7 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = MemoriesWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MemoriesWidget/MemoriesWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = YPP2B773SY;

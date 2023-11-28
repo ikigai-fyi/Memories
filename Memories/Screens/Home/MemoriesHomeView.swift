@@ -17,8 +17,8 @@ import AVKit
 struct MemoriesHomeView: View {
     @EnvironmentObject var loginViewModel: StravaLoginViewModel
     @EnvironmentObject var memoryViewModel: MemoryViewModel
-    @Environment(\.displayScale) var displayScale
     @Environment(\.scenePhase) var scenePhase
+    @Environment(\.displayScale) var displayScale
     
     @State private var runConfetti: Int = 0
     @State private var bikeConfetti: Int = 0
@@ -31,7 +31,7 @@ struct MemoriesHomeView: View {
     @State private var isChatPresented: Bool = false
     @State private var isShowingOptions: Bool = false
     @State private var isShowingShareSheet: Bool = false
-
+    
     @State private var isUserActivated = false
     
     @State var activityTap = false
@@ -44,7 +44,7 @@ struct MemoriesHomeView: View {
     var refreshButtonTextColor: Color {
         return memoryViewModel.isFetchingInitial ? .white.opacity(0.7) : .white
     }
-
+    
     var body: some View {
         
         GeometryReader { proxy in
@@ -142,29 +142,29 @@ struct MemoriesHomeView: View {
                                     withBadges: true,
                                     isInWidget: false
                                 )
-                                    .frame(maxWidth: .infinity, minHeight: 162, idealHeight: 162, maxHeight: 162)
-                                    .background(Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)))
-                                    .cornerRadius(20)
-                                    .shadow(color: Color.black.opacity(0.3), radius: 18)
-                                    .id(memoryViewModel.stateValue)
-                                    .onTapGesture {
-                                        guard
-                                            let activity = memoryViewModel.memory?.activity,
-                                            let stravaUrl = activity.stravaUrl
-                                        else { return }
-                                                                                
-                                        Analytics.capture(event: .openActivityOnStrava, eventProperties: [.from: "preview"])
-                                        
-                                        // Give some room for the press animation to play before opening the link
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                            UIApplication.shared.open(stravaUrl)
-                                        }
+                                .frame(maxWidth: .infinity, minHeight: 162, idealHeight: 162, maxHeight: 162)
+                                .background(Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)))
+                                .cornerRadius(20)
+                                .shadow(color: Color.black.opacity(0.3), radius: 18)
+                                .id(memoryViewModel.stateValue)
+                                .onTapGesture {
+                                    guard
+                                        let activity = memoryViewModel.memory?.activity,
+                                        let stravaUrl = activity.stravaUrl
+                                    else { return }
+                                    
+                                    Analytics.capture(event: .openActivityOnStrava, eventProperties: [.from: "preview"])
+                                    
+                                    // Give some room for the press animation to play before opening the link
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                        UIApplication.shared.open(stravaUrl)
                                     }
-                                    .onLongPressGesture(minimumDuration: 0, perform: {}) { _ in
-                                        activityTap.toggle()
-                                    }
-                                    .scaleEffect(activityTap ? 0.95 : 1)
-                                    .animation(.spring(response: 0.4, dampingFraction: 0.6), value: activityTap)
+                                }
+                                .onLongPressGesture(minimumDuration: 0, perform: {}) { _ in
+                                    activityTap.toggle()
+                                }
+                                .scaleEffect(activityTap ? 0.95 : 1)
+                                .animation(.spring(response: 0.4, dampingFraction: 0.6), value: activityTap)
                                 
                                 // Loading view ------------------------------------------------
                             } else {
@@ -214,10 +214,10 @@ struct MemoriesHomeView: View {
                                             let activity = memoryViewModel.memory?.activity,
                                             let stravaUrl = activity.stravaUrl
                                         else { return }
-
+                                        
                                         Analytics.capture(event: .openActivityOnStrava, eventProperties: [.from: "button"])
                                         UIApplication.shared.open(stravaUrl)
-
+                                        
                                     } label: {
                                         Label {
                                             Text("Strava").bold()
@@ -230,7 +230,7 @@ struct MemoriesHomeView: View {
                                     .background(Color(.init(red: 0.99, green: 0.10, blue: 0.0, alpha: 1)))
                                     .foregroundColor(.white)
                                     .cornerRadius(35)
-
+                                    
                                 }.padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                             }
                             
@@ -352,85 +352,25 @@ struct MemoriesHomeView: View {
                 
             }.zIndex(5)
         }.onOpenURL{ url in
+            guard let memory = self.memoryViewModel.memory else { return }
+            
             switch Deeplink(from: url) {
             case .shareMemoryFromPreview:
                 Analytics.capture(event: .shareMemory, eventProperties: [.from: "preview"])
-                self.shareWidget()
+                WidgetSharingManager(memory: memory, displayScale: self.displayScale).share() {
+                    self.isShowingShareSheet = true
+                }
             case .shareMemoryFromWidget:
                 Analytics.capture(event: .shareMemory, eventProperties: [.from: "widget"])
-                self.shareWidget()
+                WidgetSharingManager(memory: memory, displayScale: self.displayScale).share() {
+                    self.isShowingShareSheet = true
+                }
             case nil: return
             }
         }.sheet(isPresented: self.$isShowingShareSheet) {
-            ShareView(items: self.buildShareItems())
+            let memory = self.memoryViewModel.memory!
+            ShareView(items: WidgetSharingManager(memory: memory, displayScale: self.displayScale).getNativeSharingItems())
         }
-    }
-    
-    func shareWidget() {
-        let url = URL(string: "instagram-stories://share?source_application=\(336982085722872)")!
-        
-        if #unavailable(iOS 16) {
-            self.isShowingShareSheet = true
-        } else if !UIApplication.shared.canOpenURL(url) {
-            self.isShowingShareSheet = true
-        } else {
-            guard let imageData = self.renderAsImage()?.pngData() else { return }
-            let pasteboardItems: [String: Any] = [
-                "com.instagram.sharedSticker.stickerImage": imageData,
-                "com.instagram.sharedSticker.backgroundTopColor": Constants.MemoriesRed.toHex()!,
-                "com.instagram.sharedSticker.backgroundBottomColor": Constants.MemoriesPurple.toHex()!
-            ]
-            let pasteboardOptions = [UIPasteboard.OptionsKey.expirationDate: Date().addingTimeInterval(60 * 5)]
-            UIPasteboard.general.setItems([pasteboardItems], options: pasteboardOptions)
-            UIApplication.shared.open(
-                url,
-                options: [:],
-                completionHandler: nil
-            )
-        }
-    }
-    
-    func buildShareItems() -> [Any] {
-        let shareMessage = NSLocalizedString("widget_share_message", comment: "comment")
-        let appUrl = NSLocalizedString("url_app", comment: "comment")
-        let text = "\(shareMessage) <\(appUrl)>"
-        
-        var items: [Any] = [text]
-        if #available(iOS 16.0, *), let image = self.renderAsImage() {
-            items.append(image)
-        }
-        
-        return items
-    }
-    
-    @available(iOS 16.0, *)
-    func renderAsImage() -> UIImage? {
-        let view = HStack(alignment: .center) {
-            VStack(alignment: .center) {
-                MemoriesWidgetView(
-                    memory: memoryViewModel.memory,
-                    error: memoryViewModel.error,
-                    withBadges: false,
-                    isInWidget: false
-                )
-                    .frame(width: 360, height: 170)
-                    .cornerRadius(15)
-                    .padding(15)
-            }
-        }
-            .background(.white)
-            .cornerRadius(30)
-        
-        let renderer = ImageRenderer(content: view)
-
-        // make sure and use the correct display scale for this device
-        renderer.scale = displayScale
-
-        if let uiImage = renderer.uiImage {
-            return uiImage
-        }
-        
-        return nil
     }
     
     func forceRefreshMemory() async {
