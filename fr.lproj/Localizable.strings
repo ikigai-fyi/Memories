@@ -69,3 +69,9 @@
 "%d years" = "%d ans";
 "share" = "partager";
 "widget_share_message" = "Souvenir avec Memories for Strava ❤️";
+
+// Email form
+"Help improve Memories ❤️" = "Co-construisons Memories ❤️";
+"We may contact you to ask for feedback! Your data will never ever be shared to third parties." = "Nous vous écrirons occasionnellement pour recueillir votre avis sur Memories ! Vos données ne seront jamais partagées.";
+"Save my email" = "Enregistrer mon email";
+"Skip" = "Passer";

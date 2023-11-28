@@ -55,6 +55,7 @@
 		2DAB2A6F2B13B0E900C45C09 /* StravaLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE590BC2A053D9C0041EA4D /* StravaLoginViewModel.swift */; };
 		2DCAC7A42A208FE7007A11F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCAC7A32A208FE7007A11F9 /* Config.swift */; };
 		2DCAC7A52A208FE7007A11F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCAC7A32A208FE7007A11F9 /* Config.swift */; };
+		2DCC1B262B16152600E8B735 /* EmailFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCC1B252B16152600E8B735 /* EmailFormView.swift */; };
 		2DE590932A052D8B0041EA4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DE590922A052D8B0041EA4D /* Assets.xcassets */; };
 		2DE590962A052D8B0041EA4D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DE590952A052D8B0041EA4D /* Preview Assets.xcassets */; };
 		2DE590BF2A053D9C0041EA4D /* StravaLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE590BD2A053D9C0041EA4D /* StravaLoginView.swift */; };
@@ -134,6 +135,7 @@
 		2DCAC7A12A208D93007A11F9 /* dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = dev.xcconfig; sourceTree = "<group>"; };
 		2DCAC7A22A208DA2007A11F9 /* prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = prod.xcconfig; sourceTree = "<group>"; };
 		2DCAC7A32A208FE7007A11F9 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		2DCC1B252B16152600E8B735 /* EmailFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailFormView.swift; sourceTree = "<group>"; };
 		2DE5908B2A052D890041EA4D /* Memories.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memories.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DE5908E2A052D890041EA4D /* MemoriesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesApp.swift; sourceTree = "<group>"; };
 		2DE590922A052D8B0041EA4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -279,10 +281,19 @@
 			isa = PBXGroup;
 			children = (
 				2DAB2A672B13AEE500C45C09 /* Login */,
+				2DCC1B242B16149600E8B735 /* EmailForm */,
 				2DAB2A682B13AF3C00C45C09 /* Home */,
 				2DAB2A692B13AF8900C45C09 /* Widget */,
 			);
 			path = Screens;
+			sourceTree = "<group>";
+		};
+		2DCC1B242B16149600E8B735 /* EmailForm */ = {
+			isa = PBXGroup;
+			children = (
+				2DCC1B252B16152600E8B735 /* EmailFormView.swift */,
+			);
+			path = EmailForm;
 			sourceTree = "<group>";
 		};
 		2DE590822A052D890041EA4D = {
@@ -518,6 +529,7 @@
 				E4604FC42A05C98800D838DF /* MemoriesWidgetView.swift in Sources */,
 				2D0A72A92B13AADB00C1B561 /* Athlete.swift in Sources */,
 				2D6064642B0FA8C50049D42C /* SettingsView.swift in Sources */,
+				2DCC1B262B16152600E8B735 /* EmailFormView.swift in Sources */,
 				2D7C9D412B14FA43005B76EF /* Color.swift in Sources */,
 				E48E099B2A05C2E6002456E5 /* MemoriesApp.swift in Sources */,
 				E46FD4B52A0EA308000396EA /* WebView.swift in Sources */,
