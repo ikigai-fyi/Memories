@@ -8,11 +8,12 @@
 import Foundation
 
 struct Athlete : Codable {
-    public let uuid: String
-    public let firstName: String
-    public let lastName: String
-    public let pictureUrl: String
-    public let jwt: String
+    let uuid: String
+    let email: String?
+    let firstName: String
+    let lastName: String
+    let pictureUrl: String
+    let jwt: String
     
     var fullName: String {
         return "\(self.firstName) \(self.lastName)"
