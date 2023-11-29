@@ -1,16 +1,23 @@
 {
   "images" : [
     {
-      "filename" : "Instagram Logo.svg",
-      "idiom" : "universal"
+      "filename" : "Instagram Logo.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "Instagram Logo@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "Instagram Logo@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "preserves-vector-representation" : true,
-    "template-rendering-intent" : "template"
   }
 }
