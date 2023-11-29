@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Sentry
 
 struct EmailFormView: View {
     let onDone: () -> Void
@@ -14,6 +15,7 @@ struct EmailFormView: View {
     @State var isValid: Bool = false
     @State var isLoading: Bool = false
     @FocusState var isFocused: Bool
+    @State var isShowingError: Bool = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -49,7 +51,16 @@ struct EmailFormView: View {
                     } else {
                         Button {
                             self.isFocused = false
-                            self.onDone()
+                            Task {
+                                self.isLoading = true
+                                defer { self.isLoading = false }
+                                
+                                do {
+                                    try await self.patchEmail()
+                                } catch {
+                                    self.isShowingError = true
+                                }
+                            }
                         } label: {
                             Text("Save my email")
                                 .bold()
@@ -63,7 +74,6 @@ struct EmailFormView: View {
                     }
                     
                     Button {
-                        self.isLoading.toggle()
                         self.isFocused = false
                         self.onDone()
                     } label: {
@@ -78,6 +88,8 @@ struct EmailFormView: View {
             }
         }.onAppear {
             self.isFocused = true
+        }.alert(isPresented: $isShowingError) {
+            .init(title: Text("An error occurred"))
         }
     }
     
@@ -86,6 +98,35 @@ struct EmailFormView: View {
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email)
     }
+    
+    @MainActor
+    private func patchEmail() async throws {
+        let url = URLComponents(string: "\(Config.backendURL)/rest/athletes/self")!
+        let jwt = StravaLoginViewModel.getAthleteFromUserDefault()!.jwt
+        var request = URLRequest(url: url.url!)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(jwt)", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "PATCH"
+        let parameters: [String: Any] = [
+            "email": self.email
+        ]
+        request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
+        
+        do {
+            let (_, response) = try await URLSession.shared.data(for: request)
+            if let response = response as? HTTPURLResponse, response.statusCode != 200 {
+                SentrySDK.capture(message: response.description)
+                throw ServerError.unknown
+            }
+        } catch {
+            SentrySDK.capture(error: error)
+            throw ServerError.unknown
+        }
+    }
+}
+
+enum ServerError: Error {
+    case unknown
 }
 
 #Preview {

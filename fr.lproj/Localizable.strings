@@ -48,7 +48,7 @@
 //default
 "Sorry, this widget isn't working" = "Oups, le widget ne fonctionne pas";
 "We're having problems fetching content from Memories right now. Try checking back later." = "Nous avons des difficultés à accéder à Memories. Réessayez dans quelques instants.";
-
+"An error occurred" = "Une erreur est survenue";
 
 //setings
 "Successfully connected to Strava" = "Compte lié à Strava";

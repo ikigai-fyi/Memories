@@ -18,10 +18,15 @@ struct Analytics {
     }
     
     static func identify(athlete: Athlete) {
-        PHGPostHog.shared()?.identify(athlete.uuid, properties: [
+        var props = [
             Property.firstName.rawValue: athlete.firstName,
-            Property.lastName.rawValue: athlete.lastName,
-        ])
+            Property.lastName.rawValue: athlete.lastName
+        ]
+        if let email = athlete.email {
+            props[Property.email.rawValue] = email
+        }
+        
+        PHGPostHog.shared()?.identify(athlete.uuid, properties: props)
     }
     
     static func reset() {
@@ -79,6 +84,7 @@ struct Analytics {
         // user attributes
         case firstName
         case lastName
+        case email
         case lastSeenDate
         case lastActivityFetchState
         case measurementSystem
