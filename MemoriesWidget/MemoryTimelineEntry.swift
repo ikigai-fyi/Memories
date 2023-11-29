@@ -18,4 +18,12 @@ struct MemoryTimelineEntry: TimelineEntry {
         self.memory = memory
         self.error = error
     }
+    
+    static var placeholder: MemoryTimelineEntry {
+        return .init(
+            date: Date(),
+            memory: .sample,
+            error: nil
+        )
+    }
 }

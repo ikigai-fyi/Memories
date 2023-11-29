@@ -13,22 +13,27 @@ struct MemoryTimelineProvider: TimelineProvider {
     private let viewModel = MemoryViewModel()
     
     func placeholder(in context: Context) -> MemoryTimelineEntry {
-        return MemoryTimelineEntry(date: Date())
+        return .placeholder
     }
 
-    @MainActor func getSnapshot(in context: Context, completion: @escaping (MemoryTimelineEntry) -> ()) {
-        Task {
-            await viewModel.fetchMemory()
-            let entry = MemoryTimelineEntry(date: Date(), memory: viewModel.memory, error: viewModel.error)
-            completion(entry)
+    func getSnapshot(in context: Context, completion: @escaping (MemoryTimelineEntry) -> ()) {
+        if context.isPreview {
+            completion(.placeholder)
+        } else {
+            Task {
+                await self.initializeDependencies()
+                await self.onGetTimeline()
+                await viewModel.fetchMemory()
+                let entry = MemoryTimelineEntry(date: Date(), memory: viewModel.memory, error: viewModel.error)
+                completion(entry)
+            }
         }
     }
 
-    @MainActor func getTimeline(in context: Context, completion: @escaping (Timeline<MemoryTimelineEntry>) -> ()) {
-        self.initializeDependencies()
-        self.onGetTimeline()
-        
+    func getTimeline(in context: Context, completion: @escaping (Timeline<MemoryTimelineEntry>) -> ()) {
         Task {
+            await self.initializeDependencies()
+            await self.onGetTimeline()
             await viewModel.fetchMemory()
             let entries = [MemoryTimelineEntry(date: Date(), memory: viewModel.memory, error: viewModel.error)]
             let nextUpdate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
