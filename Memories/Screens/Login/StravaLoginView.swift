@@ -11,6 +11,7 @@ import Crisp
 struct StravaLoginView: View {
     @EnvironmentObject var loginViewModel: StravaLoginViewModel
     @State private var isChatPresented: Bool = false
+    let onDone: () -> Void
     
     var body: some View {
         VStack {
@@ -47,7 +48,15 @@ struct StravaLoginView: View {
                         UIApplication.shared.open(self.loginViewModel.getStravaMobileUrl(), options: [:])
                     } else {
                         Analytics.capture(event: .connectStrava, eventProperties: [.with: "stravaWebview"])
-                        self.loginViewModel.startWebOauth()
+                        self.loginViewModel.startWebOauth { url in
+                            guard let url = url else { return }
+                            Task {
+                                do {
+                                    try await loginViewModel.handleOauthRedirect(url: url)
+                                    self.onDone()
+                                }
+                            }
+                        }
                     }
                 } label: {
                     Text("Connect with Strava")
@@ -78,7 +87,10 @@ struct StravaLoginView: View {
         .padding(32.0)
         .onOpenURL { url in
             Task {
-                await loginViewModel.handleOauthRedirect(url: url)
+                do {
+                    try await loginViewModel.handleOauthRedirect(url: url)
+                    self.onDone()
+                }
             }
         }.onAppear {
             Analytics.capture(event: .viewLoginScreen)
@@ -90,6 +102,6 @@ struct StravaLoginView: View {
 
 struct StravaLoginView_Previews: PreviewProvider {
     static var previews: some View {
-        StravaLoginView()
+        StravaLoginView {}
     }
 }

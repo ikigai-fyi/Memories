@@ -14,6 +14,7 @@ import PostHog
 struct MemoriesApp: App {
     @StateObject var loginViewModel = StravaLoginViewModel()
     @StateObject var memoryViewModel = MemoryViewModel()
+    @StateObject var screenManager = ScreenManager.shared
     @Environment(\.scenePhase) var scenePhase
 
     
@@ -36,9 +37,17 @@ struct MemoriesApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if loginViewModel.athlete == nil {
-                StravaLoginView().environmentObject(loginViewModel)
-            } else {
+            switch screenManager.screen {
+            case .login:
+                StravaLoginView {
+                    let next: ScreenManager.Screen = AuthManager.shared.athlete!.hasEmail ? .home : .email
+                    self.screenManager.goTo(screen: next)
+                }.environmentObject(loginViewModel)
+            case .email:
+                EmailFormView {
+                    self.screenManager.goTo(screen: .home)
+                }
+            case .home:
                 MemoriesHomeView().environmentObject(loginViewModel).environmentObject(memoryViewModel)
             }
         }.onChange(of: scenePhase) { newPhase in

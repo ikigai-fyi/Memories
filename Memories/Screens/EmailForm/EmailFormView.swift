@@ -52,16 +52,17 @@ struct EmailFormView: View {
                         ProgressView()
                     } else {
                         Button {
-                            self.isFocused = false
                             Task {
                                 self.isLoading = true
                                 defer { self.isLoading = false }
+                                self.isFocused = false
                                 
                                 do {
                                     try await self.patchEmail()
-                                    
                                     let athlete = self.authManager.athlete!.updateEmail(email: email)
                                     self.authManager.login(athlete: athlete)
+                                    Analytics.capture(event: .saveEmailForm)
+                                    self.onDone()
                                 } catch {
                                     self.isShowingError = true
                                 }
@@ -80,6 +81,7 @@ struct EmailFormView: View {
                     
                     Button {
                         self.isFocused = false
+                        Analytics.capture(event: .skipEmailForm)
                         self.onDone()
                     } label: {
                         Text("Skip")
@@ -93,6 +95,7 @@ struct EmailFormView: View {
             }
         }.onAppear {
             self.isFocused = true
+            Analytics.capture(event: .viewEmailFormScreen)
         }.alert(isPresented: $isShowingError) {
             .init(title: Text("An error occurred"))
         }
@@ -121,17 +124,13 @@ struct EmailFormView: View {
             let (_, response) = try await URLSession.shared.data(for: request)
             if let response = response as? HTTPURLResponse, response.statusCode != 200 {
                 SentrySDK.capture(message: response.description)
-                throw ServerError.unknown
+                throw GenericError.unknown
             }
         } catch {
             SentrySDK.capture(error: error)
-            throw ServerError.unknown
+            throw GenericError.unknown
         }
     }
-}
-
-enum ServerError: Error {
-    case unknown
 }
 
 #Preview {

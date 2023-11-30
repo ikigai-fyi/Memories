@@ -23,14 +23,11 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
         return authManager.athlete
     }
     
-    func startWebOauth() {
+    func startWebOauth(onDone: @escaping (URL?) -> Void) {
         let session = ASWebAuthenticationSession(url: self.getStravaWebUrl(), callbackURLScheme: "memories")
         { callbackURL, error in
             self.isLoading = false
-            guard let callbackURL = callbackURL else { return }
-            Task {
-                await self.handleOauthRedirect(url: callbackURL)
-            }
+            onDone(callbackURL)
         }
         
         session.presentationContextProvider = self
@@ -39,21 +36,21 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
         session.start()
     }
     
-    func handleOauthRedirect(url: URL) async {
+    func handleOauthRedirect(url: URL) async throws {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
               let code = components.queryItems?.first(where: { $0.name == "code" })?.value,
               let scope = components.queryItems?.first(where: { $0.name == "scope" })?.value
         else {
             print("Invalid redirect URL")
             Analytics.capture(event: .receivedInvalidStravaOauthRedirect, eventProperties: [.cause: "invalid url"])
-            return
+            throw GenericError.unknown
         }
         
         guard scope.contains("activity:read_all") && scope.contains("profile:read_all")
         else {
             print("Scope restricted")
             Analytics.capture(event: .receivedInvalidStravaOauthRedirect, eventProperties: [.cause: "invalid scope"])
-            return
+            throw GenericError.unknown
         }
         
         Analytics.capture(event: .receivedValidStravaOauthRedirect)
@@ -61,7 +58,6 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
         self.isLoading = true
         await loginWithStrava(code: code, scope: scope)
         self.isLoading = false
-        
     }
     
     func loginWithStrava(code: String, scope: String) async {

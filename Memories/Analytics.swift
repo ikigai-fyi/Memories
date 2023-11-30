@@ -54,6 +54,7 @@ struct Analytics {
         case viewHomeScreen
         case viewSettingsScreen
         case viewShareScreen
+        case viewEmailFormScreen
         
         // actions
         case connectStrava
@@ -72,6 +73,8 @@ struct Analytics {
         case updateSettingMeasurementSystem
         case updateSettingRefreshRatePerDay
         case shareMemory
+        case saveEmailForm
+        case skipEmailForm
 
         // lifecycle
         case appActive

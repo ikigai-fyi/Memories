@@ -62,7 +62,7 @@ struct SettingsView: View {
                     Button("Logout") {
                         Analytics.capture(event: .logout)
                         loginViewModel.logout()
-                        isShowingOptions = false
+                        ScreenManager.shared.goTo(screen: .login)
                     }
                     
                     Button("Delete my account", role: .destructive) {
@@ -71,8 +71,9 @@ struct SettingsView: View {
                     }.alert ("Account deletion", isPresented: $isShowingAlert) {
                         Button("OK", role: .destructive) {
                             Analytics.capture(event: .confirmDeleteAccount)
-                            Task { await
-                                loginViewModel.deleteAccount()
+                            Task { 
+                                await loginViewModel.deleteAccount()
+                                ScreenManager.shared.goTo(screen: .login)
                             }
                         }
                         Button("Cancel", role: .cancel) {}

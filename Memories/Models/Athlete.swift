@@ -19,6 +19,10 @@ struct Athlete : Codable {
         return "\(self.firstName) \(self.lastName)"
     }
     
+    var hasEmail: Bool {
+        return self.email != nil
+    }
+    
     func updateEmail(email: String) -> Athlete {
         return .init(
             uuid: self.uuid,
