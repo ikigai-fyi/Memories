@@ -102,7 +102,7 @@ struct EmailFormView: View {
     @MainActor
     private func patchEmail() async throws {
         let url = URLComponents(string: "\(Config.backendURL)/rest/athletes/self")!
-        let jwt = StravaLoginViewModel.getAthleteFromUserDefault()!.jwt
+        let jwt = AuthManager.shared.jwt!
         var request = URLRequest(url: url.url!)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(jwt)", forHTTPHeaderField: "Authorization")

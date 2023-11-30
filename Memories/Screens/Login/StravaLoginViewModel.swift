@@ -17,7 +17,11 @@ let userDefaultAthlete = "athlete"
 @MainActor
 class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentationContextProviding {
     @Published var isLoading: Bool = false
-    @Published var athlete: Athlete? = getAthleteFromUserDefault()
+    private var authManager = AuthManager.shared
+    
+    var athlete: Athlete? {
+        return authManager.athlete
+    }
     
     func startWebOauth() {
         let session = ASWebAuthenticationSession(url: self.getStravaWebUrl(), callbackURLScheme: "memories")
@@ -78,13 +82,7 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
             
             let decoded = try decoder.decode(LoginResponse.self, from: data)
             let athlete = decoded.toAthlete()
-            self.athlete = athlete
-            self.saveAthleteToUserDefault(athlete: athlete)
-            
-            if PHGPostHog.shared() == nil {
-                Analytics.initialize()
-            }
-            Analytics.identify(athlete: athlete)
+            self.authManager.login(athlete: athlete)
         } catch {
             SentrySDK.capture(error: error)
         }
@@ -94,13 +92,13 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
         let url = URL(string: "\(Config.backendURL)/rest/auth/delete")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("Bearer \(StravaLoginViewModel.getAthleteFromUserDefault()!.jwt)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(self.authManager.jwt!)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "POST"
         
         do {
             let (_, response) = try await URLSession.shared.data(for: request)
             if let r = response as? HTTPURLResponse, r.statusCode == 200 {
-                logout()
+                self.authManager.logout()
                 print("succes")
             } else {
                 print("error")
@@ -145,30 +143,8 @@ class StravaLoginViewModel: NSObject, ObservableObject, ASWebAuthenticationPrese
         return ASPresentationAnchor()
     }
     
-    static func getAthleteFromUserDefault() -> Athlete? {
-        if let userDefaults = UserDefaults(suiteName: appGroupName) {
-            if let data = userDefaults.data(forKey: userDefaultAthlete) {
-                return try? JSONDecoder().decode(Athlete.self, from: data)
-            }
-        }
-        
-        return nil
-    }
-    
-    static func isLoggedIn() -> Bool {
-        return self.getAthleteFromUserDefault() != nil
-    }
-    
-    static func athleteIdIfLoggedIn() -> String? {
-        return self.getAthleteFromUserDefault()?.uuid
-    }
-    
     func logout() {
-        self.athlete = nil
-        self.saveAthleteToUserDefault(athlete: nil)
-        
-        // analytics
-        Analytics.reset()
+        self.authManager.logout()
     }
     
     

@@ -98,12 +98,8 @@ class MemoryViewModel: NSObject, ObservableObject {
         self.isFetching = false
     }
     
-    @MainActor private func getLoggedAthlete() -> Athlete? {
-        return StravaLoginViewModel.getAthleteFromUserDefault()
-    }
-    
-    @MainActor private func getJwt() -> String {
-        let loggedJwt = getLoggedAthlete()!.jwt
+    private func getJwt() -> String {
+        let loggedJwt = AuthManager.shared.jwt!
         
         // Always return logged user JWT in prod
         if Config.env == "prod" {

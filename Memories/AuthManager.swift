@@ -14,7 +14,7 @@ class AuthManager : ObservableObject {
     
     @Published var athlete: Athlete? = readFromUserDefault()
 
-    private init(athlete: Athlete? = nil) {
+    private init() {
         self.athlete = athlete
     }
     

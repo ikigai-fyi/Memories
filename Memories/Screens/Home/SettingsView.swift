@@ -62,6 +62,7 @@ struct SettingsView: View {
                     Button("Logout") {
                         Analytics.capture(event: .logout)
                         loginViewModel.logout()
+                        isShowingOptions = false
                     }
                     
                     Button("Delete my account", role: .destructive) {
@@ -193,7 +194,7 @@ class RemoteSettings: ObservableObject {
         self.isLoading = true
             
         let url = URLComponents(string: "\(Config.backendURL)/rest/settings")!
-        let jwt = StravaLoginViewModel.getAthleteFromUserDefault()!.jwt
+        let jwt = AuthManager.shared.jwt!
         var request = URLRequest(url: url.url!)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(jwt)", forHTTPHeaderField: "Authorization")
@@ -228,7 +229,7 @@ class RemoteSettings: ObservableObject {
         self.isLoading = true
         
         let url = URLComponents(string: "\(Config.backendURL)/rest/settings")!
-        let jwt = StravaLoginViewModel.getAthleteFromUserDefault()!.jwt
+        let jwt = AuthManager.shared.jwt!
         var request = URLRequest(url: url.url!)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(jwt)", forHTTPHeaderField: "Authorization")

@@ -27,7 +27,7 @@ struct MemoriesApp: App {
         Analytics.initialize()
         
         CrispSDK.configure(websiteID: "ddfdd35f-d323-4ca9-8df6-c0380e53ad72")
-        if let athlete = StravaLoginViewModel.getAthleteFromUserDefault() {
+        if let athlete = AuthManager.shared.athlete {
             CrispSDK.user.nickname = athlete.fullName
             CrispSDK.user.avatar = URL(string: athlete.pictureUrl)
         }
@@ -44,7 +44,7 @@ struct MemoriesApp: App {
         }.onChange(of: scenePhase) { newPhase in
             switch newPhase {
             case .active:
-                if let athlete = StravaLoginViewModel.getAthleteFromUserDefault() {
+                if let athlete = AuthManager.shared.athlete {
                     Analytics.identify(athlete: athlete)
                 }
                 

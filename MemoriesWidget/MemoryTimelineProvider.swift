@@ -42,7 +42,7 @@ struct MemoryTimelineProvider: TimelineProvider {
     }
 
     @MainActor private func onGetTimeline() {
-        if let athlete = StravaLoginViewModel.getAthleteFromUserDefault() {
+        if let athlete = AuthManager.shared.athlete {
             Analytics.identify(athlete: athlete)
         }
         
