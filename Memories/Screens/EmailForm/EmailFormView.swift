@@ -17,6 +17,8 @@ struct EmailFormView: View {
     @FocusState var isFocused: Bool
     @State var isShowingError: Bool = false
     
+    private let authManager = AuthManager.shared
+    
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
@@ -57,6 +59,9 @@ struct EmailFormView: View {
                                 
                                 do {
                                     try await self.patchEmail()
+                                    
+                                    let athlete = self.authManager.athlete!.updateEmail(email: email)
+                                    self.authManager.login(athlete: athlete)
                                 } catch {
                                     self.isShowingError = true
                                 }

@@ -18,4 +18,15 @@ struct Athlete : Codable {
     var fullName: String {
         return "\(self.firstName) \(self.lastName)"
     }
+    
+    func updateEmail(email: String) -> Athlete {
+        return .init(
+            uuid: self.uuid,
+            email: email,
+            firstName: self.firstName,
+            lastName: self.lastName,
+            pictureUrl: self.pictureUrl,
+            jwt: self.jwt
+        )
+    }
 }
