@@ -31,13 +31,13 @@ class LoginService : NSObject {
               let scope = components.queryItems?.first(where: { $0.name == "scope" })?.value
         else {
             Analytics.capture(event: .receivedInvalidStravaOauthRedirect, eventProperties: [.cause: "invalid url"])
-            throw GenericError.unknown
+            throw RequestError.unknown
         }
         
         guard scope.contains("activity:read_all") && scope.contains("profile:read_all")
         else {
             Analytics.capture(event: .receivedInvalidStravaOauthRedirect, eventProperties: [.cause: "invalid scope"])
-            throw GenericError.unknown
+            throw RequestError.unknown
         }
         
         Analytics.capture(event: .receivedValidStravaOauthRedirect)
