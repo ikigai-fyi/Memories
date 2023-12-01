@@ -54,6 +54,12 @@
 		2D906C6E2B19C1430039A547 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D906C6D2B19C1430039A547 /* Login.swift */; };
 		2D906C702B19CACA0039A547 /* MemoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D906C6F2B19CACA0039A547 /* MemoryService.swift */; };
 		2D906C712B19CACA0039A547 /* MemoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D906C6F2B19CACA0039A547 /* MemoryService.swift */; };
+		2D906C732B1A1AE00039A547 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D906C722B1A1AE00039A547 /* Request.swift */; };
+		2D906C742B1A1AE00039A547 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D906C722B1A1AE00039A547 /* Request.swift */; };
+		2D906C762B1A28BB0039A547 /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D906C752B1A28BB0039A547 /* JSONDecoder.swift */; };
+		2D906C772B1A28BB0039A547 /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D906C752B1A28BB0039A547 /* JSONDecoder.swift */; };
+		2D906C792B1A35B50039A547 /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D906C782B1A35B50039A547 /* RequestError.swift */; };
+		2D906C7A2B1A35B50039A547 /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D906C782B1A35B50039A547 /* RequestError.swift */; };
 		2DAB2A632B13AD4700C45C09 /* MemoryTimelineEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB2A622B13AD4700C45C09 /* MemoryTimelineEntry.swift */; };
 		2DAB2A652B13AD7900C45C09 /* MemoryTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB2A642B13AD7900C45C09 /* MemoryTimelineProvider.swift */; };
 		2DCAC7A42A208FE7007A11F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCAC7A32A208FE7007A11F9 /* Config.swift */; };
@@ -139,6 +145,9 @@
 		2D906C6B2B19C11C0039A547 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		2D906C6D2B19C1430039A547 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		2D906C6F2B19CACA0039A547 /* MemoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryService.swift; sourceTree = "<group>"; };
+		2D906C722B1A1AE00039A547 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		2D906C752B1A28BB0039A547 /* JSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoder.swift; sourceTree = "<group>"; };
+		2D906C782B1A35B50039A547 /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
 		2DAB2A622B13AD4700C45C09 /* MemoryTimelineEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryTimelineEntry.swift; sourceTree = "<group>"; };
 		2DAB2A642B13AD7900C45C09 /* MemoryTimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryTimelineProvider.swift; sourceTree = "<group>"; };
 		2DCAC7A12A208D93007A11F9 /* dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = dev.xcconfig; sourceTree = "<group>"; };
@@ -207,6 +216,16 @@
 			path = ci_scripts;
 			sourceTree = "<group>";
 		};
+		2D906C7B2B1A35C50039A547 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				2D3DBEEF2A6C188000B2685B /* APIError.swift */,
+				2D3DBEED2A6C17BD00B2685B /* ActivityError.swift */,
+				2D906C782B1A35B50039A547 /* RequestError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
 		2DAB2A662B13AE8B00C45C09 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,9 +272,9 @@
 		2DAB2A6A2B13AFCE00C45C09 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				2D3DBEEF2A6C188000B2685B /* APIError.swift */,
-				2D3DBEED2A6C17BD00B2685B /* ActivityError.swift */,
+				2D906C7B2B1A35C50039A547 /* Error */,
 				2D3DBEEB2A6C086C00B2685B /* FakeBehaviour.swift */,
+				2D906C722B1A1AE00039A547 /* Request.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -274,6 +293,7 @@
 				2D7C61E02A1D5D3B0050AAB0 /* DateFormatter.swift */,
 				2D7C9D382B14A9DC005B76EF /* Date.swift */,
 				2D7C9D402B14FA43005B76EF /* Color.swift */,
+				2D906C752B1A28BB0039A547 /* JSONDecoder.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -529,6 +549,7 @@
 				2D3874E52B12232300B2E7B6 /* ShareView.swift in Sources */,
 				2DCD120E2B18D06800B2BFFD /* AuthManager.swift in Sources */,
 				2D4211412B10E9D30085AA78 /* ShareBadgeView.swift in Sources */,
+				2D906C732B1A1AE00039A547 /* Request.swift in Sources */,
 				2D4211452B10EDEB0085AA78 /* XYearsAgoBadgeView.swift in Sources */,
 				2D0A72A22B13AADB00C1B561 /* FakeBehaviour.swift in Sources */,
 				2D7C9D392B14A9DC005B76EF /* Date.swift in Sources */,
@@ -542,8 +563,10 @@
 				2DCAC7A42A208FE7007A11F9 /* Config.swift in Sources */,
 				2DE590BF2A053D9C0041EA4D /* StravaLoginView.swift in Sources */,
 				E4604FC42A05C98800D838DF /* MemoriesWidgetView.swift in Sources */,
+				2D906C762B1A28BB0039A547 /* JSONDecoder.swift in Sources */,
 				2D0A72A92B13AADB00C1B561 /* Athlete.swift in Sources */,
 				2D6064642B0FA8C50049D42C /* SettingsView.swift in Sources */,
+				2D906C792B1A35B50039A547 /* RequestError.swift in Sources */,
 				2DCC1B262B16152600E8B735 /* EmailFormView.swift in Sources */,
 				2D906C672B18E9B30039A547 /* ScreenManager.swift in Sources */,
 				2D7C9D412B14FA43005B76EF /* Color.swift in Sources */,
@@ -564,7 +587,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D906C7A2B1A35B50039A547 /* RequestError.swift in Sources */,
 				2D7C9D3A2B14A9DC005B76EF /* Date.swift in Sources */,
+				2D906C742B1A1AE00039A547 /* Request.swift in Sources */,
 				2D4211462B10EDEB0085AA78 /* XYearsAgoBadgeView.swift in Sources */,
 				2D4211402B10E97E0085AA78 /* ShareBadgeView.swift in Sources */,
 				2D7C9D422B14FA43005B76EF /* Color.swift in Sources */,
@@ -584,6 +609,7 @@
 				2D4211442B10EC3D0085AA78 /* BadgeView.swift in Sources */,
 				E48E09872A05BF98002456E5 /* MemoriesWidgetBundle.swift in Sources */,
 				E402A3832A05D46800C2F3B0 /* Helper.swift in Sources */,
+				2D906C772B1A28BB0039A547 /* JSONDecoder.swift in Sources */,
 				2D0A72B02B13AAF900C1B561 /* ActivityError.swift in Sources */,
 				2D0A72B12B13AAFB00C1B561 /* APIError.swift in Sources */,
 				2DAB2A632B13AD4700C45C09 /* MemoryTimelineEntry.swift in Sources */,
