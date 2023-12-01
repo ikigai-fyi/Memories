@@ -12,11 +12,9 @@ import PostHog
 
 @main
 struct MemoriesApp: App {
-    @StateObject var memoryViewModel = MemoryViewModel()
     @StateObject var screenManager = ScreenManager.shared
     @Environment(\.scenePhase) var scenePhase
 
-    
     init() {
         SentrySDK.start { options in
             options.dsn = "https://2307db5e8e854158be765b26bce256ed@o4505126569246720.ingest.sentry.io/4505248857784320"
@@ -47,7 +45,7 @@ struct MemoriesApp: App {
                     self.screenManager.goTo(screen: .home)
                 }
             case .home:
-                MemoriesHomeView().environmentObject(memoryViewModel)
+                MemoriesHomeView()
             }
         }.onChange(of: scenePhase) { newPhase in
             switch newPhase {

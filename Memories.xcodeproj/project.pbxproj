@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2D0A72A02B13AADB00C1B561 /* Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D85D72A2B0685350006C9F0 /* Memory.swift */; };
-		2D0A72A12B13AADB00C1B561 /* MemoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5EAEE32A1D51B400FB9C33 /* MemoryViewModel.swift */; };
 		2D0A72A22B13AADB00C1B561 /* FakeBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3DBEEB2A6C086C00B2685B /* FakeBehaviour.swift */; };
 		2D0A72A32B13AADB00C1B561 /* ActivityError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3DBEED2A6C17BD00B2685B /* ActivityError.swift */; };
 		2D0A72A52B13AADB00C1B561 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3DBEEF2A6C188000B2685B /* APIError.swift */; };
@@ -57,7 +56,6 @@
 		2D906C712B19CACA0039A547 /* MemoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D906C6F2B19CACA0039A547 /* MemoryService.swift */; };
 		2DAB2A632B13AD4700C45C09 /* MemoryTimelineEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB2A622B13AD4700C45C09 /* MemoryTimelineEntry.swift */; };
 		2DAB2A652B13AD7900C45C09 /* MemoryTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB2A642B13AD7900C45C09 /* MemoryTimelineProvider.swift */; };
-		2DAB2A6E2B13B0D300C45C09 /* MemoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5EAEE32A1D51B400FB9C33 /* MemoryViewModel.swift */; };
 		2DCAC7A42A208FE7007A11F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCAC7A32A208FE7007A11F9 /* Config.swift */; };
 		2DCAC7A52A208FE7007A11F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCAC7A32A208FE7007A11F9 /* Config.swift */; };
 		2DCC1B262B16152600E8B735 /* EmailFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCC1B252B16152600E8B735 /* EmailFormView.swift */; };
@@ -129,7 +127,6 @@
 		2D4211422B10EC3D0085AA78 /* BadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeView.swift; sourceTree = "<group>"; };
 		2D5271682A6FDD5900989AE8 /* ci_post_xcodebuild.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_xcodebuild.sh; sourceTree = "<group>"; };
 		2D52A02D2B15D13D00B6316D /* WidgetSharingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSharingManager.swift; sourceTree = "<group>"; };
-		2D5EAEE32A1D51B400FB9C33 /* MemoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryViewModel.swift; sourceTree = "<group>"; };
 		2D6064632B0FA8C50049D42C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		2D7C61DC2A1D59040050AAB0 /* Athlete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Athlete.swift; sourceTree = "<group>"; };
 		2D7C61E02A1D5D3B0050AAB0 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
@@ -238,7 +235,6 @@
 				E4E501B82A0E9A00009D4993 /* MemoriesHomeView.swift */,
 				2D3874E42B12232300B2E7B6 /* ShareView.swift */,
 				2D6064632B0FA8C50049D42C /* SettingsView.swift */,
-				2D5EAEE32A1D51B400FB9C33 /* MemoryViewModel.swift */,
 				2D906C6F2B19CACA0039A547 /* MemoryService.swift */,
 			);
 			path = Home;
@@ -542,7 +538,6 @@
 				2D906C692B18ED8F0039A547 /* GenericError.swift in Sources */,
 				E468D3FD2A0663E50017070A /* Analytics.swift in Sources */,
 				2D0A72A62B13AADB00C1B561 /* ActivityType.swift in Sources */,
-				2D0A72A12B13AADB00C1B561 /* MemoryViewModel.swift in Sources */,
 				2D3874E72B1228C900B2E7B6 /* Deeplink.swift in Sources */,
 				2DCAC7A42A208FE7007A11F9 /* Config.swift in Sources */,
 				2DE590BF2A053D9C0041EA4D /* StravaLoginView.swift in Sources */,
@@ -572,7 +567,6 @@
 				2D7C9D3A2B14A9DC005B76EF /* Date.swift in Sources */,
 				2D4211462B10EDEB0085AA78 /* XYearsAgoBadgeView.swift in Sources */,
 				2D4211402B10E97E0085AA78 /* ShareBadgeView.swift in Sources */,
-				2DAB2A6E2B13B0D300C45C09 /* MemoryViewModel.swift in Sources */,
 				2D7C9D422B14FA43005B76EF /* Color.swift in Sources */,
 				2D0A72B22B13AAFD00C1B561 /* ActivityType.swift in Sources */,
 				2D0A72AE2B13AAF400C1B561 /* DateFormatter.swift in Sources */,

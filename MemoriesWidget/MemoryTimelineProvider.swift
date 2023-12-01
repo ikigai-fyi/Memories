@@ -10,7 +10,7 @@ import WidgetKit
 import Sentry
 
 struct MemoryTimelineProvider: TimelineProvider {
-    private let viewModel = MemoryViewModel()
+    private let memoryService = MemoryService()
     
     func placeholder(in context: Context) -> MemoryTimelineEntry {
         return .placeholder
@@ -23,8 +23,9 @@ struct MemoryTimelineProvider: TimelineProvider {
             Task {
                 await self.initializeDependencies()
                 await self.onGetTimeline()
-                await viewModel.fetchMemory()
-                let entry = MemoryTimelineEntry(date: Date(), memory: viewModel.memory, error: viewModel.error)
+                
+                let (memory, error) = await self.fetchMemory()
+                let entry = MemoryTimelineEntry(date: Date(), memory: memory, error: error)
                 completion(entry)
             }
         }
@@ -34,10 +35,20 @@ struct MemoryTimelineProvider: TimelineProvider {
         Task {
             await self.initializeDependencies()
             await self.onGetTimeline()
-            await viewModel.fetchMemory()
-            let entries = [MemoryTimelineEntry(date: Date(), memory: viewModel.memory, error: viewModel.error)]
+            let (memory, error) = await self.fetchMemory()
+            let entries = [MemoryTimelineEntry(date: Date(), memory: memory, error: error)]
             let nextUpdate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
             completion(Timeline(entries: entries, policy: .after(nextUpdate)))
+        }
+    }
+    
+    private func fetchMemory() async -> (Memory?, ActivityError?) {
+        do {
+            return ((try await memoryService.fetch()), nil)
+        } catch let e as ActivityError {
+            return (nil, e)
+        } catch {
+            return (nil, .other)
         }
     }
 

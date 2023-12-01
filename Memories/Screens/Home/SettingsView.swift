@@ -10,12 +10,9 @@ import Crisp
 import Sentry
 
 struct SettingsView: View {
-    @EnvironmentObject var memoryViewModel: MemoryViewModel
-    
     @Binding var isShowingOptions: Bool
     @Binding var isChatPresented: Bool
-    
-    @State private var showingFakeBehaviourAlert = false
+
     @State private var isShowingAlert = false
     @State private var measurementSystemString: String = Helper.getIsUserUsingMetricSystemFromUserDefaults()! ? NSLocalizedString("Metric", comment: "comment") : NSLocalizedString("Imperial", comment: "comment")
     @StateObject private var remoteSettings = RemoteSettings()
@@ -133,24 +130,6 @@ struct SettingsView: View {
                         Analytics.capture(event: .shareFeedback, eventProperties: [.from: "profileFeedbackButton"])
                     }.sheet(isPresented: self.$isChatPresented) {
                         ChatView()
-                    }
-                }
-                
-                if Config.isDev {
-                    Section(header: Text("Developer")){
-                        Button("Set fake behaviour (\(memoryViewModel.fakeBehaviour?.title ?? "none"))") {
-                            showingFakeBehaviourAlert = true
-                        }.alert ("Set fake behaviour", isPresented: $showingFakeBehaviourAlert) {
-                            Button("Remove fake behaviour") {
-                                memoryViewModel.fakeBehaviour = nil
-                            }
-                            Button(FakeBehaviour.noActivity.title) {
-                                memoryViewModel.fakeBehaviour = .noActivity
-                            }
-                            Button(FakeBehaviour.noPicture.title) {
-                                memoryViewModel.fakeBehaviour = .noPicture
-                            }
-                        }
                     }
                 }
             }
