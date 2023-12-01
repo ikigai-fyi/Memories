@@ -15,4 +15,10 @@ struct APIError : Codable {
         let type: String
         let message: String
     }
+    
+    init(statusCode: Int, data: Data) throws {
+        let payload = try JSONDecoder.standard.decode(APIError.Payload.self, from: data)
+        self.statusCode = statusCode
+        self.payload = payload
+    }
 }

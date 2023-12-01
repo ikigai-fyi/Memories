@@ -393,9 +393,12 @@ struct MemoriesHomeView: View {
         
         do {
             self.memory = try await self.memoryService.fetch(refresh: refresh)
-        } catch is ActivityError {
-            self.error = error
+            self.error = nil
+        } catch let e as ActivityError {
+            self.memory = nil
+            self.error = e
         } catch {
+            self.memory = nil
             self.error = .other
         }
     }

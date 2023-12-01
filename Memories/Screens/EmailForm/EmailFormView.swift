@@ -109,27 +109,7 @@ struct EmailFormView: View {
     
     @MainActor
     private func patchEmail() async throws {
-        let url = URLComponents(string: "\(Config.backendURL)/rest/athletes/self")!
-        let jwt = AuthManager.shared.jwt!
-        var request = URLRequest(url: url.url!)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("Bearer \(jwt)", forHTTPHeaderField: "Authorization")
-        request.httpMethod = "PATCH"
-        let parameters: [String: Any] = [
-            "email": self.email
-        ]
-        request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
-        
-        do {
-            let (_, response) = try await URLSession.shared.data(for: request)
-            if let response = response as? HTTPURLResponse, response.statusCode != 200 {
-                SentrySDK.capture(message: response.description)
-                throw GenericError.unknown
-            }
-        } catch {
-            SentrySDK.capture(error: error)
-            throw GenericError.unknown
-        }
+        try await Request().patch(endpoint: "/athletes/self", payload: ["email": self.email])
     }
 }
 
