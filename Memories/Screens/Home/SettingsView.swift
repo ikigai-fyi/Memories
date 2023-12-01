@@ -11,17 +11,16 @@ import Sentry
 
 struct SettingsView: View {
     @EnvironmentObject var memoryViewModel: MemoryViewModel
-    @EnvironmentObject var loginViewModel: StravaLoginViewModel
     
-    // inherited
     @Binding var isShowingOptions: Bool
     @Binding var isChatPresented: Bool
     
-    // state
     @State private var showingFakeBehaviourAlert = false
     @State private var isShowingAlert = false
     @State private var measurementSystemString: String = Helper.getIsUserUsingMetricSystemFromUserDefaults()! ? NSLocalizedString("Metric", comment: "comment") : NSLocalizedString("Imperial", comment: "comment")
     @StateObject private var remoteSettings = RemoteSettings()
+    
+    private let authManager = AuthManager.shared
     
     
     
@@ -30,7 +29,7 @@ struct SettingsView: View {
             Form {
                 Section(header: Text("Profile")) {
                     
-                    if let athlete = loginViewModel.athlete {
+                    if let athlete = authManager.athlete {
                         HStack(spacing: 12) {
                             AsyncImage(url: URL(string: athlete.pictureUrl)) { image in
                                 image.resizable()
@@ -61,7 +60,7 @@ struct SettingsView: View {
                     
                     Button("Logout") {
                         Analytics.capture(event: .logout)
-                        loginViewModel.logout()
+                        authManager.logout()
                         ScreenManager.shared.goTo(screen: .login)
                     }
                     
@@ -72,7 +71,7 @@ struct SettingsView: View {
                         Button("OK", role: .destructive) {
                             Analytics.capture(event: .confirmDeleteAccount)
                             Task { 
-                                await loginViewModel.deleteAccount()
+                                await self.remoteSettings.deleteAccount()
                                 ScreenManager.shared.goTo(screen: .login)
                             }
                         }
@@ -249,6 +248,27 @@ class RemoteSettings: ObservableObject {
             SentrySDK.capture(error: error)
         }
         
+        self.isLoading = false
+    }
+    
+    @MainActor
+    func deleteAccount() async {
+        let url = URL(string: "\(Config.backendURL)/rest/auth/delete")!
+        var request = URLRequest(url: url)
+        let jwt = AuthManager.shared.jwt!
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(jwt)", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "POST"
+        
+        self.isLoading = true
+        do {
+            let (_, response) = try await URLSession.shared.data(for: request)
+            if let r = response as? HTTPURLResponse, r.statusCode == 200 {
+                AuthManager.shared.logout()
+            } else {}
+        } catch {
+            SentrySDK.capture(error: error)
+        }
         self.isLoading = false
     }
 }

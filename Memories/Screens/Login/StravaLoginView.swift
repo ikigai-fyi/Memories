@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  StravaLoginView.swift
 //  Memories
 //
 //  Created by Paul Nicolet on 05/05/2023.

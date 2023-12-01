@@ -15,7 +15,6 @@ import PostHog
 import AVKit
 
 struct MemoriesHomeView: View {
-    @EnvironmentObject var loginViewModel: StravaLoginViewModel
     @EnvironmentObject var memoryViewModel: MemoryViewModel
     @Environment(\.scenePhase) var scenePhase
     @Environment(\.displayScale) var displayScale
@@ -36,6 +35,8 @@ struct MemoriesHomeView: View {
     
     @State var activityTap = false
     @State var titleEgg = false
+    
+    private let authManager = AuthManager.shared
     
     var previewRefreshButtonTextColor: Color {
         return memoryViewModel.isFetchingInitial ? .gray : .black
@@ -73,7 +74,7 @@ struct MemoriesHomeView: View {
                             Analytics.capture(event: .viewSettingsScreen)
                             isShowingOptions = true
                         }) {
-                            AsyncImage(url: URL(string: loginViewModel.athlete?.pictureUrl ?? "")) { image in
+                            AsyncImage(url: URL(string: authManager.athlete?.pictureUrl ?? "")) { image in
                                 image.resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(maxWidth: 42, maxHeight: 42)
