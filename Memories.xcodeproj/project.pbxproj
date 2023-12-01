@@ -52,6 +52,8 @@
 		2D906C672B18E9B30039A547 /* ScreenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D906C662B18E9B30039A547 /* ScreenManager.swift */; };
 		2D906C692B18ED8F0039A547 /* GenericError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D906C682B18ED8F0039A547 /* GenericError.swift */; };
 		2D906C6A2B18ED8F0039A547 /* GenericError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D906C682B18ED8F0039A547 /* GenericError.swift */; };
+		2D906C6C2B19C11C0039A547 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D906C6B2B19C11C0039A547 /* LoginService.swift */; };
+		2D906C6E2B19C1430039A547 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D906C6D2B19C1430039A547 /* Login.swift */; };
 		2DAB2A632B13AD4700C45C09 /* MemoryTimelineEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB2A622B13AD4700C45C09 /* MemoryTimelineEntry.swift */; };
 		2DAB2A652B13AD7900C45C09 /* MemoryTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB2A642B13AD7900C45C09 /* MemoryTimelineProvider.swift */; };
 		2DAB2A6E2B13B0D300C45C09 /* MemoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5EAEE32A1D51B400FB9C33 /* MemoryViewModel.swift */; };
@@ -137,6 +139,8 @@
 		2D85D72C2B07996B0006C9F0 /* XYearsAgoBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYearsAgoBadgeView.swift; sourceTree = "<group>"; };
 		2D906C662B18E9B30039A547 /* ScreenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenManager.swift; sourceTree = "<group>"; };
 		2D906C682B18ED8F0039A547 /* GenericError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericError.swift; sourceTree = "<group>"; };
+		2D906C6B2B19C11C0039A547 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
+		2D906C6D2B19C1430039A547 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		2DAB2A622B13AD4700C45C09 /* MemoryTimelineEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryTimelineEntry.swift; sourceTree = "<group>"; };
 		2DAB2A642B13AD7900C45C09 /* MemoryTimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryTimelineProvider.swift; sourceTree = "<group>"; };
 		2DCAC7A12A208D93007A11F9 /* dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = dev.xcconfig; sourceTree = "<group>"; };
@@ -214,6 +218,7 @@
 				E4101AD22A6FA767000E2B31 /* ActivityType.swift */,
 				2D85D72A2B0685350006C9F0 /* Memory.swift */,
 				2D906C682B18ED8F0039A547 /* GenericError.swift */,
+				2D906C6D2B19C1430039A547 /* Login.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -223,6 +228,7 @@
 			children = (
 				2DE590BD2A053D9C0041EA4D /* StravaLoginView.swift */,
 				2DE590BC2A053D9C0041EA4D /* StravaLoginViewModel.swift */,
+				2D906C6B2B19C11C0039A547 /* LoginService.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -532,6 +538,7 @@
 				2D0A72A22B13AADB00C1B561 /* FakeBehaviour.swift in Sources */,
 				2D7C9D392B14A9DC005B76EF /* Date.swift in Sources */,
 				2D0A72A82B13AADB00C1B561 /* Activity.swift in Sources */,
+				2D906C6E2B19C1430039A547 /* Login.swift in Sources */,
 				2D906C692B18ED8F0039A547 /* GenericError.swift in Sources */,
 				E468D3FD2A0663E50017070A /* Analytics.swift in Sources */,
 				2D0A72A62B13AADB00C1B561 /* ActivityType.swift in Sources */,
@@ -546,6 +553,7 @@
 				2D906C672B18E9B30039A547 /* ScreenManager.swift in Sources */,
 				2D7C9D412B14FA43005B76EF /* Color.swift in Sources */,
 				E48E099B2A05C2E6002456E5 /* MemoriesApp.swift in Sources */,
+				2D906C6C2B19C11C0039A547 /* LoginService.swift in Sources */,
 				E46FD4B52A0EA308000396EA /* WebView.swift in Sources */,
 				2D0A72A32B13AADB00C1B561 /* ActivityError.swift in Sources */,
 				2D0A72A72B13AADB00C1B561 /* DateFormatter.swift in Sources */,

@@ -9,9 +9,11 @@ import SwiftUI
 import Crisp
 
 struct StravaLoginView: View {
-    @EnvironmentObject var loginViewModel: StravaLoginViewModel
     @State private var isChatPresented: Bool = false
+    @State private var isLoading: Bool = false
+    
     let onDone: () -> Void
+    private let loginService = LoginService()
     
     var body: some View {
         VStack {
@@ -30,7 +32,7 @@ struct StravaLoginView: View {
             Text("Widgets for Strava")
                 .font(.headline)
             
-            if loginViewModel.isLoading {
+            if self.isLoading {
                 Spacer()
                 ProgressView()
             }
@@ -41,22 +43,11 @@ struct StravaLoginView: View {
             VStack(spacing: 12.0) {
              
                 Button {
-                    // Open Strava app if installed, if will be redirected to our app through a deeplink
-                    // UIApplication can only be used in a UIKit context
-                    if UIApplication.shared.canOpenURL(self.loginViewModel.getStravaMobileUrl()) {
-                        Analytics.capture(event: .connectStrava, eventProperties: [.with: "stravaApp"])
-                        UIApplication.shared.open(self.loginViewModel.getStravaMobileUrl(), options: [:])
-                    } else {
-                        Analytics.capture(event: .connectStrava, eventProperties: [.with: "stravaWebview"])
-                        self.loginViewModel.startWebOauth { url in
-                            guard let url = url else { return }
-                            Task {
-                                do {
-                                    try await loginViewModel.handleOauthRedirect(url: url)
-                                    self.onDone()
-                                }
-                            }
-                        }
+                    self.isLoading = true
+                    self.loginService.startOauth { url, _ in
+                        // Coming back from webview
+                        guard let url = url else { return }
+                        Task { await self.continueOauth(url: url) }
                     }
                 } label: {
                     Text("Connect with Strava")
@@ -86,16 +77,20 @@ struct StravaLoginView: View {
         .frame(maxWidth: .infinity)
         .padding(32.0)
         .onOpenURL { url in
-            Task {
-                do {
-                    try await loginViewModel.handleOauthRedirect(url: url)
-                    self.onDone()
-                }
-            }
+            // Coming back from Strava app
+            Task { await self.continueOauth(url: url) }
         }.onAppear {
             Analytics.capture(event: .viewLoginScreen)
         }
         
+    }
+    
+    private func continueOauth(url: URL) async {
+        defer { self.isLoading = false }
+        do {
+            try await self.loginService.handleOauthRedirect(url: url)
+            self.onDone()
+        } catch {}
     }
 }
 
