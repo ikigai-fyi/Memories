@@ -53,6 +53,8 @@
 		2D906C6A2B18ED8F0039A547 /* GenericError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D906C682B18ED8F0039A547 /* GenericError.swift */; };
 		2D906C6C2B19C11C0039A547 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D906C6B2B19C11C0039A547 /* LoginService.swift */; };
 		2D906C6E2B19C1430039A547 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D906C6D2B19C1430039A547 /* Login.swift */; };
+		2D906C702B19CACA0039A547 /* MemoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D906C6F2B19CACA0039A547 /* MemoryService.swift */; };
+		2D906C712B19CACA0039A547 /* MemoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D906C6F2B19CACA0039A547 /* MemoryService.swift */; };
 		2DAB2A632B13AD4700C45C09 /* MemoryTimelineEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB2A622B13AD4700C45C09 /* MemoryTimelineEntry.swift */; };
 		2DAB2A652B13AD7900C45C09 /* MemoryTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB2A642B13AD7900C45C09 /* MemoryTimelineProvider.swift */; };
 		2DAB2A6E2B13B0D300C45C09 /* MemoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5EAEE32A1D51B400FB9C33 /* MemoryViewModel.swift */; };
@@ -139,6 +141,7 @@
 		2D906C682B18ED8F0039A547 /* GenericError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericError.swift; sourceTree = "<group>"; };
 		2D906C6B2B19C11C0039A547 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		2D906C6D2B19C1430039A547 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		2D906C6F2B19CACA0039A547 /* MemoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryService.swift; sourceTree = "<group>"; };
 		2DAB2A622B13AD4700C45C09 /* MemoryTimelineEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryTimelineEntry.swift; sourceTree = "<group>"; };
 		2DAB2A642B13AD7900C45C09 /* MemoryTimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryTimelineProvider.swift; sourceTree = "<group>"; };
 		2DCAC7A12A208D93007A11F9 /* dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = dev.xcconfig; sourceTree = "<group>"; };
@@ -236,6 +239,7 @@
 				2D3874E42B12232300B2E7B6 /* ShareView.swift */,
 				2D6064632B0FA8C50049D42C /* SettingsView.swift */,
 				2D5EAEE32A1D51B400FB9C33 /* MemoryViewModel.swift */,
+				2D906C6F2B19CACA0039A547 /* MemoryService.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -534,6 +538,7 @@
 				2D7C9D392B14A9DC005B76EF /* Date.swift in Sources */,
 				2D0A72A82B13AADB00C1B561 /* Activity.swift in Sources */,
 				2D906C6E2B19C1430039A547 /* Login.swift in Sources */,
+				2D906C702B19CACA0039A547 /* MemoryService.swift in Sources */,
 				2D906C692B18ED8F0039A547 /* GenericError.swift in Sources */,
 				E468D3FD2A0663E50017070A /* Analytics.swift in Sources */,
 				2D0A72A62B13AADB00C1B561 /* ActivityType.swift in Sources */,
@@ -580,6 +585,7 @@
 				2D0A72AB2B13AAED00C1B561 /* Activity.swift in Sources */,
 				2D0A72AF2B13AAF600C1B561 /* FakeBehaviour.swift in Sources */,
 				2D3874E82B1228C900B2E7B6 /* Deeplink.swift in Sources */,
+				2D906C712B19CACA0039A547 /* MemoryService.swift in Sources */,
 				2DCAC7A52A208FE7007A11F9 /* Config.swift in Sources */,
 				2D4211442B10EC3D0085AA78 /* BadgeView.swift in Sources */,
 				E48E09872A05BF98002456E5 /* MemoriesWidgetBundle.swift in Sources */,

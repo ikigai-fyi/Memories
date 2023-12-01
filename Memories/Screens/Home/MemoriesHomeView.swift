@@ -15,7 +15,6 @@ import PostHog
 import AVKit
 
 struct MemoriesHomeView: View {
-    @EnvironmentObject var memoryViewModel: MemoryViewModel
     @Environment(\.scenePhase) var scenePhase
     @Environment(\.displayScale) var displayScale
     
@@ -30,20 +29,24 @@ struct MemoriesHomeView: View {
     @State private var isChatPresented: Bool = false
     @State private var isShowingOptions: Bool = false
     @State private var isShowingShareSheet: Bool = false
+    @State private var isUserActivated: Bool = false
+    @State private var activityTap: Bool = false
+    @State private var titleEgg: Bool = false
+
+    @State private var memory: Memory? = nil
+    @State private var error: ActivityError? = nil
+    @State private var isLoading: Bool = false
     
-    @State private var isUserActivated = false
-    
-    @State var activityTap = false
-    @State var titleEgg = false
+    // Honest work: just an integer that is bound to views that need to be refreshed sometimes
+    // For instance, to force a widget preview refresh after settings change, just increase this value
+    // Usage: View().id(viewModel.stateValue)
+    @State var stateValue: Int = 0
     
     private let authManager = AuthManager.shared
+    private let memoryService = MemoryService()
     
-    var previewRefreshButtonTextColor: Color {
-        return memoryViewModel.isFetchingInitial ? .gray : .black
-    }
-    
-    var refreshButtonTextColor: Color {
-        return memoryViewModel.isFetchingInitial ? .white.opacity(0.7) : .white
+    private var isLoadingInitial: Bool {
+        return self.isLoading && self.memory == nil
     }
     
     var body: some View {
@@ -87,7 +90,7 @@ struct MemoriesHomeView: View {
                             
                             
                         }.sheet(isPresented: $isShowingOptions, onDismiss: {
-                            self.forceRenderWidgetViews()
+                            self.stateValue += 1
                         }) {
                             SettingsView(isShowingOptions: $isShowingOptions, isChatPresented: $isChatPresented)
                         }
@@ -136,10 +139,10 @@ struct MemoriesHomeView: View {
                         
                         VStack {
                             // Activity widget -----------------------------------------------------
-                            if !self.memoryViewModel.isFetchingInitial {
+                            if !self.isLoadingInitial {
                                 MemoriesWidgetView(
-                                    memory: memoryViewModel.memory,
-                                    error: memoryViewModel.error,
+                                    memory: self.memory,
+                                    error: self.error,
                                     withBadges: true,
                                     isInWidget: false
                                 )
@@ -147,10 +150,10 @@ struct MemoriesHomeView: View {
                                 .background(Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)))
                                 .cornerRadius(20)
                                 .shadow(color: Color.black.opacity(0.3), radius: 18)
-                                .id(memoryViewModel.stateValue)
+                                .id(self.stateValue)
                                 .onTapGesture {
                                     guard
-                                        let activity = memoryViewModel.memory?.activity,
+                                        let activity = self.memory?.activity,
                                         let stravaUrl = activity.stravaUrl
                                     else { return }
                                     
@@ -186,8 +189,8 @@ struct MemoriesHomeView: View {
                                         Text("Your widget preview").font(.subheadline)
                                     }  icon: {
                                         Image(systemName: "arrow.clockwise")
-                                    }.font(.system(size: 12)).foregroundColor(previewRefreshButtonTextColor)
-                                }.disabled(memoryViewModel.isFetching)
+                                    }.font(.system(size: 12)).foregroundColor(self.isLoadingInitial ? .gray : .black)
+                                }.disabled(self.isLoading)
                             } else {
                                 HStack{
                                     
@@ -200,19 +203,19 @@ struct MemoriesHomeView: View {
                                             Text("Refresh").bold()
                                         } icon: {
                                             Image(systemName: "arrow.clockwise")
-                                        }.foregroundColor(refreshButtonTextColor)
+                                        }.foregroundColor(self.isLoadingInitial ? .white.opacity(0.7) : .white)
                                     }
                                     .frame(maxWidth: .infinity)
                                     .padding([.top, .bottom], 12)
                                     .background(.blue)
                                     .foregroundColor(.blue)
                                     .cornerRadius(35)
-                                    .disabled(memoryViewModel.isFetching)
+                                    .disabled(self.isLoading)
                                     
                                     
                                     Button {
                                         guard
-                                            let activity = memoryViewModel.memory?.activity,
+                                            let activity = self.memory?.activity,
                                             let stravaUrl = activity.stravaUrl
                                         else { return }
                                         
@@ -262,7 +265,7 @@ struct MemoriesHomeView: View {
                     .onAppear{
                         // First render
                         Task {
-                            await self.memoryViewModel.fetchMemory()
+                            await self.fetchMemory(refresh: false)
                         }
                     }
                     .onChange(of: scenePhase) { newPhase in
@@ -270,7 +273,7 @@ struct MemoriesHomeView: View {
                         switch newPhase {
                         case .active:
                             Task {
-                                await self.memoryViewModel.fetchMemory()
+                                await self.fetchMemory(refresh: false)
                             }
                             
                             // request review
@@ -353,7 +356,7 @@ struct MemoriesHomeView: View {
                 
             }.zIndex(5)
         }.onOpenURL{ url in
-            guard let memory = self.memoryViewModel.memory else { return }
+            guard let memory = self.memory else { return }
             
             switch Deeplink(from: url) {
             case .shareMemoryFromPreview:
@@ -369,7 +372,7 @@ struct MemoriesHomeView: View {
             case nil: return
             }
         }.sheet(isPresented: self.$isShowingShareSheet) {
-            let memory = self.memoryViewModel.memory!
+            let memory = self.memory!
             ShareView(items: WidgetSharingManager(memory: memory, displayScale: self.displayScale).getNativeSharingItems())
         }
     }
@@ -377,18 +380,28 @@ struct MemoriesHomeView: View {
     func forceRefreshMemory() async {
         Analytics.capture(event: .refreshActivities)
         
-        await memoryViewModel.fetchMemory(refresh: true)
-        self.forceRenderWidgetViews()
+        await self.fetchMemory(refresh: true)
         self.triggerConfettis()
     }
     
-    func forceRenderWidgetViews() {
-        self.memoryViewModel.stateValue += 1
-        WidgetCenter.shared.reloadAllTimelines()
+    private func fetchMemory(refresh: Bool) async {
+        self.isLoading = true
+        defer {
+            self.isLoading = false
+            WidgetCenter.shared.reloadAllTimelines()
+        }
+        
+        do {
+            self.memory = try await self.memoryService.fetch(refresh: refresh)
+        } catch is ActivityError {
+            self.error = error
+        } catch {
+            self.error = .other
+        }
     }
     
     private func triggerConfettis() {
-        switch self.memoryViewModel.memory?.activity.getSportType() {
+        switch self.memory?.activity.getSportType() {
         case "Run": self.runConfetti += 1
         case "Ride": self.bikeConfetti += 1
         case "AlpineSki", "NordicSki": self.skiConfetti += 1
