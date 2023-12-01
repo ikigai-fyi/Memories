@@ -32,6 +32,17 @@ struct Request {
         _ = try await self.execute(endpoint: endpoint, method: "PATCH", payload: payload)
     }
     
+    func post<T: Decodable>(_: T.Type, endpoint: String, payload: [String : Any]) async throws -> T {
+        let data = try await self.execute(endpoint: endpoint, method: "POST", payload: payload)
+        
+        do {
+            return try JSONDecoder.standard.decode(T.self, from: data)
+        } catch {
+            SentrySDK.capture(error: error)
+            throw RequestError.unknown
+        }
+    }
+    
     private func execute(
         endpoint: String,
         method: String,

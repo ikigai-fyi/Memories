@@ -45,27 +45,15 @@ class LoginService : NSObject {
     }
     
     private func loginWithStrava(code: String, scope: String) async {
-        let url = URL(string: "\(Config.backendURL)/rest/auth/login/strava")!
-        var request = URLRequest(url: url)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
-        
-        let json = ["code": code, "scope": scope]
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        request.httpBody = jsonData
-        
-        do {
-            let (data, _) = try await URLSession.shared.data(for: request)
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .formatted(.standard)
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            let decoded = try decoder.decode(Login.self, from: data)
-            let athlete = decoded.toAthlete()
-            self.authManager.login(athlete: athlete)
-        } catch {
-            SentrySDK.capture(error: error)
+        guard let login = try? await Request(authenticated: false).post(
+            Login.self,
+            endpoint: "/auth/login/strava",
+            payload: ["code": code, "scope": scope]
+        ) else {
+            return
         }
+        
+        self.authManager.login(athlete: login.toAthlete())
     }
     
     private var stravaMobileUrl: URL {
