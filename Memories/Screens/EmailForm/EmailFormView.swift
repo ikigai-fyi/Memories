@@ -87,7 +87,7 @@ struct EmailFormView: View {
                         Text("Skip")
                             .foregroundColor(.gray)
                             .font(.footnote)
-                    }
+                    }.padding([.bottom], 16)
                 }
                 .padding([.leading, .trailing], 48)
                 .padding([.top, .bottom], 32)
