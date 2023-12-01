@@ -28,12 +28,25 @@ struct Request {
         }
     }
     
-    private func execute(endpoint: String, method: String, queryParams: [URLQueryItem] = []) async throws -> Data {
+    func patch(endpoint: String, payload: [String : Any]) async throws {
+        _ = try await self.execute(endpoint: endpoint, method: "PATCH", payload: payload)
+    }
+    
+    private func execute(
+        endpoint: String,
+        method: String,
+        queryParams: [URLQueryItem] = [],
+        payload: [String: Any]? = nil
+    ) async throws -> Data {
         var url = URLComponents(string: "\(Self.BaseURL)\(endpoint)")!
         url.queryItems = queryParams
         
         var request = URLRequest(url: url.url!)
         request.httpMethod = method
+        
+        if let payload = payload {
+            request.httpBody = try! JSONSerialization.data(withJSONObject: payload, options: .prettyPrinted)
+        }
         
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         if self.authenticated {

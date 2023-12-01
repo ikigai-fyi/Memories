@@ -171,62 +171,19 @@ class RemoteSettings: ObservableObject {
     @MainActor
     func fetch() async {
         self.isLoading = true
-            
-        let url = URLComponents(string: "\(Config.backendURL)/rest/settings")!
-        let jwt = AuthManager.shared.jwt!
-        var request = URLRequest(url: url.url!)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("Bearer \(jwt)", forHTTPHeaderField: "Authorization")
-        request.httpMethod = "GET"
+        defer { self.isLoading = false }
         
-        do {
-            let (data, response) = try await URLSession.shared.data(for: request)
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .formatted(.standard)
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
-                do {
-                    let decoded = try decoder.decode(Settings.self, from: data)
-                    self.widgetRefreshRatePerDay = 24 / decoded.refreshPeriodInHours
-                } catch {
-                    SentrySDK.capture(error: error)
-                }
-            } else {
-                SentrySDK.capture(message: response.description)
-            }
-        } catch {
-            SentrySDK.capture(error: error)
-        }
-
-
-        self.isLoading = false
+        guard let settings = try? await Request().get(Settings.self, endpoint: "/settings") else { return }
+        self.widgetRefreshRatePerDay = 24 / settings.refreshPeriodInHours
     }
     
     @MainActor
     private func patch() async {
         self.isLoading = true
-        
-        let url = URLComponents(string: "\(Config.backendURL)/rest/settings")!
-        let jwt = AuthManager.shared.jwt!
-        var request = URLRequest(url: url.url!)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("Bearer \(jwt)", forHTTPHeaderField: "Authorization")
-        request.httpMethod = "PATCH"
-        let parameters: [String: Any] = [
+        let payload: [String: Any] = [
             "refresh_period_in_hours": 24 / self.widgetRefreshRatePerDay!
         ]
-        request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
-        
-        do {
-            let (_, response) = try await URLSession.shared.data(for: request)
-            if let response = response as? HTTPURLResponse, response.statusCode != 200 {
-                SentrySDK.capture(message: response.description)
-            }
-        } catch {
-            SentrySDK.capture(error: error)
-        }
-        
+        try? await Request().patch(endpoint: "/settings", payload: payload)
         self.isLoading = false
     }
     

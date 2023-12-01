@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2D0A72A02B13AADB00C1B561 /* Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D85D72A2B0685350006C9F0 /* Memory.swift */; };
-		2D0A72A22B13AADB00C1B561 /* FakeBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3DBEEB2A6C086C00B2685B /* FakeBehaviour.swift */; };
 		2D0A72A32B13AADB00C1B561 /* ActivityError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3DBEED2A6C17BD00B2685B /* ActivityError.swift */; };
 		2D0A72A52B13AADB00C1B561 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3DBEEF2A6C188000B2685B /* APIError.swift */; };
 		2D0A72A62B13AADB00C1B561 /* ActivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4101AD22A6FA767000E2B31 /* ActivityType.swift */; };
@@ -18,7 +17,6 @@
 		2D0A72AA2B13AAEA00C1B561 /* Athlete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C61DC2A1D59040050AAB0 /* Athlete.swift */; };
 		2D0A72AB2B13AAED00C1B561 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42106BF2A0ECB6900187A74 /* Activity.swift */; };
 		2D0A72AE2B13AAF400C1B561 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7C61E02A1D5D3B0050AAB0 /* DateFormatter.swift */; };
-		2D0A72AF2B13AAF600C1B561 /* FakeBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3DBEEB2A6C086C00B2685B /* FakeBehaviour.swift */; };
 		2D0A72B02B13AAF900C1B561 /* ActivityError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3DBEED2A6C17BD00B2685B /* ActivityError.swift */; };
 		2D0A72B12B13AAFB00C1B561 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3DBEEF2A6C188000B2685B /* APIError.swift */; };
 		2D0A72B22B13AAFD00C1B561 /* ActivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4101AD22A6FA767000E2B31 /* ActivityType.swift */; };
@@ -126,7 +124,6 @@
 		2D3874E62B1228C900B2E7B6 /* Deeplink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deeplink.swift; sourceTree = "<group>"; };
 		2D3BB72D2A6338D3003EF280 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2D3BB72F2A6338E8003EF280 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		2D3DBEEB2A6C086C00B2685B /* FakeBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeBehaviour.swift; sourceTree = "<group>"; };
 		2D3DBEED2A6C17BD00B2685B /* ActivityError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityError.swift; sourceTree = "<group>"; };
 		2D3DBEEF2A6C188000B2685B /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		2D42113F2B10E97E0085AA78 /* ShareBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareBadgeView.swift; sourceTree = "<group>"; };
@@ -273,7 +270,6 @@
 			isa = PBXGroup;
 			children = (
 				2D906C7B2B1A35C50039A547 /* Error */,
-				2D3DBEEB2A6C086C00B2685B /* FakeBehaviour.swift */,
 				2D906C722B1A1AE00039A547 /* Request.swift */,
 			);
 			path = Network;
@@ -551,7 +547,6 @@
 				2D4211412B10E9D30085AA78 /* ShareBadgeView.swift in Sources */,
 				2D906C732B1A1AE00039A547 /* Request.swift in Sources */,
 				2D4211452B10EDEB0085AA78 /* XYearsAgoBadgeView.swift in Sources */,
-				2D0A72A22B13AADB00C1B561 /* FakeBehaviour.swift in Sources */,
 				2D7C9D392B14A9DC005B76EF /* Date.swift in Sources */,
 				2D0A72A82B13AADB00C1B561 /* Activity.swift in Sources */,
 				2D906C6E2B19C1430039A547 /* Login.swift in Sources */,
@@ -602,7 +597,6 @@
 				2DAB2A652B13AD7900C45C09 /* MemoryTimelineProvider.swift in Sources */,
 				E4A397112A616485009A2E6F /* Analytics.swift in Sources */,
 				2D0A72AB2B13AAED00C1B561 /* Activity.swift in Sources */,
-				2D0A72AF2B13AAF600C1B561 /* FakeBehaviour.swift in Sources */,
 				2D3874E82B1228C900B2E7B6 /* Deeplink.swift in Sources */,
 				2D906C712B19CACA0039A547 /* MemoryService.swift in Sources */,
 				2DCAC7A52A208FE7007A11F9 /* Config.swift in Sources */,
