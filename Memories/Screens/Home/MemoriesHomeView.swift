@@ -264,6 +264,7 @@ struct MemoriesHomeView: View {
                     .frame(maxWidth: .infinity, minHeight: proxy.size.height) // fix height scrollview
                     .onAppear{
                         // First render
+                        self.isLoading = true
                         Task {
                             await self.fetchMemory(refresh: false)
                         }
