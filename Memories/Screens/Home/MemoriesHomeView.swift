@@ -29,10 +29,11 @@ struct MemoriesHomeView: View {
     @State private var isChatPresented: Bool = false
     @State private var isShowingOptions: Bool = false
     @State private var isShowingShareSheet: Bool = false
-    @State private var isUserActivated: Bool = false
     @State private var activityTap: Bool = false
     @State private var titleEgg: Bool = false
-
+    
+    @State private var activationViewOpacity: Double = 0
+    
     @State private var memory: Memory? = nil
     @State private var error: ActivityError? = nil
     @State private var isLoading: Bool = false
@@ -51,147 +52,127 @@ struct MemoriesHomeView: View {
     
     var body: some View {
         
-        GeometryReader { proxy in
+        ZStack {
             
-            // Header view
-            VStack {
-                // Header -----------------------------------------------------
-                HStack(spacing: 12) {
-                    
-                    // App name -----------------------------------------------
-                    Text("Memories")
-                        .font(.largeTitle.weight(.heavy))
-                        .foregroundColor(Color(.init(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)))
-                        .scaleEffect(x: titleEgg ? -1 : 1, y: 1)
-                        .animation(.spring(), value: titleEgg)
-                        .onTapGesture(count: 3) {
-                            titleEgg.toggle()
+            GeometryReader { proxy in
+                
+                // Header view
+                VStack {
+                    HStack(spacing: 12) {
+                        Text("Memories")
+                            .font(.largeTitle.weight(.heavy))
+                            .foregroundColor(Color(.init(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)))
+                            .scaleEffect(x: titleEgg ? -1 : 1, y: 1)
+                            .animation(.spring(), value: titleEgg)
+                            .onTapGesture(count: 3) {
+                                titleEgg.toggle()
+                            }
+                        
+                        Spacer()
+                        
+                        // Picture
+                        ZStack{
+                            Button(action: {
+                                Analytics.capture(event: .viewSettingsScreen)
+                                isShowingOptions = true
+                            }) {
+                                AsyncImage(url: URL(string: authManager.athlete?.pictureUrl ?? "")) { image in
+                                    image.resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(maxWidth: 42, maxHeight: 42)
+                                } placeholder: {
+                                    Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1))
+                                }
+                                .frame(maxWidth: 42, maxHeight: 42)
+                                .cornerRadius(21)
+                                .zIndex(1)
+                                
+                                
+                            }.sheet(isPresented: $isShowingOptions, onDismiss: {
+                                self.stateValue += 1
+                            }) {
+                                SettingsView(isShowingOptions: $isShowingOptions, isChatPresented: $isChatPresented)
+                            }
+                            
+                            StravaIconView().zIndex(10)
+                            
                         }
+                        
+                    }.padding()
                     
-                    // Spacer -----------------------------------------------------
                     Spacer()
                     
-                    // Picture ------------------------------------------------
-                    ZStack{
-                        Button(action: {
-                            Analytics.capture(event: .viewSettingsScreen)
-                            isShowingOptions = true
-                        }) {
-                            AsyncImage(url: URL(string: authManager.athlete?.pictureUrl ?? "")) { image in
-                                image.resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(maxWidth: 42, maxHeight: 42)
-                            } placeholder: {
-                                Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1))
-                            }
-                            .frame(maxWidth: 42, maxHeight: 42)
-                            .cornerRadius(21)
-                            .zIndex(1)
-                            
-                            
-                        }.sheet(isPresented: $isShowingOptions, onDismiss: {
-                            self.stateValue += 1
-                        }) {
-                            SettingsView(isShowingOptions: $isShowingOptions, isChatPresented: $isChatPresented)
-                        }
-                        
-                        StravaIconView().zIndex(10)
-                        
-                    }
-                    
-                }.padding()
+                }.zIndex(5)
                 
-                Spacer()
-                
-            }.zIndex(5)
-            
-            ScrollView{
-                ZStack {
-                    
-                    MemoriesConfettiView(runConfetti: $runConfetti, bikeConfetti: $bikeConfetti, hikeConfetti: $hikeConfetti, skiConfetti: $skiConfetti, otherConfetti: $otherConfetti)
-                        .zIndex(10)
-                    
-                    VStack {
+                ScrollView{
+                    ZStack {
                         
-                        VStack(spacing: 18.0) {
+                        MemoriesConfettiView(runConfetti: $runConfetti, bikeConfetti: $bikeConfetti, hikeConfetti: $hikeConfetti, skiConfetti: $skiConfetti, otherConfetti: $otherConfetti)
+                            .zIndex(10)
+                        
+                        VStack {
                             
-                            let smallScreen = proxy.size.height < 700
-                            let forceHalfRow = smallScreen && !isUserActivated
-                            
-                            // TODO : 700 is a random value
-                            if isUserActivated{
+                            VStack(spacing: 18.0) {
+                                
+                                let smallScreen = proxy.size.height < 700
+                                let forceHalfRow = smallScreen
+                                
                                 HStack {
                                     RowIcon(row: -3, half: smallScreen); Spacer(); RowIcon(row: -3, half: smallScreen); Spacer(); RowIcon(row: -3, half: smallScreen); Spacer(); RowIcon(row: -3, half: smallScreen);
                                 }.frame(maxWidth: .infinity)
+                                
+                                
+                                HStack {
+                                    RowIcon(row: -2, half: forceHalfRow); Spacer(); RowIcon(row: -2, half: forceHalfRow); Spacer(); RowIcon(row: -2, half: forceHalfRow); Spacer(); RowIcon(row: -2, half: forceHalfRow)
+                                }.frame(maxWidth: .infinity)
+                                
+                                
+                                HStack {
+                                    RowIcon(row: -1); Spacer(); RowIcon(row: -1); Spacer(); RowIcon(row: -1); Spacer(); RowIcon(row: -1)
+                                }.frame(maxWidth: .infinity)
+                                    .padding(.bottom)
                             }
                             
-                            
-                            HStack {
-                                RowIcon(row: -2, half: forceHalfRow); Spacer(); RowIcon(row: -2, half: forceHalfRow); Spacer(); RowIcon(row: -2, half: forceHalfRow); Spacer(); RowIcon(row: -2, half: forceHalfRow)
-                            }.frame(maxWidth: .infinity)
-                            
-                            
-                            HStack {
-                                RowIcon(row: -1); Spacer(); RowIcon(row: -1); Spacer(); RowIcon(row: -1); Spacer(); RowIcon(row: -1)
-                            }.frame(maxWidth: .infinity)
-                                .padding(.bottom)
-                        }
-                        
-                        VStack {
-                            // Activity widget -----------------------------------------------------
-                            if !self.isLoadingInitial {
-                                MemoriesWidgetView(
-                                    memory: self.memory,
-                                    error: self.error,
-                                    withBadges: true,
-                                    isInWidget: false
-                                )
-                                .frame(maxWidth: .infinity, minHeight: 162, idealHeight: 162, maxHeight: 162)
-                                .background(Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)))
-                                .cornerRadius(20)
-                                .shadow(color: Color.black.opacity(0.3), radius: 18)
-                                .id(self.stateValue)
-                                .onTapGesture {
-                                    guard
-                                        let activity = self.memory?.activity,
-                                        let stravaUrl = activity.stravaUrl
-                                    else { return }
-                                    
-                                    Analytics.capture(event: .openActivityOnStrava, eventProperties: [.from: "preview"])
-                                    
-                                    // Give some room for the press animation to play before opening the link
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                        UIApplication.shared.open(stravaUrl)
-                                    }
-                                }
-                                .onLongPressGesture(minimumDuration: 0, perform: {}) { _ in
-                                    activityTap.toggle()
-                                }
-                                .scaleEffect(activityTap ? 0.95 : 1)
-                                .animation(.spring(response: 0.4, dampingFraction: 0.6), value: activityTap)
-                                
-                                // Loading view ------------------------------------------------
-                            } else {
-                                ProgressView()
+                            VStack {
+                                // Activity widget -----------------------------------------------------
+                                if !self.isLoadingInitial {
+                                    MemoriesWidgetView(
+                                        memory: self.memory,
+                                        error: self.error,
+                                        withBadges: true,
+                                        isInWidget: false
+                                    )
                                     .frame(maxWidth: .infinity, minHeight: 162, idealHeight: 162, maxHeight: 162)
                                     .background(Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)))
-                                    .cornerRadius(12)
-                            }
-                            
-                            // Refresh widget ------------------------------------------------
-                            if !isUserActivated {
-                                Button {
-                                    Task {
-                                        await self.forceRefreshMemory()
+                                    .cornerRadius(20)
+                                    .shadow(color: Color.black.opacity(0.3), radius: 18)
+                                    .id(self.stateValue)
+                                    .onTapGesture {
+                                        guard
+                                            let activity = self.memory?.activity,
+                                            let stravaUrl = activity.stravaUrl
+                                        else { return }
+                                        
+                                        Analytics.capture(event: .openActivityOnStrava, eventProperties: [.from: "preview"])
+                                        
+                                        // Give some room for the press animation to play before opening the link
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                            UIApplication.shared.open(stravaUrl)
+                                        }
                                     }
-                                } label: {
-                                    Label {
-                                        Text("Your widget preview").font(.subheadline)
-                                    }  icon: {
-                                        Image(systemName: "arrow.clockwise")
-                                    }.font(.system(size: 12)).foregroundColor(self.isLoadingInitial ? .gray : .black)
-                                }.disabled(self.isLoading)
-                            } else {
+                                    .onLongPressGesture(minimumDuration: 0, perform: {}) { _ in
+                                        activityTap.toggle()
+                                    }
+                                    .scaleEffect(activityTap ? 0.95 : 1)
+                                    .animation(.spring(response: 0.4, dampingFraction: 0.6), value: activityTap)
+                                } else {
+                                    ProgressView()
+                                        .frame(maxWidth: .infinity, minHeight: 162, idealHeight: 162, maxHeight: 162)
+                                        .background(Color(.init(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)))
+                                        .cornerRadius(12)
+                                }
+                                
+                                // Buttons
                                 HStack{
                                     
                                     Button {
@@ -238,85 +219,39 @@ struct MemoriesHomeView: View {
                                 }.padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                             }
                             
-                        }
-                        
-                        
-                        VStack(spacing: 18.0) {
-                            HStack {
-                                RowIcon(row: 1); Spacer(); RowIcon(row: 1); Spacer(); RowIcon(row: 1); Spacer(); RowIcon(row: 1)
-                            }.frame(maxWidth: .infinity)
                             
-                            HStack {
-                                RowIcon(row: 2); Spacer(); RowIcon(row: 2); Spacer(); RowIcon(row: 2); Spacer(); RowIcon(row: 2)
-                            }.frame(maxWidth: .infinity)
                             
-                            HStack {
-                                RowIcon(row: 3); Spacer(); RowIcon(row: 3); Spacer(); RowIcon(row: 3); Spacer(); RowIcon(row: 3)
-                            }.frame(maxWidth: .infinity)
-                        }
-                        
-                        // Spacer -----------------------------------------------------
-                        Spacer()
-                        
-                    }
-                    .zIndex(1) // VStack content view
-                    .padding([.leading, .trailing], 28)
-                    .frame(maxWidth: .infinity, minHeight: proxy.size.height) // fix height scrollview
-                    .onAppear{
-                        // First render
-                        self.isLoading = true
-                        Task {
-                            await self.fetchMemory(refresh: false)
-                        }
-                    }
-                    .onChange(of: scenePhase) { newPhase in
-                        // Subsequent renders
-                        switch newPhase {
-                        case .active:
-                            Task {
-                                await self.fetchMemory(refresh: false)
+                            
+                            VStack(spacing: 18.0) {
+                                HStack {
+                                    RowIcon(row: 1); Spacer(); RowIcon(row: 1); Spacer(); RowIcon(row: 1); Spacer(); RowIcon(row: 1)
+                                }.frame(maxWidth: .infinity)
+                                
+                                HStack {
+                                    RowIcon(row: 2); Spacer(); RowIcon(row: 2); Spacer(); RowIcon(row: 2); Spacer(); RowIcon(row: 2)
+                                }.frame(maxWidth: .infinity)
+                                
+                                HStack {
+                                    RowIcon(row: 3); Spacer(); RowIcon(row: 3); Spacer(); RowIcon(row: 3); Spacer(); RowIcon(row: 3)
+                                }.frame(maxWidth: .infinity)
                             }
                             
-                            // request review
-                            // trigger is widget count > 0 && did not ask before
-                            WidgetCenter.shared.getCurrentConfigurations { result in
-                                
-                                if let results = try? result.get(),
-                                   results.count > 0 {
-                                    self.isUserActivated = true
-                                    self.triggerAskForReview()
-                                    
-                                } else {
-                                    self.isUserActivated = false
-                                }
-                                
-                            }
-                        default: ()
+                            Spacer()
+                            
                         }
+                        .zIndex(1)
+                        .padding([.leading, .trailing], 28)
+                        .frame(maxWidth: .infinity, minHeight: proxy.size.height) // fix height scrollview
                     }
-                    
-                }.onAppear {
-                    Analytics.capture(event: .viewHomeScreen)
                 }
-            } // ScrollView
-            
-            VStack { // Buttons  -----------------------------------------------------
                 
-                Spacer()
-                
-                // Add widget button -----------------------------------------------------
-                VStack(spacing: 10){
+                // Bottom CTAs
+                VStack {
                     
-                    if !isUserActivated{
-                        ActivationView(
-                            isShowingWebView: $isShowingWebView,
-                            isShowingVideoView: $isShowingVideoView,
-                            isChatPresented: $isChatPresented
-                        ).background(.white)
-                            .cornerRadius(22)
-                            .shadow(color: Color.black.opacity(0.3), radius: 18)
+                    Spacer()
+                    
+                    VStack(spacing: 10){
                         
-                    } else {
                         Button {
                             self.isChatPresented.toggle()
                             Analytics.capture(event: .shareFeedback, eventProperties: [.from: "homeFeedbackButton"])
@@ -345,36 +280,73 @@ struct MemoriesHomeView: View {
                             
                         }
                         
+                    }.padding([.leading, .trailing], 18)
+                    
+                    Spacer()
+                        .frame(minHeight: 10, idealHeight: 30, maxHeight: 60)
+                        .fixedSize()
+                    
+                    
+                }.zIndex(5)
+                
+            }.onOpenURL{ url in
+                guard let memory = self.memory else { return }
+                
+                switch Deeplink(from: url) {
+                case .shareMemoryFromPreview:
+                    Analytics.capture(event: .shareMemory, eventProperties: [.from: "preview"])
+                    WidgetSharingManager(memory: memory, displayScale: self.displayScale).share() {
+                        self.isShowingShareSheet = true
                     }
-                }.padding([.leading, .trailing], 18)
-                
-                
-                // Spacer -----------------------------------------------------
-                Spacer()
-                    .frame(minHeight: 10, idealHeight: 30, maxHeight: 60)
-                    .fixedSize()
-                
-                
-            }.zIndex(5)
-        }.onOpenURL{ url in
-            guard let memory = self.memory else { return }
-            
-            switch Deeplink(from: url) {
-            case .shareMemoryFromPreview:
-                Analytics.capture(event: .shareMemory, eventProperties: [.from: "preview"])
-                WidgetSharingManager(memory: memory, displayScale: self.displayScale).share() {
-                    self.isShowingShareSheet = true
+                case .shareMemoryFromWidget:
+                    Analytics.capture(event: .shareMemory, eventProperties: [.from: "widget"])
+                    WidgetSharingManager(memory: memory, displayScale: self.displayScale).share() {
+                        self.isShowingShareSheet = true
+                    }
+                case nil: return
                 }
-            case .shareMemoryFromWidget:
-                Analytics.capture(event: .shareMemory, eventProperties: [.from: "widget"])
-                WidgetSharingManager(memory: memory, displayScale: self.displayScale).share() {
-                    self.isShowingShareSheet = true
-                }
-            case nil: return
+            }.sheet(isPresented: self.$isShowingShareSheet) {
+                let memory = self.memory!
+                ShareView(items: WidgetSharingManager(memory: memory, displayScale: self.displayScale).getNativeSharingItems())
             }
-        }.sheet(isPresented: self.$isShowingShareSheet) {
-            let memory = self.memory!
-            ShareView(items: WidgetSharingManager(memory: memory, displayScale: self.displayScale).getNativeSharingItems())
+            
+            VStack {
+                Spacer()
+                
+                ActivationView(
+                    isShowingWebView: $isShowingWebView,
+                    isShowingVideoView: $isShowingVideoView,
+                    isChatPresented: $isChatPresented
+                )
+                .background(.white)
+                .cornerRadius(22)
+                .shadow(color: Color.black.opacity(0.3), radius: 18)
+                .padding(18)
+            }
+            .zIndex(2000)
+            .opacity(self.activationViewOpacity)
+        }
+        .onAppear{
+            // First render
+            Analytics.capture(event: .viewHomeScreen)
+            
+            self.isLoading = true
+            Task {
+                await self.fetchMemory(refresh: false)
+            }
+            self.updateActivationState()
+        }
+        .onChange(of: scenePhase) { newPhase in
+            // Subsequent renders
+            switch newPhase {
+            case .active:
+                Task {
+                    await self.fetchMemory(refresh: false)
+                }
+                
+                self.updateActivationState()
+            default: ()
+            }
         }
     }
     
@@ -383,6 +355,21 @@ struct MemoriesHomeView: View {
         
         await self.fetchMemory(refresh: true)
         self.triggerConfettis()
+    }
+    
+    func updateActivationState() {
+        WidgetCenter.shared.getCurrentConfigurations { result in
+            // More than one widget installed?
+            let isUserActivated = ((try? result.get().count) ?? 0) > 0
+            
+            if isUserActivated {
+                self.triggerAskForReview()
+            }
+            
+            withAnimation(.linear(duration: 0.2)) {
+                self.activationViewOpacity = isUserActivated ? 0 : 1
+            }
+        }
     }
     
     private func fetchMemory(refresh: Bool) async {
@@ -484,91 +471,6 @@ struct RowIcon : View {
             .frame(width: self.width, height: self.height)
             .cornerRadius(12)
     }
-}
-
-struct ActivationView: View{
-    
-    @Binding var isShowingWebView: Bool
-    @Binding var isShowingVideoView: Bool
-    @Binding var isChatPresented: Bool
-    
-    
-    var body: some View{
-        VStack(alignment: .center, spacing: 14) {
-            
-            Text("You're almost there! 🎉")
-                .font(.title2)
-                .fontWeight(.semibold)
-                .padding()
-            
-            HStack{
-                
-                Image(systemName: "checkmark.circle.fill")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(maxWidth: 42, maxHeight: 42)
-                    .foregroundColor(Color(uiColor: .systemGray6))
-                    .frame(width: 25, height: 25, alignment: .center)
-                
-                Button("Connect with Strava") {}
-                    .frame(maxWidth: .infinity)
-                    .padding([.top, .bottom], 12)
-                    .background(Color(uiColor: .systemGray6))
-                    .foregroundColor(Color(uiColor: .darkGray))
-                    .cornerRadius(35)
-                    .disabled(true)
-            }
-            
-            HStack{
-                Image(systemName: "circle")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(maxWidth: 42, maxHeight: 42)
-                    .frame(width: 25, height: 25, alignment: .center)
-                    .foregroundColor(.blue)
-                
-                Button {
-                    if let ff = PHGPostHog.shared()?.getFeatureFlag("activate-widget-gif") as? Int,
-                       ff == 0 {
-                        Analytics.capture(event: .addWidgetHelp, eventProperties: [.abTestGroup: "0_webView"])
-                        isShowingWebView = true
-                    } else {
-                        Analytics.capture(event: .addWidgetHelp, eventProperties: [.abTestGroup: "1_videoView"])
-                        isShowingVideoView = true
-                    }
-                }
-            label: {
-                Text("Add widget").bold()
-            }
-            .frame(maxWidth: .infinity)
-            .padding([.top, .bottom], 12)
-            .background(.blue)
-            .foregroundColor(.white)
-            .cornerRadius(35)
-            .sheet(isPresented: $isShowingWebView) {
-                SheetWebView(isShowingWebView: $isShowingWebView)
-            }
-            .sheet(isPresented: $isShowingVideoView) {
-                SheetVideoView(isShowingVideoView: $isShowingVideoView)
-            }
-            }
-            
-            Button {
-                self.isChatPresented.toggle()
-                Analytics.capture(event: .loginHelpButtonClicked)
-            } label: {
-                Text("Need help?")
-                    .foregroundColor(.gray)
-                    .font(.footnote)
-            }
-            .sheet(isPresented: $isChatPresented) {
-                ChatView()
-            }
-            
-        }.padding(EdgeInsets(top: 20, leading: 18, bottom: 20, trailing: 18))
-    }
-    
-    
 }
 
 struct MemoriesConfettiView : View {
