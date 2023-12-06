@@ -41,17 +41,15 @@ class LoginService : NSObject {
         }
         
         Analytics.capture(event: .receivedValidStravaOauthRedirect)
-        await loginWithStrava(code: code, scope: scope)
+        try await loginWithStrava(code: code, scope: scope)
     }
     
-    private func loginWithStrava(code: String, scope: String) async {
-        guard let login = try? await Request(authenticated: false).post(
+    private func loginWithStrava(code: String, scope: String) async throws {
+        let login = try await Request(authenticated: false).post(
             Login.self,
             endpoint: "/auth/login/strava",
             payload: ["code": code, "scope": scope]
-        ) else {
-            return
-        }
+        )
         
         self.authManager.login(athlete: login.toAthlete())
     }
