@@ -13,6 +13,7 @@ import Crisp
 import StoreKit
 import PostHog
 import AVKit
+import Sentry
 
 struct MemoriesHomeView: View {
     @Environment(\.scenePhase) var scenePhase
@@ -359,15 +360,17 @@ struct MemoriesHomeView: View {
     
     func updateActivationState() {
         WidgetCenter.shared.getCurrentConfigurations { result in
+            SentrySDK.capture(message: "Received widget config")
             // More than one widget installed?
             let isUserActivated = ((try? result.get().count) ?? 0) > 0
+                
+            self.activationViewOpacity = isUserActivated ? 0 : 1
+            /*withAnimation(.linear(duration: 0.2)) {
+                self.activationViewOpacity = isUserActivated ? 0 : 1
+            }*/
             
             if isUserActivated {
                 self.triggerAskForReview()
-            }
-            
-            withAnimation(.linear(duration: 0.2)) {
-                self.activationViewOpacity = isUserActivated ? 0 : 1
             }
         }
     }
