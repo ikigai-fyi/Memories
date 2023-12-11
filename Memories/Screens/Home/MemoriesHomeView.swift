@@ -362,13 +362,10 @@ struct MemoriesHomeView: View {
         WidgetCenter.shared.getCurrentConfigurations { result in
             // More than one widget installed?
             let isUserActivated = ((try? result.get().count) ?? 0) > 0
-                
-            self.activationViewOpacity = isUserActivated ? 0 : 1
             
-            SentrySDK.capture(message: "Received widget config \(isUserActivated), \(String(describing: try? result.get())), \(String(describing: try? result.get().count)), \(self.activationViewOpacity)")
-            /*withAnimation(.linear(duration: 0.2)) {
+            withAnimation(.linear(duration: 0.2)) {
                 self.activationViewOpacity = isUserActivated ? 0 : 1
-            }*/
+            }
             
             if isUserActivated {
                 self.triggerAskForReview()
